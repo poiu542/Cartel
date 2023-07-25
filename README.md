@@ -1,11 +1,9 @@
-# 프로젝트 초기 세팅
+# 프로젝트 초기 설정
 
-처음 pull 받은 후 아래 명령어 터미널에 입력
-
-- ESlint와 Airbnb Style Guide설치
+- 최초 pull 이후 터미널에 아래 명령어 입력
 
 ```
-npx install-peerdeps --dev eslint-config-airbnb
+npm install --save-dev eslint prettier eslint-plugin-react eslint-plugin-react-hooks eslint-plugin-standard eslint-config-standard eslint-plugin-import eslint-plugin-node eslint-plugin-promise @typescript-eslint/eslint-plugin @typescript-eslint/parser eslint-config-prettier eslint-plugin-prettier
 ```
 
 # 2023-07-17 (월)
