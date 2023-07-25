@@ -1,21 +1,21 @@
 export type Color = {
-  background: string;
-  color: string;
-};
+  background: string
+  color: string
+}
 
 export type Border = {
-  radius?: number;
-  borderColor: string;
-  border: number;
-};
+  radius?: string
+  borderColor: string
+  border?: string
+}
 
 export type Font = {
-  fontSize: number;
-  fontStyle?: string;
-  fontWeight?: number;
-};
+  fontSize: string
+  fontStyle?: string
+  fontWeight?: string
+}
 
 export type Size = {
-  height : number;
-  width: number;
+  height: string
+  width: string
 }

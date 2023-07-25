@@ -1,30 +1,30 @@
 import React from 'react'
-import { Color } from '../model/custom'
+import { Color, Size, Border } from '../model/custom'
 
-interface ButtonProps extends Color {
+interface ButtonProps {
+  border: Border
+  color: Color
+  size: Size
   text: string
-  width: string
-  height: string
-  radius: string
   onClick: () => void
 }
 
 const Button: React.FC<ButtonProps> = ({
-  radius,
+  border,
   color,
-  background,
   text,
-  width,
-  height,
   onClick,
+  size,
 }) => (
   <button
     style={{
-      backgroundColor: background,
-      color: color,
-      width,
-      height,
-      borderRadius: radius,
+      backgroundColor: color.background,
+      color: color.color,
+      width: size.width,
+      height: size.height,
+      borderRadius: border.radius,
+      borderColor: border.borderColor,
+      border: 'none',
     }}
     onClick={onClick}
   >

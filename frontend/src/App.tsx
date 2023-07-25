@@ -9,11 +9,9 @@ function App(): React.ReactElement {
   return (
     <div className="App">
       <Button
-        radius="10%"
-        width="200px"
-        height="200px"
-        background="blue"
-        color="black"
+        border={{ radius: '0.625rem', borderColor: '#40BFFF' }}
+        size={{ width: '100px', height: '100px' }}
+        color={{ background: '#40BFFF', color: 'white' }}
         text="버튼"
         onClick={handleClick}
       />
@@ -22,3 +20,6 @@ function App(): React.ReactElement {
 }
 
 export default App
+
+// border-radius: 0.625rem;
+// background: var(--unnamed, #40BFFF);
