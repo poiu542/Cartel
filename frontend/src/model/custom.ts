@@ -14,3 +14,8 @@ export type Font = {
   fontStyle?: string;
   fontWeight?: number;
 };
+
+export type Size = {
+  height : number;
+  width: number;
+}

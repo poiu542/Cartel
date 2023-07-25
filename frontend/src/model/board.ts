@@ -6,21 +6,18 @@ export type Board = {
   state?: number;
 };
 
-export type Post = {
+export type FreeBoard = {
   post: Board;
   level: number;
   view?: number;
   type?: number;
 };
 
-export type CounselPost = {
+export type CounselBoard = {
   post: Board;
   type?: number;
 };
 
 export type Comment = Omit<Board, 'title'>;
 
-export type Evaluation = {
-  evaluation: Board;
-  rate: number;
-};
+
