@@ -1,7 +1,7 @@
 import React from 'react'
+import { Color } from '../model/custom'
 
-type ButtonProps = {
-  color: string
+interface ButtonProps extends Color {
   text: string
   width: string
   height: string
@@ -12,13 +12,20 @@ type ButtonProps = {
 const Button: React.FC<ButtonProps> = ({
   radius,
   color,
+  background,
   text,
   width,
   height,
   onClick,
 }) => (
   <button
-    style={{ backgroundColor: color, width, height, borderRadius: radius }}
+    style={{
+      backgroundColor: background,
+      color: color,
+      width,
+      height,
+      borderRadius: radius,
+    }}
     onClick={onClick}
   >
     {text}

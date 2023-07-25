@@ -12,7 +12,8 @@ function App(): React.ReactElement {
         radius="10%"
         width="200px"
         height="200px"
-        color="blue"
+        background="blue"
+        color="black"
         text="버튼"
         onClick={handleClick}
       />
