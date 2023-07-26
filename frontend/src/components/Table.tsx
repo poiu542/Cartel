@@ -9,7 +9,7 @@ const serverData = [
   { idx: 1, title: 'Ice cream sandwich', regDate: '2023-07-26' },
   { idx: 2, title: 'Eclair', regDate: '2023-06-26' },
   { idx: 3, title: 'Cupcake', regDate: '2023-05-20' },
-  { idx: 3, title: 'Gingerbread', regDate: '2023-04-16' },
+  { idx: 4, title: 'Gingerbread', regDate: '2023-04-16' },
 ]
 
 export default function BasicTable() {

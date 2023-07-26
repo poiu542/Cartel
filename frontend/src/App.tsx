@@ -7,6 +7,7 @@ import CounselorCard from './components/CounselorCard'
 import { CurriculumBox } from './components/CurriculumBox'
 import Input from './components/Input'
 import Table from './components/Table'
+import Carousel from './components/Carousel'
 
 function App(): React.ReactElement {
   const [inputValue, setInputValue] = useState('')
@@ -51,6 +52,9 @@ function App(): React.ReactElement {
       <CurriculumBox />
       <div style={{ padding: '100px' }}>
         <Table></Table>
+      </div>
+      <div>
+        <Carousel></Carousel>
       </div>
     </div>
   )
