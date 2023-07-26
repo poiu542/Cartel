@@ -4,7 +4,9 @@ import Button from './components/Button'
 import NavbarLogin from './components/NavbarLogin'
 import NavbarLogout from './components/NavbarLogout'
 import CounselorCard from './components/CounselorCard'
+import { CurriculumBox } from './components/CurriculumBox'
 import Input from './components/Input'
+import Table from './components/Table'
 
 function App(): React.ReactElement {
   const [inputValue, setInputValue] = useState('')
@@ -44,6 +46,11 @@ function App(): React.ReactElement {
           placeholder="이메일"
         />
         <p>입력한: {inputValue}</p>
+      </div>
+      <h1>커리큘럼 박스</h1>
+      <CurriculumBox />
+      <div style={{ padding: '100px' }}>
+        <Table></Table>
       </div>
     </div>
   )
