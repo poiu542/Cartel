@@ -11,6 +11,8 @@ import Carousel from './components/Carousel'
 import ArticleBar from './components/ArticleBar'
 import CounselingBar from './components/CounselingBar'
 import Footer from './components/Footer'
+import UserDataBox from './components/UserDataBox'
+import CounselorDataBox from './components/CounselorDataBox'
 
 function App(): React.ReactElement {
   const [inputValue, setInputValue] = useState('')
@@ -76,6 +78,10 @@ function App(): React.ReactElement {
       <CounselingBar title="상담 제목 1" episodeCount={1}></CounselingBar>
       <h1>Footer</h1>
       <Footer />
+      <h1>내 정보 박스(일반 사용자)</h1>
+      <UserDataBox />
+      <h1>내 정보 박스(상담사)</h1>
+      <CounselorDataBox />
     </div>
   )
 }
