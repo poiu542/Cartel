@@ -32,10 +32,9 @@ function App(): React.ReactElement {
       <h1>상담사 카드</h1>
       <CounselorCard
         name="석민혁"
-        startTime="10:30"
-        endTime="12:30"
-        selectDay={['월', '목']}
         grade={4.8}
+        gradeCount={51}
+        introduce="족구왕이 될 사나이"
       />
       <div>
         <h1>아이디 입력</h1>
