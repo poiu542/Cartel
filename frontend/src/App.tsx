@@ -4,9 +4,7 @@ import Button from './components/Button'
 import NavbarLogin from './components/NavbarLogin'
 import NavbarLogout from './components/NavbarLogout'
 import CounselorCard from './components/CounselorCard'
-import CounselCard from './components/CounselCard'
 import Input from './components/Input'
-import Table from './components/Table'
 
 function App(): React.ReactElement {
   const [inputValue, setInputValue] = useState('')
@@ -38,19 +36,6 @@ function App(): React.ReactElement {
         gradeCount={51}
         introduce="족구왕이 될 사나이"
       />
-      <h1>상담 카드</h1>
-      <CounselCard
-        name="석민혁"
-        grade={4.8}
-        gradeCount={51}
-        startTime="10:00"
-        endTime="12:30"
-        title="족구하자"
-        minParticipantCount={4}
-        maxParticipantCount={12}
-        sessionCount={16}
-        price={39000}
-      />
       <div>
         <h1>Input</h1>
         <Input
@@ -59,9 +44,6 @@ function App(): React.ReactElement {
           placeholder="이메일"
         />
         <p>입력한: {inputValue}</p>
-      </div>
-      <div style={{ padding: '100px' }}>
-        <Table></Table>
       </div>
     </div>
   )
