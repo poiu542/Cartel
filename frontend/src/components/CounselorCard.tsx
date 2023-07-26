@@ -21,7 +21,7 @@ const CounselorCard: React.FC<CounselorCardProps> = ({
       display: 'flex',
       justifyContent: 'center',
       width: '100vw',
-      height: '100vh',
+      height: '250px',
     }}
   >
     <div>
@@ -43,7 +43,9 @@ const CounselorCard: React.FC<CounselorCardProps> = ({
         </div>
         <div
           className="counselor data"
-          style={{}}
+          style={{
+            marginRight: '20px',
+          }}
           // onClick={onClick}
         >
           이름 : {name} <br />
