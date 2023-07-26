@@ -3,6 +3,7 @@ import './App.css'
 import Button from './components/Button'
 import NavbarLogin from './components/NavbarLogin'
 import NavbarLogout from './components/NavbarLogout'
+import CounselorCard from './components/CounselorCard'
 
 function App(): React.ReactElement {
   const handleClick = () => {
@@ -22,6 +23,14 @@ function App(): React.ReactElement {
       <NavbarLogin />
       <h1>Navbar(로그아웃)</h1>
       <NavbarLogout />
+      <h1>상담사 카드</h1>
+      <CounselorCard
+        name="석민혁"
+        startTime="10:30"
+        endTime="12:30"
+        selectDay={['월', '목']}
+        grade={4.8}
+      />
     </div>
   )
 }
