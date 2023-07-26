@@ -2,26 +2,24 @@ import React from 'react'
 
 interface CounselorCardProps {
   name: string
-  startTime: string
-  endTime: string
-  selectDay: string[]
   grade: number
+  gradeCount: number
+  introduce: string
 }
 
 const CounselorCard: React.FC<CounselorCardProps> = ({
   name,
-  startTime,
-  endTime,
-  selectDay,
   grade,
+  gradeCount,
+  introduce,
 }) => (
   <div
     className="Card"
     style={{
       display: 'flex',
       justifyContent: 'center',
-      width: '100vw',
-      height: '250px',
+      width: '363px',
+      height: '200px',
     }}
   >
     <div>
@@ -32,43 +30,79 @@ const CounselorCard: React.FC<CounselorCardProps> = ({
           display: 'flex',
           alignItems: 'center',
           border: '1px solid #40BFFF',
-          borderRadius: '20px 20px 0px 0px',
+          borderRadius: '20px',
           width: '363px',
-          height: '149px',
+          height: '200px',
           background: '#ECF9FF',
         }}
       >
-        <div>
-          <img src="./image/logo.png" alt="logo" />
+        <div
+          className="counselor profile image"
+          style={{
+            marginLeft: '30px',
+          }}
+        >
+          <img
+            src="./image/profileImg2.png"
+            alt="logo"
+            style={{
+              width: '130px',
+              height: '130px',
+            }}
+          />
         </div>
         <div
           className="counselor data"
           style={{
-            marginRight: '20px',
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'center',
+            alignItems: 'center',
+            marginRight: '30px',
           }}
-          // onClick={onClick}
         >
-          이름 : {name} <br />
-          시작 시간 : {startTime}
+          <div className="counselor name">
+            <h3>{name}</h3>
+          </div>
+          <div className="counselor introduce">{introduce}</div>
           <br />
-          종료 시간 : {endTime}
-          <br />
-          선택 요일 : {selectDay.join(', ')}
-          {/* 선택 요일 : {selectDay.map(day => <div key={day}>{day}</div>)} */}
-          <br />
-          평점 : {grade}
-          <br />
+          <div
+            className="counselor grade"
+            style={{ display: 'flex', alignItems: 'center' }}
+          >
+            <img
+              src="./image/star.png"
+              alt="star"
+              style={{
+                marginRight: '10px',
+              }}
+            />
+            {grade} ({gradeCount})
+          </div>
         </div>
       </div>
-      <div
+      {/* <div
         className="bottom"
         style={{
           border: '1px solid #40BFFF',
           borderRadius: '0px 0px 20px 20px',
           width: '363px',
           height: '51px',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
         }}
-      ></div>
+      >
+        <div
+          className="introduce"
+          style={{
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}
+        >
+          {introduce}
+        </div>
+      </div> */}
     </div>
   </div>
 )
