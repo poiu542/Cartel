@@ -13,6 +13,10 @@ import CounselingBar from './components/CounselingBar'
 import Footer from './components/Footer'
 import UserDataBox from './components/UserDataBox'
 import CounselorDataBox from './components/CounselorDataBox'
+import { LoginBtn } from './components/LoginBtn'
+import { CounSelorLoginBtn } from './components/CounselorLoginBtn'
+import { CommunityNotice } from './components/CommunityNotice'
+import { CommunityFree } from './components/CommunityFree'
 
 function App(): React.ReactElement {
   const [inputValue, setInputValue] = useState('')
@@ -105,6 +109,14 @@ function App(): React.ReactElement {
         onCounselClick={onCounselClick}
         onCounselorJournalClick={onCounselorJournalClick}
       />
+      <h1>일반 회원 로그인 </h1>
+      <LoginBtn />
+      <h1>상담사회원 로그인</h1>
+      <CounSelorLoginBtn />
+      <h1>커뮤니티 공지사항 로고</h1>
+      <CommunityNotice />
+      <h1>커뮤니티 자유게시판</h1>
+      <CommunityFree />
     </div>
   )
 }
