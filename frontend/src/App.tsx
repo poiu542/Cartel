@@ -1,11 +1,17 @@
-import React from 'react'
+import React, { ChangeEvent, useState } from 'react'
 import './App.css'
 import Button from './components/Button'
 import NavbarLogin from './components/NavbarLogin'
 import NavbarLogout from './components/NavbarLogout'
 import CounselorCard from './components/CounselorCard'
+import Input from './components/Input'
 
 function App(): React.ReactElement {
+  const [inputValue, setInputValue] = useState('')
+  const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
+    setInputValue(event.target.value)
+  }
+
   const handleClick = () => {
     alert('버튼클릭')
   }
@@ -31,6 +37,11 @@ function App(): React.ReactElement {
         selectDay={['월', '목']}
         grade={4.8}
       />
+      <div>
+        <h1>아이디 입력</h1>
+        <Input value={inputValue} onChange={handleInputChange} />
+        <p>아이디: {inputValue}</p>
+      </div>
     </div>
   )
 }
