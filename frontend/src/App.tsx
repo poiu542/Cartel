@@ -4,7 +4,6 @@ import Button from './components/Button'
 import NavbarLogin from './components/NavbarLogin'
 import NavbarLogout from './components/NavbarLogout'
 import CounselorCard from './components/CounselorCard'
-import Input from './components/Input'
 
 function App(): React.ReactElement {
   const [inputValue, setInputValue] = useState('')
@@ -36,15 +35,6 @@ function App(): React.ReactElement {
         gradeCount={51}
         introduce="족구왕이 될 사나이"
       />
-      <div>
-        <h1>Input</h1>
-        <Input
-          value={inputValue}
-          onChange={handleInputChange}
-          placeholder="이메일"
-        />
-        <p>입력한: {inputValue}</p>
-      </div>
     </div>
   )
 }
