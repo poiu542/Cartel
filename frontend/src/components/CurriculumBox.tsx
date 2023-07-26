@@ -20,7 +20,7 @@ export const CurriculumBox = () => {
   }
 
   return (
-    <div>
+    <div className={`${styles.div}`}>
       <input
         className={`${styles.border}`}
         value={inputValue}
