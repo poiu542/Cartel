@@ -4,6 +4,7 @@ import Button from './components/Button'
 import NavbarLogin from './components/NavbarLogin'
 import NavbarLogout from './components/NavbarLogout'
 import CounselorCard from './components/CounselorCard'
+import { CurriculumBox } from './components/CurriculumBox'
 
 function App(): React.ReactElement {
   const handleClick = () => {
@@ -31,6 +32,8 @@ function App(): React.ReactElement {
         selectDay={['월', '목']}
         grade={4.8}
       />
+      <h1>커리큘럼 박스</h1>
+      <CurriculumBox />
     </div>
   )
 }
