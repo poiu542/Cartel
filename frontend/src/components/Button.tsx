@@ -25,6 +25,7 @@ const Button: React.FC<ButtonProps> = ({
       borderRadius: border.radius,
       borderColor: border.borderColor,
       border: 'none',
+      cursor: 'pointer',
     }}
     onClick={onClick}
   >

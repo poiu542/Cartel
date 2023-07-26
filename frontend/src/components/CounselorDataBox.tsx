@@ -1,24 +1,18 @@
 import React from 'react'
 
-interface CounselorDataBoxProps {}
+interface CounselorDataBoxProps {
+  onPostClick: () => void
+  onCommentClick: () => void
+  onCounselClick: () => void
+  onCounselorJournalClick: () => void
+}
 
-const CounselorDataBox: React.FC<CounselorDataBoxProps> = () => {
-  const handlePostClick = () => {
-    alert('Post clicked')
-  }
-
-  const handleCommentClick = () => {
-    alert('Comment clicked')
-  }
-
-  const handleCounselClick = () => {
-    alert('Counsel clicked')
-  }
-
-  const handleCounselorJournalClick = () => {
-    alert('Counselor Journal clicked')
-  }
-
+const CounselorDataBox: React.FC<CounselorDataBoxProps> = ({
+  onPostClick = () => {},
+  onCommentClick = () => {},
+  onCounselClick = () => {},
+  onCounselorJournalClick = () => {},
+}) => {
   return (
     <div
       className="my data check"
@@ -40,7 +34,7 @@ const CounselorDataBox: React.FC<CounselorDataBoxProps> = () => {
           padding: '0 10px',
           cursor: 'pointer',
         }}
-        onClick={handlePostClick}
+        onClick={onPostClick}
       >
         <strong>내가 쓴 게시글 보기</strong>
         <span>&gt;&gt;</span>
@@ -58,7 +52,7 @@ const CounselorDataBox: React.FC<CounselorDataBoxProps> = () => {
           padding: '0 10px',
           cursor: 'pointer',
         }}
-        onClick={handleCommentClick}
+        onClick={onCommentClick}
       >
         <strong>내가 쓴 댓글 보기</strong>
         <span>&gt;&gt;</span>
@@ -76,7 +70,7 @@ const CounselorDataBox: React.FC<CounselorDataBoxProps> = () => {
           padding: '0 10px',
           cursor: 'pointer',
         }}
-        onClick={handleCounselClick}
+        onClick={onCounselClick}
       >
         <strong>내 상담 보기</strong>
         <span>&gt;&gt;</span>
@@ -94,7 +88,7 @@ const CounselorDataBox: React.FC<CounselorDataBoxProps> = () => {
           padding: '0 10px',
           cursor: 'pointer',
         }}
-        onClick={handleCounselorJournalClick}
+        onClick={onCounselorJournalClick}
       >
         <strong>상담일지 보기</strong>
         <span>&gt;&gt;</span>

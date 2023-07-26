@@ -11,6 +11,8 @@ import Comment from './components/Comment'
 import ArticleBar from './components/ArticleBar'
 import CounselingBar from './components/CounselingBar'
 import Footer from './components/Footer'
+import MicButton from './components/MicButton'
+import CameraButton from './components/CameraButton'
 import UserDataBox from './components/UserDataBox'
 import CounselorDataBox from './components/CounselorDataBox'
 
@@ -22,6 +24,27 @@ function App(): React.ReactElement {
 
   const handleClick = () => {
     alert('버튼클릭')
+  }
+  const micClick = () => {
+    alert('마이크 클릭 - 비활성화로 바꿔야 함')
+  }
+  const cameraClick = () => {
+    alert('카메라 클릭 - 비활성화로 바꿔야 함')
+  }
+  const onCardClick = () => {
+    alert('상담 정보 보기')
+  }
+  const onPostClick = () => {
+    alert('onPostClick')
+  }
+  const onCommentClick = () => {
+    alert('onPostClick')
+  }
+  const onCounselClick = () => {
+    alert('onPostClick')
+  }
+  const onCounselorJournalClick = () => {
+    alert('onPostClick')
   }
   return (
     <div className="App">
@@ -39,6 +62,7 @@ function App(): React.ReactElement {
       <NavbarLogout />
       <h1>상담사 카드</h1>
       <CounselorCard
+        onCardClick={onCardClick}
         name="석민혁"
         grade={4.8}
         gradeCount={51}
@@ -76,10 +100,22 @@ function App(): React.ReactElement {
       <CounselingBar title="상담 제목 1" episodeCount={1} />
       <h1>Footer</h1>
       <Footer />
+      <h1>상담 진행 중 나오는 버튼</h1>
+      <MicButton onClick={micClick}></MicButton>
+      <CameraButton onClick={cameraClick}></CameraButton>
       <h1>내 정보 박스(일반 사용자)</h1>
-      <UserDataBox />
+      <UserDataBox
+        onPostClick={onPostClick}
+        onCommentClick={onCommentClick}
+        onCounselClick={onCounselClick}
+      />
       <h1>내 정보 박스(상담사)</h1>
-      <CounselorDataBox />
+      <CounselorDataBox
+        onPostClick={onPostClick}
+        onCommentClick={onCommentClick}
+        onCounselClick={onCounselClick}
+        onCounselorJournalClick={onCounselorJournalClick}
+      />
     </div>
   )
 }
