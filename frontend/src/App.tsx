@@ -37,9 +37,13 @@ function App(): React.ReactElement {
         introduce="족구왕이 될 사나이"
       />
       <div>
-        <h1>아이디 입력</h1>
-        <Input value={inputValue} onChange={handleInputChange} />
-        <p>아이디: {inputValue}</p>
+        <h1>Input</h1>
+        <Input
+          value={inputValue}
+          onChange={handleInputChange}
+          placeholder="이메일"
+        />
+        <p>입력한: {inputValue}</p>
       </div>
     </div>
   )
