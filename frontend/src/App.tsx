@@ -13,6 +13,7 @@ import CounselingBar from './components/CounselingBar'
 import Footer from './components/Footer'
 import UserDataBox from './components/UserDataBox'
 import CounselorDataBox from './components/CounselorDataBox'
+import CounselCard from './components/CounselCard'
 
 function App(): React.ReactElement {
   const [inputValue, setInputValue] = useState('')
@@ -52,6 +53,20 @@ function App(): React.ReactElement {
       <NavbarLogin />
       <h1>Navbar(로그아웃)</h1>
       <NavbarLogout />
+      <h1>상담 카드</h1>
+      <CounselCard
+        name="석민혁"
+        grade={4.8}
+        gradeCount={51}
+        startTime="10:00"
+        endTime="12:30"
+        title="족구하자"
+        minParticipantCount={4}
+        maxParticipantCount={12}
+        sessionCount={16}
+        price={39000}
+      />
+
       <h1>상담사 카드</h1>
       <CounselorCard
         onCardClick={onCardClick}
