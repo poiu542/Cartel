@@ -11,6 +11,8 @@ import Comment from './components/Comment'
 import ArticleBar from './components/ArticleBar'
 import CounselingBar from './components/CounselingBar'
 import Footer from './components/Footer'
+import MicButton from './components/MicButton'
+import CameraButton from './components/CameraButton'
 
 function App(): React.ReactElement {
   const [inputValue, setInputValue] = useState('')
@@ -20,6 +22,12 @@ function App(): React.ReactElement {
 
   const handleClick = () => {
     alert('버튼클릭')
+  }
+  const micClick = () => {
+    alert('마이크 클릭 - 비활성화로 바꿔야 함')
+  }
+  const cameraClick = () => {
+    alert('카메라 클릭 - 비활성화로 바꿔야 함')
   }
   return (
     <div className="App">
@@ -74,6 +82,9 @@ function App(): React.ReactElement {
       <CounselingBar title="상담 제목 1" episodeCount={1}></CounselingBar>
       <h1>Footer</h1>
       <Footer />
+      <h1>상담 진행 중 나오는 버튼</h1>
+      <MicButton onClick={micClick}></MicButton>
+      <CameraButton onClick={cameraClick}></CameraButton>
     </div>
   )
 }
