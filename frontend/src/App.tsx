@@ -23,6 +23,21 @@ function App(): React.ReactElement {
   const handleClick = () => {
     alert('버튼클릭')
   }
+  const onCardClick = () => {
+    alert('상담 정보 보기')
+  }
+  const onPostClick = () => {
+    alert('onPostClick')
+  }
+  const onCommentClick = () => {
+    alert('onPostClick')
+  }
+  const onCounselClick = () => {
+    alert('onPostClick')
+  }
+  const onCounselorJournalClick = () => {
+    alert('onPostClick')
+  }
   return (
     <div className="App">
       <h1>버튼</h1>
@@ -39,6 +54,7 @@ function App(): React.ReactElement {
       <NavbarLogout />
       <h1>상담사 카드</h1>
       <CounselorCard
+        onCardClick={onCardClick}
         name="석민혁"
         grade={4.8}
         gradeCount={51}
@@ -77,9 +93,18 @@ function App(): React.ReactElement {
       <h1>Footer</h1>
       <Footer />
       <h1>내 정보 박스(일반 사용자)</h1>
-      <UserDataBox />
+      <UserDataBox
+        onPostClick={onPostClick}
+        onCommentClick={onCommentClick}
+        onCounselClick={onCounselClick}
+      />
       <h1>내 정보 박스(상담사)</h1>
-      <CounselorDataBox />
+      <CounselorDataBox
+        onPostClick={onPostClick}
+        onCommentClick={onCommentClick}
+        onCounselClick={onCounselClick}
+        onCounselorJournalClick={onCounselorJournalClick}
+      />
     </div>
   )
 }

@@ -1,23 +1,16 @@
 import React from 'react'
 
-interface UserDataBoxProps {}
+interface UserDataBoxProps {
+  onPostClick: () => void
+  onCommentClick: () => void
+  onCounselClick: () => void
+}
 
-const UserDataBox: React.FC<UserDataBoxProps> = () => {
-  const handlePostClick = () => {
-    alert('Post clicked')
-    // Implement your logic here
-  }
-
-  const handleCommentClick = () => {
-    alert('Comment clicked')
-    // Implement your logic here
-  }
-
-  const handleCounselClick = () => {
-    alert('Counsel clicked')
-    // Implement your logic here
-  }
-
+const UserDataBox: React.FC<UserDataBoxProps> = ({
+  onPostClick = () => {},
+  onCommentClick = () => {},
+  onCounselClick = () => {},
+}) => {
   return (
     <div
       className="my data check"
@@ -39,7 +32,7 @@ const UserDataBox: React.FC<UserDataBoxProps> = () => {
           padding: '0 10px',
           cursor: 'pointer',
         }}
-        onClick={handlePostClick}
+        onClick={onPostClick}
       >
         <strong>내가 쓴 게시글 보기</strong>
         <span>&gt;&gt;</span>
@@ -57,7 +50,7 @@ const UserDataBox: React.FC<UserDataBoxProps> = () => {
           padding: '0 10px',
           cursor: 'pointer',
         }}
-        onClick={handleCommentClick}
+        onClick={onCommentClick}
       >
         <strong>내가 쓴 댓글 보기</strong>
         <span>&gt;&gt;</span>
@@ -75,7 +68,7 @@ const UserDataBox: React.FC<UserDataBoxProps> = () => {
           padding: '0 10px',
           cursor: 'pointer',
         }}
-        onClick={handleCounselClick}
+        onClick={onCounselClick}
       >
         <strong>내 상담 보기</strong>
         <span>&gt;&gt;</span>
