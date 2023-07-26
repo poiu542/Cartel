@@ -1,81 +1,102 @@
-import React, { useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import styled from 'styled-components'
+
+const Container = styled.div`
+  width: 1000px;
+  height: 500px;
+  margin: 0 auto;
+  overflow: hidden;
+  position: relative;
+`
+
+const ImageBox = styled.ul<{ count: number }>`
+  margin: 10px 0 0 0;
+  padding: 0;
+  width: 100%;
+  display: flex;
+  transition: ${(props) => (!props.count ? '' : 'all 0.5s ease-in-out')};
+  transform: ${(props) => 'translateX(-' + props.count * 1000 + 'px)'};
+`
+
+const ImageList = styled.li`
+  list-style: none;
+`
+
+const Bullets = styled.div`
+  position: absolute;
+  display: flex;
+  flex-direction: column-reverse;
+  right: 10px;
+  bottom: 10px;
+  z-index: 2;
+`
+
+const Label = styled.label`
+  display: inline-block;
+  border-radius: 50%;
+  background-color: rgba(88, 84, 84, 0.55);
+  width: 10px;
+  height: 10px;
+  margin-top: 5px;
+  cursor: pointer;
+`
 
 type Slide = {
   imageUrl: string
-  text: string
 }
 
-const carouselData: Slide[] = [
-  {
-    imageUrl:
-      'https://contents.kyobobook.co.kr/sih/fit-in/458x0/pdt/9791157844142.jpg',
-    text: '첫 번째 슬라이드',
-  },
-  {
-    imageUrl:
-      'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSUSgKXrFWjGCoKpE5Ky0_AdFYnfDYnZLLk-Q&usqp=CAU',
-    text: '두 번째 슬라이드',
-  },
-  // Add more slide data as needed
-]
+type CarouselProps = {
+  slides: Slide[]
+}
 
-const CarouselContainer = styled.div`
-  display: flex;
-  overflow: hidden;
-  width: 300px; /* Set the desired width of the carousel */
-  background: blue;
-`
+const Carousel: React.FC<CarouselProps> = ({ slides }) => {
+  const TOTAL_SLIDES = slides.length
+  const [currentIdx, setCurrentIdx] = useState<number>(0)
+  const [count, setCount] = useState<number>(0)
+  const slideRef = useRef<HTMLUListElement>(null)
 
-const SlideContainer = styled.div`
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  min-width: 100%;
-  transition: transform 0.3s ease-in-out;
-`
-
-const SlideImage = styled.img`
-  max-width: 100%;
-  height: auto;
-`
-
-const SlideText = styled.p`
-  color: white;
-  font-size: 24px;
-  text-align: center;
-`
-
-const Carousel: React.FC = () => {
-  const [currentIndex, setCurrentIndex] = useState(0)
-
-  const goToNextSlide = () => {
-    setCurrentIndex((prevIndex) => (prevIndex + 1) % carouselData.length)
+  const nextSlide = () => {
+    setCurrentIdx((prev) => (prev + 1) % TOTAL_SLIDES)
   }
 
-  const goToPrevSlide = () => {
-    setCurrentIndex(
-      (prevIndex) =>
-        (prevIndex - 1 + carouselData.length) % carouselData.length,
-    )
+  const prevSlide = () => {
+    setCurrentIdx((prev) => (prev - 1 + TOTAL_SLIDES) % TOTAL_SLIDES)
   }
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCount((prev) => (prev + 1) % TOTAL_SLIDES)
+    }, 3000)
+
+    return () => {
+      clearInterval(timer)
+    }
+  }, [TOTAL_SLIDES])
 
   return (
-    <CarouselContainer>
-      {carouselData.map((slide, index) => (
-        <SlideContainer
-          key={index}
-          style={{ transform: `translateX(-${currentIndex * 100}%)` }}
-        >
-          <SlideImage src={slide.imageUrl} alt={`Slide ${index + 1}`} />
-          <SlideText>{slide.text}</SlideText>
-        </SlideContainer>
-      ))}
-      <button onClick={goToPrevSlide}>왼쪽으로&#8249;</button>
-      <button onClick={goToNextSlide}>오른쪽으로&#8250;</button>
-    </CarouselContainer>
+    <>
+      <Container>
+        {slides.map((slide, idx) => (
+          <ImageBox
+            key={idx}
+            ref={slideRef}
+            count={count}
+            style={{ transform: `translateX(-${currentIdx * 1000}px)` }}
+          >
+            <ImageList>{/* <Image src={slide.imageUrl} /> */}</ImageList>
+          </ImageBox>
+        ))}
+        <Bullets>
+          {slides.map((_, idx) => (
+            <Label key={idx} htmlFor={`slider${idx + 1}`}>
+              &nbsp;
+            </Label>
+          ))}
+        </Bullets>
+      </Container>
+      {/* <Button onClick={prevSlide}>prev</Button>
+      <Button onClick={nextSlide}>next</Button> */}
+    </>
   )
 }
 

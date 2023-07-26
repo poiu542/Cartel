@@ -7,7 +7,12 @@ import CounselorCard from './components/CounselorCard'
 import { CurriculumBox } from './components/CurriculumBox'
 import Input from './components/Input'
 import Table from './components/Table'
-import Carousel from './components/Carousel'
+import Comment from './components/Comment'
+import ArticleBar from './components/ArticleBar'
+import CounselingBar from './components/CounselingBar'
+import Footer from './components/Footer'
+import UserDataBox from './components/UserDataBox'
+import CounselorDataBox from './components/CounselorDataBox'
 
 function App(): React.ReactElement {
   const [inputValue, setInputValue] = useState('')
@@ -17,6 +22,21 @@ function App(): React.ReactElement {
 
   const handleClick = () => {
     alert('버튼클릭')
+  }
+  const onCardClick = () => {
+    alert('상담 정보 보기')
+  }
+  const onPostClick = () => {
+    alert('onPostClick')
+  }
+  const onCommentClick = () => {
+    alert('onPostClick')
+  }
+  const onCounselClick = () => {
+    alert('onPostClick')
+  }
+  const onCounselorJournalClick = () => {
+    alert('onPostClick')
   }
   return (
     <div className="App">
@@ -34,6 +54,7 @@ function App(): React.ReactElement {
       <NavbarLogout />
       <h1>상담사 카드</h1>
       <CounselorCard
+        onCardClick={onCardClick}
         name="석민혁"
         grade={4.8}
         gradeCount={51}
@@ -53,9 +74,26 @@ function App(): React.ReactElement {
       <div style={{ padding: '100px' }}>
         <Table></Table>
       </div>
-      <div>
-        <Carousel></Carousel>
-      </div>
+      <Comment></Comment>
+      <h1>게시판 상단 바</h1>
+      <ArticleBar name="자유게시판" />
+      <h1>상담 진행 바</h1>
+      <CounselingBar title="상담 제목 1" episodeCount={1}></CounselingBar>
+      <h1>Footer</h1>
+      <Footer />
+      <h1>내 정보 박스(일반 사용자)</h1>
+      <UserDataBox
+        onPostClick={onPostClick}
+        onCommentClick={onCommentClick}
+        onCounselClick={onCounselClick}
+      />
+      <h1>내 정보 박스(상담사)</h1>
+      <CounselorDataBox
+        onPostClick={onPostClick}
+        onCommentClick={onCommentClick}
+        onCounselClick={onCounselClick}
+        onCounselorJournalClick={onCounselorJournalClick}
+      />
     </div>
   )
 }
