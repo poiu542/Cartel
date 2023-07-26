@@ -8,6 +8,7 @@ import CounselCard from './components/CounselCard'
 import Input from './components/Input'
 import Table from './components/Table'
 import Carousel from './components/Carousel'
+import ArticleBar from './components/ArticleBar'
 
 function App(): React.ReactElement {
   const [inputValue, setInputValue] = useState('')
@@ -67,6 +68,8 @@ function App(): React.ReactElement {
       <div>
         <Carousel></Carousel>
       </div>
+      <h1>게시판 상단 바</h1>
+      <ArticleBar name="자유게시판" />
     </div>
   )
 }
