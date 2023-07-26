@@ -6,6 +6,7 @@ import NavbarLogout from './components/NavbarLogout'
 import CounselorCard from './components/CounselorCard'
 import CounselCard from './components/CounselCard'
 import Input from './components/Input'
+import Table from './components/Table'
 
 function App(): React.ReactElement {
   const [inputValue, setInputValue] = useState('')
@@ -58,6 +59,9 @@ function App(): React.ReactElement {
           placeholder="이메일"
         />
         <p>입력한: {inputValue}</p>
+      </div>
+      <div style={{ padding: '100px' }}>
+        <Table></Table>
       </div>
     </div>
   )
