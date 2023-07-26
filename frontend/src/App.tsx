@@ -8,6 +8,8 @@ import CounselCard from './components/CounselCard'
 import Input from './components/Input'
 import Table from './components/Table'
 import Carousel from './components/Carousel'
+import ArticleBar from './components/ArticleBar'
+import CounselingBar from './components/CounselingBar'
 
 function App(): React.ReactElement {
   const [inputValue, setInputValue] = useState('')
