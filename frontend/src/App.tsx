@@ -13,6 +13,8 @@ import CounselingBar from './components/CounselingBar'
 import Footer from './components/Footer'
 import MicButton from './components/MicButton'
 import CameraButton from './components/CameraButton'
+import UserDataBox from './components/UserDataBox'
+import CounselorDataBox from './components/CounselorDataBox'
 
 function App(): React.ReactElement {
   const [inputValue, setInputValue] = useState('')
@@ -28,6 +30,21 @@ function App(): React.ReactElement {
   }
   const cameraClick = () => {
     alert('카메라 클릭 - 비활성화로 바꿔야 함')
+  }
+  const onCardClick = () => {
+    alert('상담 정보 보기')
+  }
+  const onPostClick = () => {
+    alert('onPostClick')
+  }
+  const onCommentClick = () => {
+    alert('onPostClick')
+  }
+  const onCounselClick = () => {
+    alert('onPostClick')
+  }
+  const onCounselorJournalClick = () => {
+    alert('onPostClick')
   }
   return (
     <div className="App">
@@ -45,6 +62,7 @@ function App(): React.ReactElement {
       <NavbarLogout />
       <h1>상담사 카드</h1>
       <CounselorCard
+        onCardClick={onCardClick}
         name="석민혁"
         grade={4.8}
         gradeCount={51}
@@ -85,6 +103,19 @@ function App(): React.ReactElement {
       <h1>상담 진행 중 나오는 버튼</h1>
       <MicButton onClick={micClick}></MicButton>
       <CameraButton onClick={cameraClick}></CameraButton>
+      <h1>내 정보 박스(일반 사용자)</h1>
+      <UserDataBox
+        onPostClick={onPostClick}
+        onCommentClick={onCommentClick}
+        onCounselClick={onCounselClick}
+      />
+      <h1>내 정보 박스(상담사)</h1>
+      <CounselorDataBox
+        onPostClick={onPostClick}
+        onCommentClick={onCommentClick}
+        onCounselClick={onCounselClick}
+        onCounselorJournalClick={onCounselorJournalClick}
+      />
     </div>
   )
 }
