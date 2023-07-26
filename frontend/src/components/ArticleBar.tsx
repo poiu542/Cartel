@@ -12,8 +12,6 @@ const ArticleBar: React.FC<ArticleBarProps> = ({ name }) => (
       height: '122px',
       borderTop: '3px solid #0081C2',
       borderBottom: '3px solid #0081C2',
-      margin: '50px',
-
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'start',

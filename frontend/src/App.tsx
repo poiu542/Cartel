@@ -7,9 +7,12 @@ import CounselorCard from './components/CounselorCard'
 import CounselCard from './components/CounselCard'
 import Input from './components/Input'
 import Table from './components/Table'
-import Carousel from './components/Carousel'
+import Comment from './components/Comment'
 import ArticleBar from './components/ArticleBar'
 import CounselingBar from './components/CounselingBar'
+import Footer from './components/Footer'
+import UserDataBox from './components/UserDataBox'
+import CounselorDataBox from './components/CounselorDataBox'
 
 function App(): React.ReactElement {
   const [inputValue, setInputValue] = useState('')
@@ -66,13 +69,17 @@ function App(): React.ReactElement {
       <div style={{ padding: '100px' }}>
         <Table></Table>
       </div>
-      <div>
-        <Carousel></Carousel>
-      </div>
+      <Comment></Comment>
       <h1>게시판 상단 바</h1>
       <ArticleBar name="자유게시판" />
       <h1>상담 진행 바</h1>
       <CounselingBar title="상담 제목 1" episodeCount={1}></CounselingBar>
+      <h1>Footer</h1>
+      <Footer />
+      <h1>내 정보 박스(일반 사용자)</h1>
+      <UserDataBox />
+      <h1>내 정보 박스(상담사)</h1>
+      <CounselorDataBox />
     </div>
   )
 }
