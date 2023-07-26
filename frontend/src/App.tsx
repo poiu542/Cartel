@@ -11,6 +11,8 @@ import Comment from './components/Comment'
 import ArticleBar from './components/ArticleBar'
 import CounselingBar from './components/CounselingBar'
 import Footer from './components/Footer'
+import MicButton from './components/MicButton'
+import CameraButton from './components/CameraButton'
 import UserDataBox from './components/UserDataBox'
 import CounselorDataBox from './components/CounselorDataBox'
 import { LoginBtn } from './components/LoginBtn'
@@ -26,6 +28,12 @@ function App(): React.ReactElement {
 
   const handleClick = () => {
     alert('버튼클릭')
+  }
+  const micClick = () => {
+    alert('마이크 클릭 - 비활성화로 바꿔야 함')
+  }
+  const cameraClick = () => {
+    alert('카메라 클릭 - 비활성화로 바꿔야 함')
   }
   const onCardClick = () => {
     alert('상담 정보 보기')
@@ -93,9 +101,12 @@ function App(): React.ReactElement {
       <h1>게시판 상단 바</h1>
       <ArticleBar name="자유게시판" />
       <h1>상담 진행 바</h1>
-      <CounselingBar title="상담 제목 1" episodeCount={1}></CounselingBar>
+      <CounselingBar title="상담 제목 1" episodeCount={1} />
       <h1>Footer</h1>
       <Footer />
+      <h1>상담 진행 중 나오는 버튼</h1>
+      <MicButton onClick={micClick}></MicButton>
+      <CameraButton onClick={cameraClick}></CameraButton>
       <h1>내 정보 박스(일반 사용자)</h1>
       <UserDataBox
         onPostClick={onPostClick}
