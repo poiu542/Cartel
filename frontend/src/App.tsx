@@ -7,7 +7,7 @@ import CounselorCard from './components/CounselorCard'
 import CounselCard from './components/CounselCard'
 import Input from './components/Input'
 import Table from './components/Table'
-import Carousel from './components/Carousel'
+import Comment from './components/Comment'
 
 function App(): React.ReactElement {
   const [inputValue, setInputValue] = useState('')
@@ -64,9 +64,7 @@ function App(): React.ReactElement {
       <div style={{ padding: '100px' }}>
         <Table></Table>
       </div>
-      <div>
-        <Carousel></Carousel>
-      </div>
+      <Comment></Comment>
     </div>
   )
 }
