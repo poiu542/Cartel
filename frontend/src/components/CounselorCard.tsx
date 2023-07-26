@@ -16,6 +16,7 @@ const CounselorCard: React.FC<CounselorCardProps> = ({
   grade,
 }) => (
   <div
+    className="Card"
     style={{
       display: 'flex',
       justifyContent: 'center',
@@ -23,25 +24,49 @@ const CounselorCard: React.FC<CounselorCardProps> = ({
       height: '100vh',
     }}
   >
-    <div
-      style={{
-        border: '1px solid #40BFFF',
-        borderRadius: '20px',
-        width: '22.6875rem',
-        height: '12.5rem',
-      }}
-      // onClick={onClick}
-    >
-      이름 : {name} <br />
-      시작 시간 : {startTime}
-      <br />
-      종료 시간 : {endTime}
-      <br />
-      선택 요일 : {selectDay.join(', ')}
-      {/* 선택 요일 : {selectDay.map(day => <div key={day}>{day}</div>)} */}
-      <br />
-      평점 : {grade}
-      <br />
+    <div>
+      <div
+        className="top"
+        style={{
+          justifyContent: 'space-between',
+          display: 'flex',
+          alignItems: 'center',
+          border: '1px solid #40BFFF',
+          borderRadius: '20px 20px 0px 0px',
+          width: '363px',
+          height: '149px',
+          background: '#ECF9FF',
+        }}
+      >
+        <div>
+          <img src="./image/logo.png" alt="logo" />
+        </div>
+        <div
+          className="counselor data"
+          style={{}}
+          // onClick={onClick}
+        >
+          이름 : {name} <br />
+          시작 시간 : {startTime}
+          <br />
+          종료 시간 : {endTime}
+          <br />
+          선택 요일 : {selectDay.join(', ')}
+          {/* 선택 요일 : {selectDay.map(day => <div key={day}>{day}</div>)} */}
+          <br />
+          평점 : {grade}
+          <br />
+        </div>
+      </div>
+      <div
+        className="bottom"
+        style={{
+          border: '1px solid #40BFFF',
+          borderRadius: '0px 0px 20px 20px',
+          width: '363px',
+          height: '51px',
+        }}
+      ></div>
     </div>
   </div>
 )
