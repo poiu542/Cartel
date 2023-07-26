@@ -9,6 +9,7 @@ import Input from './components/Input'
 import Table from './components/Table'
 import Carousel from './components/Carousel'
 import ArticleBar from './components/ArticleBar'
+import CounselingBar from './components/CounselingBar'
 import Footer from './components/Footer'
 
 function App(): React.ReactElement {
@@ -71,7 +72,8 @@ function App(): React.ReactElement {
       </div>
       <h1>게시판 상단 바</h1>
       <ArticleBar name="자유게시판" />
-
+      <h1>상담 진행 바</h1>
+      <CounselingBar title="상담 제목 1" episodeCount={1}></CounselingBar>
       <h1>Footer</h1>
       <Footer />
     </div>
