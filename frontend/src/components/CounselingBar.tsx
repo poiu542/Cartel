@@ -1,11 +1,21 @@
 import React from 'react'
 import Bar from '@mui/material/AppBar'
 import { Icon } from '@mui/material'
+import styled from '@emotion/styled'
 
 interface CounselingBarProps {
   title: string
   episodeCount: number
 }
+
+const StyledAppBar = styled(Bar)`
+  {
+    background-color: rgba(0, 0, 0, 0.5);
+    color: #ff99a0;
+    font-size: 1rem;
+    font-weight: 800;
+  }
+`
 
 const CounselingBar: React.FC<CounselingBarProps> = ({
   title,
@@ -21,9 +31,9 @@ const CounselingBar: React.FC<CounselingBarProps> = ({
         />
       </Icon>
       <div className="counseling-bar">
-        <h3>
+        <h2>
           {title} - {episodeCount}회차
-        </h3>
+        </h2>
       </div>
     </Bar>
   )

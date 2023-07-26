@@ -73,7 +73,7 @@ function App(): React.ReactElement {
       <h1>게시판 상단 바</h1>
       <ArticleBar name="자유게시판" />
       <h1>상담 진행 바</h1>
-      <CounselingBar title="상담 제목 1" episodeCount={1}></CounselingBar>
+      <CounselingBar title="상담 제목 1" episodeCount={1} />
       <h1>Footer</h1>
       <Footer />
       <h1>내 정보 박스(일반 사용자)</h1>
