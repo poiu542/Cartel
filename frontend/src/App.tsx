@@ -38,9 +38,13 @@ function App(): React.ReactElement {
         grade={4.8}
       />
       <div>
-        <h1>아이디 입력</h1>
-        <Input value={inputValue} onChange={handleInputChange} />
-        <p>아이디: {inputValue}</p>
+        <h1>Input</h1>
+        <Input
+          value={inputValue}
+          onChange={handleInputChange}
+          placeholder="이메일"
+        />
+        <p>입력한: {inputValue}</p>
       </div>
     </div>
   )
