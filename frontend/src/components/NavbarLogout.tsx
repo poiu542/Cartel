@@ -14,8 +14,7 @@ import MenuItem from '@mui/material/MenuItem'
 import AdbIcon from '@mui/icons-material/Adb'
 
 const pages = ['상담', '상담사', '공지사항', '커뮤니티']
-const settings = ['마이페이지', '로그아웃']
-const notices = ['알림1', '알림2', '알림3', '알림4']
+const settings = ['회원가입', '로그인']
 
 function ResponsiveAppBar() {
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null)
@@ -31,9 +30,6 @@ function ResponsiveAppBar() {
   const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElUser(event.currentTarget)
   }
-  const handleOpenNoticeMenu = (event: React.MouseEvent<HTMLElement>) => {
-    setAnchorElNotice(event.currentTarget)
-  }
 
   const handleCloseNavMenu = () => {
     setAnchorElNav(null)
@@ -41,9 +37,6 @@ function ResponsiveAppBar() {
 
   const handleCloseUserMenu = () => {
     setAnchorElUser(null)
-  }
-  const handleCloseNoticeMenu = () => {
-    setAnchorElNotice(null)
   }
 
   return (
@@ -142,39 +135,6 @@ function ResponsiveAppBar() {
                 {page}
               </Button>
             ))}
-          </Box>
-          <Box sx={{ flexGrow: 0 }}>
-            <Tooltip title="Open Notice">
-              <IconButton onClick={handleOpenNoticeMenu} sx={{ p: 0, mr: 3 }}>
-                <img
-                  src="./image/NoticeBell.png"
-                  alt="User profile"
-                  style={{ width: '40px', height: '40px' }}
-                />
-              </IconButton>
-            </Tooltip>
-            <Menu
-              sx={{ mt: '45px' }}
-              id="menu-appbar"
-              anchorEl={anchorElNotice}
-              anchorOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-              }}
-              open={Boolean(anchorElNotice)}
-              onClose={handleCloseNoticeMenu}
-            >
-              {notices.map((notice) => (
-                <MenuItem key={notice} onClick={handleCloseNoticeMenu}>
-                  <Typography textAlign="center">{notice}</Typography>
-                </MenuItem>
-              ))}
-            </Menu>
           </Box>
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open user settings">
