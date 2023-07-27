@@ -1,5 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
+import { Link } from 'react-router-dom'
 
 const NoticeBtn = styled.button`
   background-color: #80d4ff;
@@ -23,6 +24,11 @@ const NoticeBtn = styled.button`
     'Open Sans',
     'Helvetica Neue',
     sans-serif;
+  text-shadow:
+    -1px -1px 0 #0098e6,
+    /* 왼쪽 상단 */ 1px -1px 0 #0098e6,
+    /* 오른쪽 상단 */ -1px 1px 0 #0098e6,
+    /* 왼쪽 하단 */ 1px 1px 0 #0098e6; /* 오른쪽 하단 */
 `
 
 const FreeBtn = styled.button`
@@ -90,8 +96,12 @@ export const CommunityNotice = () => {
       <CommunityBackground>
         <Bar>
           <ButtonsContainer>
-            <NoticeBtn>공지사항</NoticeBtn>
-            <FreeBtn>자유게시판</FreeBtn>
+            <Link to="/notice">
+              <NoticeBtn>공지사항</NoticeBtn>
+            </Link>
+            <Link to="/freeboard">
+              <FreeBtn>자유게시판</FreeBtn>
+            </Link>
           </ButtonsContainer>
         </Bar>
       </CommunityBackground>
