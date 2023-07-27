@@ -3,24 +3,60 @@ import styled from 'styled-components'
 
 const NoticeBtn = styled.button`
   background-color: #80d4ff;
-  width: 24.4375rem;
+  width: 65rem;
   padding: 0.5rem 1rem;
   height: 5.5625rem;
   border-radius: 0.1875rem;
   color: white;
   border: 1px solid white;
-  font-size: 20px;
+  font-size: 30px;
+  font-weight: bold;
+  font-family:
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    'Segoe UI',
+    Roboto,
+    Oxygen,
+    Ubuntu,
+    Cantarell,
+    'Open Sans',
+    'Helvetica Neue',
+    sans-serif;
 `
 
 const FreeBtn = styled.button`
   background-color: rgba(63, 137, 176, 0.7);
-  width: 24.4375rem;
+  width: 65rem;
   padding: 0.5rem 1rem;
   height: 5.5625rem;
   border-radius: 0.1875rem;
-  color: white;
+  color: gray;
   border: 1px solid white;
-  font-size: 20px;
+  font-size: 30px;
+  font-weight: bold;
+  font-family:
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    'Segoe UI',
+    Roboto,
+    Oxygen,
+    Ubuntu,
+    Cantarell,
+    'Open Sans',
+    'Helvetica Neue',
+    sans-serif;
+`
+
+const CommunityTitle = styled.p`
+  color: black;
+  font-size: 60px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%; /* Set the height to 100% to fill the CommunityBackground vertically */
+  margin: 0; /* Remove any default margin to avoid extra spacing */
 `
 
 const CommunityBackground = styled.div`
