@@ -20,6 +20,8 @@ import { LoginBtn } from './components/LoginBtn'
 import { CounSelorLoginBtn } from './components/CounselorLoginBtn'
 import { CommunityNotice } from './components/CommunityNotice'
 import { CommunityFree } from './components/CommunityFree'
+import MultipleQuestion from './components/MultipleQuestion'
+import Carousel from './components/Carousel'
 
 function App(): React.ReactElement {
   const [inputValue, setInputValue] = useState('')
@@ -136,6 +138,12 @@ function App(): React.ReactElement {
       <CommunityNotice />
       <h1>커뮤니티 자유게시판</h1>
       <CommunityFree />
+      <h1>캐러셀</h1>
+      <Carousel />
+      <div>
+        <h1>객관식</h1>
+        <MultipleQuestion question="3. 이번 모임은 도움이 되었나요?" />
+      </div>
     </div>
   )
 }
