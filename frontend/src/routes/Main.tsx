@@ -1,5 +1,15 @@
-import React from 'react'
+import React, { useState } from 'react'
+import Carousel from '../components/Carousel'
+import NavbarLogin from '../components/NavbarLogin'
+import NavbarLogout from '../components/NavbarLogout'
 
 export const Main = () => {
-  return <div>Main</div>
+  const [isLoggedIn, setIsLoggedIn] = useState(false)
+
+  return (
+    <div>
+      {isLoggedIn ? <NavbarLogin /> : <NavbarLogout />}
+      <div>Main</div>
+    </div>
+  )
 }
