@@ -5,6 +5,11 @@ import CounselorCard from '../components/CounselorCard'
 import PreviewBox from '../components/PreviewBox'
 import Footer from '../components/Footer'
 import EmojiObjectsIcon from '@mui/icons-material/EmojiObjects'
+import PeopleIcon from '@mui/icons-material/People'
+import ReceiptIcon from '@mui/icons-material/Receipt'
+import SpeedIcon from '@mui/icons-material/Speed'
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart'
+import CampaignIcon from '@mui/icons-material/Campaign'
 
 export const Main = () => {
   const onCardClick = () => {
@@ -33,68 +38,147 @@ export const Main = () => {
           className="service introduce"
           style={{
             display: 'flex',
-            flexDirection: 'column',
+            flexDirection: 'row',
+            justifyContent: 'center',
             alignItems: 'center',
+            gap: '20px',
           }}
         >
-          <EmojiObjectsIcon
+          <div
             style={{
-              color: 'yellow',
-              backgroundColor: '#E8E596',
-              border: '0.5px solid #DDD73F',
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
             }}
-          />
-          <span>서비스 소개</span>
-        </div>
-        <div className="service introduce">
-          <EmojiObjectsIcon
+          >
+            <EmojiObjectsIcon
+              style={{
+                color: '#FAC42F',
+                backgroundColor: '#E8E596',
+
+                marginTop: '50px',
+                scale: '3',
+              }}
+            />
+            <span
+              style={{ padding: '30px', fontSize: '13px', fontWeight: 'bold' }}
+            >
+              서비스 소개
+            </span>
+          </div>
+
+          <div
             style={{
-              color: 'yellow',
-              backgroundColor: '#E8E596',
-              border: '0.5px solid #DDD73F',
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
             }}
-          />
-          서비스 소개
-        </div>
-        <div className="service introduce">
-          <EmojiObjectsIcon
+          >
+            <CampaignIcon
+              style={{
+                color: '#33C3F0',
+                backgroundColor: '#B3E5FC',
+
+                marginTop: '50px',
+                scale: '3',
+              }}
+            />
+            <span
+              style={{ padding: '30px', fontSize: '13px', fontWeight: 'bold' }}
+            >
+              마약 소개
+            </span>
+          </div>
+
+          <div
             style={{
-              color: 'yellow',
-              backgroundColor: '#E8E596',
-              border: '0.5px solid #DDD73F',
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
             }}
-          />
-          서비스 소개
-        </div>
-        <div className="service introduce">
-          <EmojiObjectsIcon
+          >
+            <PeopleIcon
+              style={{
+                color: '#FF4081',
+                backgroundColor: '#FF80AB',
+
+                marginTop: '50px',
+                scale: '3',
+              }}
+            />
+            <span
+              style={{ padding: '30px', fontSize: '13px', fontWeight: 'bold' }}
+            >
+              자조모임이란?
+            </span>
+          </div>
+
+          <div
             style={{
-              color: 'yellow',
-              backgroundColor: '#E8E596',
-              border: '0.5px solid #DDD73F',
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
             }}
-          />
-          서비스 소개
-        </div>
-        <div className="service introduce">
-          <EmojiObjectsIcon
+          >
+            <SpeedIcon
+              style={{
+                color: '#00E676',
+                backgroundColor: '#B9F6CA',
+                marginTop: '50px',
+                scale: '3',
+              }}
+            />
+            <span
+              style={{ padding: '30px', fontSize: '13px', fontWeight: 'bold' }}
+            >
+              중독검사
+            </span>
+          </div>
+
+          <div
             style={{
-              color: 'yellow',
-              backgroundColor: '#E8E596',
-              border: '0.5px solid #DDD73F',
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
             }}
-          />
-          서비스 소개
-        </div>
-        <div className="service introduce">
-          <EmojiObjectsIcon
+          >
+            <ReceiptIcon
+              style={{
+                color: '#651FFF',
+                backgroundColor: '#B388FF',
+
+                marginTop: '50px',
+                scale: '3',
+              }}
+            />
+            <span
+              style={{ padding: '30px', fontSize: '13px', fontWeight: 'bold' }}
+            >
+              심리테스트
+            </span>
+          </div>
+
+          <div
             style={{
-              color: 'yellow',
-              backgroundColor: '#E8E596',
-              border: '0.5px solid #DDD73F',
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
             }}
-          />
-          서비스 소개
+          >
+            <ShoppingCartIcon
+              style={{
+                color: '#FF6E40',
+                backgroundColor: '#FF9E80',
+                marginTop: '50px',
+                scale: '3',
+              }}
+            />
+            <span
+              style={{ padding: '30px', fontSize: '13px', fontWeight: 'bold' }}
+            >
+              카르텔몰
+            </span>
+          </div>
         </div>
       </div>
       <div
@@ -102,12 +186,14 @@ export const Main = () => {
         style={{
           display: 'flex',
           justifyContent: 'center',
-          alignItems: 'center',
+          alignItems: 'flex-start',
           flexDirection: 'row',
           backgroundColor: '#ECF9FF',
-          height: '409px',
+          height: '350px',
           width: '100%',
           gap: '100px',
+          position: 'relative',
+          paddingTop: '50px',
         }}
       >
         <CounselorCard
@@ -131,14 +217,55 @@ export const Main = () => {
           gradeCount={53}
           introduce="야구 선수"
         />
+        <button
+          onClick={ViewAll}
+          style={{
+            position: 'absolute',
+            bottom: '10px',
+            left: '50%',
+            transform: 'translateX(-50%)',
+            padding: '10px 20px',
+            backgroundColor: '#40BFFF',
+            color: 'white',
+            border: 'none',
+            borderRadius: '5px',
+            cursor: 'pointer',
+            fontSize: '30px',
+            width: '1000px',
+            marginBottom: '30px',
+          }}
+        >
+          상담사 더보기
+        </button>
       </div>
+
       <div
         className="blank"
         style={{
-          height: '150px',
+          height: '300px',
           width: '100%',
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
         }}
-      ></div>
+      >
+        <div
+          className="box"
+          style={{
+            backgroundColor: '#0683C9',
+            width: '1400px',
+            height: '150px',
+            borderRadius: '13px',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'left',
+            color: 'white',
+            fontWeight: 'bold',
+          }}
+        >
+          오프라인에서도 카르텔을 만나보세요
+        </div>
+      </div>
       <div
         className="article list"
         style={{
