@@ -4,6 +4,7 @@ import NavbarLogin from '../components/NavbarLogin'
 import CounselorCard from '../components/CounselorCard'
 import PreviewBox from '../components/PreviewBox'
 import Footer from '../components/Footer'
+import EmojiObjectsIcon from '@mui/icons-material/EmojiObjects'
 
 export const Main = () => {
   const onCardClick = () => {
@@ -24,10 +25,78 @@ export const Main = () => {
       <div
         className="blank"
         style={{
-          height: '200px',
+          height: '150px',
           width: '100%',
         }}
-      ></div>
+      >
+        <div
+          className="service introduce"
+          style={{
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+          }}
+        >
+          <EmojiObjectsIcon
+            style={{
+              color: 'yellow',
+              backgroundColor: '#E8E596',
+              border: '0.5px solid #DDD73F',
+            }}
+          />
+          <span>서비스 소개</span>
+        </div>
+        <div className="service introduce">
+          <EmojiObjectsIcon
+            style={{
+              color: 'yellow',
+              backgroundColor: '#E8E596',
+              border: '0.5px solid #DDD73F',
+            }}
+          />
+          서비스 소개
+        </div>
+        <div className="service introduce">
+          <EmojiObjectsIcon
+            style={{
+              color: 'yellow',
+              backgroundColor: '#E8E596',
+              border: '0.5px solid #DDD73F',
+            }}
+          />
+          서비스 소개
+        </div>
+        <div className="service introduce">
+          <EmojiObjectsIcon
+            style={{
+              color: 'yellow',
+              backgroundColor: '#E8E596',
+              border: '0.5px solid #DDD73F',
+            }}
+          />
+          서비스 소개
+        </div>
+        <div className="service introduce">
+          <EmojiObjectsIcon
+            style={{
+              color: 'yellow',
+              backgroundColor: '#E8E596',
+              border: '0.5px solid #DDD73F',
+            }}
+          />
+          서비스 소개
+        </div>
+        <div className="service introduce">
+          <EmojiObjectsIcon
+            style={{
+              color: 'yellow',
+              backgroundColor: '#E8E596',
+              border: '0.5px solid #DDD73F',
+            }}
+          />
+          서비스 소개
+        </div>
+      </div>
       <div
         className="counsel list"
         style={{
@@ -66,7 +135,7 @@ export const Main = () => {
       <div
         className="blank"
         style={{
-          height: '200px',
+          height: '150px',
           width: '100%',
         }}
       ></div>
@@ -160,7 +229,7 @@ export const Main = () => {
       <div
         className="blank"
         style={{
-          height: '200px',
+          height: '150px',
           width: '100%',
         }}
       ></div>

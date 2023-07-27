@@ -10,11 +10,11 @@ interface ButtonProps {
 }
 
 const Button: React.FC<ButtonProps> = ({
-  border,
-  color,
-  text,
-  onClick,
-  size,
+  border = { radius: '0.625rem', borderColor: '#40BFFF' },
+  color = { background: '#40BFFF', color: 'white' },
+  text = '버튼',
+  size = { width: '100px', height: '50px' },
+  onClick = () => {},
 }) => (
   <button
     style={{
