@@ -16,7 +16,7 @@ import AdbIcon from '@mui/icons-material/Adb'
 const pages = ['상담', '상담사', '공지사항', '커뮤니티']
 const settings = ['회원가입', '로그인']
 
-function ResponsiveAppBar() {
+function NavbarLogout() {
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null)
   const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(
     null,
@@ -173,4 +173,4 @@ function ResponsiveAppBar() {
     </AppBar>
   )
 }
-export default ResponsiveAppBar
+export default NavbarLogout
