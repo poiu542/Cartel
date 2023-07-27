@@ -1,5 +1,6 @@
 import React, { ChangeEvent, useState } from 'react'
 import './App.css'
+<<<<<<< HEAD
 // import Button from './components/Button'
 // import NavbarLogin from './components/NavbarLogin'
 // import NavbarLogout from './components/NavbarLogout'
@@ -80,6 +81,15 @@ function App(): React.ReactElement {
       </BrowserRouter>
     </div>
   )
+=======
+
+function App(): React.ReactElement {
+  const [inputValue, setInputValue] = useState('')
+  const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
+    setInputValue(event.target.value)
+  }
+  return <div className="App">우린약하지않아</div>
+>>>>>>> dd9a8bd9f2fdb1bfe64397e47ed1e1303af591c7
 }
 
 export default App
