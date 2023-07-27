@@ -15,7 +15,14 @@ import MicButton from './components/MicButton'
 import CameraButton from './components/CameraButton'
 import UserDataBox from './components/UserDataBox'
 import CounselorDataBox from './components/CounselorDataBox'
+<<<<<<< HEAD
 import CounselCard from './components/CounselCard'
+=======
+import { LoginBtn } from './components/LoginBtn'
+import { CounSelorLoginBtn } from './components/CounselorLoginBtn'
+import { CommunityNotice } from './components/CommunityNotice'
+import { CommunityFree } from './components/CommunityFree'
+>>>>>>> frontend-feature-components
 
 function App(): React.ReactElement {
   const [inputValue, setInputValue] = useState('')
@@ -24,6 +31,9 @@ function App(): React.ReactElement {
   }
 
   const handleClick = () => {
+    alert('버튼클릭')
+  }
+  const counselButtonClick = () => {
     alert('버튼클릭')
   }
   const micClick = () => {
@@ -73,6 +83,7 @@ function App(): React.ReactElement {
         maxParticipantCount={12}
         sessionCount={16}
         price={39000}
+        onClick={counselButtonClick}
       />
 
       <h1>상담사 카드</h1>
@@ -120,6 +131,14 @@ function App(): React.ReactElement {
         onCounselClick={onCounselClick}
         onCounselorJournalClick={onCounselorJournalClick}
       />
+      <h1>일반 회원 로그인 </h1>
+      <LoginBtn />
+      <h1>상담사회원 로그인</h1>
+      <CounSelorLoginBtn />
+      <h1>커뮤니티 공지사항 로고</h1>
+      <CommunityNotice />
+      <h1>커뮤니티 자유게시판</h1>
+      <CommunityFree />
     </div>
   )
 }
