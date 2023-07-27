@@ -49,15 +49,15 @@ const FreeBtn = styled.button`
     sans-serif;
 `
 
-const CommunityTitle = styled.p`
-  color: black;
-  font-size: 60px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100%; /* Set the height to 100% to fill the CommunityBackground vertically */
-  margin: 0; /* Remove any default margin to avoid extra spacing */
-`
+// const CommunityTitle = styled.p`
+//   color: black;
+//   font-size: 60px;
+//   display: flex;
+//   justify-content: center;
+//   align-items: center;
+//   height: 100%; /* Set the height to 100% to fill the CommunityBackground vertically */
+//   margin: 0; /* Remove any default margin to avoid extra spacing */
+// `
 
 const CommunityBackground = styled.div`
   background-image: url('/sky.jpg');

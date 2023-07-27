@@ -22,6 +22,7 @@ import { CommunityNotice } from './components/CommunityNotice'
 import { CommunityFree } from './components/CommunityFree'
 import MultipleQuestion from './components/MultipleQuestion'
 import Carousel from './components/Carousel'
+import PreviewBox from './components/PreviewBox'
 
 function App(): React.ReactElement {
   const [inputValue, setInputValue] = useState('')
@@ -55,6 +56,9 @@ function App(): React.ReactElement {
   }
   const onCounselorJournalClick = () => {
     alert('onPostClick')
+  }
+  const ViewAll = () => {
+    alert('더보기')
   }
   return (
     <div className="App">
@@ -144,6 +148,17 @@ function App(): React.ReactElement {
         <h1>객관식</h1>
         <MultipleQuestion question="3. 이번 모임은 도움이 되었나요?" />
       </div>
+      <h1>미리보기 박스</h1>
+      <PreviewBox
+        title="상담 공지사항"
+        posts={[
+          { title: '[공지] 상담일정 변경 안내' },
+          { title: '공지2' },
+          { title: '공지3' },
+          { title: '공지4' },
+        ]}
+        onClick={ViewAll}
+      />
     </div>
   )
 }
