@@ -2,11 +2,11 @@ import React from 'react'
 import { Color, Size, Border } from '../model/custom'
 
 interface ButtonProps {
-  border: Border
-  color: Color
-  size: Size
-  text: string
-  onClick: () => void
+  border?: Border
+  color?: Color
+  size?: Size
+  text?: string
+  onClick?: () => void
 }
 
 const Button: React.FC<ButtonProps> = ({
