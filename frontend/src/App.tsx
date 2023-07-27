@@ -29,6 +29,9 @@ function App(): React.ReactElement {
   const handleClick = () => {
     alert('버튼클릭')
   }
+  const counselButtonClick = () => {
+    alert('버튼클릭')
+  }
   const micClick = () => {
     alert('마이크 클릭 - 비활성화로 바꿔야 함')
   }
@@ -84,6 +87,7 @@ function App(): React.ReactElement {
         maxParticipantCount={12}
         sessionCount={16}
         price={39000}
+        onClick={counselButtonClick}
       />
       <div>
         <h1>Input</h1>
