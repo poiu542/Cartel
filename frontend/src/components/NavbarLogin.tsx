@@ -17,7 +17,7 @@ const pages = ['상담', '상담사', '공지사항', '커뮤니티']
 const settings = ['마이페이지', '로그아웃']
 const notices = ['알림1', '알림2', '알림3', '알림4']
 
-function ResponsiveAppBar() {
+function NavbarLogin() {
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null)
   const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(
     null,
@@ -215,4 +215,4 @@ function ResponsiveAppBar() {
     </AppBar>
   )
 }
-export default ResponsiveAppBar
+export default NavbarLogin
