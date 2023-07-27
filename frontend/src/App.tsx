@@ -16,6 +16,12 @@ import CameraButton from './components/CameraButton'
 import UserDataBox from './components/UserDataBox'
 import CounselorDataBox from './components/CounselorDataBox'
 import CounselCard from './components/CounselCard'
+import { LoginBtn } from './components/LoginBtn'
+import { CounSelorLoginBtn } from './components/CounselorLoginBtn'
+import { CommunityNotice } from './components/CommunityNotice'
+import { CommunityFree } from './components/CommunityFree'
+import MultipleQuestion from './components/MultipleQuestion'
+import Carousel from './components/Carousel'
 
 function App(): React.ReactElement {
   const [inputValue, setInputValue] = useState('')
@@ -24,6 +30,9 @@ function App(): React.ReactElement {
   }
 
   const handleClick = () => {
+    alert('버튼클릭')
+  }
+  const counselButtonClick = () => {
     alert('버튼클릭')
   }
   const micClick = () => {
@@ -73,6 +82,7 @@ function App(): React.ReactElement {
         maxParticipantCount={12}
         sessionCount={16}
         price={39000}
+        onClick={counselButtonClick}
       />
 
       <h1>상담사 카드</h1>
@@ -120,6 +130,20 @@ function App(): React.ReactElement {
         onCounselClick={onCounselClick}
         onCounselorJournalClick={onCounselorJournalClick}
       />
+      <h1>일반 회원 로그인 </h1>
+      <LoginBtn />
+      <h1>상담사회원 로그인</h1>
+      <CounSelorLoginBtn />
+      <h1>커뮤니티 공지사항 로고</h1>
+      <CommunityNotice />
+      <h1>커뮤니티 자유게시판</h1>
+      <CommunityFree />
+      <h1>캐러셀</h1>
+      <Carousel />
+      <div>
+        <h1>객관식</h1>
+        <MultipleQuestion question="3. 이번 모임은 도움이 되었나요?" />
+      </div>
     </div>
   )
 }

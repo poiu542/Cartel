@@ -1,5 +1,4 @@
 import React from 'react'
-import Button from './Button'
 
 interface CounselCardProps {
   name: string
@@ -12,6 +11,7 @@ interface CounselCardProps {
   minParticipantCount: number
   maxParticipantCount: number
   price: number
+  onClick: () => void
 }
 
 const CounselorCard: React.FC<CounselCardProps> = ({
@@ -25,6 +25,7 @@ const CounselorCard: React.FC<CounselCardProps> = ({
   minParticipantCount,
   maxParticipantCount,
   price,
+  onClick,
 }) => {
   const handleClick = () => {
     alert('버튼클릭')
@@ -152,13 +153,21 @@ const CounselorCard: React.FC<CounselCardProps> = ({
         className="button"
         style={{ marginTop: '16px', marginLeft: '30px', marginRight: '30px' }}
       >
-        <Button
-          border={{ radius: '0.625rem', borderColor: '#40BFFF' }}
-          size={{ width: '100%', height: '40px' }}
-          color={{ background: '#40BFFF', color: 'white' }}
-          text="신청하기"
+        <button
+          style={{
+            borderRadius: '0.625rem',
+            borderColor: '#40BFFF',
+            height: '40px',
+            width: '100%',
+            background: '#40BFFF',
+            color: 'white',
+            border: 'none',
+            cursor: 'pointer',
+          }}
           onClick={handleClick}
-        />
+        >
+          신청하기
+        </button>
       </div>
     </div>
   )
