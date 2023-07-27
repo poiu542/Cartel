@@ -15,14 +15,11 @@ import MicButton from './components/MicButton'
 import CameraButton from './components/CameraButton'
 import UserDataBox from './components/UserDataBox'
 import CounselorDataBox from './components/CounselorDataBox'
-<<<<<<< HEAD
 import CounselCard from './components/CounselCard'
-=======
 import { LoginBtn } from './components/LoginBtn'
 import { CounSelorLoginBtn } from './components/CounselorLoginBtn'
 import { CommunityNotice } from './components/CommunityNotice'
 import { CommunityFree } from './components/CommunityFree'
->>>>>>> frontend-feature-components
 
 function App(): React.ReactElement {
   const [inputValue, setInputValue] = useState('')
