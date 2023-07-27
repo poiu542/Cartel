@@ -80,13 +80,6 @@ function App(): React.ReactElement {
       </BrowserRouter>
     </div>
   )
-
-function App(): React.ReactElement {
-  const [inputValue, setInputValue] = useState('')
-  const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
-    setInputValue(event.target.value)
-  }
-  return <div className="App">우린약하지않아</div>
 }
 
 export default App
