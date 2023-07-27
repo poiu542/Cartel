@@ -5,7 +5,7 @@ interface FooterProps {}
 const Footer: React.FC<FooterProps> = () => (
   <div
     style={{
-      width: '1440px',
+      width: '100%',
       height: '220px',
       borderTop: '2px solid #828181',
       backgroundColor: '#EFEFEF',
