@@ -1,7 +1,7 @@
 import React, { ChangeEvent, useState } from 'react'
-import { Link } from 'react-router-dom'
 import NavbarLogout from '../components/NavbarLogout'
 import { LoginBtn } from '../components/LoginBtn'
+import { CounSelorLoginBtn } from '../components/CounselorLoginBtn'
 import Input from '../components/Input'
 import { NoneStyledLink } from '../styles/Custom'
 import {
@@ -17,6 +17,10 @@ export const SignUp = () => {
   const [inputAuthNumValue, setinputAuthNumeValue] = useState('')
   const [inputPassValue, setinputPassValue] = useState('')
   const [inputPassCheckValue, setinputPassCheckValue] = useState('')
+
+  // 버튼을 표시할 유저 타입을 설정하는 state.
+  const [userType, setUserType] = useState(0) // 기본값은 0으로 설정.
+
   const handleNicknameChange = (event: ChangeEvent<HTMLInputElement>) => {
     setinputNicknameValue(event.target.value)
   }
@@ -39,12 +43,21 @@ export const SignUp = () => {
   const handleCheckClick = () => {
     alert('인증되었습니다.')
   }
+  const handleSignUp = () => {
+    alert('회원가입 로직 짜야함')
+  }
+
+  // 일반 회원인지 상담사 회원인지
+  const switchUserType = () => {
+    setUserType(userType === 0 ? 1 : 0)
+  }
 
   return (
     <div>
       <NavbarLogout />
       <FlexContainer>
-        <LoginBtn />
+        {userType === 0 ? <LoginBtn /> : <CounSelorLoginBtn />}
+        <button onClick={switchUserType}>사용자 타입 변경</button>
         <FlexContainerAlignStart>
           <Input
             value={inputNicknameValue}
@@ -99,6 +112,11 @@ export const SignUp = () => {
         <NoneStyledLink to="/">
           이미 회원이신가요? 로그인하기&gt;
         </NoneStyledLink>
+        <Button
+          onClick={handleSignUp}
+          text="회원가입"
+          size={{ width: '700px', height: '50px' }}
+        ></Button>
       </FlexContainer>
     </div>
   )

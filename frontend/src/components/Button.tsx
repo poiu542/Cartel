@@ -2,10 +2,10 @@ import React from 'react'
 import { Color, Size, Border } from '../model/custom'
 
 interface ButtonProps {
-  border: Border
-  color: Color
-  size: Size
-  text: string
+  border?: Border
+  color?: Color
+  size?: Size
+  text?: string
   onClick: () => void
 }
 
