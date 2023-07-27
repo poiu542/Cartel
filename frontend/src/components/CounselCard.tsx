@@ -27,9 +27,6 @@ const CounselorCard: React.FC<CounselCardProps> = ({
   price,
   onClick,
 }) => {
-  const handleClick = () => {
-    alert('버튼클릭')
-  }
   return (
     <div
       className="counsel card"
@@ -164,7 +161,7 @@ const CounselorCard: React.FC<CounselCardProps> = ({
             border: 'none',
             cursor: 'pointer',
           }}
-          onClick={handleClick}
+          onClick={onClick}
         >
           신청하기
         </button>
