@@ -1,33 +1,36 @@
 pipeline {
     agent any
-    options{
-            dir('/BACKEND')
-    }
 
     stages {
         stage('Springboot build') {
             steps {
-                sh '''
-                echo 'springboot build'
-                chmod +x gradlew
-                ./gradlew clean build
-                '''
+                dir('/BACKEND'){
+                    sh '''
+                    echo 'springboot build'
+                    chmod +x gradlew
+                    ./gradlew clean build
+                    '''
+                }
             }
         }
         stage('Dockerimage build') {
             steps {
-                sh '''
-                echo 'Dockerimage build'
-                docker build -t docker-springboot:0.0.1
-                '''
+
+                    sh '''
+                    echo 'Dockerimage build'
+                    docker build -t docker-springboot:0.0.1
+                    '''
+
             }
         }
         stage('Deploy') {
             steps {
-                sh '''
-                echo 'Deploy'
-                docker run -d -p 8080:8080 docker-springboot
-                '''
+
+                    sh '''
+                    echo 'Deploy'
+                    docker run -d -p 8080:8080 docker-springboot
+                    '''
+
             }
         }
 
