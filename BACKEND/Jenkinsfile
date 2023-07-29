@@ -4,7 +4,7 @@ pipeline {
     stages {
         stage('Springboot build') {
             steps {
-                dir('/BACKEND'){
+                dir('BACKEND'){
                     sh '''
                     echo 'springboot build'
                     chmod +x gradlew
