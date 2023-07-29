@@ -28,6 +28,7 @@ pipeline {
                 dir('BACKEND'){
                     sh '''
                     echo 'Deploy'
+                    docker stop boring_satoshi
                     docker run -d -p 8080:8080 docker-springboot:0.0.1
                     '''
                 }
