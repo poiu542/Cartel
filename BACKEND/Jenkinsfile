@@ -1,0 +1,40 @@
+pipeline {
+    agent any
+    stages {
+        stage('Git Pull') {
+            steps {
+                echo 'git pull'
+                git branch: 'backend',
+                credentialsId: 'jenkins_token',
+                url: 'https://lab.ssafy.com/s09-webmobile2-sub2/S09P12B209.git'
+            }
+        }
+        stage('Springboot build') {
+            steps {
+                sh '''
+                echo 'springboot build'
+                chmod +x gradlew
+                ./gradlew clean build
+                '''
+            }
+        }
+        stage('Dockerimage build') {
+            steps {
+                sh '''
+                echo 'Dockerimage build'
+                docker build -t docker-springboot:0.0.1
+                '''
+            }
+        }
+        stage('Deploy') {
+            steps {
+                sh '''
+                echo 'Deploy'
+                docker run -d -p 8080:8080 docker-springboot
+                '''
+            }
+        }
+
+
+    }
+}
