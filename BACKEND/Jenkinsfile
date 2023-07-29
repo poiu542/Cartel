@@ -15,12 +15,12 @@ pipeline {
         }
         stage('Dockerimage build') {
             steps {
-
+                dir('BACKEND'){
                     sh '''
                     echo 'Dockerimage build'
                     docker build -t docker-springboot:0.0.1 .
                     '''
-
+                }
             }
         }
         stage('Deploy') {
