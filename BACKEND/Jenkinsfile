@@ -25,13 +25,13 @@ pipeline {
         }
         stage('Deploy') {
             steps {
-                dir('BACKEND'){
+
 
                     sh '''
                     echo 'Deploy'
                     docker run -d -p 8080:8080 docker-springboot:0.0.1
                     '''
-                }
+
             }
         }
 
