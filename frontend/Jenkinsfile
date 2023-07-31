@@ -1,48 +1,46 @@
-tools {
-    nodejs "Node18" // 여기서 "nodejs-version"은 위에서 설정한 Node.js의 이름입니다.
-}
-stages {
-    stage("Example") {
-        steps {
-            
-            sh 'npm install npm@latest -g'
-            sh 'npm version'
-        }
+pipeline {
+    agent any
+    
+    tools {
+        nodejs "Node18" // 여기서 "Node18"은 위에서 설정한 Node.js의 이름입니다.
     }
-
-    stage('React build') {
-        steps {
-            dir('frontend') {
-                echo 'React build'
-                // sh 'ls -al'
-                sh 'npm install --save'
-                sh 'npm run build'
+    
+    stages {
+        stage("Example") {
+            steps {
+                sh 'npm install npm@latest -g'
+                sh 'npm version'
             }
         }
-    }
 
-   
-
-    stage('Dockerimage build') {
-        steps {
-            dir('frontend/build') {
-                sh '''
-                echo 'Dockerimage build for React'
-                docker build -t docker-react:0.0.1 .// 도커 이미지파일 빌드
-                '''
+        stage('React build') {
+            steps {
+                dir('frontend') {
+                    echo 'React build'
+                    sh 'npm install' // --save 옵션은 더 이상 필요하지 않습니다.
+                    sh 'npm run build'
+                }
             }
         }
-    }
 
-    stage('Deploy') {
-        steps {
-            dir('frontend/build') {
+        stage('Dockerimage build') {
+            steps {
+                dir('frontend/build') {
+                    sh '''
+                    echo 'Dockerimage build for React'
+                    docker build -t docker-react:0.0.1 .
+                    '''
+                }
+            }
+        }
+
+        stage('Deploy') {
+            steps {
                 sh '''
                 echo 'Deploy React' // 배포
                 docker run -d -p 3000:3000 --name react docker-react:0.0.1
                 '''
             }
-
         }
     }
 }
