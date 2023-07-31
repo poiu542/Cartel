@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import Carousel from '../components/Carousel'
 import NavbarLogin from '../components/NavbarLogin'
-// import NavbarLogout from '../components/NavbarLogout'
+import NavbarLogout from '../components/NavbarLogout'
 import CounselorCard from '../components/CounselorCard'
 import PreviewBox from '../components/PreviewBox'
 import Footer from '../components/Footer'

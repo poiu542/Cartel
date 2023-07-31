@@ -165,7 +165,7 @@ function NavbarLogin() {
               </Button>
             ))}
           </Box>
-          <Box sx={{ flexGrow: 0 }}>
+          {/* <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open Notice">
               <IconButton onClick={handleOpenNoticeMenu} sx={{ p: 0, mr: 3 }}>
                 <img
@@ -175,7 +175,7 @@ function NavbarLogin() {
                 />
               </IconButton>
             </Tooltip>
-            {/* <Menu
+            <Menu
               sx={{ mt: '45px' }}
               id="menu-appbar"
               anchorEl={anchorElNotice}
@@ -196,8 +196,8 @@ function NavbarLogin() {
                   <Typography textAlign="center">{notice}</Typography>
                 </MenuItem>
               ))}
-            </Menu> */}
-          </Box>
+            </Menu>
+          </Box> */}
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open user settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
