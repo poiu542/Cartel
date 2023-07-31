@@ -13,6 +13,7 @@ import Tooltip from '@mui/material/Tooltip'
 import MenuItem from '@mui/material/MenuItem'
 import AdbIcon from '@mui/icons-material/Adb'
 import { Link } from 'react-router-dom'
+import { Navigate } from 'react-router-dom'
 
 const pages = ['상담', '상담사', '공지사항', '커뮤니티']
 const settings = ['마이페이지', '로그아웃']
@@ -149,11 +150,13 @@ function NavbarLogin() {
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open Notice">
               <IconButton onClick={handleOpenNoticeMenu} sx={{ p: 0, mr: 3 }}>
-                <img
-                  src="./image/NoticeBell.png"
-                  alt="User profile"
-                  style={{ width: '40px', height: '40px' }}
-                />
+                <Link to="/alarm/:userId">
+                  <img
+                    src="./image/NoticeBell.png"
+                    alt="User profile"
+                    style={{ width: '40px', height: '40px' }}
+                  />
+                </Link>
               </IconButton>
             </Tooltip>
             <Menu

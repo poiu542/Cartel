@@ -2,7 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 import { Link } from 'react-router-dom'
 
-const NoticeBtn = styled.button`
+export const NoticeBtn = styled.button`
   background-color: #80d4ff;
   width: 65rem;
   padding: 0.5rem 1rem;
@@ -32,7 +32,7 @@ const NoticeBtn = styled.button`
   cursor: pointer;
 `
 
-const FreeBtn = styled.button`
+export const FreeBtn = styled.button`
   background-color: rgba(63, 137, 176, 0.7);
   width: 65rem;
   padding: 0.5rem 1rem;
@@ -57,7 +57,7 @@ const FreeBtn = styled.button`
   cursor: pointer;
 `
 
-const CommunityTitle = styled.p`
+export const CommunityTitle = styled.p`
   color: white;
   font-size: 60px;
   display: flex;
@@ -68,7 +68,7 @@ const CommunityTitle = styled.p`
   text-shadow: -1px -1px 0 #0098e6;
 `
 
-const CommunityBackground = styled.div`
+export const CommunityBackground = styled.div`
   background-image: url('/sky.jpg');
 
   height: 25.125rem;
@@ -77,7 +77,7 @@ const CommunityBackground = styled.div`
   position: relative; /* Add relative positioning */
 `
 
-const Bar = styled.div`
+export const Bar = styled.div`
   /* The Bar doesn't need any styling changes for this layout */
   background-color: rgba(63, 137, 176, 0.7);
   display: flex;
@@ -88,7 +88,7 @@ const Bar = styled.div`
   width: 100%; /* Make sure the Bar covers the entire width of the CommunityBackground */
 `
 
-const ButtonsContainer = styled.div`
+export const ButtonsContainer = styled.div`
   /* This container will hold the buttons and arrange them side by side */
   display: flex;
 `
@@ -104,7 +104,7 @@ export const CommunityNotice = () => {
               <NoticeBtn>공지사항</NoticeBtn>
             </Link>
             <Link to="/qna">
-              <FreeBtn>자유게시판</FreeBtn>
+              <FreeBtn>QnA</FreeBtn>
             </Link>
           </ButtonsContainer>
         </Bar>
