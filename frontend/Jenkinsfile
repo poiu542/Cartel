@@ -8,6 +8,7 @@ pipeline {
         stage("Example") {
             steps {
                 sh 'npm version'
+                sh 'npm install npm@latest -g'
             }
         }
 
