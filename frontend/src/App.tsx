@@ -11,13 +11,7 @@ import './App.css'
 // import ArticleBar from './components/ArticleBar'
 // import CounselingBar from './components/CounselingBar'
 // import Footer from './components/Footer'
-import {
-  BrowserRouter,
-  Route,
-  Routes,
-  Navigate,
-  Router,
-} from 'react-router-dom'
+import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import { Main } from './routes/Main'
 import { Login } from './routes/Login'
 import { SignUp } from './routes/SignUp'
@@ -40,6 +34,9 @@ import { Qna } from './routes/Question'
 import { QueryClient, QueryClientProvider } from 'react-query'
 import { ReactQueryDevtools } from 'react-query/devtools'
 import { Alarm } from './routes/Alarm'
+import { NoticeWrite } from './routes/NoticeWrite'
+import { FreeBoardWrite } from './routes/FreeBoardWrite'
+import { QnaWrite } from './routes/QnaWrite'
 
 const queryClient = new QueryClient()
 
@@ -62,6 +59,8 @@ function App(): React.ReactElement {
             <Route path="/notice" element={<Notice />} />
             {/* 공지 상세페이지 */}
             <Route path="/notice/:noticeId" element={<NoticeDetail />} />
+            {/* 공지 작성페이지 */}
+            <Route path="/notice/write" element={<NoticeWrite />} />
             {/* 자유게시판페이지 */}
             <Route path="/freeboard" element={<FreeBoard />} />
             {/* 자유게시판 상세피이지 */}
@@ -69,6 +68,8 @@ function App(): React.ReactElement {
               path="/freeboard/:freeboardId"
               element={<FreeBoardDetail />}
             />
+            {/* 자유게시판 작성페이지 */}
+            <Route path="/freeboard/write" element={<FreeBoardWrite />} />
             {/* 상담리스트페이지 */}
             <Route path="/counsel" element={<Counsel />} />
             {/* 상담상세페이지 */}
@@ -93,6 +94,8 @@ function App(): React.ReactElement {
             <Route path="/counsel/start/counselId" element={<CounselStart />} />
             {/* QnA 게시판페이지 */}
             <Route path="/qna" element={<Qna />} />
+            {/* Qna 작성페이지 */}
+            <Route path="/qna/write" element={<QnaWrite />} />
             {/* QnA 상세페이지 */}
             <Route path="/qna/:qnaId" element={<QnaDetail />} />
             {/* 알림 */}

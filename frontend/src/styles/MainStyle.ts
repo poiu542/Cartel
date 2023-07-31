@@ -21,3 +21,6 @@ export const FlexContainerRow = styled.div`
   flex-direction: row;
   justify-content: space-between;
 `
+export const ContainerBox = styled.div`
+  background: #ecf9ff;
+`

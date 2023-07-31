@@ -1,25 +1,60 @@
-import React from 'react'
+import React, { useState } from 'react'
 import NavbarLogout from '../components/NavbarLogout'
+import { styled } from 'styled-components'
 
-const handleKakaoClick = () => {
-  alert('카카오 로그인')
-}
-const handleLogin = () => {
-  alert('로그인 로직 짜야함')
-}
+const LoginTab = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  align-item: center;
+  padding: 50px;
+  max-width: 650px;
+  height: 80px;
+  margin: 0 auto;
+
+  > div {
+    width: 50%;
+    text-align: center;
+    font-size: 2.3rem;
+    border-bottom: 3px solid #40bfff;
+    cursor: pointer;
+
+    &.active {
+      border-top: 3px solid #40bfff;
+      border-right: 2px solid #40bfff;
+      border-left: 3px solid #40bfff;
+      border-bottom: 0;
+    }
+  }
+`
+
+const LoginTabList = [
+  {
+    id: 0,
+    name: '일반 로그인',
+  },
+  {
+    id: 1,
+    name: '상담사 로그인',
+  },
+]
 
 export const Login = () => {
+  const [userType, setUserType] = useState(0)
+
   return (
-    <div className="login">
+    <section>
       <NavbarLogout />
-      <div className="login-group">
-        <div>
-          <div className="normal-login"></div>
-          <div className="counseller-login"></div>
-          <h1 className="text-1">일반 로그인</h1>
-          <div className="text-2">상담사 로그인</div>
-        </div>
-      </div>
-    </div>
+      <LoginTab>
+        {LoginTabList.map((tabItem) => (
+          <div
+            className={userType === tabItem.id ? 'active' : undefined}
+            onClick={() => setUserType(tabItem.id)}
+          >
+            {tabItem.name}
+          </div>
+        ))}
+      </LoginTab>
+    </section>
   )
 }
