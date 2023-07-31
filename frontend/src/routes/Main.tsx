@@ -11,13 +11,18 @@ import ReceiptIcon from '@mui/icons-material/Receipt'
 import SpeedIcon from '@mui/icons-material/Speed'
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart'
 import CampaignIcon from '@mui/icons-material/Campaign'
+import { useNavigate } from 'react-router-dom'
 
 export const Main = () => {
+  const navigate = useNavigate()
   const onCardClick = () => {
     alert('상담 정보 보기')
   }
   const ViewAll = () => {
     alert('더보기')
+  }
+  const ViewAllCounselor = () => {
+    navigate(`/counselor`)
   }
 
   return (
@@ -219,7 +224,7 @@ export const Main = () => {
           introduce="야구 선수"
         />
         <button
-          onClick={ViewAll}
+          onClick={ViewAllCounselor}
           style={{
             position: 'absolute',
             bottom: '10px',
