@@ -5,7 +5,7 @@ interface CounselorCardProps {
   grade: number
   gradeCount: number
   introduce: string
-  onCardClick: () => void // Add this line
+  onCardClick: () => void
 }
 
 const CounselorCard: React.FC<CounselorCardProps> = ({
