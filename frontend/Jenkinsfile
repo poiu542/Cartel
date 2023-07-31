@@ -4,8 +4,9 @@ tools {
 stages {
     stage("Example") {
         steps {
-            sh 'npm version'
+            
             sh 'npm install npm@latest -g'
+            sh 'npm version'
         }
     }
 
@@ -13,7 +14,7 @@ stages {
         steps {
             dir('front') {
                 echo 'React build'
-                sh 'ls -al'
+                // sh 'ls -al'
                 sh 'npm install --save'
                 sh 'npm run build'
             }
