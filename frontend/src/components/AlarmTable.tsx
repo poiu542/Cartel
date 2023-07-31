@@ -3,9 +3,6 @@ import TableBody from '@mui/material/TableBody'
 import TableCell from '@mui/material/TableCell'
 import TableHead from '@mui/material/TableHead'
 import TableRow from '@mui/material/TableRow'
-import { Board } from '../model/board'
-import { Link } from 'react-router-dom'
-import { NoneStyledLink } from './../styles/Custom'
 
 type TestData = {
   id: number
@@ -33,7 +30,7 @@ interface NoticeTableProps<T> {
 //   { idx: 4, title: 'Gingerbread', regDate: '2023-04-16' },
 // ]
 
-const NoticeTable: React.FC<NoticeTableProps<TestData>> = ({ data }) => {
+const AlarmTable: React.FC<NoticeTableProps<TestData>> = ({ data }) => {
   console.log(data)
   return (
     <div
@@ -52,7 +49,7 @@ const NoticeTable: React.FC<NoticeTableProps<TestData>> = ({ data }) => {
               번호
             </TableCell>
             <TableCell sx={{ fontWeight: 'bold', fontSize: '18px' }}>
-              제목
+              알람 내용
             </TableCell>
             <TableCell
               sx={{ fontWeight: 'bold', fontSize: '18px' }}
@@ -63,17 +60,15 @@ const NoticeTable: React.FC<NoticeTableProps<TestData>> = ({ data }) => {
           </TableRow>
         </TableHead>
         <TableBody>
-          {data.map((notice) => (
-            <TableRow key={notice.id}>
+          {data.map((alarm) => (
+            <TableRow key={alarm.id}>
               <TableCell component="th" scope="row">
-                {notice.id}
+                {alarm.id}
               </TableCell>
+              {/* 알람메시지 들어갈 부분 */}
+              <TableCell>{alarm.title}</TableCell>
 
-              <NoneStyledLink to={`/notice/${notice.id}`}>
-                <TableCell>{notice.title}</TableCell>
-              </NoneStyledLink>
-
-              <TableCell align="right">{notice.year}</TableCell>
+              <TableCell align="right">{alarm.year}</TableCell>
             </TableRow>
           ))}
         </TableBody>
@@ -81,4 +76,4 @@ const NoticeTable: React.FC<NoticeTableProps<TestData>> = ({ data }) => {
     </div>
   )
 }
-export default NoticeTable
+export default AlarmTable
