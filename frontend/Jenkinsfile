@@ -12,7 +12,7 @@ stages {
 
     stage('React build') {
         steps {
-            dir('front') {
+            dir('frontend') {
                 echo 'React build'
                 // sh 'ls -al'
                 sh 'npm install --save'
