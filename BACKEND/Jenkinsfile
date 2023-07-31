@@ -6,7 +6,7 @@ pipeline {
             steps {
                 dir('BACKEND'){
                     sh '''
-                    echo 'springboot build'
+                    echo 'springboot build.'
                     chmod +x gradlew
                     ./gradlew clean build
                     '''
