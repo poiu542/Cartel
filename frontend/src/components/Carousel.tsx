@@ -24,6 +24,7 @@ const CarouselItem = styled.div`
   height: 300px;
   animation: ${fadeInOut} 0.3s ease-in-out;
   background-color: #ecf9ff;
+  background: linear-gradient(to right top, rgba(8, 241, 116, 0.39), #b7d1ff);
 `
 
 const CarouselImage = styled.img`

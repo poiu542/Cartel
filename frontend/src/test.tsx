@@ -140,3 +140,16 @@ export const test = () => {
 //     />
 //   </div>
 // )
+
+// styledButton
+// function App() {
+//   const handleClick = (argument: 5) => {
+//     console.log('핸들 클릭:', argument);
+//     return argument * 3;
+//   };
+//   return (
+//     <div className="App">
+//       <StyledButton red>스타일버튼</StyledButton>
+//     </div>
+//   );
+// }

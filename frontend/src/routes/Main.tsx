@@ -12,7 +12,8 @@ import SpeedIcon from '@mui/icons-material/Speed'
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart'
 import CampaignIcon from '@mui/icons-material/Campaign'
 import { useNavigate } from 'react-router-dom'
-
+import GroupsIcon from '@mui/icons-material/Groups'
+import VaccinesIcon from '@mui/icons-material/Vaccines'
 export const Main = () => {
   const navigate = useNavigate()
   const onCardClick = () => {
@@ -59,8 +60,7 @@ export const Main = () => {
           >
             <EmojiObjectsIcon
               style={{
-                color: '#FAC42F',
-                backgroundColor: '#E8E596',
+                color: '#ffd359',
 
                 marginTop: '50px',
                 scale: '3',
@@ -80,10 +80,9 @@ export const Main = () => {
               alignItems: 'center',
             }}
           >
-            <CampaignIcon
+            <VaccinesIcon
               style={{
-                color: '#33C3F0',
-                backgroundColor: '#B3E5FC',
+                color: '#fb7e71',
 
                 marginTop: '50px',
                 scale: '3',
@@ -103,10 +102,9 @@ export const Main = () => {
               alignItems: 'center',
             }}
           >
-            <PeopleIcon
+            <GroupsIcon
               style={{
-                color: '#FF4081',
-                backgroundColor: '#FF80AB',
+                color: '#4bd4d5',
 
                 marginTop: '50px',
                 scale: '3',
@@ -128,8 +126,8 @@ export const Main = () => {
           >
             <SpeedIcon
               style={{
-                color: '#00E676',
-                backgroundColor: '#B9F6CA',
+                color: '#9d9ff4',
+
                 marginTop: '50px',
                 scale: '3',
               }}
@@ -150,8 +148,7 @@ export const Main = () => {
           >
             <ReceiptIcon
               style={{
-                color: '#651FFF',
-                backgroundColor: '#B388FF',
+                color: '#fd6f7a',
 
                 marginTop: '50px',
                 scale: '3',
@@ -173,14 +170,18 @@ export const Main = () => {
           >
             <ShoppingCartIcon
               style={{
-                color: '#FF6E40',
-                backgroundColor: '#FF9E80',
+                color: '#e8b25c',
+
                 marginTop: '50px',
                 scale: '3',
               }}
             />
             <span
-              style={{ padding: '30px', fontSize: '13px', fontWeight: 'bold' }}
+              style={{
+                padding: '30px',
+                fontSize: '13px',
+                fontWeight: 'bold',
+              }}
             >
               카르텔몰
             </span>
@@ -258,7 +259,8 @@ export const Main = () => {
         <div
           className="box"
           style={{
-            backgroundColor: '#0683C9',
+            background:
+              'linear-gradient(to right, #0683C9, #42a1d1, #71c3eb, #a9e1ff)',
             width: '1400px',
             height: '150px',
             borderRadius: '13px',
@@ -269,6 +271,7 @@ export const Main = () => {
             fontWeight: 'bold',
           }}
         >
+          <div style={{ background: '#00528F' }}>심리상담소</div>
           오프라인에서도 카르텔을 만나보세요
         </div>
       </div>

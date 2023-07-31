@@ -57,7 +57,7 @@ export const Alarm = () => {
     <div>
       <NavbarLogin />
       <CommunityBackground>
-        <CommunityTitle>공지사항</CommunityTitle>
+        <CommunityTitle>알림</CommunityTitle>
       </CommunityBackground>
 
       <AlarmTable data={data.data.movies} />
