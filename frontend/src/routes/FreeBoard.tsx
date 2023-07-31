@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import NavbarLogin from '../components/NavbarLogin'
 import ArticleBar from '../components/ArticleBar'
-import { QnaTable } from './../components/QnaTable'
+import { FreeBoardTable } from './../components/FreeBoardTable'
 
 export const FreeBoard = () => {
   const [movies, setMovies] = useState([])
@@ -23,7 +23,7 @@ export const FreeBoard = () => {
       <div style={{ marginTop: '30px' }}>
         <ArticleBar name="자유게시판" />
       </div>
-      <QnaTable data={movies} />
+      <FreeBoardTable data={movies} />
     </div>
   )
 }
