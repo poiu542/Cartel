@@ -37,7 +37,7 @@ export const Counsel = () => {
   )
 
   const counselButtonClick = () => {
-    alert('카드 클릭')
+    navigate(`/counsel/1`)
   }
 
   const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
