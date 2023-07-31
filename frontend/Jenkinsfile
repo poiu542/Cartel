@@ -5,6 +5,12 @@ pipeline {
         nodejs "Node18" // 여기서 "nodejs-version"은 위에서 설정한 Node.js의 이름입니다.
     }
     stages {
+        stage("Example") {
+            steps {
+                sh 'npm version'
+            }
+        }
+
         stage('React build') {
             steps {
                 dir('front'){
