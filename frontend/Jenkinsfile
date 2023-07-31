@@ -20,7 +20,7 @@ pipeline {
 
         stage('Dockerimage build') {
             steps {
-                dir('frontend/build') {
+                dir('frontend') {
                     sh '''
                     echo 'Dockerimage build for React'
                     docker build -t docker-react:0.0.1 .
