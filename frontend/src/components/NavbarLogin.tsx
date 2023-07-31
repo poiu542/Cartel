@@ -7,23 +7,51 @@ import Typography from '@mui/material/Typography'
 import Menu from '@mui/material/Menu'
 import MenuIcon from '@mui/icons-material/Menu'
 import Container from '@mui/material/Container'
-// import Avatar from '@mui/material/Avatar'
 import Button from '@mui/material/Button'
 import Tooltip from '@mui/material/Tooltip'
 import MenuItem from '@mui/material/MenuItem'
 import AdbIcon from '@mui/icons-material/Adb'
 import { Link } from 'react-router-dom'
+<<<<<<< HEAD
 import { Navigate } from 'react-router-dom'
+=======
+import { useNavigate } from 'react-router-dom'
+>>>>>>> 4d376a8a4817ba7b24edb93e6dff849f845a7c4d
 
 const pages = ['상담', '상담사', '공지사항', '커뮤니티']
 const settings = ['마이페이지', '로그아웃']
 const notices = ['알림1', '알림2', '알림3', '알림4']
+const userId = 1
 
 function NavbarLogin() {
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null)
   const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(
     null,
   )
+  const navigate = useNavigate()
+
+  const handlePageChange = (page: string, userId: number) => {
+    if (page === '상담') {
+      page = 'counsel'
+      navigate(`/${page}`)
+    } else if (page === '상담사') {
+      page = 'counselor'
+      navigate(`/${page}`)
+    } else if (page === '공지사항') {
+      page = 'notice'
+      navigate(`/${page}`)
+    } else if (page === '커뮤니티') {
+      page = 'freeboard'
+      navigate(`/${page}`)
+    } else if (page === '마이페이지') {
+      page = 'profile'
+      navigate(`/${page}/${userId}`)
+    } else if (page === '로그아웃') {
+      // 로그아웃 로직
+    }
+
+    // handleCloseNavMenu()
+  }
   const [anchorElNotice, setAnchorElNotice] =
     React.useState<null | HTMLElement>(null)
 
@@ -134,7 +162,7 @@ function NavbarLogin() {
             {pages.map((page) => (
               <Button
                 key={page}
-                onClick={handleCloseNavMenu}
+                onClick={() => handlePageChange(page, userId)}
                 sx={{
                   my: 2,
                   mr: 7,
@@ -185,7 +213,6 @@ function NavbarLogin() {
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open user settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                {/* <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" /> */}
                 <img
                   src="./image/profileImg2.png"
                   alt="Remy Sharp"
@@ -210,7 +237,10 @@ function NavbarLogin() {
               onClose={handleCloseUserMenu}
             >
               {settings.map((setting) => (
-                <MenuItem key={setting} onClick={handleCloseUserMenu}>
+                <MenuItem
+                  key={setting}
+                  onClick={() => handlePageChange(setting, userId)}
+                >
                   <Typography textAlign="center">{setting}</Typography>
                 </MenuItem>
               ))}
