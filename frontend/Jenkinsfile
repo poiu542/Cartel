@@ -12,7 +12,7 @@ pipeline {
             steps {
                 dir('frontend') {
                     echo 'React build'
-                    sh 'npm install' // --save 옵션은 더 이상 필요하지 않습니다.
+                    sh 'npm install' 
                     sh 'CI=false npm run build'
                 }
             }
@@ -31,10 +31,10 @@ pipeline {
 
         stage('Deploy') {
             steps {
-                sh '''
+                
                 echo 'Deploy React' // 배포
-                docker run -d -p 3000:3000 --name react docker-react:0.0.1
-                '''
+                sh docker run -d -p 3000:3000 --name react docker-react:0.0.1
+                
             }
         }
     }
