@@ -1,6 +1,13 @@
 import React from 'react'
 import NavbarLogout from '../components/NavbarLogout'
 
+const handleKakaoClick = () => {
+  alert('카카오 로그인')
+}
+const handleLogin = () => {
+  alert('로그인 로직 짜야함')
+}
+
 export const Login = () => {
   return (
     <div className="login">

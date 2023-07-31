@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 
-interface LoginBtnProps {}
+interface SignupBtnProps {}
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const NormalLogin = styled.button`
@@ -26,7 +26,7 @@ const CounselorLogin = styled.button`
   background-color: rgba(119, 119, 119, 0.3);
 `
 
-export const LoginBtn = (props: LoginBtnProps) => {
+export const SingupBtn = (props: SignupBtnProps) => {
   return (
     <div>
       <NormalLogin>일반 회원가입</NormalLogin>
