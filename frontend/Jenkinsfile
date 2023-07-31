@@ -10,7 +10,7 @@ pipeline {
                 dir('front'){
                     echo 'React build'
                     sh 'ls -al'
-                    sh 'npm install'
+                    sh 'npm install --save'
                     sh 'npm run build'
                     
                 }
