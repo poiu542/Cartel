@@ -12,14 +12,8 @@ import Tooltip from '@mui/material/Tooltip'
 import MenuItem from '@mui/material/MenuItem'
 import AdbIcon from '@mui/icons-material/Adb'
 import { Link } from 'react-router-dom'
-<<<<<<< HEAD
-import { Navigate } from 'react-router-dom'
-import { useNavigate } from 'react-router-dom'
-
-=======
 import { useNavigate } from 'react-router-dom'
 import NotificationsNoneIcon from '@mui/icons-material/NotificationsNone'
->>>>>>> frontend-feature-routes
 const pages = ['상담', '상담사', '공지사항', '커뮤니티']
 const settings = ['마이페이지', '로그아웃']
 const notices = ['알림1', '알림2', '알림3', '알림4']
