@@ -30,7 +30,7 @@ export const LoginBtn = (props: LoginBtnProps) => {
   return (
     <div>
       <NormalLogin>일반 로그인</NormalLogin>
-      <CounselorLogin>상담 로그인</CounselorLogin>
+      <CounselorLogin>상담사 로그인</CounselorLogin>
     </div>
   )
 }

@@ -12,12 +12,13 @@ import Button from '@mui/material/Button'
 import Tooltip from '@mui/material/Tooltip'
 import MenuItem from '@mui/material/MenuItem'
 import AdbIcon from '@mui/icons-material/Adb'
+import { Link } from 'react-router-dom'
 
 const pages = ['상담', '상담사', '공지사항', '커뮤니티']
 const settings = ['마이페이지', '로그아웃']
 const notices = ['알림1', '알림2', '알림3', '알림4']
 
-function ResponsiveAppBar() {
+function NavbarLogin() {
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null)
   const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(
     null,
@@ -51,25 +52,27 @@ function ResponsiveAppBar() {
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
-          <Typography
-            variant="h6"
-            noWrap
-            component="a"
-            href=""
-            sx={{
-              mr: 46,
-              display: { xs: 'none', md: 'flex' },
-              fontFamily: 'monospace',
-              fontWeight: 700,
-              letterSpacing: '.3rem',
-              color: 'inherit',
-              textDecoration: 'none',
-              border: 'solid',
-              borderColor: 'black',
-            }}
-          >
-            LOGO
-          </Typography>
+          <Link to="/">
+            <Typography
+              variant="h6"
+              noWrap
+              component="a"
+              href=""
+              sx={{
+                mr: 46,
+                display: { xs: 'none', md: 'flex' },
+                fontFamily: 'monospace',
+                fontWeight: 700,
+                letterSpacing: '.3rem',
+                color: 'inherit',
+                textDecoration: 'none',
+                border: 'solid',
+                borderColor: 'black',
+              }}
+            >
+              LOGO
+            </Typography>
+          </Link>
 
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
             <IconButton
@@ -215,4 +218,4 @@ function ResponsiveAppBar() {
     </AppBar>
   )
 }
-export default ResponsiveAppBar
+export default NavbarLogin

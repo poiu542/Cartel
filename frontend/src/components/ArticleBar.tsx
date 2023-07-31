@@ -8,7 +8,7 @@ const ArticleBar: React.FC<ArticleBarProps> = ({ name }) => (
   <div
     className="article bar"
     style={{
-      width: '1223px',
+      width: '100%',
       height: '122px',
       borderTop: '3px solid #0081C2',
       borderBottom: '3px solid #0081C2',

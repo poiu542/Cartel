@@ -1,53 +1,47 @@
-pipeline {
-    agent any
-    
-    tools {
-        nodejs "Node18" // 여기서 "nodejs-version"은 위에서 설정한 Node.js의 이름입니다.
+tools {
+    nodejs "Node18" // 여기서 "nodejs-version"은 위에서 설정한 Node.js의 이름입니다.
+}
+stages {
+    stage("Example") {
+        steps {
+            sh 'npm version'
+            sh 'npm install npm@latest -g'
+        }
     }
-    stages {
-        stage("Example") {
-            steps {
-                sh 'npm version'
-                sh 'npm install npm@latest -g'
+
+    stage('React build') {
+        steps {
+            dir('front') {
+                echo 'React build'
+                sh 'ls -al'
+                sh 'npm install --save'
+                sh 'npm run build'
             }
         }
+    }
 
-        stage('React build') {
-            steps {
-                dir('front'){
-                    echo 'React build'
-                    sh 'ls -al'
-                    sh 'npm install --save'
-                    sh 'npm run build'
-                    
-                }
+   
+
+    stage('Dockerimage build') {
+        steps {
+            dir('frontend/build') {
+                sh '''
+                echo 'Dockerimage build for React'
+                docker build -t docker-react:0.0.1 .// 도커 이미지파일 빌드
+                '''
             }
         }
-        stage('Dockerimage build') {
-            steps {
-                dir('frontend/build'){
-                    sh '''
-                    echo 'Dockerimage build'
-                    docker build -t docker-react:0.0.1 .//도커 이미지파일 빌드
-                    '''
-                }
-            }
-        }
-        stage('Deploy') {
-            steps {
-                dir('frontend/build'){
-                    sh '''
-                    echo 'Deploy' //배포
+    }
 
-										// 터미널에서 최초1번 실행해 줘야 하는 부분
-				    docker run -d -p 3000:3000 --name react docker-react:0.0.1
-												// 스프링 구동
-
-                    docker stop  springboot 
-                    docker start springboot
-                    '''
-                }
+    stage('Deploy') {
+        steps {
+            dir('frontend/build') {
+                sh '''
+                echo 'Deploy React' // 배포
+                docker run -d -p 3000:3000 --name react docker-react:0.0.1
+                '''
             }
+
         }
     }
 }

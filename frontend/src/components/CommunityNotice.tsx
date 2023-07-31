@@ -1,26 +1,71 @@
 import React from 'react'
 import styled from 'styled-components'
+import { Link } from 'react-router-dom'
 
 const NoticeBtn = styled.button`
   background-color: #80d4ff;
-  width: 24.4375rem;
+  width: 65rem;
   padding: 0.5rem 1rem;
   height: 5.5625rem;
   border-radius: 0.1875rem;
   color: white;
   border: 1px solid white;
-  font-size: 20px;
+  font-size: 30px;
+  font-weight: bold;
+  font-family:
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    'Segoe UI',
+    Roboto,
+    Oxygen,
+    Ubuntu,
+    Cantarell,
+    'Open Sans',
+    'Helvetica Neue',
+    sans-serif;
+  text-shadow:
+    -1px -1px 0 #0098e6,
+    /* 왼쪽 상단 */ 1px -1px 0 #0098e6,
+    /* 오른쪽 상단 */ -1px 1px 0 #0098e6,
+    /* 왼쪽 하단 */ 1px 1px 0 #0098e6; /* 오른쪽 하단 */
+  cursor: pointer;
 `
 
 const FreeBtn = styled.button`
   background-color: rgba(63, 137, 176, 0.7);
-  width: 24.4375rem;
+  width: 65rem;
   padding: 0.5rem 1rem;
   height: 5.5625rem;
   border-radius: 0.1875rem;
-  color: white;
+  color: gray;
   border: 1px solid white;
-  font-size: 20px;
+  font-size: 30px;
+  font-weight: bold;
+  font-family:
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    'Segoe UI',
+    Roboto,
+    Oxygen,
+    Ubuntu,
+    Cantarell,
+    'Open Sans',
+    'Helvetica Neue',
+    sans-serif;
+  cursor: pointer;
+`
+
+const CommunityTitle = styled.p`
+  color: white;
+  font-size: 60px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%; /* Set the height to 100% to fill the CommunityBackground vertically */
+  margin: 0; /* Remove any default margin to avoid extra spacing */
+  text-shadow: -1px -1px 0 #0098e6;
 `
 
 const CommunityBackground = styled.div`
@@ -52,10 +97,15 @@ export const CommunityNotice = () => {
   return (
     <div>
       <CommunityBackground>
+        <CommunityTitle>공지사항</CommunityTitle>
         <Bar>
           <ButtonsContainer>
-            <NoticeBtn>공지사항</NoticeBtn>
-            <FreeBtn>자유게시판</FreeBtn>
+            <Link to="/notice">
+              <NoticeBtn>공지사항</NoticeBtn>
+            </Link>
+            <Link to="/qna">
+              <FreeBtn>자유게시판</FreeBtn>
+            </Link>
           </ButtonsContainer>
         </Bar>
       </CommunityBackground>
