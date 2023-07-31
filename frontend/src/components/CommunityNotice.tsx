@@ -29,6 +29,7 @@ const NoticeBtn = styled.button`
     /* 왼쪽 상단 */ 1px -1px 0 #0098e6,
     /* 오른쪽 상단 */ -1px 1px 0 #0098e6,
     /* 왼쪽 하단 */ 1px 1px 0 #0098e6; /* 오른쪽 하단 */
+  cursor: pointer;
 `
 
 const FreeBtn = styled.button`
@@ -53,17 +54,19 @@ const FreeBtn = styled.button`
     'Open Sans',
     'Helvetica Neue',
     sans-serif;
+  cursor: pointer;
 `
 
-// const CommunityTitle = styled.p`
-//   color: black;
-//   font-size: 60px;
-//   display: flex;
-//   justify-content: center;
-//   align-items: center;
-//   height: 100%; /* Set the height to 100% to fill the CommunityBackground vertically */
-//   margin: 0; /* Remove any default margin to avoid extra spacing */
-// `
+const CommunityTitle = styled.p`
+  color: white;
+  font-size: 60px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%; /* Set the height to 100% to fill the CommunityBackground vertically */
+  margin: 0; /* Remove any default margin to avoid extra spacing */
+  text-shadow: -1px -1px 0 #0098e6;
+`
 
 const CommunityBackground = styled.div`
   background-image: url('/sky.jpg');
@@ -94,12 +97,13 @@ export const CommunityNotice = () => {
   return (
     <div>
       <CommunityBackground>
+        <CommunityTitle>공지사항</CommunityTitle>
         <Bar>
           <ButtonsContainer>
             <Link to="/notice">
               <NoticeBtn>공지사항</NoticeBtn>
             </Link>
-            <Link to="/freeboard">
+            <Link to="/qna">
               <FreeBtn>자유게시판</FreeBtn>
             </Link>
           </ButtonsContainer>

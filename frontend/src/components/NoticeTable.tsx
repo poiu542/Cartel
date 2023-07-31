@@ -4,6 +4,8 @@ import TableCell from '@mui/material/TableCell'
 import TableHead from '@mui/material/TableHead'
 import TableRow from '@mui/material/TableRow'
 import { Board } from '../model/board'
+import { Link } from 'react-router-dom'
+
 type TestData = {
   id: number
   title: string
@@ -60,13 +62,16 @@ const NoticeTable: React.FC<NoticeTableProps<TestData>> = ({ data }) => {
           </TableRow>
         </TableHead>
         <TableBody>
-          {data.map((row) => (
-            <TableRow key={row.id}>
+          {data.map((notice) => (
+            <TableRow key={notice.id}>
               <TableCell component="th" scope="row">
-                {row.id}
+                {notice.id}
               </TableCell>
-              <TableCell>{row.title}</TableCell>
-              <TableCell align="right">{row.year}</TableCell>
+              <Link to={`/notice/${notice.id}`}>
+                <TableCell>{notice.title}</TableCell>
+              </Link>
+
+              <TableCell align="right">{notice.year}</TableCell>
             </TableRow>
           ))}
         </TableBody>

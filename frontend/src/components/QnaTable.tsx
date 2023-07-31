@@ -3,16 +3,21 @@ import TableBody from '@mui/material/TableBody'
 import TableCell from '@mui/material/TableCell'
 import TableHead from '@mui/material/TableHead'
 import TableRow from '@mui/material/TableRow'
+import { Link } from 'react-router-dom'
 
-// 예시로 서버에서 가져온 데이터를 설정
-const serverData = [
-  { idx: 1, title: 'Ice cream sandwich', regDate: '2023-07-26' },
-  { idx: 2, title: 'Eclair', regDate: '2023-06-26' },
-  { idx: 3, title: 'Cupcake', regDate: '2023-05-20' },
-  { idx: 4, title: 'Gingerbread', regDate: '2023-04-16' },
-]
+type QnaBoardTable = {
+  id: number
+  title: string
+  year: string
+  rating: string
+  language: string
+}
 
-export default function BoardTable() {
+interface QnaTableProps {
+  data: QnaBoardTable[]
+}
+
+export const QnaTable: React.FC<QnaTableProps> = ({ data }) => {
   return (
     <div
       style={{
@@ -39,18 +44,26 @@ export default function BoardTable() {
               등록일
             </TableCell>
             <TableCell sx={{ fontWeight: 'bold', fontSize: '18px' }}>
-              등급
+              작성자
+            </TableCell>
+            <TableCell sx={{ fontWeight: 'bold', fontSize: '18px' }}>
+              레벨
             </TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
-          {serverData.map((row) => (
-            <TableRow key={row.idx}>
+          {data.map((row) => (
+            <TableRow key={row.id}>
               <TableCell component="th" scope="row">
-                {row.idx}
+                {row.id}
               </TableCell>
-              <TableCell>{row.title}</TableCell>
-              <TableCell align="right">{row.regDate}</TableCell>
+              <Link to={`/qna/${row.id}`}>
+                <TableCell>{row.title}</TableCell>
+              </Link>
+
+              <TableCell align="right">{row.year}</TableCell>
+              <TableCell align="right">{row.rating}</TableCell>
+              <TableCell align="right">{row.language}</TableCell>
             </TableRow>
           ))}
         </TableBody>

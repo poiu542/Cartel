@@ -1,9 +1,11 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import NavbarLogin from '../components/NavbarLogin'
-import ArticleBar from '../components/ArticleBar'
-import { QnaTable } from './../components/QnaTable'
+import { CommunityFree } from '../components/CommunityFree'
+import { QnaTable } from '../components/QnaTable'
+import { useQuery } from 'react-query/types/react'
 
-export const FreeBoard = () => {
+export const Qna = () => {
+  // const {isError, data} = useQuery(['Qna'])
   const [movies, setMovies] = useState([])
   const getMovies = async () => {
     const json = await (
@@ -20,9 +22,7 @@ export const FreeBoard = () => {
   return (
     <div>
       <NavbarLogin />
-      <div style={{ marginTop: '30px' }}>
-        <ArticleBar name="자유게시판" />
-      </div>
+      <CommunityFree />
       <QnaTable data={movies} />
     </div>
   )

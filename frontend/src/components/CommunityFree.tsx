@@ -1,5 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
+import { Link } from 'react-router-dom'
 
 const NoticeBtn = styled.button`
   background-color: rgba(63, 137, 176, 0.7);
@@ -23,6 +24,7 @@ const NoticeBtn = styled.button`
     'Open Sans',
     'Helvetica Neue',
     sans-serif;
+  cursor: pointer;
 `
 
 const FreeBtn = styled.button`
@@ -47,17 +49,20 @@ const FreeBtn = styled.button`
     'Open Sans',
     'Helvetica Neue',
     sans-serif;
+  text-shadow: -1px -1px 0 #0098e6;
+  cursor: pointer;
 `
 
-// const CommunityTitle = styled.p`
-//   color: black;
-//   font-size: 60px;
-//   display: flex;
-//   justify-content: center;
-//   align-items: center;
-//   height: 100%; /* Set the height to 100% to fill the CommunityBackground vertically */
-//   margin: 0; /* Remove any default margin to avoid extra spacing */
-// `
+const CommunityTitle = styled.p`
+  color: white;
+  font-size: 60px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%; /* Set the height to 100% to fill the CommunityBackground vertically */
+  margin: 0; /* Remove any default margin to avoid extra spacing */
+  text-shadow: -2px -2px 0 #0098e6;
+`
 
 const CommunityBackground = styled.div`
   background-image: url('/sky.jpg');
@@ -88,10 +93,15 @@ export const CommunityFree = () => {
   return (
     <div>
       <CommunityBackground>
+        <CommunityTitle>QnA</CommunityTitle>
         <Bar>
           <ButtonsContainer>
-            <NoticeBtn>공지사항</NoticeBtn>
-            <FreeBtn>자유게시판</FreeBtn>
+            <Link to="/notice">
+              <NoticeBtn>공지사항</NoticeBtn>
+            </Link>
+            <Link to="/qna">
+              <FreeBtn>QnA</FreeBtn>
+            </Link>
           </ButtonsContainer>
         </Bar>
       </CommunityBackground>
