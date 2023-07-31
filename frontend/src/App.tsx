@@ -39,6 +39,7 @@ import { QnaDetail } from './routes/QnaDetail'
 import { Qna } from './routes/Question'
 import { QueryClient, QueryClientProvider } from 'react-query'
 import { ReactQueryDevtools } from 'react-query/devtools'
+import { Alarm } from './routes/Alarm'
 
 const queryClient = new QueryClient()
 
@@ -94,7 +95,8 @@ function App(): React.ReactElement {
             <Route path="/qna" element={<Qna />} />
             {/* QnA 상세페이지 */}
             <Route path="/qna/:qnaId" element={<QnaDetail />} />
-
+            {/* 알림 */}
+            <Route path="/alarm/:userId" element={<Alarm />} />
             {/* 나머지모든페이지 메인으로 */}
             <Route path="*" element={<Main />} />
           </Routes>
