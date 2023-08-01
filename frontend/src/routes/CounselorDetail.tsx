@@ -1,7 +1,11 @@
 import React from 'react'
 import { useParams } from 'react-router-dom'
-import { FlexContainerRow, FlexContainer } from '../styles/MainStyle'
-import { padding } from '@mui/system'
+import {
+  FlexContainerRow,
+  FlexContainer,
+  BackgroundBox,
+} from '../styles/MainStyle'
+import NavbarLogin from '../components/NavbarLogout'
 
 interface Evaluation {
   evaluation_rate: number
@@ -43,7 +47,6 @@ const DUMMY_DATA: { [key: string]: Counselor } = {
       },
     ],
   },
-  // ... 다른 더미 데이터 추가 가능
 }
 
 export const CounselorDetail: React.FC = () => {
@@ -63,8 +66,9 @@ export const CounselorDetail: React.FC = () => {
   }
 
   return (
-    <div className="container" style={{ padding: '30px' }}>
-      <FlexContainerRow>
+    <div className="container">
+      <NavbarLogin />
+      <FlexContainerRow style={{ padding: '30px' }}>
         <FlexContainer style={{ background: '#ecf9ff' }}>
           <img
             src={counselorData.imageUrl}
@@ -86,18 +90,22 @@ export const CounselorDetail: React.FC = () => {
           </div>
         </FlexContainer>
         <FlexContainer>
-          <FlexContainer style={{ background: '#ecf9ff' }}>
-            <h3>소개: {counselorData.counselor_introduction}</h3>
-          </FlexContainer>
-          <FlexContainerRow style={{ background: '#ecf9ff' }}>
-            <h3>경력:</h3>
-            <ul>
-              {counselorData.career_content.map((career, index) => (
-                <li key={index}>{career}</li>
-              ))}
-            </ul>
-            <h3>학력: {counselorData.counselor_school}</h3>
-          </FlexContainerRow>
+          <BackgroundBox>
+            <FlexContainer>
+              <h3>소개: {counselorData.counselor_introduction}</h3>
+            </FlexContainer>
+          </BackgroundBox>
+          <BackgroundBox>
+            <FlexContainerRow style={{ background: '#ecf9ff' }}>
+              <h3>경력:</h3>
+              <ul>
+                {counselorData.career_content.map((career, index) => (
+                  <li key={index}>{career}</li>
+                ))}
+              </ul>
+              <h3>학력: {counselorData.counselor_school}</h3>
+            </FlexContainerRow>
+          </BackgroundBox>
           <FlexContainer style={{ background: '#ecf9ff' }}>
             <h3>후기:</h3>
             <ul>
