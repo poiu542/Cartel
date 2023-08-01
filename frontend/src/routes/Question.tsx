@@ -1,4 +1,4 @@
-// import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import NavbarLogin from '../components/NavbarLogin'
 import { CommunityFree } from '../components/CommunityFree'
 import { QnaTable } from '../components/QnaTable'
@@ -21,15 +21,24 @@ export const Qna = () => {
     status: string
   }
 
-  const { isLoading, data, isError, error, refetch } = useQuery<ApiResponse>(
-    ['qna'],
-    fetchNotices,
-  )
+  const [page, setPage] = useState(1)
+
+  // axios data파일 받아오기
+  const {
+    isLoading,
+    data: movies,
+    isError,
+    error,
+    refetch,
+    isPreviousData,
+  } = useQuery<ApiResponse>(['/notice', page], () => fetchNotices(page), {
+    keepPreviousData: true,
+  })
   if (isLoading) {
     return <h2>Loading...</h2>
   }
 
-  if (isError || !data) {
+  if (isError || !movies) {
     console.error(error) // 콘솔에 에러 메시지를 표시합니다.
     return (
       <div>
@@ -54,6 +63,7 @@ export const Qna = () => {
     <div>
       <NavbarLogin />
       <CommunityFree />
+<<<<<<< HEAD
       <StyledButton
         primary
         onClick={() => window.location.replace('/qna/write')}
@@ -61,6 +71,9 @@ export const Qna = () => {
         글 쓰기
       </StyledButton>
       {data && <QnaTable data={data.data.movies} />}
+=======
+      {movies && <QnaTable data={movies.data.movies} />}
+>>>>>>> frontend-feature-routes
     </div>
   )
 }

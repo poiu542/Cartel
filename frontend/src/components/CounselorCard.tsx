@@ -6,6 +6,7 @@ interface CounselorCardProps {
   gradeCount: number
   introduce: string
   onCardClick: () => void
+  imgSrc: string
 }
 
 const CounselorCard: React.FC<CounselorCardProps> = ({
@@ -14,6 +15,7 @@ const CounselorCard: React.FC<CounselorCardProps> = ({
   gradeCount,
   introduce,
   onCardClick = () => {},
+  imgSrc,
 }) => (
   <div
     className="counselor card"
@@ -35,7 +37,7 @@ const CounselorCard: React.FC<CounselorCardProps> = ({
           alignItems: 'center',
           border: '5px solid #40BFFF',
           borderRadius: '20px',
-          width: '363px',
+          width: '330px',
           height: '200px',
           background: 'white',
           boxShadow: '10px 10px gray',
@@ -44,15 +46,15 @@ const CounselorCard: React.FC<CounselorCardProps> = ({
         <div
           className="counselor profile image"
           style={{
-            marginLeft: '30px',
+            marginLeft: '10px',
           }}
         >
           <img
-            src="./image/profileImg2.png"
+            src={imgSrc}
             alt="logo"
             style={{
-              width: '130px',
-              height: '130px',
+              width: '140px',
+              height: '180px',
             }}
           />
         </div>
@@ -63,7 +65,8 @@ const CounselorCard: React.FC<CounselorCardProps> = ({
             flexDirection: 'column',
             justifyContent: 'center',
             alignItems: 'center',
-            marginRight: '30px',
+            marginRight: '20px',
+            marginLeft: '20px',
           }}
         >
           <div className="counselor name" style={{ fontSize: '23px' }}>

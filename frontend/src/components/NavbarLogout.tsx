@@ -62,36 +62,34 @@ function NavbarLogin() {
   const handleCloseUserMenu = () => {
     setAnchorElUser(null)
   }
-  // const handleCloseNoticeMenu = () => {
-  //   setAnchorElNotice(null)
-  // }
+  const main = () => {
+    navigate('/')
+  }
 
   return (
     <AppBar position="static" sx={{ backgroundColor: 'white' }}>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
-          <Link to="/">
-            <Typography
-              variant="h6"
-              noWrap
-              component="a"
-              href=""
-              sx={{
-                mr: 46,
-                display: { xs: 'none', md: 'flex' },
-                fontFamily: 'monospace',
-                fontWeight: 700,
-                letterSpacing: '.3rem',
-                color: 'inherit',
-                textDecoration: 'none',
-                border: 'solid',
-                borderColor: 'black',
-              }}
-            >
-              LOGO
-            </Typography>
-          </Link>
+          <Typography
+            variant="h6"
+            noWrap
+            component="a"
+            href=""
+            sx={{
+              mr: 46,
+              display: { xs: 'none', md: 'flex' },
+              fontFamily: 'monospace',
+              fontWeight: 700,
+              letterSpacing: '.3rem',
+              color: 'inherit',
+              textDecoration: 'none',
+              border: 'solid',
+              borderColor: 'black',
+            }}
+          >
+            LOGO
+          </Typography>
 
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
             <IconButton
@@ -165,39 +163,7 @@ function NavbarLogin() {
               </Button>
             ))}
           </Box>
-          {/* <Box sx={{ flexGrow: 0 }}>
-            <Tooltip title="Open Notice">
-              <IconButton onClick={handleOpenNoticeMenu} sx={{ p: 0, mr: 3 }}>
-                <img
-                  src="./image/NoticeBell.png"
-                  alt="User profile"
-                  style={{ width: '40px', height: '40px' }}
-                />
-              </IconButton>
-            </Tooltip>
-            <Menu
-              sx={{ mt: '45px' }}
-              id="menu-appbar"
-              anchorEl={anchorElNotice}
-              anchorOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-              }}
-              open={Boolean(anchorElNotice)}
-              onClose={handleCloseNoticeMenu}
-            >
-              {notices.map((notice) => (
-                <MenuItem key={notice} onClick={handleCloseNoticeMenu}>
-                  <Typography textAlign="center">{notice}</Typography>
-                </MenuItem>
-              ))}
-            </Menu>
-          </Box> */}
+
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open user settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
