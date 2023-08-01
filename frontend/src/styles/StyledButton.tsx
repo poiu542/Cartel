@@ -28,6 +28,8 @@ const BasicButton = styled.button<ButtonProps>`
   font-size: ${(props) => props.fontSize || '26px'};
   border: ${(props) => props.border || 'none'};
 
+  cursor: pointer;
+
   ${(props) =>
     props.primary &&
     css`

@@ -371,7 +371,15 @@ export const Main = () => {
           height: '150px',
           width: '100%',
         }}
-      ></div>
+      >
+        <div>
+          <img
+            src="/image/logo.png"
+            alt="Rqtest"
+            style={{ width: '60px', height: '60px' }}
+          />
+        </div>
+      </div>
       <Footer />
     </div>
   )

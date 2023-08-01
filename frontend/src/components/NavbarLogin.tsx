@@ -72,33 +72,35 @@ function NavbarLogin() {
   const handleCloseNoticeMenu = () => {
     setAnchorElNotice(null)
   }
+  const main = () => {
+    navigate('/')
+  }
 
   return (
     <AppBar position="static" sx={{ backgroundColor: 'white' }}>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
-          <Link to="/">
-            <Typography
-              variant="h6"
-              noWrap
-              component="a"
-              href=""
-              sx={{
-                mr: 46,
-                display: { xs: 'none', md: 'flex' },
-                fontFamily: 'monospace',
-                fontWeight: 700,
-                letterSpacing: '.3rem',
-                color: 'inherit',
-                textDecoration: 'none',
-                border: 'solid',
-                borderColor: 'black',
-              }}
-            >
-              LOGO
-            </Typography>
-          </Link>
+          <Typography
+            variant="h6"
+            noWrap
+            component="a"
+            href=""
+            sx={{
+              mr: 46,
+              display: { xs: 'none', md: 'flex' },
+              fontFamily: 'monospace',
+              fontWeight: 700,
+              letterSpacing: '.3rem',
+              color: 'inherit',
+              textDecoration: 'none',
+              border: 'solid',
+              borderColor: 'black',
+            }}
+            onClick={main}
+          >
+            LOGO
+          </Typography>
 
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
             <IconButton
@@ -209,7 +211,7 @@ function NavbarLogin() {
             <Tooltip title="Open user settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                 <img
-                  src="./image/profileImg2.png"
+                  src="/image/profileImg2.png"
                   alt="Remy Sharp"
                   style={{ width: '60px', height: '60px' }}
                 />
