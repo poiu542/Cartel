@@ -8,7 +8,43 @@ type WriteProps = {
   name: string
 }
 
-const StyledInput = styled.input``
+export const StyledDiv = styled.div`
+  width: 80%;
+  height: 90%;
+  border-top: 4px solid #3b478f;
+  border-left: 1px solid gray;
+  border-right: 1px solid gray;
+  border-bottom: 1px solid gray;
+`
+
+export const StyledTitleInput = styled.input`
+  width: 730px;
+  height: 40px;
+  border: 1px solid gray;
+  margin-left: 30px;
+`
+
+export const StyledTextArea = styled.textarea`
+  width: 80%;
+  height: 70%;
+  border: 1px solid gray;
+  margin-left: 30px;
+`
+
+export const StyledFileInput = styled.input`
+  display: none;
+`
+
+export const CenteredDiv = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh; /* 가운데 정렬을 위한 화면 높이 설정 */
+`
+
+export const SpacedDiv = styled.div`
+  margin-top: 30px; /* ArticleBar와 30px 간격 */
+`
 
 export const Write: React.FC<WriteProps> = ({ name }) => {
   const fileInput = useRef<HTMLInputElement>(null)
@@ -33,7 +69,7 @@ export const Write: React.FC<WriteProps> = ({ name }) => {
     <div>
       <NavbarLogin />
       <ArticleBar name={name} />
-      <div>
+      {/* <div>
         <input
           type="text"
           placeholder="제목을 입력해라"
@@ -62,7 +98,7 @@ export const Write: React.FC<WriteProps> = ({ name }) => {
         ref={fileInput}
         onChange={handleChange}
         style={{ display: 'none' }}
-      />
+      /> */}
     </div>
   )
 }
