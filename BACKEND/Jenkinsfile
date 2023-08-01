@@ -29,7 +29,7 @@ pipeline {
                     sh '''
                     echo 'Deploy'
                     docker stop springboot
-                    sudo docker pull docker-springboot:0.0.1 .
+                    docker pull docker-springboot:0.0.1 .
                     docker start springboot
                     '''
                 }
