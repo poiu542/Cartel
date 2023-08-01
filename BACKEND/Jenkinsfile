@@ -30,7 +30,6 @@ pipeline {
                     echo 'Deploy'
                     docker stop springboot
                     docker run docker-springboot:0.0.1
-                    docker start springboot
                     '''
                 }
             }
