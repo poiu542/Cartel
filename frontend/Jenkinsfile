@@ -12,6 +12,7 @@ pipeline {
             steps {
                 dir('frontend') {
                     echo 'React build'
+                    sh './build clean build'
                     sh 'npm install' // --save 옵션은 더 이상 필요하지 않습니다.
                     sh 'CI=false npm run build'
                 }
