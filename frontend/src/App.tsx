@@ -52,9 +52,9 @@ function App(): React.ReactElement {
             {/* 회원가입페이지 */}
             <Route path="/signup" element={<SignUp />} />
             {/* 내 마이페이지 */}
-            <Route path="/profile/userId/" element={<Profile />} />
+            <Route path="/profile/:userId/" element={<Profile />} />
             {/* 내 마이페이지 수정페이지 */}
-            <Route path="/profile/edit/userId" element={<ProfileEdit />} />
+            <Route path="/profile/edit/:userId" element={<ProfileEdit />} />
             {/* 공지페이지 */}
             <Route path="/notice" element={<Notice />} />
             {/* 공지 상세페이지 */}

@@ -209,7 +209,7 @@ function NavbarLogin() {
             <Tooltip title="Open user settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                 <img
-                  src="./image/profileImg2.png"
+                  src="/image/profileImg2.png"
                   alt="Remy Sharp"
                   style={{ width: '60px', height: '60px' }}
                 />
