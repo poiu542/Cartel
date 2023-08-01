@@ -46,16 +46,19 @@ export const Profile: React.FC = () => {
   return (
     <div>
       <NavbarLogin />
-      <InputContainer>
-        <CircleImageContainer>
-          <CircleImage src="/image/seulyoon.jpg" alt="Circle Image" />
-        </CircleImageContainer>
-        <ProfileInput placeholder="1" />
-        <ProfileInput placeholder="1" />
-        <ProfileInput placeholder="1" />
-        <ProfileInput placeholder="1" />
-      </InputContainer>
+      <div>
+        <ProfileInput></ProfileInput>
+      </div>
+      <div>
+        <ProfileInput></ProfileInput>
+      </div>
+      <div>
+        <ProfileInput></ProfileInput>
+      </div>
+      <div>
+        <ProfileInput></ProfileInput>
+      </div>
+      <img src="../../public/image/logo.png" alt="sdsd" />
     </div>
   )
 }
-
