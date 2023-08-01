@@ -14,6 +14,8 @@ import {
   CounselorLoginNoCheck,
   CounselorLoginCheck,
 } from '../styles/SignBtn'
+import Modal from 'react-modal'
+import StyledButton from '../styles/StyledButton'
 
 export const SignUp = () => {
   const [inputNicknameValue, setinputNicknameValue] = useState('')
@@ -23,12 +25,26 @@ export const SignUp = () => {
   const [inputPassCheckValue, setinputPassCheckValue] = useState('')
   const [inputEducation, setinputEducation] = useState('')
   const [passwordCheck, setpasswordCheck] = useState(1)
+  // 모달을 띄울 상태
+  const [isModalOpen, setIsModalOpen] = useState(false)
+  // 이력 저장할 State
+  const [careers, setCareers] = useState<string[]>([''])
 
   // 인증 버튼 3개의 style을 하나로 묶기
   const buttonSize = { width: '120px', height: '35px' }
 
   // 버튼을 표시할 유저 타입을 설정하는 state.
   const [userType, setUserType] = useState(0) // 기본값은 0으로 설정.
+
+  // 모달 띄우기
+  const openCareerModal = () => {
+    setIsModalOpen(true)
+  }
+
+  // 모달 닫기
+  const closeCareerModal = () => {
+    setIsModalOpen(false)
+  }
 
   const handleNicknameChange = (event: ChangeEvent<HTMLInputElement>) => {
     setinputNicknameValue(event.target.value)
@@ -59,6 +75,26 @@ export const SignUp = () => {
     setinputEducation(event.target.value)
   }
 
+  // 이력 추가
+  const addCareer = () => {
+    setCareers([...careers, ''])
+  }
+
+  // 이력 삭제
+  const deleteCareer = (index: number) => {
+    setCareers(careers.filter((career, idx) => idx !== index))
+  }
+
+  // 이력 업데이트
+  const updateCareer = (
+    index: number,
+    event: React.ChangeEvent<HTMLInputElement>,
+  ) => {
+    const updatedCareers = [...careers]
+    updatedCareers[index] = event.target.value
+    setCareers(updatedCareers)
+  }
+
   const handleEmailClick = () => {
     alert('인증번호 보내는 로직 짜야함')
   }
@@ -68,9 +104,6 @@ export const SignUp = () => {
   const handleSignUp = () => {
     alert('회원가입 로직 짜야함')
   }
-  const handleHistory = () => {
-    alert('이력 작성하기')
-  }
   const handleProfileUpload = () => {
     alert('프로필 사진 올리기')
   }
@@ -78,7 +111,7 @@ export const SignUp = () => {
     alert('자격증 사진 올리기')
   }
   const handleIdentUpload = () => {
-    alert('회원가입 로직 짜야함')
+    alert('주민등록증 사진 올리기')
   }
 
   // 일반 회원인지 상담사 회원인지
@@ -88,6 +121,37 @@ export const SignUp = () => {
 
   return (
     <div>
+      <Modal isOpen={isModalOpen} onRequestClose={closeCareerModal}>
+        <FlexContainerRow>
+          <FlexContainer>
+            {careers.map((career, index) => (
+              <div key={index} style={{ paddingBottom: '30px' }}>
+                <FlexContainerRow>
+                  <input
+                    type="text"
+                    value={career}
+                    onChange={(event) => updateCareer(index, event)}
+                    style={{ width: '900px', borderBlockColor: '#40BFFF' }}
+                  />
+                  <StyledButton
+                    onClick={() => deleteCareer(index)}
+                    color="red"
+                    background="white"
+                  >
+                    X
+                  </StyledButton>
+                </FlexContainerRow>
+              </div>
+            ))}
+          </FlexContainer>
+          <FlexContainer>
+            <StyledButton onClick={addCareer}>Add</StyledButton>
+            <StyledButton onClick={closeCareerModal} red>
+              Close
+            </StyledButton>
+          </FlexContainer>
+        </FlexContainerRow>
+      </Modal>
       <NavbarLogout />
       <FlexContainer>
         {userType === 0 ? (
@@ -169,7 +233,7 @@ export const SignUp = () => {
               <Button
                 text="이력 작성하기"
                 size={{ width: '100px', height: '35px' }}
-                onClick={handleHistory}
+                onClick={openCareerModal}
               ></Button>
               <h3>상담사 인증하기</h3>
               <FlexContainerRow style={{ width: '100%' }}>
