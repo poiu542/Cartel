@@ -28,7 +28,8 @@ pipeline {
                 dir('BACKEND'){
                     sh '''
                     echo 'Deploy'
-                    docker stop  springboot
+                    docker stop springboot
+                    docker pull docker-springboot:0.0.1
                     docker start springboot
                     '''
                 }
