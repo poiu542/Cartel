@@ -19,6 +19,7 @@ export const Profile = () => {
       <div>
         <ProfileInput></ProfileInput>
       </div>
+      <img src="../../public/image/logo.png" alt="sdsd" />
     </div>
   )
 }
