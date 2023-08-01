@@ -33,11 +33,12 @@ const CounselorCard: React.FC<CounselorCardProps> = ({
           justifyContent: 'space-between',
           display: 'flex',
           alignItems: 'center',
-          border: '1px solid #40BFFF',
+          border: '5px solid #40BFFF',
           borderRadius: '20px',
           width: '363px',
           height: '200px',
-          background: '#ECF9FF',
+          background: 'white',
+          boxShadow: '10px 10px gray',
         }}
       >
         <div
@@ -65,10 +66,12 @@ const CounselorCard: React.FC<CounselorCardProps> = ({
             marginRight: '30px',
           }}
         >
-          <div className="counselor name">
+          <div className="counselor name" style={{ fontSize: '23px' }}>
             <h3>{name}</h3>
           </div>
-          <div className="counselor introduce">{introduce}</div>
+          <div className="counselor introduce" style={{ fontSize: '15px' }}>
+            {introduce}
+          </div>
           <br />
           <div
             className="counselor grade"

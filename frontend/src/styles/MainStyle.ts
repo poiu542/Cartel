@@ -21,3 +21,12 @@ export const FlexContainerRow = styled.div`
   flex-direction: row;
   justify-content: space-between;
 `
+export const ContainerBox = styled.div`
+  background: #ecf9ff;
+`
+
+export const BackgroundBox = styled.div`
+  width: 100%;
+  margin-bottom: 50px;
+  background: #ecf9ff;
+`

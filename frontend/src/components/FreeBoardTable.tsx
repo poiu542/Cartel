@@ -4,6 +4,7 @@ import TableCell from '@mui/material/TableCell'
 import TableHead from '@mui/material/TableHead'
 import TableRow from '@mui/material/TableRow'
 import { Link } from 'react-router-dom'
+import { NoneStyledLink } from '../styles/Custom'
 
 type FreeBoardTable = {
   id: number
@@ -57,9 +58,9 @@ export const FreeBoardTable: React.FC<FreeBoardTableProps> = ({ data }) => {
               <TableCell component="th" scope="row">
                 {row.id}
               </TableCell>
-              <Link to={`/freeboard/${row.id}`}>
+              <NoneStyledLink to={`/freeboard/${row.id}`}>
                 <TableCell>{row.title}</TableCell>
-              </Link>
+              </NoneStyledLink>
 
               <TableCell align="right">{row.year}</TableCell>
               <TableCell align="right">{row.rating}</TableCell>
