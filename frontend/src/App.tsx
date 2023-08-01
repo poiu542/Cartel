@@ -37,7 +37,7 @@ import { Alarm } from './routes/Alarm'
 import { NoticeWrite } from './routes/NoticeWrite'
 import { FreeBoardWrite } from './routes/FreeBoardWrite'
 import { QnaWrite } from './routes/QnaWrite'
-
+import {}
 const queryClient = new QueryClient()
 
 function App(): React.ReactElement {
