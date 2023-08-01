@@ -14,7 +14,7 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class UserService {
     private final UserRepository userRepository;
-    private final PasswordEncoder passwordEncoder;
+//    private final PasswordEncoder passwordEncoder;
 
     public void signUp(UserSignUpDto userSignUpDto) throws Exception {
 
@@ -36,7 +36,7 @@ public class UserService {
                 .type(Type.USER)
                 .build();
 
-        user.passwordEncode(passwordEncoder);
+//        user.passwordEncode(passwordEncoder);
         userRepository.save(user);
     }
 }
