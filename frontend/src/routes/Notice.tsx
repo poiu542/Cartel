@@ -2,8 +2,9 @@ import React, { useState, useEffect } from 'react'
 import NavbarLogin from './../components/NavbarLogin'
 import { CommunityNotice } from './../components/CommunityNotice'
 import NoticeTable from './../components/NoticeTable'
-import { UseQueryResult, useQuery } from 'react-query'
+import { useQuery } from 'react-query'
 import { fetchNotices } from '../hooks/useNoticesData'
+import StyledButton from './../styles/StyledButton'
 
 // const serverData = [
 //   { idx: 1, title: 'Ice cream sandwich', regDate: '2023-07-26' },
@@ -63,6 +64,7 @@ export const Notice = () => {
     <div>
       <NavbarLogin />
       <CommunityNotice />
+      <StyledButton>작성</StyledButton>
       {data && <NoticeTable data={data.data.movies} />}
       {/* data가 존재하는 경우에만 <NoticeTable> 컴포넌트를 렌더링합니다. */}
     </div>

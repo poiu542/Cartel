@@ -114,7 +114,7 @@ export const SignUp = () => {
             placeholder="닉네임"
             maxLength={20}
           />
-          <FlexContainerRow>
+          <FlexContainerRow style={{ width: '100%' }}>
             <Input
               value={inputEmailValue}
               onChange={handleEmailChange}
@@ -129,7 +129,7 @@ export const SignUp = () => {
               onClick={handleEmailClick}
             />
           </FlexContainerRow>
-          <FlexContainerRow>
+          <FlexContainerRow style={{ width: '100%' }}>
             <Input
               value={inputAuthNumValue}
               onChange={handleAuthNumChange}
@@ -172,7 +172,7 @@ export const SignUp = () => {
                 onClick={handleHistory}
               ></Button>
               <h3>상담사 인증하기</h3>
-              <FlexContainerRow>
+              <FlexContainerRow style={{ width: '100%' }}>
                 <Button
                   text="프로필 사진"
                   size={buttonSize}

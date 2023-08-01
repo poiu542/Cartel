@@ -14,7 +14,7 @@ import AdbIcon from '@mui/icons-material/Adb'
 import { Link } from 'react-router-dom'
 import { Navigate } from 'react-router-dom'
 import { useNavigate } from 'react-router-dom'
-
+import NotificationsNoneIcon from '@mui/icons-material/NotificationsNone'
 const pages = ['상담', '상담사', '공지사항', '커뮤니티']
 const settings = ['마이페이지', '로그아웃']
 const notices = ['알림1', '알림2', '알림3', '알림4']
@@ -176,10 +176,8 @@ function NavbarLogin() {
             <Tooltip title="Open Notice">
               <IconButton onClick={handleOpenNoticeMenu} sx={{ p: 0, mr: 3 }}>
                 <Link to="/alarm/:userId">
-                  <img
-                    src="./image/NoticeBell.png"
-                    alt="User profile"
-                    style={{ width: '40px', height: '40px' }}
+                  <NotificationsNoneIcon
+                    style={{ width: '40px', height: '40px', color: 'black' }}
                   />
                 </Link>
               </IconButton>

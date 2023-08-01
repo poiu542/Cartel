@@ -6,6 +6,7 @@ interface CounselorCardProps {
   gradeCount: number
   introduce: string
   onCardClick: () => void
+  imgSrc: string
 }
 
 const CounselorCard: React.FC<CounselorCardProps> = ({
@@ -14,6 +15,7 @@ const CounselorCard: React.FC<CounselorCardProps> = ({
   gradeCount,
   introduce,
   onCardClick = () => {},
+  imgSrc,
 }) => (
   <div
     className="counselor card"
@@ -33,25 +35,26 @@ const CounselorCard: React.FC<CounselorCardProps> = ({
           justifyContent: 'space-between',
           display: 'flex',
           alignItems: 'center',
-          border: '1px solid #40BFFF',
+          border: '5px solid #40BFFF',
           borderRadius: '20px',
-          width: '363px',
+          width: '330px',
           height: '200px',
-          background: '#ECF9FF',
+          background: 'white',
+          boxShadow: '10px 10px gray',
         }}
       >
         <div
           className="counselor profile image"
           style={{
-            marginLeft: '30px',
+            marginLeft: '10px',
           }}
         >
           <img
-            src="./image/profileImg2.png"
+            src={imgSrc}
             alt="logo"
             style={{
-              width: '130px',
-              height: '130px',
+              width: '140px',
+              height: '180px',
             }}
           />
         </div>
@@ -62,13 +65,16 @@ const CounselorCard: React.FC<CounselorCardProps> = ({
             flexDirection: 'column',
             justifyContent: 'center',
             alignItems: 'center',
-            marginRight: '30px',
+            marginRight: '20px',
+            marginLeft: '20px',
           }}
         >
-          <div className="counselor name">
+          <div className="counselor name" style={{ fontSize: '23px' }}>
             <h3>{name}</h3>
           </div>
-          <div className="counselor introduce">{introduce}</div>
+          <div className="counselor introduce" style={{ fontSize: '15px' }}>
+            {introduce}
+          </div>
           <br />
           <div
             className="counselor grade"
