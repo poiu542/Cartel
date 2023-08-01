@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import NavbarLogin from '../components/NavbarLogin'
 import ArticleBar from '../components/ArticleBar'
 import { FreeBoardTable } from './../components/FreeBoardTable'
+import StyledButton from './../styles/StyledButton'
 
 export const FreeBoard = () => {
   const [movies, setMovies] = useState([])
@@ -23,6 +24,12 @@ export const FreeBoard = () => {
       <div style={{ marginTop: '30px' }}>
         <ArticleBar name="자유게시판" />
       </div>
+      <StyledButton
+        primary
+        onClick={() => window.location.replace('/freeboard/write')}
+      >
+        글 쓰기
+      </StyledButton>
       <FreeBoardTable data={movies} />
     </div>
   )

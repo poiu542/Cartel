@@ -12,9 +12,17 @@ interface Notice {
   year: number
 }
 
-export const fetchNotices = () => {
+export const fetchTests = (pageParams: number) => {
+  return axios.get(
+    ` https://jsonplaceholder.typicode.com/posts?_limit=5&_page=${pageParams}`,
+  )
+}
+
+export const fetchNotices = (pageParams: number) => {
   return axios
-    .get(`https://yts.mx/api/v2/list_movies.json?minimum_rating=9&sort_by=year`)
+    .get(
+      `https://yts.mx/api/v2/list_movies.json?_limit=5&minimum_rating=9&sort_by=year&_page=${pageParams}`,
+    )
     .then((res) => res.data)
 }
 
