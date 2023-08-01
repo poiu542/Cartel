@@ -209,6 +209,7 @@ export const Main = () => {
           grade={4.8}
           gradeCount={51}
           introduce="족구왕이 될 사나이"
+          imgSrc="./image/profileImg2.png"
         />
         <CounselorCard
           onCardClick={onCardClick}
@@ -216,6 +217,7 @@ export const Main = () => {
           grade={4.7}
           gradeCount={45}
           introduce="해상 전략가"
+          imgSrc="./image/profileImg2.png"
         />
         <CounselorCard
           onCardClick={onCardClick}
@@ -223,6 +225,7 @@ export const Main = () => {
           grade={4.9}
           gradeCount={53}
           introduce="야구 선수"
+          imgSrc="./image/profileImg2.png"
         />
         <button
           onClick={ViewAllCounselor}
