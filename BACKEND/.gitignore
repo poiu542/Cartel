@@ -38,3 +38,5 @@ out/
 
 ### .properties files ##
 src/main/resources/application.properties
+src/main/resources/application-jwt.yml
+
