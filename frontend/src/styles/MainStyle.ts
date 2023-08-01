@@ -24,3 +24,9 @@ export const FlexContainerRow = styled.div`
 export const ContainerBox = styled.div`
   background: #ecf9ff;
 `
+
+export const BackgroundBox = styled.div`
+  width: 100%;
+  margin-bottom: 50px;
+  background: #ecf9ff;
+`
