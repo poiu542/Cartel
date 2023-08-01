@@ -5,7 +5,6 @@ import { useNavigate } from 'react-router-dom'
 import DatePicker from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css'
 import styled from 'styled-components'
-import { CurriculumBox } from './../components/CurriculumBox'
 import Modal from 'react-modal'
 
 export const CounselMake = () => {
@@ -521,6 +520,8 @@ export const CounselMake = () => {
                     alert('회차 수는 숫자여야 합니다.')
                   } else if (newValue > 20) {
                     alert('회차 수는 20을 초과할 수 없습니다.')
+                  } else if (newValue < 0) {
+                    alert('회차 수는 0보다 작을 수 없습니다.')
                   } else {
                     setCurriculumCount(parseInt(e.target.value))
                   }
