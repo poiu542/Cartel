@@ -4,6 +4,8 @@ import TableCell from '@mui/material/TableCell'
 import TableHead from '@mui/material/TableHead'
 import TableRow from '@mui/material/TableRow'
 import { Link } from 'react-router-dom'
+import { NoneStyledLink } from './../styles/Custom'
+import StyledButton from './../styles/StyledButton'
 
 type QnaBoardTable = {
   id: number
@@ -57,13 +59,19 @@ export const QnaTable: React.FC<QnaTableProps> = ({ data }) => {
               <TableCell component="th" scope="row">
                 {row.id}
               </TableCell>
-              <Link to={`/qna/${row.id}`}>
+              <NoneStyledLink to={`/qna/${row.id}`}>
                 <TableCell>{row.title}</TableCell>
-              </Link>
+              </NoneStyledLink>
 
               <TableCell align="right">{row.year}</TableCell>
               <TableCell align="right">{row.rating}</TableCell>
+              {/* 삭제버튼 */}
               <TableCell align="right">{row.language}</TableCell>
+              <TableCell align="right">
+                <StyledButton background="white" color="red" fontSize="15px">
+                  X
+                </StyledButton>
+              </TableCell>
             </TableRow>
           ))}
         </TableBody>

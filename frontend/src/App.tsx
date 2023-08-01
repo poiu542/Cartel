@@ -37,6 +37,7 @@ import { Alarm } from './routes/Alarm'
 import { NoticeWrite } from './routes/NoticeWrite'
 import { FreeBoardWrite } from './routes/FreeBoardWrite'
 import { QnaWrite } from './routes/QnaWrite'
+import { FreeBoardEdit } from './routes/FreeBoardEdit'
 
 const queryClient = new QueryClient()
 
@@ -70,6 +71,8 @@ function App(): React.ReactElement {
             />
             {/* 자유게시판 작성페이지 */}
             <Route path="/freeboard/write" element={<FreeBoardWrite />} />
+            {/* 자유게시판 수정페이지 */}
+            <Route path="/freeboard/edit/:userId" element={<FreeBoardEdit />} />
             {/* 상담리스트페이지 */}
             <Route path="/counsel" element={<Counsel />} />
             {/* 상담상세페이지 */}
@@ -98,6 +101,8 @@ function App(): React.ReactElement {
             <Route path="/qna/write" element={<QnaWrite />} />
             {/* QnA 상세페이지 */}
             <Route path="/qna/:qnaId" element={<QnaDetail />} />
+            {/* QnA 수정페이지 */}
+            <Route path="/qna/edit/:qnaId" element={<QnaWrite />} />
             {/* 알림 */}
             <Route path="/alarm/:userId" element={<Alarm />} />
             {/* 나머지모든페이지 메인으로 */}

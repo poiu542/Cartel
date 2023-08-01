@@ -4,6 +4,7 @@ import { CommunityFree } from '../components/CommunityFree'
 import { QnaTable } from '../components/QnaTable'
 import { useQuery } from 'react-query'
 import { fetchNotices } from '../hooks/useNoticesData'
+import StyledButton from '../styles/StyledButton'
 
 export const Qna = () => {
   interface Movie {
@@ -53,6 +54,12 @@ export const Qna = () => {
     <div>
       <NavbarLogin />
       <CommunityFree />
+      <StyledButton
+        primary
+        onClick={() => window.location.replace('/qna/write')}
+      >
+        글 쓰기
+      </StyledButton>
       {data && <QnaTable data={data.data.movies} />}
     </div>
   )
