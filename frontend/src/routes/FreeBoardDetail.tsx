@@ -23,6 +23,7 @@ export const FreeBoardDetail = () => {
           <span style={{ marginLeft: '30px' }}>레벨</span>
         </div>
       </div>
+      {/* 이미지삽입 */}
       <div style={{ marginLeft: '40px', marginTop: '40px' }}>
         <img
           style={{
@@ -32,11 +33,11 @@ export const FreeBoardDetail = () => {
           src={process.env.PUBLIC_URL + '/image/seulyoon.jpg'}
           alt="설윤"
         />
+        {/* 내용삽입 */}
         <p>
           펜타닐, 메스암페타민, 마리화나 등등 온갖마약을 하고 살았는데 이번엔
           제대로 끊어보려고 자조모임 하고있습니다. 모두 화이팅!{' '}
         </p>
-        <div></div>
       </div>
       <Comment />
     </div>

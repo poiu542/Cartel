@@ -13,6 +13,8 @@ interface ButtonProps {
   red?: boolean
   fontSize?: string
   border?: string
+  width?: string
+  height?: string
 }
 
 const BasicButton = styled.button<ButtonProps>`
@@ -28,11 +30,13 @@ const BasicButton = styled.button<ButtonProps>`
   font-size: ${(props) => props.fontSize || '26px'};
   border: ${(props) => props.border || 'none'};
 
+  cursor: pointer;
+
   ${(props) =>
     props.primary &&
     css`
       color: white;
-      background: #0af;
+      background: #3b478f;
       font-weight: bold;
       border-radius: 10px;
     `}

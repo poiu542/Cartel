@@ -64,7 +64,12 @@ export const Notice = () => {
     <div>
       <NavbarLogin />
       <CommunityNotice />
-      <StyledButton>작성</StyledButton>
+      <StyledButton
+        primary
+        onClick={() => window.location.replace('/notice/write')}
+      >
+        글 쓰기
+      </StyledButton>
       {data && <NoticeTable data={data.data.movies} />}
       {/* data가 존재하는 경우에만 <NoticeTable> 컴포넌트를 렌더링합니다. */}
     </div>

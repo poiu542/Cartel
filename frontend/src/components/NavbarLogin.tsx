@@ -12,6 +12,7 @@ import Tooltip from '@mui/material/Tooltip'
 import MenuItem from '@mui/material/MenuItem'
 import AdbIcon from '@mui/icons-material/Adb'
 import { Link } from 'react-router-dom'
+import { Navigate } from 'react-router-dom'
 import { useNavigate } from 'react-router-dom'
 import NotificationsNoneIcon from '@mui/icons-material/NotificationsNone'
 const pages = ['상담', '상담사', '공지사항', '커뮤니티']
@@ -71,33 +72,35 @@ function NavbarLogin() {
   const handleCloseNoticeMenu = () => {
     setAnchorElNotice(null)
   }
+  const main = () => {
+    navigate('/')
+  }
 
   return (
     <AppBar position="static" sx={{ backgroundColor: 'white' }}>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
-          <Link to="/">
-            <Typography
-              variant="h6"
-              noWrap
-              component="a"
-              href=""
-              sx={{
-                mr: 46,
-                display: { xs: 'none', md: 'flex' },
-                fontFamily: 'monospace',
-                fontWeight: 700,
-                letterSpacing: '.3rem',
-                color: 'inherit',
-                textDecoration: 'none',
-                border: 'solid',
-                borderColor: 'black',
-              }}
-            >
-              LOGO
-            </Typography>
-          </Link>
+          <Typography
+            variant="h6"
+            noWrap
+            component="a"
+            href=""
+            sx={{
+              mr: 46,
+              display: { xs: 'none', md: 'flex' },
+              fontFamily: 'monospace',
+              fontWeight: 700,
+              letterSpacing: '.3rem',
+              color: 'inherit',
+              textDecoration: 'none',
+              border: 'solid',
+              borderColor: 'black',
+            }}
+            onClick={main}
+          >
+            LOGO
+          </Typography>
 
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
             <IconButton

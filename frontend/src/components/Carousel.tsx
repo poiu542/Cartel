@@ -100,7 +100,12 @@ const Carousel: React.FC = () => {
     <CarouselContainer>
       {/* 이미지와 텍스트를 표시하는 부분 */}
       <CarouselItem key={currentIndex}>
-        <CarouselText>{carouselData[currentIndex].text}</CarouselText>
+        <CarouselText style={{ color: '#3b478f', fontSize: '20px' }}>
+          {carouselData[currentIndex].text}
+          <p style={{ fontSize: '13px' }}>
+            아이브 장원영 최이서 안유진 리즈 김가을 레이
+          </p>
+        </CarouselText>
         <CarouselImage
           src={carouselData[currentIndex].imageUrl}
           alt={`Slide ${currentIndex + 1}`}

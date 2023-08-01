@@ -7,7 +7,6 @@ export const FlexContainer = styled.div`
   justify-content: center;
   padding: 50px;
 `
-
 export const FlexContainerAlignStart = styled.div`
   display: flex;
   flex-direction: column;
@@ -16,7 +15,6 @@ export const FlexContainerAlignStart = styled.div`
 `
 
 export const FlexContainerRow = styled.div`
-  width: 100%;
   display: flex;
   flex-direction: row;
   justify-content: space-between;

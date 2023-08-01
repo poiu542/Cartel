@@ -67,3 +67,9 @@
   font-weight: normal;
   font-style: normal;
 }
+
+/* Navbar */
+@font-face {
+  font-family: 'Apple';
+  src: url('./AppleSDGothicNeoB.ttf') format('woff2');
+}

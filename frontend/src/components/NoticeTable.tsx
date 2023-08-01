@@ -6,6 +6,7 @@ import TableRow from '@mui/material/TableRow'
 import { Board } from '../model/board'
 import { Link } from 'react-router-dom'
 import { NoneStyledLink } from './../styles/Custom'
+import StyledButton from './../styles/StyledButton'
 
 type TestData = {
   id: number
@@ -74,6 +75,9 @@ const NoticeTable: React.FC<NoticeTableProps<TestData>> = ({ data }) => {
               </NoneStyledLink>
 
               <TableCell align="right">{notice.year}</TableCell>
+              <StyledButton background="white" color="red" fontSize="15px">
+                X
+              </StyledButton>
             </TableRow>
           ))}
         </TableBody>
