@@ -38,7 +38,7 @@ export const NoticeWrite: React.FC = () => {
             형사상의 책임을 질 수 있습니다. [저작권법 안내] [게시물 활용 안내]
           </p>
           <SpacedDiv />
-          <StyledTextArea placeholder="내용을 입력하세요" />
+          <StyledTextArea placeholder="원래내용을 입력하세요" />
           <SpacedDiv />
           <StyledFileInput />
           <div style={{ marginLeft: '30px', width: '400px' }}>

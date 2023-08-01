@@ -1,5 +1,5 @@
-import '../fonts/font.css'
-import NavbarLogin from '../components/NavbarLogout'
+import React from 'react'
+import NavbarLogin from '../components/NavbarLogin'
 import ArticleBar from '../components/ArticleBar'
 import {
   CenteredDiv,
@@ -8,20 +8,26 @@ import {
   StyledFileInput,
   StyledTextArea,
   StyledTitleInput,
-} from './../components/Write'
+} from '../components/Write'
+
 import StyledButton from './../styles/StyledButton'
 
-export const QnaWrite: React.FC = () => {
+export const QnaEdit = () => {
   return (
-    <div>
+    <>
       <NavbarLogin />
-      <ArticleBar name="QnA 작성" />
+      <ArticleBar name="QnA 수정" />
       <SpacedDiv />
       <CenteredDiv>
         <StyledDiv style={{ display: 'flex', flexDirection: 'column' }}>
           <SpacedDiv />
+          {/* 입력되어 있는 값 띄우기 */}
           <div style={{ display: 'flex', alignItems: 'center' }}>
-            <StyledTitleInput placeholder="제목을 입력하세요" />
+            <StyledTitleInput
+              required
+              maxLength={40}
+              placeholder="{{원래내용}}}"
+            />
             <span
               style={{
                 marginLeft: '30px',
@@ -29,7 +35,7 @@ export const QnaWrite: React.FC = () => {
                 fontWeight: '500',
               }}
             >
-              작성자
+              작성자 레벨
             </span>
           </div>
           <p style={{ marginLeft: '30px', fontSize: '10px' }}>
@@ -37,7 +43,7 @@ export const QnaWrite: React.FC = () => {
             형사상의 책임을 질 수 있습니다. [저작권법 안내] [게시물 활용 안내]
           </p>
           <SpacedDiv />
-          <StyledTextArea placeholder="내용을 입력하세요" />
+          <StyledTextArea placeholder="원래 입력되어 있는 값 올리기" />
           <SpacedDiv />
           <StyledFileInput />
           <div style={{ marginLeft: '30px', width: '400px' }}>
@@ -52,16 +58,13 @@ export const QnaWrite: React.FC = () => {
               marginBottom: '10px',
             }}
           >
-            {/* 버튼 구현하기 */}
             <div style={{ marginRight: '10px' }}>
-              <StyledButton red onClick={() => window.location.replace('/qna')}>
-                취소
-              </StyledButton>
+              <StyledButton red>취소</StyledButton>
             </div>
             <StyledButton primary>등록</StyledButton>
           </div>
         </StyledDiv>
       </CenteredDiv>
-    </div>
+    </>
   )
 }

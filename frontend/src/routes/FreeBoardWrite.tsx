@@ -16,13 +16,13 @@ export const FreeBoardWrite = () => {
   return (
     <div>
       <NavbarLogin />
-      <ArticleBar name="공지사항 작성" />
+      <ArticleBar name="자유게시글 작성" />
       <SpacedDiv />
       <CenteredDiv>
         <StyledDiv style={{ display: 'flex', flexDirection: 'column' }}>
           <SpacedDiv />
           <div style={{ display: 'flex', alignItems: 'center' }}>
-            <StyledTitleInput placeholder="제목을 입력하세요" />
+            <StyledTitleInput maxLength={40} placeholder="제목을 입력하세요" />
             <span
               style={{
                 marginLeft: '30px',
@@ -54,7 +54,12 @@ export const FreeBoardWrite = () => {
             }}
           >
             <div style={{ marginRight: '10px' }}>
-              <StyledButton red>취소</StyledButton>
+              <StyledButton
+                red
+                onClick={() => window.location.replace('/freeboard')}
+              >
+                취소
+              </StyledButton>
             </div>
             <StyledButton primary>등록</StyledButton>
           </div>
