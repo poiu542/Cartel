@@ -34,7 +34,6 @@ interface NoticeTableProps<T> {
 // ]
 
 const NoticeTable: React.FC<NoticeTableProps<TestData>> = ({ data }) => {
-  console.log(data)
   return (
     <div
       style={{
