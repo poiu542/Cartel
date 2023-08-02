@@ -8,6 +8,8 @@ import {
   FlexContainerRow,
 } from '../styles/MainStyle'
 import Button from '../components/Button'
+import IconButton from '@mui/material/IconButton'
+
 import {
   NormalLoginCheck,
   NormalLoginNoCheck,
@@ -16,6 +18,7 @@ import {
 } from '../styles/SignBtn'
 import Modal from 'react-modal'
 import StyledButton from '../styles/StyledButton'
+import DeleteIcon from '@mui/icons-material/Delete'
 
 export const SignUp = () => {
   const [inputNicknameValue, setinputNicknameValue] = useState('')
@@ -136,13 +139,16 @@ export const SignUp = () => {
                     onChange={(event) => updateCareer(index, event)}
                     style={{ width: '900px', borderBlockColor: '#40BFFF' }}
                   />
-                  <StyledButton
+                  {/* <StyledButton color="gray" background="white">
+                    <DeleteIcon />
+                  </StyledButton> */}
+                  <IconButton
+                    aria-label="delete"
                     onClick={() => deleteCareer(index)}
-                    color="red"
-                    background="white"
+                    style={{ scale: '1.5' }}
                   >
-                    X
-                  </StyledButton>
+                    <DeleteIcon fontSize="inherit" />
+                  </IconButton>
                 </FlexContainerRow>
               </div>
             ))}
@@ -155,9 +161,33 @@ export const SignUp = () => {
               zIndex: 1,
             }}
           >
-            <StyledButton onClick={addCareer}>Add</StyledButton>&nbsp;
-            <StyledButton onClick={closeCareerModal} red>
+            <StyledButton
+              fontSize="14px"
+              width="50px"
+              height="30px"
+              onClick={addCareer}
+            >
+              Add
+            </StyledButton>
+            &nbsp;
+            <StyledButton
+              fontSize="12px"
+              width="50px"
+              height="30px"
+              onClick={closeCareerModal}
+              background="#ef5c5c"
+            >
               Close
+            </StyledButton>
+            &nbsp;
+            <StyledButton
+              fontSize="14px"
+              width="50px"
+              height="30px"
+              background="#15e506"
+              onClick={() => alert('저장되었습니다.')}
+            >
+              Save
             </StyledButton>
           </FlexContainerRow>
         </FlexContainerRow>

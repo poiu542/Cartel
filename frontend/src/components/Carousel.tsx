@@ -64,7 +64,7 @@ const Indicator = styled.div`
   cursor: pointer;
 
   &.active {
-    background-color: #40bfff;
+    background-color: #757eb0;
     width: 30px;
     border-radius: 20%;
   }
