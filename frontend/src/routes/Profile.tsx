@@ -1,7 +1,6 @@
 import React from 'react'
 import NavbarLogout from '../components/NavbarLogout'
 import { styled } from 'styled-components'
-import Input from '../components/Input'
 
 type Props = {}
 
@@ -83,6 +82,8 @@ const ProfileInput = styled.input`
   font-style: normal;
   font-weight: 400;
   line-height: 20px;
+  width: px;
+  height: 40px;
 `
 const ProfileMenuWrapper = styled.div`
   width: 100%;
@@ -125,7 +126,9 @@ export const Profile = (props: Props) => {
               <span>{'>>'}</span>
             </li>
           </ProfileMenu>
-          <ProfileInput />
+          <span>
+            <ProfileInput />
+          </span>
         </ProfileMenuWrapper>
       </GridLayout>
     </section>
