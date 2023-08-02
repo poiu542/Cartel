@@ -6,20 +6,17 @@ import CounselorCard from '../components/CounselorCard'
 import PreviewBox from '../components/PreviewBox'
 import Footer from '../components/Footer'
 import EmojiObjectsOutlinedIcon from '@mui/icons-material/EmojiObjectsOutlined'
-import PeopleIcon from '@mui/icons-material/People'
+// import PeopleIcon from '@mui/icons-material/People'
 import ReceiptIcon from '@mui/icons-material/Receipt'
 import SpeedIcon from '@mui/icons-material/Speed'
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart'
-import CampaignIcon from '@mui/icons-material/Campaign'
+// import CampaignIcon from '@mui/icons-material/Campaign'
 import { useNavigate } from 'react-router-dom'
 import GroupsIcon from '@mui/icons-material/Groups'
 import VaccinesIcon from '@mui/icons-material/Vaccines'
-import Card from '@mui/material/Card'
-import CardActions from '@mui/material/CardActions'
-import CardContent from '@mui/material/CardContent'
-import CardMedia from '@mui/material/CardMedia'
-import Button from '@mui/material/Button'
-import Typography from '@mui/material/Typography'
+import styled from 'styled-components'
+// import { StyledDiv } from './../components/Write'
+
 export const Main = () => {
   const navigate = useNavigate()
   const onCardClick = () => {
@@ -31,6 +28,14 @@ export const Main = () => {
   const ViewAllCounselor = () => {
     navigate(`/counselor`)
   }
+
+  const CustomDiv = styled.div`
+    background: #ffd359;
+    color: white;
+    border-radius: 5px;
+    width:456px
+    height:164px
+  `
 
   return (
     <div>
@@ -413,6 +418,7 @@ export const Main = () => {
             width: '50%',
           }}
         >
+          <CustomDiv>ㄴㅇㄴㅇ</CustomDiv>
           {/* <div
             className="HOT article box"
             style={{
