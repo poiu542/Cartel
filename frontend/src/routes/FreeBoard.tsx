@@ -26,11 +26,7 @@ export const FreeBoard = () => {
       </div>
       <StyledButton
         primary
-<<<<<<< HEAD
-        onClick={() => window.location.replace('freeboard/write')}
-=======
         onClick={() => window.location.replace('/freeboard/write')}
->>>>>>> frontend-feature-routes
       >
         글 쓰기
       </StyledButton>

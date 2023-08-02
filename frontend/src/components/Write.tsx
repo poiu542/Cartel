@@ -99,10 +99,6 @@ export const Write: React.FC<WriteProps> = ({ name }) => {
         onChange={handleChange}
         style={{ display: 'none' }}
       /> */}
-<<<<<<< HEAD
-=======
-      <img src="../../public/image/seulyoon.jpg" alt="" />
->>>>>>> frontend-feature-routes
     </div>
   )
 }

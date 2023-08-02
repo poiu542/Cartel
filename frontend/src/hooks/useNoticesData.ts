@@ -13,9 +13,9 @@ interface Notice {
 }
 
 export const fetchTests = (pageParams: number) => {
-  return axios.get(
-    ` https://jsonplaceholder.typicode.com/posts?_limit=5&_page=${pageParams}`,
-  )
+  return axios
+    .get(` https://reqres.in/api/users?&page=${pageParams}`)
+    .then((res) => res.data)
 }
 
 export const fetchNotices = (pageParams: number) => {

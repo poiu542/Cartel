@@ -46,7 +46,6 @@ export const Profile: React.FC = () => {
   return (
     <div>
       <NavbarLogin />
-<<<<<<< HEAD
       <div>
         <ProfileInput></ProfileInput>
       </div>
@@ -59,7 +58,6 @@ export const Profile: React.FC = () => {
       <div>
         <ProfileInput></ProfileInput>
       </div>
-=======
       <InputContainer>
         <CircleImageContainer>
           <CircleImage src="/image/seulyoon.jpg" alt="Circle Image" />
@@ -69,8 +67,6 @@ export const Profile: React.FC = () => {
         <ProfileInput placeholder="1" />
         <ProfileInput placeholder="1" />
       </InputContainer>
->>>>>>> 8c818c278d5bf14721aa651837c5dd38bda09f90
     </div>
   )
 }
-
