@@ -46,6 +46,21 @@ export const Profile: React.FC = () => {
   return (
     <div>
       <NavbarLogin />
+<<<<<<< HEAD
+=======
+      <div>
+        <ProfileInput></ProfileInput>
+      </div>
+      <div>
+        <ProfileInput></ProfileInput>
+      </div>
+      <div>
+        <ProfileInput></ProfileInput>
+      </div>
+      <div>
+        <ProfileInput></ProfileInput>
+      </div>
+>>>>>>> frontend-feature-community
       <InputContainer>
         <CircleImageContainer>
           <CircleImage src="/image/seulyoon.jpg" alt="Circle Image" />

@@ -4,6 +4,8 @@ import { CommunityFree } from '../components/CommunityFree'
 import { QnaTable } from '../components/QnaTable'
 import { useQuery } from 'react-query'
 import { fetchNotices } from '../hooks/useNoticesData'
+import StyledButton from '../styles/StyledButton'
+import { CommunityNotice } from './../components/CommunityNotice'
 
 export const Qna = () => {
   interface Movie {
@@ -61,8 +63,11 @@ export const Qna = () => {
   return (
     <div>
       <NavbarLogin />
-      <CommunityFree />
+      <CommunityNotice />
+      <StyledButton>작성</StyledButton>
+      {/* {nav} */}
       {movies && <QnaTable data={movies.data.movies} />}
+      {/* data가 존재하는 경우에만 <NoticeTable> 컴포넌트를 렌더링합니다. */}
     </div>
   )
 }

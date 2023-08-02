@@ -99,7 +99,6 @@ export const Write: React.FC<WriteProps> = ({ name }) => {
         onChange={handleChange}
         style={{ display: 'none' }}
       /> */}
-      <img src="../../public/image/seulyoon.jpg" alt="" />
     </div>
   )
 }
