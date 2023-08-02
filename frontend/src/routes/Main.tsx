@@ -61,7 +61,7 @@ export const Main = () => {
             <EmojiObjectsIcon
               style={{
                 color: '#ffd359',
-
+                background: 'gray',
                 marginTop: '50px',
                 scale: '3',
               }}

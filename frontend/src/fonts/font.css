@@ -67,3 +67,10 @@
   font-weight: normal;
   font-style: normal;
 }
+
+@font-face {
+  font-family: 'Apple';
+  src: url('./AppleSDGothicNeoB.ttf') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+}
