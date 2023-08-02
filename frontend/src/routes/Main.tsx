@@ -35,12 +35,37 @@ export const Main = () => {
     navigate(`/counselor`)
   }
 
-  const CustomDiv = styled.div`
+  const iconStyle = {
+    padding: '30px',
+    fontSize: '15px',
+    fontWeight: 'bold',
+    fontFamily: 'GangwonState',
+  }
+
+  const SurviceDiv = styled.div`
     background: #ffd359;
     color: white;
     border-radius: 5px;
-    width:456px
-    height:164px
+    width: 50%;
+    height: 164px;
+  `
+  const DrugDiv = styled.div`
+    background: #fb7e71;
+  `
+
+  const GroupDiv = styled.div`
+    background: #4bd4d5;
+  `
+
+  const ColumDiv = styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  `
+
+  const AllDiv = styled.div`
+    display: flex;
+    justify-content: space-between;
   `
 
   return (
@@ -82,16 +107,7 @@ export const Main = () => {
                 scale: '3',
               }}
             />
-            <span
-              style={{
-                fontFamily: 'GangwonState',
-                padding: '30px',
-                fontSize: '13px',
-                fontWeight: 'bold',
-              }}
-            >
-              서비스 소개
-            </span>
+            <span style={iconStyle}>서비스 소개</span>
           </div>
 
           <div
@@ -109,16 +125,7 @@ export const Main = () => {
                 scale: '3',
               }}
             />
-            <span
-              style={{
-                padding: '30px',
-                fontFamily: 'GangwonState',
-                fontSize: '13px',
-                fontWeight: 'bold',
-              }}
-            >
-              마약 소개
-            </span>
+            <span style={iconStyle}>마약 소개</span>
           </div>
 
           <div
@@ -137,16 +144,7 @@ export const Main = () => {
                 scale: '3',
               }}
             />
-            <span
-              style={{
-                padding: '30px',
-                fontSize: '13px',
-                fontWeight: 'bold',
-                fontFamily: 'GangwonState',
-              }}
-            >
-              자조모임이란?
-            </span>
+            <span style={iconStyle}>자조모임이란?</span>
           </div>
 
           <div
@@ -164,16 +162,7 @@ export const Main = () => {
                 scale: '3',
               }}
             />
-            <span
-              style={{
-                padding: '30px',
-                fontSize: '13px',
-                fontFamily: 'GangwonState',
-                fontWeight: 'bold',
-              }}
-            >
-              중독검사
-            </span>
+            <span style={iconStyle}>중독검사</span>
           </div>
 
           <div
@@ -191,16 +180,7 @@ export const Main = () => {
                 scale: '3',
               }}
             />
-            <span
-              style={{
-                padding: '30px',
-                fontSize: '13px',
-                fontFamily: 'GangwonState',
-                fontWeight: 'bold',
-              }}
-            >
-              심리테스트
-            </span>
+            <span style={iconStyle}>심리테스트</span>
           </div>
 
           <div
@@ -218,16 +198,7 @@ export const Main = () => {
                 scale: '3',
               }}
             />
-            <span
-              style={{
-                padding: '30px',
-                fontSize: '13px',
-                fontWeight: 'bold',
-                fontFamily: 'GangwonState',
-              }}
-            >
-              카르텔몰
-            </span>
+            <span style={iconStyle}>카르텔몰</span>
           </div>
         </div>
       </div>
@@ -242,7 +213,13 @@ export const Main = () => {
           marginBottom: '20px', // Add some spacing at the bottom
         }}
       >
-        <h1 style={{ marginBottom: '1px', fontFamily: 'TheJamsil5Bold' }}>
+        <h1
+          style={{
+            marginBottom: '1px',
+            fontFamily: 'TheJamsil5Bold',
+            // color: '#3b478f',
+          }}
+        >
           나에게 맞는 상담사를 찾아보세요!
         </h1>
         <p
@@ -251,6 +228,7 @@ export const Main = () => {
             fontSize: '18px',
             fontFamily: 'IAMAPLAYER',
             fontWeight: 600,
+            color: 'gray',
           }}
         >
           검증된 상담사 분들이 여러분을 기다리고 있습니다.
@@ -440,7 +418,14 @@ export const Main = () => {
             width: '50%',
           }}
         >
-          <CustomDiv>ㄴㅇㄴㅇ</CustomDiv>
+          <FlexContainerRow>
+            <FlexContainer style={{ justifyContent: 'space-between' }}>
+              <GroupDiv>sdfsdf</GroupDiv>
+              <DrugDiv>dafsdf</DrugDiv>
+            </FlexContainer>
+            <SurviceDiv>ㄴㅇㄴㅇ</SurviceDiv>
+          </FlexContainerRow>
+
           {/* <div
             className="HOT article box"
             style={{
