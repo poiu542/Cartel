@@ -122,6 +122,9 @@ export const SignUp = () => {
   return (
     <div>
       <Modal isOpen={isModalOpen} onRequestClose={closeCareerModal}>
+        <FlexContainer>
+          <h1>이력</h1>
+        </FlexContainer>
         <FlexContainerRow>
           <FlexContainer>
             {careers.map((career, index) => (
@@ -144,12 +147,19 @@ export const SignUp = () => {
               </div>
             ))}
           </FlexContainer>
-          <FlexContainer>
-            <StyledButton onClick={addCareer}>Add</StyledButton>
+          <FlexContainerRow
+            style={{
+              position: 'fixed',
+              top: '120px',
+              right: '100px',
+              zIndex: 1,
+            }}
+          >
+            <StyledButton onClick={addCareer}>Add</StyledButton>&nbsp;
             <StyledButton onClick={closeCareerModal} red>
               Close
             </StyledButton>
-          </FlexContainer>
+          </FlexContainerRow>
         </FlexContainerRow>
       </Modal>
       <NavbarLogout />
@@ -229,6 +239,7 @@ export const SignUp = () => {
                 onChange={handleEducation}
                 placeholder="학력"
                 type="text"
+                maxLength={40}
               />
               <Button
                 text="이력 작성하기"
