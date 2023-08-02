@@ -6,6 +6,7 @@ import { useQuery } from 'react-query'
 import { fetchNotices } from '../hooks/useNoticesData'
 import StyledButton from '../styles/StyledButton'
 import { CommunityNotice } from './../components/CommunityNotice'
+import { fetchMovies } from '../hooks/useNoticesData'
 
 export const Qna = () => {
   interface Movie {
@@ -25,21 +26,16 @@ export const Qna = () => {
   const [page, setPage] = useState(1)
 
   // axios data파일 받아오기
-  const {
-    isLoading,
-    data: movies,
-    isError,
-    error,
-    refetch,
-    isPreviousData,
-  } = useQuery<ApiResponse>(['/notice', page], () => fetchNotices(page), {
-    keepPreviousData: true,
-  })
+  const { isLoading, data, isError, error, refetch } = useQuery<ApiResponse>(
+    ['notice'],
+    fetchMovies,
+  )
+
   if (isLoading) {
     return <h2>Loading...</h2>
   }
 
-  if (isError || !movies) {
+  if (isError || !data) {
     console.error(error) // 콘솔에 에러 메시지를 표시합니다.
     return (
       <div>
@@ -63,10 +59,10 @@ export const Qna = () => {
   return (
     <div>
       <NavbarLogin />
-      <CommunityNotice />
+      <CommunityFree />
       <StyledButton>작성</StyledButton>
       {/* {nav} */}
-      {movies && <QnaTable data={movies.data.movies} />}
+      {data && <QnaTable data={data.data.movies} />}
       {/* data가 존재하는 경우에만 <NoticeTable> 컴포넌트를 렌더링합니다. */}
     </div>
   )

@@ -84,7 +84,7 @@ export const Notice = () => {
   const nav = (
     <nav className="nav-ex2">
       <button onClick={prevPage} disabled={isPreviousData || page === 1}>
-        &lt;&lt;
+        &lt;
       </button>
       {pagesArray.map((pg: number) => (
         <PageButton
@@ -98,7 +98,7 @@ export const Notice = () => {
         onClick={nextPage}
         disabled={isPreviousData || page === users.total_pages}
       >
-        &gt;&gt;
+        &gt;
       </button>
     </nav>
   )

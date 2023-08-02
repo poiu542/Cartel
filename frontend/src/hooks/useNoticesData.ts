@@ -26,6 +26,12 @@ export const fetchNotices = (pageParams: number) => {
     .then((res) => res.data)
 }
 
+export const fetchMovies = () => {
+  return axios
+    .get(`https://yts.mx/api/v2/list_movies.json?minimum_rating=9&sort_by=year`)
+    .then((res) => res.data)
+}
+
 // export const useNoticesData = (onSuccess: any, onError: any) => {
 //   return useQuery(['notice'], fetchNotices, {
 //     onSuccess,

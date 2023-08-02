@@ -8,7 +8,7 @@ type WriteProps = {
   name: string
 }
 
-export const StyledDiv = styled.div`
+export const StyledForm = styled.form`
   width: 80%;
   height: 90%;
   border-top: 4px solid #3b478f;

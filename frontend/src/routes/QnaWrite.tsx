@@ -4,7 +4,7 @@ import ArticleBar from '../components/ArticleBar'
 import {
   CenteredDiv,
   SpacedDiv,
-  StyledDiv,
+  StyledForm,
   StyledFileInput,
   StyledTextArea,
   StyledTitleInput,
@@ -18,7 +18,7 @@ export const QnaWrite: React.FC = () => {
       <ArticleBar name="QnA 작성" />
       <SpacedDiv />
       <CenteredDiv>
-        <StyledDiv style={{ display: 'flex', flexDirection: 'column' }}>
+        <StyledForm style={{ display: 'flex', flexDirection: 'column' }}>
           <SpacedDiv />
           <div style={{ display: 'flex', alignItems: 'center' }}>
             <StyledTitleInput placeholder="제목을 입력하세요" />
@@ -60,7 +60,7 @@ export const QnaWrite: React.FC = () => {
             </div>
             <StyledButton primary>등록</StyledButton>
           </div>
-        </StyledDiv>
+        </StyledForm>
       </CenteredDiv>
     </div>
   )

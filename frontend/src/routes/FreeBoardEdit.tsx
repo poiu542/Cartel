@@ -4,7 +4,6 @@ import ArticleBar from '../components/ArticleBar'
 import {
   CenteredDiv,
   SpacedDiv,
-  StyledDiv,
   StyledFileInput,
   StyledTextArea,
   StyledTitleInput,
