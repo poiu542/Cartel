@@ -60,8 +60,6 @@ export const Qna = () => {
     <div>
       <NavbarLogin />
       <CommunityFree />
-<<<<<<< HEAD
-<<<<<<< HEAD
       <StyledButton
         primary
         onClick={() => window.location.replace('/qna/write')}
@@ -69,15 +67,11 @@ export const Qna = () => {
         글 쓰기
       </StyledButton>
       {data && <QnaTable data={data.data.movies} />}
-=======
-      {movies && <QnaTable data={movies.data.movies} />}
->>>>>>> frontend-feature-routes
-=======
+      {/* {movies && <QnaTable data={movies.data.movies} />} */}
       <StyledButton>작성</StyledButton>
       {/* {nav} */}
       {data && <QnaTable data={data.data.movies} />}
       {/* data가 존재하는 경우에만 <NoticeTable> 컴포넌트를 렌더링합니다. */}
->>>>>>> frontend-feature-routes
     </div>
   )
 }

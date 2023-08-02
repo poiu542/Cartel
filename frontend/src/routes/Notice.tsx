@@ -122,26 +122,20 @@ export const Notice = () => {
     <div>
       <NavbarLogin />
       <CommunityNotice />
-<<<<<<< HEAD
-<<<<<<< HEAD
       <StyledButton
         primary
         onClick={() => window.location.replace('/notice/write')}
       >
         글 쓰기
       </StyledButton>
-      {data && <NoticeTable data={data.data.movies} />}
-=======
+      {/* {data && <NoticeTable data={data.data.movies} />} */}
       <StyledButton>작성</StyledButton>
       {nav}
-      {movies && <NoticeTable data={movies.data.movies} />}
->>>>>>> frontend-feature-routes
-=======
+      {/* {movies && <NoticeTable data={movies.data.movies} />} */}
       <StyledButton>작성</StyledButton>
       {nav}
       {/* {movies && <NoticeTable data={movies.data.movies} />} */}
       {users && <NoticeTable data={users.data} />}
->>>>>>> frontend-feature-routes
       {/* data가 존재하는 경우에만 <NoticeTable> 컴포넌트를 렌더링합니다. */}
     </div>
   )

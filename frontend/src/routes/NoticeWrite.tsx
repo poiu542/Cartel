@@ -54,22 +54,12 @@ export const NoticeWrite: React.FC = () => {
             }}
           >
             <div style={{ marginRight: '10px' }}>
-<<<<<<< HEAD
-<<<<<<< HEAD
-              <StyledButton red>취소</StyledButton>
-=======
-=======
->>>>>>> frontend-feature-routes
               <StyledButton
                 red
                 onClick={() => window.location.replace('/notice')}
               >
                 취소
               </StyledButton>
-<<<<<<< HEAD
->>>>>>> frontend-feature-routes
-=======
->>>>>>> frontend-feature-routes
             </div>
             <StyledButton primary>등록</StyledButton>
           </div>
