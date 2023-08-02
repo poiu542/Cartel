@@ -3,7 +3,7 @@ import NavbarLogin from './../components/NavbarLogin'
 import { CommunityNotice } from './../components/CommunityNotice'
 import NoticeTable from './../components/NoticeTable'
 import { useQuery } from 'react-query'
-import { fetchNotices } from '../hooks/useNoticesData'
+import { fetchNotices, fetchTests } from '../hooks/useNoticesData'
 import StyledButton from './../styles/StyledButton'
 import PageButton from '../components/PageButton'
 
@@ -13,25 +13,32 @@ import PageButton from '../components/PageButton'
 //   { idx: 3, title: 'Cupcake', regDate: '2023-05-20' },
 //   { idx: 4, title: 'Gingerbread', regDate: '2023-04-16' },
 // ]
-interface Test {
-  userId: number
+export interface UserData {
   id: number
-  title: string
-  body: string
+  email: string
+  first_name: string
+  last_name: string
+  avatar: string
+}
+interface TestData {
+  page: number
+  total: number
+  total_pages: number
+  data: UserData[]
 }
 
-interface Movie {
-  id: number
-  title: string
-  year: string
-}
-interface ApiResponse {
-  length(length: any): unknown
-  data: {
-    movies: Movie[]
-  }
-  status: string
-}
+// interface Movie {
+//   id: number
+//   title: string
+//   year: string
+// }
+// interface ApiResponse {
+//   length(length: any): unknown
+//   data: {
+//     movies: Movie[]
+//   }
+//   status: string
+// }
 
 export const Notice = () => {
   // const [data, setData] = useState(serverData)
@@ -40,12 +47,12 @@ export const Notice = () => {
   // axios data파일 받아오기
   const {
     isLoading,
-    data: movies,
+    data: users,
     isError,
     error,
     refetch,
     isPreviousData,
-  } = useQuery<ApiResponse>(['/notice', page], () => fetchNotices(page), {
+  } = useQuery<TestData>(['/notice', page], () => fetchTests(page), {
     keepPreviousData: true,
   })
 
@@ -53,7 +60,7 @@ export const Notice = () => {
     return <h2>Loading...</h2>
   }
 
-  if (isError || !movies) {
+  if (isError || !users) {
     console.error(error) // 콘솔에 에러 메시지를 표시합니다.
     return (
       <div>
@@ -62,24 +69,24 @@ export const Notice = () => {
     )
   }
 
+  console.log(users)
+
   const nextPage = () => setPage((prev) => prev + 1)
   const prevPage = () => setPage((prev) => prev - 1)
 
   // const content = movies.data.movies.map((movie) => <User key={user.id} user={user} />)
   // 전체 페이지 개수를 movies.data.movies.length 대신에 사용할 totalPage 변수 생성
-  const totalPage = movies.data.movies.length
-
-  // pagesArray 대신에 getTotalPages 함수 사용하여 페이지 숫자 배열 생성
+  const totalPage = users.total_pages // totalPage에 posts 배열의 길이가 할당됨
   const getTotalPages = () =>
     Array.from({ length: totalPage }, (_, index) => index + 1)
-  const pagesArray = getTotalPages()
+  const pagesArray = getTotalPages() // [1, 2, 3, ..., totalPage]와 같은 페이지 숫자 배열 생성
 
   const nav = (
     <nav className="nav-ex2">
       <button onClick={prevPage} disabled={isPreviousData || page === 1}>
-        &lt;&lt;
+        &lt;
       </button>
-      {pagesArray.map((pg) => (
+      {pagesArray.map((pg: number) => (
         <PageButton
           key={pg}
           pg={pg}
@@ -89,9 +96,9 @@ export const Notice = () => {
       ))}
       <button
         onClick={nextPage}
-        disabled={isPreviousData || page === movies.data.movies.length}
+        disabled={isPreviousData || page === users.total_pages}
       >
-        &gt;&gt;
+        &gt;
       </button>
     </nav>
   )
@@ -109,11 +116,13 @@ export const Notice = () => {
   // useEffect(() => {
   //   getMovies()
   // }, [])
-  console.log('Fetched Data:', movies.data.movies)
+  // console.log('Fetched Data:', movies.data.movies)
+  console.log('Fetched Data:', users)
   return (
     <div>
       <NavbarLogin />
       <CommunityNotice />
+<<<<<<< HEAD
 <<<<<<< HEAD
       <StyledButton
         primary
@@ -126,6 +135,12 @@ export const Notice = () => {
       <StyledButton>작성</StyledButton>
       {nav}
       {movies && <NoticeTable data={movies.data.movies} />}
+>>>>>>> frontend-feature-routes
+=======
+      <StyledButton>작성</StyledButton>
+      {nav}
+      {/* {movies && <NoticeTable data={movies.data.movies} />} */}
+      {users && <NoticeTable data={users.data} />}
 >>>>>>> frontend-feature-routes
       {/* data가 존재하는 경우에만 <NoticeTable> 컴포넌트를 렌더링합니다. */}
     </div>

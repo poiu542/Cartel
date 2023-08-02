@@ -27,7 +27,11 @@ export const FreeBoard = () => {
       <StyledButton
         primary
 <<<<<<< HEAD
+<<<<<<< HEAD
         onClick={() => window.location.replace('freeboard/write')}
+=======
+        onClick={() => window.location.replace('/freeboard/write')}
+>>>>>>> frontend-feature-routes
 =======
         onClick={() => window.location.replace('/freeboard/write')}
 >>>>>>> frontend-feature-routes

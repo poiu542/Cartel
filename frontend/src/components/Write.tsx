@@ -8,7 +8,7 @@ type WriteProps = {
   name: string
 }
 
-export const StyledDiv = styled.div`
+export const StyledForm = styled.form`
   width: 80%;
   height: 90%;
   border-top: 4px solid #3b478f;
@@ -100,8 +100,11 @@ export const Write: React.FC<WriteProps> = ({ name }) => {
         style={{ display: 'none' }}
       /> */}
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
       <img src="../../public/image/seulyoon.jpg" alt="" />
+>>>>>>> frontend-feature-routes
+=======
 >>>>>>> frontend-feature-routes
     </div>
   )

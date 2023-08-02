@@ -8,6 +8,8 @@ import {
   FlexContainerRow,
 } from '../styles/MainStyle'
 import Button from '../components/Button'
+import IconButton from '@mui/material/IconButton'
+
 import {
   NormalLoginCheck,
   NormalLoginNoCheck,
@@ -16,6 +18,7 @@ import {
 } from '../styles/SignBtn'
 import Modal from 'react-modal'
 import StyledButton from '../styles/StyledButton'
+import DeleteIcon from '@mui/icons-material/Delete'
 
 export const SignUp = () => {
   const [inputNicknameValue, setinputNicknameValue] = useState('')
@@ -31,7 +34,7 @@ export const SignUp = () => {
   const [careers, setCareers] = useState<string[]>([''])
 
   // 인증 버튼 3개의 style을 하나로 묶기
-  const buttonSize = { width: '120px', height: '35px' }
+  const buttonSize = { width: '130px', height: '37px' }
 
   // 버튼을 표시할 유저 타입을 설정하는 state.
   const [userType, setUserType] = useState(0) // 기본값은 0으로 설정.
@@ -136,13 +139,16 @@ export const SignUp = () => {
                     onChange={(event) => updateCareer(index, event)}
                     style={{ width: '900px', borderBlockColor: '#40BFFF' }}
                   />
-                  <StyledButton
+                  {/* <StyledButton color="gray" background="white">
+                    <DeleteIcon />
+                  </StyledButton> */}
+                  <IconButton
+                    aria-label="delete"
                     onClick={() => deleteCareer(index)}
-                    color="red"
-                    background="white"
+                    style={{ scale: '1.5' }}
                   >
-                    X
-                  </StyledButton>
+                    <DeleteIcon fontSize="inherit" />
+                  </IconButton>
                 </FlexContainerRow>
               </div>
             ))}
@@ -155,9 +161,33 @@ export const SignUp = () => {
               zIndex: 1,
             }}
           >
-            <StyledButton onClick={addCareer}>Add</StyledButton>&nbsp;
-            <StyledButton onClick={closeCareerModal} red>
+            <StyledButton
+              fontSize="14px"
+              width="50px"
+              height="30px"
+              onClick={addCareer}
+            >
+              Add
+            </StyledButton>
+            &nbsp;
+            <StyledButton
+              fontSize="12px"
+              width="50px"
+              height="30px"
+              onClick={closeCareerModal}
+              background="#ef5c5c"
+            >
               Close
+            </StyledButton>
+            &nbsp;
+            <StyledButton
+              fontSize="14px"
+              width="50px"
+              height="30px"
+              background="#15e506"
+              onClick={() => alert('저장되었습니다.')}
+            >
+              Save
             </StyledButton>
           </FlexContainerRow>
         </FlexContainerRow>
@@ -185,7 +215,7 @@ export const SignUp = () => {
           <Input
             value={inputNicknameValue}
             onChange={handleNicknameChange}
-            placeholder="닉네임"
+            placeholder={userType === 1 ? '이름' : '닉네임'}
             maxLength={20}
           />
           <FlexContainerRow style={{ width: '100%' }}>
@@ -243,9 +273,10 @@ export const SignUp = () => {
               />
               <Button
                 text="이력 작성하기"
-                size={{ width: '100px', height: '35px' }}
+                size={buttonSize}
                 onClick={openCareerModal}
               ></Button>
+              <br />
               <h3>상담사 인증하기</h3>
               <FlexContainerRow style={{ width: '100%' }}>
                 <Button
