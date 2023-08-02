@@ -1,7 +1,10 @@
 import React from 'react'
-import NavbarLogin from '../components/NavbarLogin'
-import styles from './styles.module.css'
 import styled from 'styled-components'
+import NavbarLogin from '../components/NavbarLogin'
+
+// Base64로 인코딩된 이미지 데이터
+const base64Image =
+  'iVBORw0KGgoAAAANSUhEUgAAAZMAAAE4CAYAAACexx5MAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAADghSURBVHhe7Z0LlF1VeYBdfdiXDx5VikKp2ofWtrSKraCtUFtsKylVWgFrhRaFUlRQqKBQoYUWbKnQolUQC1ZFKVTkEVmlyiuFiBkgIyaaCSSBkITmNckkM5PMEHbvt+f+w8n...'
 
 // 원형 이미지
 const CircleImage = styled.img`
@@ -9,6 +12,7 @@ const CircleImage = styled.img`
   height: 100%;
   object-fit: cover; /* 이미지 비율 유지하면서 컨테이너 크기에 맞춤 */
 `
+
 // 원형 이미지 칸을 감싸는 컨테이너
 const CircleImageContainer = styled.div`
   width: 100px;
@@ -18,6 +22,7 @@ const CircleImageContainer = styled.div`
   flex-shrink: 0; /* flexbox 내에서 크기 변화 방지 */
   margin-right: 20px; /* 원형 이미지 오른쪽 여백 설정 */
 `
+
 // Input 스타일
 const ProfileInput = styled.input`
   border: 1px solid var(--gray-300, #dee2e6);
@@ -30,26 +35,29 @@ const ProfileInput = styled.input`
   line-height: 20px;
   padding: 8px;
 `
+
 // Input 요소를 담는 컨테이너
 const InputContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center; /* 요소들을 수직 방향으로 가운데 정렬 */
   gap: 10px; /* input 요소 간격 설정 */
 `
+
 const CircleImageContainerWithOrder = styled(CircleImageContainer)`
   order: -1; /* 이미지의 순서를 앞으로 변경 */
 `
 
 export const Profile: React.FC = () => {
+  const imageSrc = `data:image/png;base64,${base64Image}`
+
   return (
     <div>
       <NavbarLogin />
       <InputContainer>
-        <CircleImageContainer>
+        <CircleImageContainerWithOrder>
           <CircleImage src="/image/seulyoon.jpg" alt="Circle Image" />
-        </CircleImageContainer>
+        </CircleImageContainerWithOrder>
         <ProfileInput placeholder="1" />
         <ProfileInput placeholder="1" />
         <ProfileInput placeholder="1" />
@@ -58,4 +66,3 @@ export const Profile: React.FC = () => {
     </div>
   )
 }
-
