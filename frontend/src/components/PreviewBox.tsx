@@ -13,12 +13,13 @@ interface PreviewBoxProps {
 const PreviewBox: React.FC<PreviewBoxProps> = ({ title, posts, onClick }) => (
   <div
     style={{
-      border: '1.5px solid #40BFFF',
+      border: '1px solid #3b478f',
       borderRadius: '13px',
       width: '400px',
       minHeight: '335px',
       padding: '20px',
       position: 'relative',
+      background: 'white',
     }}
   >
     <h2 style={{ textAlign: 'left', margin: '0 0 5px 0' }}>{title}</h2>
