@@ -363,9 +363,6 @@ export const Main = () => {
         className="article list"
         style={{
           display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-          flexDirection: 'row',
           // backgroundColor: '#ECF9FF',
           height: '600px',
           width: '100%',
@@ -409,24 +406,14 @@ export const Main = () => {
             onClick={ViewAll}
           />
         </div>
-        <div
-          style={{
-            display: 'flex',
-            flexDirection: 'column',
-            justifyContent: 'center',
-            alignItems: 'center',
-            width: '50%',
-          }}
-        >
+        {/* <FlexContainer style={{ width: '50%' }}>
           <FlexContainerRow>
             <FlexContainer style={{ justifyContent: 'space-between' }}>
-              <GroupDiv>sdfsdf</GroupDiv>
+              <GroupDiv style={{ height: '100%' }}>자조모임이란</GroupDiv>
               <DrugDiv>dafsdf</DrugDiv>
             </FlexContainer>
-            <SurviceDiv>ㄴㅇㄴㅇ</SurviceDiv>
-          </FlexContainerRow>
-
-          {/* <div
+            <SurviceDiv>ㄴㅇㄴㅇ</SurviceDiv> */}
+        {/* <div
             className="HOT article box"
             style={{
               display: 'flex',
@@ -454,7 +441,8 @@ export const Main = () => {
             ]}
             onClick={ViewAll}
           /> */}
-        </div>
+        {/* </FlexContainerRow>
+        </FlexContainer> */}
       </div>
       <div
         className="blank"
