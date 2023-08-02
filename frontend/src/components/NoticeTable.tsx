@@ -6,6 +6,8 @@ import TableRow from '@mui/material/TableRow'
 import { Board } from '../model/board'
 import { Link } from 'react-router-dom'
 import { NoneStyledLink } from './../styles/Custom'
+import StyledButton from './../styles/StyledButton'
+import { UserData } from './../routes/Notice'
 
 type TestData = {
   id: number
@@ -33,7 +35,7 @@ interface NoticeTableProps<T> {
 //   { idx: 4, title: 'Gingerbread', regDate: '2023-04-16' },
 // ]
 
-const NoticeTable: React.FC<NoticeTableProps<TestData>> = ({ data }) => {
+const NoticeTable: React.FC<NoticeTableProps<UserData>> = ({ data }) => {
   return (
     <div
       style={{
@@ -69,10 +71,13 @@ const NoticeTable: React.FC<NoticeTableProps<TestData>> = ({ data }) => {
               </TableCell>
 
               <NoneStyledLink to={`/notice/${notice.id}`}>
-                <TableCell>{notice.title}</TableCell>
+                <TableCell>{notice.first_name}</TableCell>
               </NoneStyledLink>
 
-              <TableCell align="right">{notice.year}</TableCell>
+              <TableCell align="right">{notice.last_name}</TableCell>
+              <StyledButton background="white" color="red" fontSize="15px">
+                X
+              </StyledButton>
             </TableRow>
           ))}
         </TableBody>

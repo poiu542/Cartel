@@ -1,10 +1,18 @@
 import React from 'react'
-import NavbarLogin from './../components/NavbarLogout'
-import ArticleBar from './../components/ArticleBar'
+import NavbarLogin from '../components/NavbarLogin'
+import ArticleBar from '../components/ArticleBar'
+import {
+  CenteredDiv,
+  SpacedDiv,
+  StyledFileInput,
+  StyledTextArea,
+  StyledTitleInput,
+} from '../components/Write'
 
-export const NoticeDetail = () => {
+import StyledButton from './../styles/StyledButton'
+export const FreeBoardEdit = () => {
   return (
-    <>
+    <div>
       <NavbarLogin />
       <ArticleBar name="공지사항" />
       <div
@@ -38,6 +46,6 @@ export const NoticeDetail = () => {
         </p>
         <div></div>
       </div>
-    </>
+    </div>
   )
 }

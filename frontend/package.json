@@ -55,6 +55,7 @@
     ]
   },
   "devDependencies": {
+    "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
     "@tanstack/react-query-devtools": "^4.32.0",
     "@types/react-datepicker": "^4.15.0",
     "@types/react-modal": "^3.16.0",
