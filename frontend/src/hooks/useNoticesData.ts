@@ -13,9 +13,9 @@ interface Notice {
 }
 
 export const fetchTests = (pageParams: number) => {
-  return axios.get(
-    ` https://jsonplaceholder.typicode.com/posts?_limit=5&_page=${pageParams}`,
-  )
+  return axios
+    .get(` https://reqres.in/api/users?&page=${pageParams}`)
+    .then((res) => res.data)
 }
 
 export const fetchNotices = (pageParams: number) => {
@@ -23,6 +23,12 @@ export const fetchNotices = (pageParams: number) => {
     .get(
       `https://yts.mx/api/v2/list_movies.json?_limit=5&minimum_rating=9&sort_by=year&_page=${pageParams}`,
     )
+    .then((res) => res.data)
+}
+
+export const fetchMovies = () => {
+  return axios
+    .get(`https://yts.mx/api/v2/list_movies.json?minimum_rating=9&sort_by=year`)
     .then((res) => res.data)
 }
 

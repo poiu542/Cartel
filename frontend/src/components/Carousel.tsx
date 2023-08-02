@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react'
 import styled, { keyframes } from 'styled-components'
+import { FlexContainer } from '../styles/MainStyle'
 
 interface Slide {
   imageUrl: string
   text: string
+  header: string
 }
 
 const fadeInOut = keyframes`
@@ -23,8 +25,14 @@ const CarouselItem = styled.div`
   width: 100%;
   height: 300px;
   animation: ${fadeInOut} 0.3s ease-in-out;
-  background-color: #ecf9ff;
-  background: linear-gradient(to right top, rgba(8, 241, 116, 0.39), #b7d1ff);
+  background: linear-gradient(to right, #5f9ea0, #6495ed);
+`
+
+const CarouselHeader = styled.div`
+  left: 10px;
+  font-size: 25px;
+  fonr-weight: bold;
+  color: white;
 `
 
 const CarouselImage = styled.img`
@@ -36,8 +44,9 @@ const CarouselImage = styled.img`
 const CarouselText = styled.p`
   bottom: 10px;
   left: 10px;
-  font-size: 18px;
+  font-size: 30px;
   font-weight: bold;
+  color: white;
 `
 
 const IndicatorsContainer = styled.div`
@@ -47,8 +56,8 @@ const IndicatorsContainer = styled.div`
 `
 
 const Indicator = styled.div`
-  width: 10px;
-  height: 10px;
+  width: 13px;
+  height: 13px;
   background-color: #ccc;
   border-radius: 50%;
   margin: 0 5px;
@@ -56,25 +65,27 @@ const Indicator = styled.div`
 
   &.active {
     background-color: #40bfff;
+    width: 30px;
+    border-radius: 20%;
   }
 `
 
 const Carousel: React.FC = () => {
   const carouselData: Slide[] = [
     {
-      imageUrl:
-        'https://blog.kakaocdn.net/dn/28Dd5/btrfWKXfzPj/pWOE0n7CHbgG3jT3RIiWK0/img.gif',
-      text: '첫 번째 슬라이드',
+      imageUrl: '/friend.jpg',
+      header: '떠나요, 내 꿈을 위한 여행',
+      text: '전문 코칭과 함께 \n나만의 목표를 달성해봐요',
     },
     {
-      imageUrl:
-        'https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FbohPY4%2FbtrgblBwn6v%2FDKuPiKT0bFlyXduX8yjkI0%2Fimg.png',
-      text: '두 번째 슬라이드',
+      imageUrl: '/friend.jpg',
+      header: '같은 고민을 같이 공감해요',
+      text: '함께 고민을 나누는 \n공감 테라피',
     },
     {
-      imageUrl:
-        'https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2Fbq8Q8f%2FbtrgbaNu2gp%2FXU1AxRQWG2SQg8sKeeWff1%2Fimg.png',
-      text: '세 번째 슬라이드',
+      imageUrl: '/friend.jpg',
+      header: '멋진 상담사님들을 모십니다',
+      text: '서비스를 통해 \n많은 분들과 함께해요',
     },
   ]
 
@@ -100,7 +111,14 @@ const Carousel: React.FC = () => {
     <CarouselContainer>
       {/* 이미지와 텍스트를 표시하는 부분 */}
       <CarouselItem key={currentIndex}>
-        <CarouselText>{carouselData[currentIndex].text}</CarouselText>
+        <FlexContainer>
+          <CarouselHeader>{carouselData[currentIndex].header}</CarouselHeader>
+          <CarouselText
+            dangerouslySetInnerHTML={{
+              __html: carouselData[currentIndex].text.replace(/\n/g, '<br />'),
+            }}
+          />
+        </FlexContainer>
         <CarouselImage
           src={carouselData[currentIndex].imageUrl}
           alt={`Slide ${currentIndex + 1}`}

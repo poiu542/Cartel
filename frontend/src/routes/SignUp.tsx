@@ -31,7 +31,7 @@ export const SignUp = () => {
   const [careers, setCareers] = useState<string[]>([''])
 
   // 인증 버튼 3개의 style을 하나로 묶기
-  const buttonSize = { width: '120px', height: '35px' }
+  const buttonSize = { width: '130px', height: '37px' }
 
   // 버튼을 표시할 유저 타입을 설정하는 state.
   const [userType, setUserType] = useState(0) // 기본값은 0으로 설정.
@@ -122,6 +122,9 @@ export const SignUp = () => {
   return (
     <div>
       <Modal isOpen={isModalOpen} onRequestClose={closeCareerModal}>
+        <FlexContainer>
+          <h1>이력</h1>
+        </FlexContainer>
         <FlexContainerRow>
           <FlexContainer>
             {careers.map((career, index) => (
@@ -144,12 +147,19 @@ export const SignUp = () => {
               </div>
             ))}
           </FlexContainer>
-          <FlexContainer>
-            <StyledButton onClick={addCareer}>Add</StyledButton>
+          <FlexContainerRow
+            style={{
+              position: 'fixed',
+              top: '120px',
+              right: '100px',
+              zIndex: 1,
+            }}
+          >
+            <StyledButton onClick={addCareer}>Add</StyledButton>&nbsp;
             <StyledButton onClick={closeCareerModal} red>
               Close
             </StyledButton>
-          </FlexContainer>
+          </FlexContainerRow>
         </FlexContainerRow>
       </Modal>
       <NavbarLogout />
@@ -175,7 +185,7 @@ export const SignUp = () => {
           <Input
             value={inputNicknameValue}
             onChange={handleNicknameChange}
-            placeholder="닉네임"
+            placeholder={userType === 1 ? '이름' : '닉네임'}
             maxLength={20}
           />
           <FlexContainerRow style={{ width: '100%' }}>
@@ -229,12 +239,14 @@ export const SignUp = () => {
                 onChange={handleEducation}
                 placeholder="학력"
                 type="text"
+                maxLength={40}
               />
               <Button
                 text="이력 작성하기"
-                size={{ width: '100px', height: '35px' }}
+                size={buttonSize}
                 onClick={openCareerModal}
               ></Button>
+              <br />
               <h3>상담사 인증하기</h3>
               <FlexContainerRow style={{ width: '100%' }}>
                 <Button

@@ -5,15 +5,24 @@ import NavbarLogout from '../components/NavbarLogout'
 import CounselorCard from '../components/CounselorCard'
 import PreviewBox from '../components/PreviewBox'
 import Footer from '../components/Footer'
-import EmojiObjectsIcon from '@mui/icons-material/EmojiObjects'
-import PeopleIcon from '@mui/icons-material/People'
+import EmojiObjectsOutlinedIcon from '@mui/icons-material/EmojiObjectsOutlined'
+// import PeopleIcon from '@mui/icons-material/People'
 import ReceiptIcon from '@mui/icons-material/Receipt'
 import SpeedIcon from '@mui/icons-material/Speed'
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart'
-import CampaignIcon from '@mui/icons-material/Campaign'
+// import CampaignIcon from '@mui/icons-material/Campaign'
 import { useNavigate } from 'react-router-dom'
 import GroupsIcon from '@mui/icons-material/Groups'
 import VaccinesIcon from '@mui/icons-material/Vaccines'
+import {
+  FlexContainer,
+  FlexContainerRow,
+  FlexContainerAlignStart,
+} from '../styles/MainStyle'
+import StyledButton from '../styles/StyledButton'
+import styled from 'styled-components'
+// import { StyledDiv } from './../components/Write'
+
 export const Main = () => {
   const navigate = useNavigate()
   const onCardClick = () => {
@@ -25,6 +34,39 @@ export const Main = () => {
   const ViewAllCounselor = () => {
     navigate(`/counselor`)
   }
+
+  const iconStyle = {
+    padding: '30px',
+    fontSize: '15px',
+    fontWeight: 'bold',
+    fontFamily: 'GangwonState',
+  }
+
+  const SurviceDiv = styled.div`
+    background: #ffd359;
+    color: white;
+    border-radius: 5px;
+    width: 50%;
+    height: 164px;
+  `
+  const DrugDiv = styled.div`
+    background: #fb7e71;
+  `
+
+  const GroupDiv = styled.div`
+    background: #4bd4d5;
+  `
+
+  const ColumDiv = styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  `
+
+  const AllDiv = styled.div`
+    display: flex;
+    justify-content: space-between;
+  `
 
   return (
     <div>
@@ -58,19 +100,14 @@ export const Main = () => {
               alignItems: 'center',
             }}
           >
-            <EmojiObjectsIcon
+            <EmojiObjectsOutlinedIcon
               style={{
                 color: '#ffd359',
-
                 marginTop: '50px',
                 scale: '3',
               }}
             />
-            <span
-              style={{ padding: '30px', fontSize: '13px', fontWeight: 'bold' }}
-            >
-              서비스 소개
-            </span>
+            <span style={iconStyle}>서비스 소개</span>
           </div>
 
           <div
@@ -88,17 +125,14 @@ export const Main = () => {
                 scale: '3',
               }}
             />
-            <span
-              style={{ padding: '30px', fontSize: '13px', fontWeight: 'bold' }}
-            >
-              마약 소개
-            </span>
+            <span style={iconStyle}>마약 소개</span>
           </div>
 
           <div
             style={{
               display: 'flex',
               flexDirection: 'column',
+
               alignItems: 'center',
             }}
           >
@@ -110,33 +144,25 @@ export const Main = () => {
                 scale: '3',
               }}
             />
-            <span
-              style={{ padding: '30px', fontSize: '13px', fontWeight: 'bold' }}
-            >
-              자조모임이란?
-            </span>
+            <span style={iconStyle}>자조모임이란?</span>
           </div>
 
           <div
             style={{
               display: 'flex',
               flexDirection: 'column',
+              fontFamily: 'IAMAPLAYER',
               alignItems: 'center',
             }}
           >
             <SpeedIcon
               style={{
                 color: '#9d9ff4',
-
                 marginTop: '50px',
                 scale: '3',
               }}
             />
-            <span
-              style={{ padding: '30px', fontSize: '13px', fontWeight: 'bold' }}
-            >
-              중독검사
-            </span>
+            <span style={iconStyle}>중독검사</span>
           </div>
 
           <div
@@ -149,16 +175,12 @@ export const Main = () => {
             <ReceiptIcon
               style={{
                 color: '#fd6f7a',
-
+                fontFamily: 'TheJamsil5Bold',
                 marginTop: '50px',
                 scale: '3',
               }}
             />
-            <span
-              style={{ padding: '30px', fontSize: '13px', fontWeight: 'bold' }}
-            >
-              심리테스트
-            </span>
+            <span style={iconStyle}>심리테스트</span>
           </div>
 
           <div
@@ -171,63 +193,105 @@ export const Main = () => {
             <ShoppingCartIcon
               style={{
                 color: '#e8b25c',
-
+                fontFamily: 'TheJamsil5Bold',
                 marginTop: '50px',
                 scale: '3',
               }}
             />
-            <span
-              style={{
-                padding: '30px',
-                fontSize: '13px',
-                fontWeight: 'bold',
-              }}
-            >
-              카르텔몰
-            </span>
+            <span style={iconStyle}>카르텔몰</span>
           </div>
         </div>
       </div>
+      {/* 상담사 카드 파트  카드 최대 4개까지만 보여주도록  리스트 더보기 추가하도록*/}
       <div
-        className="counsel list"
         style={{
           display: 'flex',
+          flexDirection: 'column',
           justifyContent: 'center',
-          alignItems: 'flex-start',
-          flexDirection: 'row',
-          backgroundColor: '#ECF9FF',
-          height: '350px',
-          width: '100%',
-          gap: '100px',
-          position: 'relative',
-          paddingTop: '50px',
+          background: '#ECF9FF',
+          alignItems: 'center',
+          marginBottom: '20px', // Add some spacing at the bottom
         }}
       >
-        <CounselorCard
-          onCardClick={onCardClick}
-          name="석민혁"
-          grade={4.8}
-          gradeCount={51}
-          introduce="족구왕이 될 사나이"
-          imgSrc="./image/profileImg2.png"
-        />
-        <CounselorCard
-          onCardClick={onCardClick}
-          name="이순신"
-          grade={4.7}
-          gradeCount={45}
-          introduce="해상 전략가"
-          imgSrc="./image/profileImg2.png"
-        />
-        <CounselorCard
-          onCardClick={onCardClick}
-          name="박찬호"
-          grade={4.9}
-          gradeCount={53}
-          introduce="야구 선수"
-          imgSrc="./image/profileImg2.png"
-        />
-        <button
+        <h1
+          style={{
+            marginBottom: '1px',
+            fontFamily: 'TheJamsil5Bold',
+            // color: '#3b478f',
+          }}
+        >
+          나에게 맞는 상담사를 찾아보세요!
+        </h1>
+        <p
+          style={{
+            marginBottom: '2px',
+            fontSize: '18px',
+            fontFamily: 'IAMAPLAYER',
+            fontWeight: 600,
+            color: 'gray',
+          }}
+        >
+          검증된 상담사 분들이 여러분을 기다리고 있습니다.
+        </p>
+        <div
+          className="counsel list"
+          style={{
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'flex-start',
+            flexDirection: 'row',
+            height: '350px',
+            width: '100%',
+            gap: '100px',
+            position: 'relative',
+            paddingTop: '50px',
+          }}
+        >
+          {/* 카드 */}
+
+          <CounselorCard
+            onCardClick={onCardClick}
+            name="석민혁"
+            grade={3.9}
+            gradeCount={51}
+            introduce={
+              '나는 멍청이 헤헤 나는 멍청이 헤헤 나는 멍청이 헤헤'
+              // item.introduce.length > 27
+              //   ? item.introduce.substring(0, 27) + '...'
+              //   : item.introduce
+            }
+            imgSrc="/image/seulyoon.jpg"
+          />
+          <CounselorCard
+            onCardClick={onCardClick}
+            name="석민혁"
+            grade={3.9}
+            gradeCount={51}
+            introduce={
+              '나는 멍청이 헤헤 나는 멍청이 헤헤 나는 멍청이 헤헤'
+              // item.introduce.length > 27
+              //   ? item.introduce.substring(0, 27) + '...'
+              //   : item.introduce
+            }
+            imgSrc="/image/seulyoon.jpg"
+          />
+          <CounselorCard
+            onCardClick={onCardClick}
+            name="이순신"
+            grade={4.7}
+            gradeCount={45}
+            introduce="해상 전략가"
+            imgSrc="./image/iesur.jpg"
+          />
+          <CounselorCard
+            onCardClick={onCardClick}
+            name="박찬호"
+            grade={4.9}
+            gradeCount={53}
+            introduce="야구 선수"
+            imgSrc="./image/profileImg2.png"
+          />
+          {/* <button
           onClick={ViewAllCounselor}
           style={{
             position: 'absolute',
@@ -246,9 +310,9 @@ export const Main = () => {
           }}
         >
           상담사 더보기
-        </button>
+        </button> */}
+        </div>
       </div>
-
       <div
         className="blank"
         style={{
@@ -264,8 +328,8 @@ export const Main = () => {
           style={{
             background:
               'linear-gradient(to right, #0683C9, #42a1d1, #71c3eb, #a9e1ff)',
-            width: '1400px',
-            height: '150px',
+            width: '80%',
+            height: '220px',
             borderRadius: '13px',
             display: 'flex',
             alignItems: 'center',
@@ -274,10 +338,27 @@ export const Main = () => {
             fontWeight: 'bold',
           }}
         >
-          <div style={{ background: '#00528F' }}>심리상담소</div>
-          오프라인에서도 카르텔을 만나보세요
+          <FlexContainerRow style={{ width: '100%' }}>
+            <FlexContainer style={{ paddingLeft: '8%' }}>
+              <StyledButton background="#00528F">심리상담소</StyledButton>
+              <p style={{ fontSize: '30px' }}>
+                카르텔을 통해 나와 비슷한 사람들을 만나보세요
+              </p>
+            </FlexContainer>
+            <FlexContainer style={{ justifyContent: 'flex-end' }}>
+              <img
+                src="/friend.jpg"
+                alt=""
+                style={{
+                  width: '250px',
+                  height: '150px',
+                }}
+              />
+            </FlexContainer>
+          </FlexContainerRow>
         </div>
       </div>
+      {/* best 게시글 */}
       <div
         className="article list"
         style={{
@@ -285,7 +366,7 @@ export const Main = () => {
           justifyContent: 'center',
           alignItems: 'center',
           flexDirection: 'row',
-          backgroundColor: '#ECF9FF',
+          // backgroundColor: '#ECF9FF',
           height: '600px',
           width: '100%',
         }}
@@ -299,7 +380,7 @@ export const Main = () => {
             width: '50%',
           }}
         >
-          <div
+          {/* <div
             className="BEST article box"
             style={{
               display: 'flex',
@@ -309,13 +390,14 @@ export const Main = () => {
               backgroundColor: 'white',
               width: '313px',
               height: '70px',
-              color: '#40BFFF',
+              color: '#3b478f',
               margin: '30px',
               fontSize: '20px',
+              border: '1px solid #3b478f',
             }}
           >
             BEST 게시글
-          </div>
+          </div> */}
           <PreviewBox
             title="BEST 게시글"
             posts={[
@@ -336,7 +418,15 @@ export const Main = () => {
             width: '50%',
           }}
         >
-          <div
+          <FlexContainerRow>
+            <FlexContainer style={{ justifyContent: 'space-between' }}>
+              <GroupDiv>sdfsdf</GroupDiv>
+              <DrugDiv>dafsdf</DrugDiv>
+            </FlexContainer>
+            <SurviceDiv>ㄴㅇㄴㅇ</SurviceDiv>
+          </FlexContainerRow>
+
+          {/* <div
             className="HOT article box"
             style={{
               display: 'flex',
@@ -346,9 +436,10 @@ export const Main = () => {
               backgroundColor: 'white',
               width: '313px',
               height: '70px',
-              color: '#40BFFF',
+              color: '#3b478f',
               margin: '30px',
               fontSize: '20px',
+              border: '1px solid #3b478f',
             }}
           >
             HOT 게시글
@@ -362,7 +453,7 @@ export const Main = () => {
               { title: '공지4' },
             ]}
             onClick={ViewAll}
-          />
+          /> */}
         </div>
       </div>
       <div
@@ -371,15 +462,7 @@ export const Main = () => {
           height: '150px',
           width: '100%',
         }}
-      >
-        <div>
-          <img
-            src="/image/logo.png"
-            alt="Rqtest"
-            style={{ width: '60px', height: '60px' }}
-          />
-        </div>
-      </div>
+      ></div>
       <Footer />
     </div>
   )
