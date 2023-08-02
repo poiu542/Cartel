@@ -5,7 +5,7 @@ import ArticleBar from '../components/ArticleBar'
 import {
   CenteredDiv,
   SpacedDiv,
-  StyledDiv,
+  StyledForm,
   StyledFileInput,
   StyledTextArea,
   StyledTitleInput,
@@ -19,7 +19,7 @@ export const FreeBoardWrite = () => {
       <ArticleBar name="자유게시글 작성" />
       <SpacedDiv />
       <CenteredDiv>
-        <StyledDiv style={{ display: 'flex', flexDirection: 'column' }}>
+        <StyledForm style={{ display: 'flex', flexDirection: 'column' }}>
           <SpacedDiv />
           <div style={{ display: 'flex', alignItems: 'center' }}>
             <StyledTitleInput maxLength={40} placeholder="제목을 입력하세요" />
@@ -63,7 +63,7 @@ export const FreeBoardWrite = () => {
             </div>
             <StyledButton primary>등록</StyledButton>
           </div>
-        </StyledDiv>
+        </StyledForm>
       </CenteredDiv>
     </div>
   )

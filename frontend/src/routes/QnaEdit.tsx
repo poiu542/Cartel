@@ -4,7 +4,7 @@ import ArticleBar from '../components/ArticleBar'
 import {
   CenteredDiv,
   SpacedDiv,
-  StyledDiv,
+  StyledForm,
   StyledFileInput,
   StyledTextArea,
   StyledTitleInput,
@@ -19,7 +19,7 @@ export const QnaEdit = () => {
       <ArticleBar name="QnA 수정" />
       <SpacedDiv />
       <CenteredDiv>
-        <StyledDiv style={{ display: 'flex', flexDirection: 'column' }}>
+        <StyledForm style={{ display: 'flex', flexDirection: 'column' }}>
           <SpacedDiv />
           {/* 입력되어 있는 값 띄우기 */}
           <div style={{ display: 'flex', alignItems: 'center' }}>
@@ -63,7 +63,7 @@ export const QnaEdit = () => {
             </div>
             <StyledButton primary>등록</StyledButton>
           </div>
-        </StyledDiv>
+        </StyledForm>
       </CenteredDiv>
     </>
   )
