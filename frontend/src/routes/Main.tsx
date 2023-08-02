@@ -14,6 +14,12 @@ import CampaignIcon from '@mui/icons-material/Campaign'
 import { useNavigate } from 'react-router-dom'
 import GroupsIcon from '@mui/icons-material/Groups'
 import VaccinesIcon from '@mui/icons-material/Vaccines'
+import {
+  FlexContainer,
+  FlexContainerRow,
+  FlexContainerAlignStart,
+} from '../styles/MainStyle'
+import StyledButton from '../styles/StyledButton'
 export const Main = () => {
   const navigate = useNavigate()
   const onCardClick = () => {
@@ -264,8 +270,8 @@ export const Main = () => {
           style={{
             background:
               'linear-gradient(to right, #0683C9, #42a1d1, #71c3eb, #a9e1ff)',
-            width: '1400px',
-            height: '150px',
+            width: '80%',
+            height: '220px',
             borderRadius: '13px',
             display: 'flex',
             alignItems: 'center',
@@ -274,8 +280,24 @@ export const Main = () => {
             fontWeight: 'bold',
           }}
         >
-          <div style={{ background: '#00528F' }}>심리상담소</div>
-          오프라인에서도 카르텔을 만나보세요
+          <FlexContainerRow style={{ width: '100%' }}>
+            <FlexContainer style={{ paddingLeft: '8%' }}>
+              <StyledButton background="#00528F">심리상담소</StyledButton>
+              <p style={{ fontSize: '30px' }}>
+                카르텔을 통해 나와 비슷한 사람들을 만나보세요
+              </p>
+            </FlexContainer>
+            <FlexContainer style={{ justifyContent: 'flex-end' }}>
+              <img
+                src="/friend.jpg"
+                alt=""
+                style={{
+                  width: '250px',
+                  height: '150px',
+                }}
+              />
+            </FlexContainer>
+          </FlexContainerRow>
         </div>
       </div>
       <div
@@ -371,15 +393,7 @@ export const Main = () => {
           height: '150px',
           width: '100%',
         }}
-      >
-        <div>
-          <img
-            src="/image/logo.png"
-            alt="Rqtest"
-            style={{ width: '60px', height: '60px' }}
-          />
-        </div>
-      </div>
+      ></div>
       <Footer />
     </div>
   )
