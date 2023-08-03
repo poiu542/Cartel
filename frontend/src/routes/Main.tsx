@@ -21,6 +21,13 @@ import {
 } from '../styles/MainStyle'
 import StyledButton from '../styles/StyledButton'
 import styled from 'styled-components'
+import { HiMagnifyingGlass } from 'react-icons/hi2'
+import { GiPill } from 'react-icons/gi'
+import { GoPeople } from 'react-icons/go'
+import { LuInspect } from 'react-icons/lu'
+import { MdOutlinePsychologyAlt } from 'react-icons/md'
+import { AiOutlineShoppingCart } from 'react-icons/ai'
+
 // import { StyledDiv } from './../components/Write'
 
 export const Main = () => {
@@ -37,9 +44,9 @@ export const Main = () => {
 
   const iconStyle = {
     padding: '30px',
-    fontSize: '15px',
-    fontWeight: 'bold',
-    fontFamily: 'GangwonState',
+    fontSize: '14px',
+    fontWeight: 'normal',
+    fontFamily: 'MBC1961GulimM',
   }
 
   const SurviceDiv = styled.div`
@@ -100,13 +107,14 @@ export const Main = () => {
               alignItems: 'center',
             }}
           >
-            <EmojiObjectsOutlinedIcon
+            <HiMagnifyingGlass
               style={{
                 color: '#ffd359',
                 marginTop: '50px',
                 scale: '3',
               }}
             />
+
             <span style={iconStyle}>서비스 소개</span>
           </div>
 
@@ -117,7 +125,7 @@ export const Main = () => {
               alignItems: 'center',
             }}
           >
-            <VaccinesIcon
+            <GiPill
               style={{
                 color: '#fb7e71',
 
@@ -136,7 +144,7 @@ export const Main = () => {
               alignItems: 'center',
             }}
           >
-            <GroupsIcon
+            <GoPeople
               style={{
                 color: '#4bd4d5',
 
@@ -155,7 +163,7 @@ export const Main = () => {
               alignItems: 'center',
             }}
           >
-            <SpeedIcon
+            <LuInspect
               style={{
                 color: '#9d9ff4',
                 marginTop: '50px',
@@ -172,7 +180,7 @@ export const Main = () => {
               alignItems: 'center',
             }}
           >
-            <ReceiptIcon
+            <MdOutlinePsychologyAlt
               style={{
                 color: '#fd6f7a',
                 fontFamily: 'TheJamsil5Bold',
@@ -190,7 +198,7 @@ export const Main = () => {
               alignItems: 'center',
             }}
           >
-            <ShoppingCartIcon
+            <AiOutlineShoppingCart
               style={{
                 color: '#e8b25c',
                 fontFamily: 'TheJamsil5Bold',
@@ -404,6 +412,8 @@ export const Main = () => {
               { title: '공지4' },
             ]}
             onClick={ViewAll}
+            width="300px"
+            height="235px"
           />
         </div>
         {/* <FlexContainer style={{ width: '50%' }}>

@@ -48,7 +48,9 @@ function CounselorCard({
         </Typography>
       </CardContent>
       <CardActions>
-        <Button size="small">더 보기</Button>
+        <div onClick={onCardClick}>
+          <Button size="small">더 보기</Button>
+        </div>
         <Rating
           name="text-feedback"
           value={grade}
