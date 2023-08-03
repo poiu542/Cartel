@@ -78,10 +78,7 @@ function App(): React.ReactElement {
             {/* 상담상세페이지 */}
             <Route path="/counsel/:Id" element={<CounselDetail />} />
             {/* 상담상세 수정페이지 */}
-            <Route
-              path="/counsel/edit/:counsedlId/"
-              element={<CounselEdit />}
-            />
+            <Route path="/counsel/edit/:counselId/" element={<CounselEdit />} />
             {/* 상담개설 페이지 */}
             <Route path="/counsel/make" element={<CounselMake />} />
             {/* 상담사리스트페이지 */}
