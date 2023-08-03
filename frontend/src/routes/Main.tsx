@@ -379,13 +379,17 @@ export const Main = () => {
             height="235px"
           />
         </div>
-        {/* <FlexContainer style={{ width: '50%' }}>
+        <FlexContainer style={{ width: '50%', padding: 0 }}>
           <FlexContainerRow>
-            <FlexContainer style={{ justifyContent: 'space-between' }}>
-              <GroupDiv style={{ height: '100%' }}>자조모임이란</GroupDiv>
+            <FlexContainer style={{ padding: 0 }}>
+              <GroupDiv style={{ width: '100%', height: '100%' }}>
+                자조모임이란
+              </GroupDiv>
               <DrugDiv>dafsdf</DrugDiv>
             </FlexContainer>
-            <SurviceDiv>ㄴㅇㄴㅇ</SurviceDiv> */}
+            <SurviceDiv>ㄴㅇㄴㅇ</SurviceDiv>
+          </FlexContainerRow>
+        </FlexContainer>
       </div>
       <div
         className="blank"
