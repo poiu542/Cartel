@@ -12,18 +12,8 @@ export const NoticeBtn = styled.button`
   border: 1px solid white;
   font-size: 30px;
   font-weight: bold;
-  font-family:
-    system-ui,
-    -apple-system,
-    BlinkMacSystemFont,
-    'Segoe UI',
-    Roboto,
-    Oxygen,
-    Ubuntu,
-    Cantarell,
-    'Open Sans',
-    'Helvetica Neue',
-    sans-serif;
+  font-family: Apple;
+
   text-shadow:
     -1px -1px 0 #0098e6,
     /* 왼쪽 상단 */ 1px -1px 0 #0098e6,
@@ -42,18 +32,8 @@ export const FreeBtn = styled.button`
   border: 1px solid white;
   font-size: 30px;
   font-weight: bold;
-  font-family:
-    system-ui,
-    -apple-system,
-    BlinkMacSystemFont,
-    'Segoe UI',
-    Roboto,
-    Oxygen,
-    Ubuntu,
-    Cantarell,
-    'Open Sans',
-    'Helvetica Neue',
-    sans-serif;
+  font-family: Apple;
+
   cursor: pointer;
 `
 
@@ -65,11 +45,11 @@ export const CommunityTitle = styled.p`
   align-items: center;
   height: 100%; /* Set the height to 100% to fill the CommunityBackground vertically */
   margin: 0; /* Remove any default margin to avoid extra spacing */
-  text-shadow: -1px -1px 0 #0098e6;
+  // text-shadow: -1px -1px 0 #0098e6;
 `
 
 export const CommunityBackground = styled.div`
-  background-image: url('/sky.jpg');
+  background-image: url('./image/space.jpg');
 
   height: 25.125rem;
   border-radius: 0.375rem;
