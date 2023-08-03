@@ -404,6 +404,8 @@ export const Main = () => {
               { title: '공지4' },
             ]}
             onClick={ViewAll}
+            width="300px"
+            height="235px"
           />
         </div>
         {/* <FlexContainer style={{ width: '50%' }}>

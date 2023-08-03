@@ -17,7 +17,9 @@ import { Link } from 'react-router-dom'
 import { Navigate } from 'react-router-dom'
 import { useNavigate } from 'react-router-dom'
 import NotificationsNoneIcon from '@mui/icons-material/NotificationsNone'
-
+import Badge from '@mui/material/Badge'
+import Stack from '@mui/material/Stack'
+import MailIcon from '@mui/icons-material/Mail'
 function NavbarLogin() {
   const isLoggedIn = 1
   // const isLoggedIn = useSelector((state) => state.isLoggedIn);
@@ -85,6 +87,9 @@ function NavbarLogin() {
     setAnchorElNotice(null)
   }
   const main = () => {
+    navigate('/')
+  }
+  const noticeClick = () => {
     navigate('/')
   }
 
@@ -186,17 +191,15 @@ function NavbarLogin() {
               </Button>
             ))}
           </Box>
-          <Box sx={{ flexGrow: 0 }}>
+          <Box sx={{ flexGrow: 0, marginRight: '20px' }}>
             {isLoggedIn ? (
-              <Tooltip title="Open Notice">
-                <IconButton onClick={handleOpenNoticeMenu} sx={{ p: 0, mr: 3 }}>
-                  <Link to="/alarm/:userId">
-                    <NotificationsNoneIcon
-                      style={{ width: '40px', height: '40px', color: 'black' }}
-                    />
-                  </Link>
-                </IconButton>
-              </Tooltip>
+              <div onClick={noticeClick} style={{ cursor: 'pointer' }}>
+                <Stack spacing={2} direction="row">
+                  <Badge badgeContent={4} color="error">
+                    <MailIcon color="action" />
+                  </Badge>
+                </Stack>
+              </div>
             ) : null}
             <Menu
               sx={{ mt: '45px' }}

@@ -8,15 +8,23 @@ interface PreviewBoxProps {
   title: string
   posts: Post[]
   onClick: () => void
+  width: string
+  height: string
 }
 
-const PreviewBox: React.FC<PreviewBoxProps> = ({ title, posts, onClick }) => (
+const PreviewBox: React.FC<PreviewBoxProps> = ({
+  title,
+  posts,
+  onClick,
+  width,
+  height,
+}) => (
   <div
     style={{
       border: '1px solid #3b478f',
       borderRadius: '13px',
-      width: '400px',
-      minHeight: '335px',
+      width: width,
+      minHeight: height,
       padding: '20px',
       position: 'relative',
       background: 'white',
