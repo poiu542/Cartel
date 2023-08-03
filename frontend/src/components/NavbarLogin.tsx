@@ -98,26 +98,21 @@ function NavbarLogin() {
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
-          <Typography
-            variant="h6"
-            noWrap
-            component="a"
-            href=""
-            sx={{
-              mr: 46,
-              display: { xs: 'none', md: 'flex' },
+          <img
+            src="/image/logo.png"
+            alt="Logo"
+            style={{
+              marginRight: 46,
               fontFamily: 'monospace',
               fontWeight: 700,
               letterSpacing: '.3rem',
-              color: 'inherit',
               textDecoration: 'none',
-              border: 'solid',
-              borderColor: 'black',
+              cursor: 'pointer',
+              width: '100px',
+              height: '70px',
             }}
             onClick={main}
-          >
-            LOGO
-          </Typography>
+          />
 
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
             <IconButton
