@@ -30,7 +30,12 @@ import { AiOutlineShoppingCart } from 'react-icons/ai'
 import { BsPersonCircle } from 'react-icons/bs'
 
 // import { StyledDiv } from './../components/Write'
-
+console.log('|\\_/|')
+console.log('|q p|   /}')
+console.log('( 0 )"""\\')
+console.log('|"^"`    |')
+console.log('||_/=\\\\__|')
+console.log('도와주서 고맙습니다!!!')
 export const Main = () => {
   const navigate = useNavigate()
   const onCardClick = () => {
