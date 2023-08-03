@@ -39,7 +39,6 @@ import { FreeBoardWrite } from './routes/FreeBoardWrite'
 import { QnaWrite } from './routes/QnaWrite'
 import { FreeBoardEdit } from './routes/FreeBoardEdit'
 import { CounselJournal } from './routes/CounselJournal'
-import { CounselJournalCreate } from './routes/CounselJournalCreate'
 
 const queryClient = new QueryClient()
 
@@ -105,11 +104,6 @@ function App(): React.ReactElement {
             {/* 알림 */}
             <Route path="/counselorJournal/1" element={<CounselJournal />} />
             {/* 상담일지 리스트 */}
-            <Route
-              path="/counselorJournal/:userId/create"
-              element={<CounselJournalCreate />}
-            />
-            {/* 상담일지 작성 폼 */}
             <Route path="/alarm/:userId" element={<Alarm />} />
             {/* 나머지모든페이지 메인으로 */}
             <Route path="*" element={<Main />} />
