@@ -38,6 +38,7 @@ import { NoticeWrite } from './routes/NoticeWrite'
 import { FreeBoardWrite } from './routes/FreeBoardWrite'
 import { QnaWrite } from './routes/QnaWrite'
 import { FreeBoardEdit } from './routes/FreeBoardEdit'
+import { CounselJournal } from './routes/CounselJournal'
 
 const queryClient = new QueryClient()
 
@@ -78,10 +79,7 @@ function App(): React.ReactElement {
             {/* 상담상세페이지 */}
             <Route path="/counsel/:Id" element={<CounselDetail />} />
             {/* 상담상세 수정페이지 */}
-            <Route
-              path="/counsel/edit/:counsedlId/"
-              element={<CounselEdit />}
-            />
+            <Route path="/counsel/edit/:counselId/" element={<CounselEdit />} />
             {/* 상담개설 페이지 */}
             <Route path="/counsel/make" element={<CounselMake />} />
             {/* 상담사리스트페이지 */}
@@ -104,6 +102,8 @@ function App(): React.ReactElement {
             {/* QnA 수정페이지 */}
             <Route path="/qna/edit/:qnaId" element={<QnaWrite />} />
             {/* 알림 */}
+            <Route path="/counselorJournal/1" element={<CounselJournal />} />
+            {/* 상담일지 리스트 */}
             <Route path="/alarm/:userId" element={<Alarm />} />
             {/* 나머지모든페이지 메인으로 */}
             <Route path="*" element={<Main />} />

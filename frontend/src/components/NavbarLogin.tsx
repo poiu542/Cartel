@@ -1,4 +1,6 @@
 import * as React from 'react'
+import { useSelector, useDispatch } from 'react-redux'
+// import { loginAction, logoutAction } from './actions'
 import AppBar from '@mui/material/AppBar'
 import Box from '@mui/material/Box'
 import Toolbar from '@mui/material/Toolbar'
@@ -15,12 +17,17 @@ import { Link } from 'react-router-dom'
 import { Navigate } from 'react-router-dom'
 import { useNavigate } from 'react-router-dom'
 import NotificationsNoneIcon from '@mui/icons-material/NotificationsNone'
-const pages = ['상담', '상담사', '공지사항', '커뮤니티']
-const settings = ['마이페이지', '로그아웃']
-const notices = ['알림1', '알림2', '알림3', '알림4']
-const userId = 1
 
 function NavbarLogin() {
+  const isLoggedIn = 1
+  // const isLoggedIn = useSelector((state) => state.isLoggedIn);
+  // const dispatch = useDispatch();
+  const pages = ['상담', '상담사', '공지사항', '커뮤니티']
+  const settings = isLoggedIn
+    ? ['마이페이지', '로그아웃']
+    : ['회원가입', '로그인']
+  const notices = ['알림1', '알림2', '알림3', '알림4']
+  const userId = 1
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null)
   const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(
     null,
@@ -45,10 +52,15 @@ function NavbarLogin() {
       navigate(`/${page}/${userId}`)
     } else if (page === '로그아웃') {
       // 로그아웃 로직
+    } else if (page === '회원가입') {
+      page = 'signup'
+    } else if (page === '로그인') {
+      page = 'login'
     }
 
     // handleCloseNavMenu()
   }
+
   const [anchorElNotice, setAnchorElNotice] =
     React.useState<null | HTMLElement>(null)
 
@@ -175,15 +187,17 @@ function NavbarLogin() {
             ))}
           </Box>
           <Box sx={{ flexGrow: 0 }}>
-            <Tooltip title="Open Notice">
-              <IconButton onClick={handleOpenNoticeMenu} sx={{ p: 0, mr: 3 }}>
-                <Link to="/alarm/:userId">
-                  <NotificationsNoneIcon
-                    style={{ width: '40px', height: '40px', color: 'black' }}
-                  />
-                </Link>
-              </IconButton>
-            </Tooltip>
+            {isLoggedIn ? (
+              <Tooltip title="Open Notice">
+                <IconButton onClick={handleOpenNoticeMenu} sx={{ p: 0, mr: 3 }}>
+                  <Link to="/alarm/:userId">
+                    <NotificationsNoneIcon
+                      style={{ width: '40px', height: '40px', color: 'black' }}
+                    />
+                  </Link>
+                </IconButton>
+              </Tooltip>
+            ) : null}
             <Menu
               sx={{ mt: '45px' }}
               id="menu-appbar"
