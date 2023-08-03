@@ -17,9 +17,14 @@ import { Link } from 'react-router-dom'
 import { Navigate } from 'react-router-dom'
 import { useNavigate } from 'react-router-dom'
 import NotificationsNoneIcon from '@mui/icons-material/NotificationsNone'
+<<<<<<< HEAD
+import { BsPersonCircle } from 'react-icons/bs'
+
+=======
 import Badge from '@mui/material/Badge'
 import Stack from '@mui/material/Stack'
 import MailIcon from '@mui/icons-material/Mail'
+>>>>>>> f9ad5a75279d11384233bbc39c99064331814da2
 function NavbarLogin() {
   const isLoggedIn = 1
   // const isLoggedIn = useSelector((state) => state.isLoggedIn);
@@ -222,11 +227,7 @@ function NavbarLogin() {
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open user settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <img
-                  src="/image/profileImg2.png"
-                  alt="Remy Sharp"
-                  style={{ width: '60px', height: '60px' }}
-                />
+                <BsPersonCircle style={{ width: '40px', height: '40px' }} />
               </IconButton>
             </Tooltip>
             <Menu

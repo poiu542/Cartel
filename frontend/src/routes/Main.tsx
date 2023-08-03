@@ -27,6 +27,7 @@ import { GoPeople } from 'react-icons/go'
 import { LuInspect } from 'react-icons/lu'
 import { MdOutlinePsychologyAlt } from 'react-icons/md'
 import { AiOutlineShoppingCart } from 'react-icons/ai'
+import { BsPersonCircle } from 'react-icons/bs'
 
 // import { StyledDiv } from './../components/Write'
 
@@ -248,7 +249,7 @@ export const Main = () => {
             justifyContent: 'center',
             alignItems: 'flex-start',
             flexDirection: 'row',
-            height: '350px',
+            height: '400px',
             width: '100%',
             gap: '100px',
             position: 'relative',
