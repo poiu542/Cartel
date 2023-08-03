@@ -91,30 +91,32 @@ function NavbarLogin() {
   const main = () => {
     navigate('/')
   }
-  const noticeClick = () => {
-    navigate('/')
-  }
 
   return (
     <AppBar position="static" sx={{ backgroundColor: 'white' }}>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
-          <img
-            src="/image/logo.png"
-            alt="Logo"
-            style={{
-              marginRight: 46,
+          <Typography
+            variant="h6"
+            noWrap
+            component="a"
+            href=""
+            sx={{
+              mr: 46,
+              display: { xs: 'none', md: 'flex' },
               fontFamily: 'monospace',
               fontWeight: 700,
               letterSpacing: '.3rem',
+              color: 'inherit',
               textDecoration: 'none',
-              cursor: 'pointer',
-              width: '100px',
-              height: '70px',
+              border: 'solid',
+              borderColor: 'black',
             }}
             onClick={main}
-          />
+          >
+            LOGO
+          </Typography>
 
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
             <IconButton
@@ -188,15 +190,17 @@ function NavbarLogin() {
               </Button>
             ))}
           </Box>
-          <Box sx={{ flexGrow: 0, marginRight: '20px' }}>
+          <Box sx={{ flexGrow: 0 }}>
             {isLoggedIn ? (
-              <div onClick={noticeClick} style={{ cursor: 'pointer' }}>
-                <Stack spacing={2} direction="row">
-                  <Badge badgeContent={4} color="error">
-                    <MailIcon color="action" />
-                  </Badge>
-                </Stack>
-              </div>
+              <Tooltip title="Open Notice">
+                <IconButton onClick={handleOpenNoticeMenu} sx={{ p: 0, mr: 3 }}>
+                  <Link to="/alarm/:userId">
+                    <NotificationsNoneIcon
+                      style={{ width: '40px', height: '40px', color: 'black' }}
+                    />
+                  </Link>
+                </IconButton>
+              </Tooltip>
             ) : null}
             <Menu
               sx={{ mt: '45px' }}
@@ -224,6 +228,7 @@ function NavbarLogin() {
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open user settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                {/* {isLoggedIn && props.profile.image? <img src={props.profile.image} alt="" />  */}
                 <BsPersonCircle style={{ width: '40px', height: '40px' }} />
               </IconButton>
             </Tooltip>
