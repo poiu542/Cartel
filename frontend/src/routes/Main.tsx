@@ -300,26 +300,6 @@ export const Main = () => {
             introduce="야구 선수"
             imgSrc="./image/profileImg2.png"
           />
-          {/* <button
-          onClick={ViewAllCounselor}
-          style={{
-            position: 'absolute',
-            bottom: '10px',
-            left: '50%',
-            transform: 'translateX(-50%)',
-            padding: '10px 20px',
-            backgroundColor: '#40BFFF',
-            color: 'white',
-            border: 'none',
-            borderRadius: '5px',
-            cursor: 'pointer',
-            fontSize: '30px',
-            width: '1000px',
-            marginBottom: '30px',
-          }}
-        >
-          상담사 더보기
-        </button> */}
         </div>
       </div>
       <div
@@ -386,24 +366,6 @@ export const Main = () => {
             width: '50%',
           }}
         >
-          {/* <div
-            className="BEST article box"
-            style={{
-              display: 'flex',
-              justifyContent: 'center',
-              alignItems: 'center',
-              borderRadius: '13px',
-              backgroundColor: 'white',
-              width: '313px',
-              height: '70px',
-              color: '#3b478f',
-              margin: '30px',
-              fontSize: '20px',
-              border: '1px solid #3b478f',
-            }}
-          >
-            BEST 게시글
-          </div> */}
           <PreviewBox
             title="BEST 게시글"
             posts={[
@@ -424,36 +386,6 @@ export const Main = () => {
               <DrugDiv>dafsdf</DrugDiv>
             </FlexContainer>
             <SurviceDiv>ㄴㅇㄴㅇ</SurviceDiv> */}
-        {/* <div
-            className="HOT article box"
-            style={{
-              display: 'flex',
-              justifyContent: 'center',
-              alignItems: 'center',
-              borderRadius: '13px',
-              backgroundColor: 'white',
-              width: '313px',
-              height: '70px',
-              color: '#3b478f',
-              margin: '30px',
-              fontSize: '20px',
-              border: '1px solid #3b478f',
-            }}
-          >
-            HOT 게시글
-          </div>
-          <PreviewBox
-            title="HOT 게시글"
-            posts={[
-              { title: '[공지] 상담일정 변경 안내' },
-              { title: '공지2' },
-              { title: '공지3' },
-              { title: '공지4' },
-            ]}
-            onClick={ViewAll}
-          /> */}
-        {/* </FlexContainerRow>
-        </FlexContainer> */}
       </div>
       <div
         className="blank"
