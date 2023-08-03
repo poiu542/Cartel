@@ -1,15 +1,9 @@
-import styled from 'styled-components'
+import React from 'react'
+import NavbarLogout from '../components/NavbarLogout'
+import { styled } from 'styled-components'
 
-export const ProfileInput = styled.input`
-  border: 1px solid var(--gray-300, #dee2e6);
-  border-radius: 6px;
-  background: var(--default-white, #fff);
-  font-family: Inter;
-  font-size: 16px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: 20px;
-`
+type Props = {}
+
 const GridLayout = styled.div`
   max-width: 1280px;
   margin-top: 50px;
@@ -79,6 +73,18 @@ const ProfileMenu = styled.ul`
     }
   }
 `
+const ProfileInput = styled.input`
+  border: 1px solid var(--gray-300, #dee2e6);
+  border-radius: 6px;
+  background: var(--default-white, #fff);
+  font-family: Inter;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 20px;
+  width: px;
+  height: 40px;
+`
 const ProfileMenuWrapper = styled.div`
   width: 100%;
   padding: 10px;
@@ -86,3 +92,45 @@ const ProfileMenuWrapper = styled.div`
   grid-template-columns: auto auto; /* 두 개의 자식 요소를 자동 크기로 배치 */
   gap: 6px; /* 컬럼 사이의 간격 설정 */
 `
+const nickname = '이경원'
+
+export const Profile = (props: Props) => {
+  return (
+    <section>
+      <NavbarLogout />
+      <GridLayout>
+        <GridProfileArea>
+          <ProfileImage>
+            <img src="/image/seulyoon.jpg" alt="1" />
+            <h2>{nickname}</h2>
+          </ProfileImage>
+        </GridProfileArea>
+        <GridInputArea>
+          <ProfileInput />
+          <ProfileInput />
+          <ProfileInput />
+          <ProfileInput />
+        </GridInputArea>
+        <ProfileMenuWrapper>
+          <ProfileMenu>
+            <li>
+              <h3>내가 쓴 게시글</h3>
+              <span>{'>>'}</span>
+            </li>
+            <li>
+              <h3>내가 쓴 댓글</h3>
+              <span>{'>>'}</span>
+            </li>
+            <li>
+              <h3>내 상담</h3>
+              <span>{'>>'}</span>
+            </li>
+          </ProfileMenu>
+          <span>
+            <ProfileInput />
+          </span>
+        </ProfileMenuWrapper>
+      </GridLayout>
+    </section>
+  )
+}
