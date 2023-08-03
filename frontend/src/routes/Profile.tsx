@@ -2,12 +2,22 @@ import React, { useEffect, useState } from 'react'
 import NavbarLogin from '../components/NavbarLogin'
 import Footer from '../components/Footer'
 import Button from '../components/Button'
+import { useNavigate } from 'react-router-dom'
 
 export const Profile = () => {
+  const [nickname, setNickname] = useState('족구왕')
+  const [email, setEmail] = useState('jokguking@jokgu.com')
+  const [name, setName] = useState('석민혁')
+  const [point, setPoint] = useState('5400p')
+  const [phoneNumber, setPhoneNumber] = useState('010-6723-8879')
+  const [introduction, setIntroduction] = useState('족구왕이 될 사나이')
+  const navigate = useNavigate()
   const myArticle = () => {}
   const myReview = () => {}
   const myCounsel = () => {}
-  const editUserData = () => {}
+  const editUserData = () => {
+    navigate(`/profile/edit`)
+  }
   const Unsubscribe = () => {}
   return (
     <div>
@@ -57,7 +67,7 @@ export const Profile = () => {
                 margin: '10px 0px 0px 0px',
               }}
             >
-              족구왕
+              {nickname}
             </div>
           </div>
           <div
@@ -199,7 +209,7 @@ export const Profile = () => {
                     margin: '0px 0px 0px 10px',
                   }}
                 >
-                  jokguking@jokgu.com
+                  {email}
                 </div>
               </div>
 
@@ -220,7 +230,7 @@ export const Profile = () => {
                     margin: '0px 0px 0px 10px',
                   }}
                 >
-                  석민혁
+                  {name}
                 </div>
               </div>
               <div
@@ -240,7 +250,7 @@ export const Profile = () => {
                     margin: '0px 0px 0px 10px',
                   }}
                 >
-                  5400p
+                  {point}
                 </div>
               </div>
               <div
@@ -260,7 +270,7 @@ export const Profile = () => {
                     margin: '0px 0px 0px 10px',
                   }}
                 >
-                  010-6723-8879
+                  {phoneNumber}
                 </div>
               </div>
             </div>
@@ -318,4 +328,20 @@ export const Profile = () => {
       <Footer />
     </div>
   )
+}
+
+{
+  /* <input
+            type="email"
+            value={email}
+            onChange={handleEmailChange}
+            placeholder="Enter your email"
+            style={{
+              width: '400px',
+              height: '40px',
+              border: '1px solid gray',
+              borderRadius: '6px',
+              margin: '0px 0px 0px 200px',
+            }}
+          /> */
 }
