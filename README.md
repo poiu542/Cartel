@@ -7,7 +7,7 @@ npm install --save-dev eslint prettier eslint-plugin-react eslint-plugin-react-h
 ```
 
 # 2023-07-17 (월)
-
+ 
 ## 김동우
  
 1. 피그마 사용법 익히기 및 타입 스크립트 공부하기
