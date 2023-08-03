@@ -49,7 +49,7 @@ function CounselorCard({
         </Typography>
       </CardContent>
       <CardActions>
-        <Button size="small">더 보기</Button>
+        {/* <Button size="small">더 보기</Button> */}
         <Rating
           name="text-feedback"
           value={grade}
