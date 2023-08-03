@@ -17,12 +17,26 @@ import VaccinesIcon from '@mui/icons-material/Vaccines'
 import {
   FlexContainer,
   FlexContainerRow,
-  FlexContainerAlignStart,
+  TextCenterDiv,
 } from '../styles/MainStyle'
 import StyledButton from '../styles/StyledButton'
 import styled from 'styled-components'
-// import { StyledDiv } from './../components/Write'
+import { HiMagnifyingGlass } from 'react-icons/hi2'
+import { GiPill } from 'react-icons/gi'
+import { GoPeople } from 'react-icons/go'
+import { LuInspect } from 'react-icons/lu'
+import { MdOutlinePsychologyAlt } from 'react-icons/md'
+import { AiOutlineShoppingCart } from 'react-icons/ai'
+import { BsPersonCircle } from 'react-icons/bs'
+import { RiGroupFill } from 'react-icons/ri'
 
+// import { StyledDiv } from './../components/Write'
+console.log('|\\_/|')
+console.log('|q p|   /}')
+console.log('( 0 )"""\\')
+console.log('|"^"`    |')
+console.log('||_/=\\\\__|')
+console.log('도와주서 고맙습니다!!!')
 export const Main = () => {
   const navigate = useNavigate()
   const onCardClick = () => {
@@ -37,9 +51,9 @@ export const Main = () => {
 
   const iconStyle = {
     padding: '30px',
-    fontSize: '15px',
-    fontWeight: 'bold',
-    fontFamily: 'GangwonState',
+    fontSize: '14px',
+    fontWeight: 'normal',
+    fontFamily: 'MBC1961GulimM',
   }
 
   const SurviceDiv = styled.div`
@@ -50,11 +64,19 @@ export const Main = () => {
     height: 164px;
   `
   const DrugDiv = styled.div`
-    background: #fb7e71;
+    background: #6081d1;
+    color: white;
+    border-radius: 5px;
+    width: 50%;
+    height: 164px;
   `
 
   const GroupDiv = styled.div`
-    background: #4bd4d5;
+    background: #00bc82;
+    color: white;
+    border-radius: 5px;
+    width: 50%;
+    height: 164px;
   `
 
   const ColumDiv = styled.div`
@@ -100,13 +122,14 @@ export const Main = () => {
               alignItems: 'center',
             }}
           >
-            <EmojiObjectsOutlinedIcon
+            <HiMagnifyingGlass
               style={{
                 color: '#ffd359',
                 marginTop: '50px',
                 scale: '3',
               }}
             />
+
             <span style={iconStyle}>서비스 소개</span>
           </div>
 
@@ -117,7 +140,7 @@ export const Main = () => {
               alignItems: 'center',
             }}
           >
-            <VaccinesIcon
+            <GiPill
               style={{
                 color: '#fb7e71',
 
@@ -136,7 +159,7 @@ export const Main = () => {
               alignItems: 'center',
             }}
           >
-            <GroupsIcon
+            <GoPeople
               style={{
                 color: '#4bd4d5',
 
@@ -155,7 +178,7 @@ export const Main = () => {
               alignItems: 'center',
             }}
           >
-            <SpeedIcon
+            <LuInspect
               style={{
                 color: '#9d9ff4',
                 marginTop: '50px',
@@ -172,7 +195,7 @@ export const Main = () => {
               alignItems: 'center',
             }}
           >
-            <ReceiptIcon
+            <MdOutlinePsychologyAlt
               style={{
                 color: '#fd6f7a',
                 fontFamily: 'TheJamsil5Bold',
@@ -190,7 +213,7 @@ export const Main = () => {
               alignItems: 'center',
             }}
           >
-            <ShoppingCartIcon
+            <AiOutlineShoppingCart
               style={{
                 color: '#e8b25c',
                 fontFamily: 'TheJamsil5Bold',
@@ -240,7 +263,7 @@ export const Main = () => {
             justifyContent: 'center',
             alignItems: 'flex-start',
             flexDirection: 'row',
-            height: '350px',
+            height: '400px',
             width: '100%',
             gap: '100px',
             position: 'relative',
@@ -291,26 +314,6 @@ export const Main = () => {
             introduce="야구 선수"
             imgSrc="./image/profileImg2.png"
           />
-          {/* <button
-          onClick={ViewAllCounselor}
-          style={{
-            position: 'absolute',
-            bottom: '10px',
-            left: '50%',
-            transform: 'translateX(-50%)',
-            padding: '10px 20px',
-            backgroundColor: '#40BFFF',
-            color: 'white',
-            border: 'none',
-            borderRadius: '5px',
-            cursor: 'pointer',
-            fontSize: '30px',
-            width: '1000px',
-            marginBottom: '30px',
-          }}
-        >
-          상담사 더보기
-        </button> */}
         </div>
       </div>
       <div
@@ -377,24 +380,6 @@ export const Main = () => {
             width: '50%',
           }}
         >
-          {/* <div
-            className="BEST article box"
-            style={{
-              display: 'flex',
-              justifyContent: 'center',
-              alignItems: 'center',
-              borderRadius: '13px',
-              backgroundColor: 'white',
-              width: '313px',
-              height: '70px',
-              color: '#3b478f',
-              margin: '30px',
-              fontSize: '20px',
-              border: '1px solid #3b478f',
-            }}
-          >
-            BEST 게시글
-          </div> */}
           <PreviewBox
             title="BEST 게시글"
             posts={[
@@ -404,45 +389,48 @@ export const Main = () => {
               { title: '공지4' },
             ]}
             onClick={ViewAll}
+            width="300px"
+            height="235px"
           />
         </div>
-        {/* <FlexContainer style={{ width: '50%' }}>
-          <FlexContainerRow>
-            <FlexContainer style={{ justifyContent: 'space-between' }}>
-              <GroupDiv style={{ height: '100%' }}>자조모임이란</GroupDiv>
-              <DrugDiv>dafsdf</DrugDiv>
-            </FlexContainer>
-            <SurviceDiv>ㄴㅇㄴㅇ</SurviceDiv> */}
-        {/* <div
-            className="HOT article box"
+        <FlexContainer style={{ width: '50%', padding: 0 }}>
+          <FlexContainerRow
             style={{
-              display: 'flex',
-              justifyContent: 'center',
-              alignItems: 'center',
-              borderRadius: '13px',
-              backgroundColor: 'white',
-              width: '313px',
-              height: '70px',
-              color: '#3b478f',
-              margin: '30px',
-              fontSize: '20px',
-              border: '1px solid #3b478f',
+              width: '100%',
+              height: '60%',
+              padding: 0,
+              justifyContent: 'space-around',
             }}
           >
-            HOT 게시글
-          </div>
-          <PreviewBox
-            title="HOT 게시글"
-            posts={[
-              { title: '[공지] 상담일정 변경 안내' },
-              { title: '공지2' },
-              { title: '공지3' },
-              { title: '공지4' },
-            ]}
-            onClick={ViewAll}
-          /> */}
-        {/* </FlexContainerRow>
-        </FlexContainer> */}
+            <FlexContainer
+              style={{
+                width: '60%',
+                padding: 0,
+                justifyContent: 'space-between',
+              }}
+            >
+              <GroupDiv
+                style={{
+                  width: '100%',
+                  height: '45%',
+                  verticalAlign: 'middle',
+                }}
+              >
+                <FlexContainerRow>
+                  <div style={{ padding: '20px 0 0 20px' }}>
+                    <p></p>자조모임
+                  </div>
+
+                  {/* <img src="/image/dog.png" alt="" style={{ width: '150px' }} /> */}
+                </FlexContainerRow>
+              </GroupDiv>
+              <DrugDiv style={{ width: '100%', height: '45%' }}>dafsdf</DrugDiv>
+            </FlexContainer>
+            <SurviceDiv style={{ width: '30%', height: '100%' }}>
+              ㄴㅇㄴㅇ
+            </SurviceDiv>
+          </FlexContainerRow>
+        </FlexContainer>
       </div>
       <div
         className="blank"
