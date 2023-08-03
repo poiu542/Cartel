@@ -17,7 +17,7 @@ import VaccinesIcon from '@mui/icons-material/Vaccines'
 import {
   FlexContainer,
   FlexContainerRow,
-  FlexContainerAlignStart,
+  TextCenterDiv,
 } from '../styles/MainStyle'
 import StyledButton from '../styles/StyledButton'
 import styled from 'styled-components'
@@ -28,6 +28,7 @@ import { LuInspect } from 'react-icons/lu'
 import { MdOutlinePsychologyAlt } from 'react-icons/md'
 import { AiOutlineShoppingCart } from 'react-icons/ai'
 import { BsPersonCircle } from 'react-icons/bs'
+import { RiGroupFill } from 'react-icons/ri'
 
 // import { StyledDiv } from './../components/Write'
 console.log('|\\_/|')
@@ -63,11 +64,19 @@ export const Main = () => {
     height: 164px;
   `
   const DrugDiv = styled.div`
-    background: #fb7e71;
+    background: #6081d1;
+    color: white;
+    border-radius: 5px;
+    width: 50%;
+    height: 164px;
   `
 
   const GroupDiv = styled.div`
-    background: #4bd4d5;
+    background: #00bc82;
+    color: white;
+    border-radius: 5px;
+    width: 50%;
+    height: 164px;
   `
 
   const ColumDiv = styled.div`
@@ -385,14 +394,41 @@ export const Main = () => {
           />
         </div>
         <FlexContainer style={{ width: '50%', padding: 0 }}>
-          <FlexContainerRow>
-            <FlexContainer style={{ padding: 0 }}>
-              <GroupDiv style={{ width: '100%', height: '100%' }}>
-                자조모임이란
+          <FlexContainerRow
+            style={{
+              width: '100%',
+              height: '60%',
+              padding: 0,
+              justifyContent: 'space-around',
+            }}
+          >
+            <FlexContainer
+              style={{
+                width: '60%',
+                padding: 0,
+                justifyContent: 'space-between',
+              }}
+            >
+              <GroupDiv
+                style={{
+                  width: '100%',
+                  height: '45%',
+                  verticalAlign: 'middle',
+                }}
+              >
+                <FlexContainerRow>
+                  <div style={{ padding: '20px 0 0 20px' }}>
+                    <p></p>자조모임
+                  </div>
+
+                  {/* <img src="/image/dog.png" alt="" style={{ width: '150px' }} /> */}
+                </FlexContainerRow>
               </GroupDiv>
-              <DrugDiv>dafsdf</DrugDiv>
+              <DrugDiv style={{ width: '100%', height: '45%' }}>dafsdf</DrugDiv>
             </FlexContainer>
-            <SurviceDiv>ㄴㅇㄴㅇ</SurviceDiv>
+            <SurviceDiv style={{ width: '30%', height: '100%' }}>
+              ㄴㅇㄴㅇ
+            </SurviceDiv>
           </FlexContainerRow>
         </FlexContainer>
       </div>
