@@ -8,24 +8,19 @@ import Input from '../components/Input'
 export const ProfileEdit = () => {
   return (
     <div>
-      <NavbarLogin />
-      <div>
-        <FlexContainerAlignStart>
-          {/* <FlexContainerRow>
-            <Input
-              value={inputNameValue}
-              onChange={handleEmailChange}
-              placeholder="이메일"
-            />
-          </FlexContainerRow>
-          <Input
-            value={inputPassValue}
-            onChange={handlePassChange}
-            placeholder="비밀번호"
-            type="password"
+      {/* <input
+            type="email"
+            value={email}
+            onChange={handleEmailChange}
+            placeholder="Enter your email"
+            style={{
+              width: '400px',
+              height: '40px',
+              border: '1px solid gray',
+              borderRadius: '6px',
+              margin: '0px 0px 0px 200px',
+            }}
           /> */}
-        </FlexContainerAlignStart>
-      </div>
     </div>
   )
 }
