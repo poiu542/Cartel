@@ -17,7 +17,7 @@ export const Counselor = () => {
       name: '박태흠',
       grade: 4.8,
       gradeCount: 51,
-      introduce: '족구왕이 될 사나이',
+      introduce: '글자수 27자 이상이면 27자 까지만 나오고 그 뒤는 . . .',
       imgSrc:
         'https://img1.daumcdn.net/thumb/R1280x0/?fname=http://t1.daumcdn.net/brunch/service/user/5U3n/image/MEdGxSIxzO4h9s6d_SjkKtd_sjA.jpg',
     },
