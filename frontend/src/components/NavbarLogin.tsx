@@ -1,4 +1,6 @@
 import * as React from 'react'
+import { useSelector, useDispatch } from 'react-redux'
+// import { loginAction, logoutAction } from './actions'
 import AppBar from '@mui/material/AppBar'
 import Box from '@mui/material/Box'
 import Toolbar from '@mui/material/Toolbar'
@@ -12,20 +14,31 @@ import Tooltip from '@mui/material/Tooltip'
 import MenuItem from '@mui/material/MenuItem'
 import AdbIcon from '@mui/icons-material/Adb'
 import { Link } from 'react-router-dom'
-import { Navigate } from 'react-router-dom'
 import { useNavigate } from 'react-router-dom'
 import NotificationsNoneIcon from '@mui/icons-material/NotificationsNone'
-const pages = ['상담', '상담사', '공지사항', '커뮤니티']
-const settings = ['마이페이지', '로그아웃']
-const notices = ['알림1', '알림2', '알림3', '알림4']
-const userId = 1
+import { BsPersonCircle } from 'react-icons/bs'
+import { RootState } from '../app/store'
+import { logout } from '../features/auth/authSlice'
 
+import Badge from '@mui/material/Badge'
+import Stack from '@mui/material/Stack'
+import MailIcon from '@mui/icons-material/Mail'
 function NavbarLogin() {
+  // const isLoggedIn = 1
+  const isLoggedIn = useSelector((state: RootState) => state.auth.isLoggedIn)
+  const userInfo = useSelector((state: RootState) => state.auth.userInfo)
+  const pages = ['상담', '상담사', '공지사항', '커뮤니티']
+  const settings = isLoggedIn
+    ? ['마이페이지', '로그아웃']
+    : ['회원가입', '로그인']
+  const notices = ['알림1', '알림2', '알림3', '알림4']
+  const userId = 1
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null)
   const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(
     null,
   )
   const navigate = useNavigate()
+  const dispatch = useDispatch()
 
   const handlePageChange = (page: string, userId: number) => {
     if (page === '상담') {
@@ -44,11 +57,17 @@ function NavbarLogin() {
       page = 'profile'
       navigate(`/${page}/${userId}`)
     } else if (page === '로그아웃') {
-      // 로그아웃 로직
+      dispatch(logout())
+      navigate(`/`)
+    } else if (page === '회원가입') {
+      page = 'signup'
+      navigate(`/${page}`)
+    } else if (page === '로그인') {
+      page = 'login'
+      navigate(`/${page}`)
     }
-
-    // handleCloseNavMenu()
   }
+
   const [anchorElNotice, setAnchorElNotice] =
     React.useState<null | HTMLElement>(null)
 
@@ -175,15 +194,17 @@ function NavbarLogin() {
             ))}
           </Box>
           <Box sx={{ flexGrow: 0 }}>
-            <Tooltip title="Open Notice">
-              <IconButton onClick={handleOpenNoticeMenu} sx={{ p: 0, mr: 3 }}>
-                <Link to="/alarm/:userId">
-                  <NotificationsNoneIcon
-                    style={{ width: '40px', height: '40px', color: 'black' }}
-                  />
-                </Link>
-              </IconButton>
-            </Tooltip>
+            {isLoggedIn ? (
+              <Tooltip title="Open Notice">
+                <IconButton onClick={handleOpenNoticeMenu} sx={{ p: 0, mr: 3 }}>
+                  <Link to="/alarm/:userId">
+                    <NotificationsNoneIcon
+                      style={{ width: '40px', height: '40px', color: 'black' }}
+                    />
+                  </Link>
+                </IconButton>
+              </Tooltip>
+            ) : null}
             <Menu
               sx={{ mt: '45px' }}
               id="menu-appbar"
@@ -210,11 +231,8 @@ function NavbarLogin() {
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open user settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <img
-                  src="/image/profileImg2.png"
-                  alt="Remy Sharp"
-                  style={{ width: '60px', height: '60px' }}
-                />
+                {/* {isLoggedIn && props.profile.image? <img src={props.profile.image} alt="" />  */}
+                <BsPersonCircle style={{ width: '40px', height: '40px' }} />
               </IconButton>
             </Tooltip>
             <Menu

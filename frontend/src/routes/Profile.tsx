@@ -1,136 +1,466 @@
-import React from 'react'
-import NavbarLogout from '../components/NavbarLogout'
-import { styled } from 'styled-components'
+import React, { useEffect, useState } from 'react'
+import NavbarLogin from '../components/NavbarLogin'
+import Footer from '../components/Footer'
+import Button from '../components/Button'
+import { useNavigate } from 'react-router-dom'
+import Modal from 'react-modal'
 
-type Props = {}
-
-const GridLayout = styled.div`
-  max-width: 1280px;
-  margin-top: 50px;
-  display: grid;
-  grid-template-columns: 300px auto;
-  gap: 20px;
-  padding: 0 24px;
-  margin: 50px auto 0;
-`
-
-const GridProfileArea = styled.div`
-  display: grid;
-  grid-template-rows: 350px auto;
-  align-items: center; /* 가로축 가운데 정렬을 위해 추가 */
-`
-
-const GridInputArea = styled.div`
-  display: flex;
-  width: 480px;
-  flex-direction: column;
-  align-items: center; /* 가로축 가운데 정렬을 위해 수정 */
-  gap: 6px;
-`
-
-const ProfileImage = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  width: 100%;
-  height: 300px;
-  justify-content: center;
-  align-items: center;
-  margin: 0;
-  padding: 0;
-
-  > img {
-    aspect-ratio: 1 / 1;
-    border-radius: 50%;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
+export const Profile = () => {
+  const [nickname, setNickname] = useState('족구왕')
+  const [email, setEmail] = useState('jokguking@jokgu.com')
+  const [name, setName] = useState('석민혁')
+  const [point, setPoint] = useState('5400p')
+  const [phoneNumber, setPhoneNumber] = useState('010-6723-8879')
+  const [introduction, setIntroduction] = useState('족구왕이 될 사나이')
+  const [modalIsOpen, setModalIsOpen] = useState(false)
+  const [confirmationText, setConfirmationText] = useState('')
+  const modalStyles = {
+    content: {
+      display: 'flex',
+      flexDirection: 'column' as 'column',
+      alignItems: 'flex-start',
+      padding: '0px',
+      position: 'absolute' as 'absolute',
+      top: '50%',
+      left: '50%',
+      transform: 'translate(-50%, -50%)',
+      width: '480px',
+      height: '320px',
+      borderRadius: '13px',
+    },
   }
-
-  > h2 {
-    width: 100%;
-    text-align: center;
+  const navigate = useNavigate()
+  const myArticle = () => {}
+  const myReview = () => {}
+  const myCounsel = () => {}
+  const editUserData = () => {
+    navigate(`/profile/edit`)
   }
-`
-
-const ProfileMenu = styled.ul`
-  width: 100%;
-  border-radius: 20px;
-  border: 2px solid #ccc;
-  padding: 5px;
-
-  > li {
-    border-bottom: 2px solid #ccc;
-    padding: 5px;
-    margin: 0px;
-
-    > h3 {
-      margin: 0px;
-      padding: 0px;
-    }
-
-    &:last-child {
-      border: 0;
+  const Unsubscribe = () => {
+    if (confirmationText === '회원 탈퇴에 동의합니다.') {
+      // 회원 탈퇴 로직
+      setModalIsOpen(false)
+    } else {
+      alert('문구를 정확히 입력해주세요.')
     }
   }
-`
-const ProfileInput = styled.input`
-  border: 1px solid var(--gray-300, #dee2e6);
-  border-radius: 6px;
-  background: var(--default-white, #fff);
-  font-family: Inter;
-  font-size: 16px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: 20px;
-  width: px;
-  height: 40px;
-`
-const ProfileMenuWrapper = styled.div`
-  width: 100%;
-  padding: 10px;
-  display: grid; /* Grid 컨테이너로 설정 */
-  grid-template-columns: auto auto; /* 두 개의 자식 요소를 자동 크기로 배치 */
-  gap: 6px; /* 컬럼 사이의 간격 설정 */
-`
-const nickname = '이경원'
-
-export const Profile = (props: Props) => {
   return (
-    <section>
-      <NavbarLogout />
-      <GridLayout>
-        <GridProfileArea>
-          <ProfileImage>
-            <img src="/image/seulyoon.jpg" alt="1" />
-            <h2>{nickname}</h2>
-          </ProfileImage>
-        </GridProfileArea>
-        <GridInputArea>
-          <ProfileInput />
-          <ProfileInput />
-          <ProfileInput />
-          <ProfileInput />
-        </GridInputArea>
-        <ProfileMenuWrapper>
-          <ProfileMenu>
-            <li>
-              <h3>내가 쓴 게시글</h3>
-              <span>{'>>'}</span>
-            </li>
-            <li>
-              <h3>내가 쓴 댓글</h3>
-              <span>{'>>'}</span>
-            </li>
-            <li>
-              <h3>내 상담</h3>
-              <span>{'>>'}</span>
-            </li>
-          </ProfileMenu>
-          <span>
-            <ProfileInput />
-          </span>
-        </ProfileMenuWrapper>
-      </GridLayout>
-    </section>
+    <div>
+      <Modal
+        isOpen={modalIsOpen}
+        onRequestClose={() => setModalIsOpen(false)}
+        style={modalStyles}
+      >
+        <div
+          style={{
+            display: 'flex',
+            flexDirection: 'row',
+            alignItems: 'flex-start',
+            padding: '16px',
+            gap: '10px',
+            width: '448px',
+            height: '51px',
+            background: '#FFFFFF',
+            marginBottom: '-1px',
+          }}
+        >
+          <h2 style={{ font: 'normal 600 16px/19px Inter', color: '#000000' }}>
+            정말 <span style={{ color: 'red' }}>탈퇴</span>하시겠습니까?
+          </h2>
+        </div>
+        <div
+          style={{
+            display: 'flex',
+            flexDirection: 'row',
+            alignItems: 'flex-start',
+            padding: '16px',
+            gap: '10px',
+            width: '430px',
+            height: '110px',
+            background: '#FFFFFF',
+            borderTop: '1px solid #CED4DA',
+            marginBottom: '-1px',
+            marginLeft: '10px',
+          }}
+        >
+          <p
+            style={{
+              width: '436px',
+              height: '78px',
+              font: 'normal 400 16px/26px Inter',
+              color: '#6C757D',
+            }}
+          >
+            함께한 시간을 다시 한번 생각해주세요. 탈퇴하시려면 아래 문구를
+            정확히 따라 입력해주세요. <br />
+            <span style={{ color: '#FF0000' }}>“회원 탈퇴에 동의합니다.”</span>
+          </p>
+        </div>
+
+        <div
+          style={{
+            display: 'flex',
+            // justifyContent: 'center',
+            flexDirection: 'row',
+            alignItems: 'center',
+            padding: '16px',
+            gap: '8px',
+            width: '430px',
+            height: '71px',
+            background: '#FFFFFF',
+            borderTop: '1px solid #CED4DA',
+            marginLeft: '10px',
+          }}
+        >
+          <div
+            style={{
+              display: 'flex',
+              flexDirection: 'row',
+              justifyContent: 'flex-end',
+              alignItems: 'flex-start',
+              gap: '8px',
+              width: '436px',
+              height: '39px',
+            }}
+          >
+            <input
+              style={{
+                width: '296px',
+                height: '39px',
+                background: '#FFFFFF',
+                border: '1px solid #CED4DA',
+                borderRadius: '4px',
+              }}
+              type="text"
+              value={confirmationText}
+              onChange={(e) => setConfirmationText(e.target.value)}
+            />
+            <button
+              style={{
+                width: '62px',
+                height: '39px',
+                background: '#6C757D',
+                borderRadius: '4px',
+                color: '#FFFFFF',
+                font: 'normal 600 16px/19px Inter',
+              }}
+              onClick={() => setModalIsOpen(false)}
+            >
+              취소
+            </button>
+            <button
+              style={{
+                width: '62px',
+                height: '39px',
+                background: '#80D4FF',
+                borderRadius: '4px',
+                color: '#FFFFFF',
+                font: 'normal 600 16px/19px Inter',
+              }}
+              onClick={Unsubscribe}
+            >
+              탈퇴
+            </button>
+          </div>
+        </div>
+      </Modal>
+      <div className="navbar">
+        <NavbarLogin />
+      </div>
+      <div
+        style={{
+          display: 'flex',
+          width: '100%',
+          height: '800px',
+        }}
+      >
+        <div
+          className="left"
+          style={{
+            margin: '100px 0px 0px 330px',
+            display: 'flex',
+            flexDirection: 'column',
+            boxShadow: '5px 0px 5px -2px rgba(0, 0, 0, 0.2)',
+            height: '600px',
+            width: '500px',
+          }}
+        >
+          <div
+            className="left top"
+            style={{
+              position: 'relative',
+              flexDirection: 'column',
+              alignItems: 'center',
+            }}
+          >
+            <div className="profile image">
+              <img
+                src="/image/seulyoon.jpg"
+                alt="seulyoon"
+                style={{ width: '200px', height: '200px', borderRadius: '50%' }}
+              />
+            </div>
+            <div
+              className="profile name"
+              style={{
+                minWidth: '50px',
+                minHeight: ' 50px',
+                fontWeight: 'bold',
+                fontSize: '20px',
+                margin: '10px 0px 0px 0px',
+              }}
+            >
+              {nickname}
+            </div>
+          </div>
+          <div
+            className="left bottom"
+            style={{
+              width: '300px',
+              height: '210px',
+              margin: '60px 0px 0px 0px',
+            }}
+          >
+            <div
+              className="my article"
+              style={{
+                width: '300px',
+                height: '70px',
+                border: '1px solid lightgray',
+                borderRadius: '10px 10px 0px 0px',
+                cursor: 'pointer',
+              }}
+              onClick={myArticle}
+            >
+              <div
+                style={{
+                  fontWeight: 'bold',
+                  margin: '10px 0px 0px 10px',
+                }}
+              >
+                내가 쓴 게시글 보기
+              </div>
+              <div
+                style={{
+                  fontWeight: 'bold',
+                  margin: '10px 0px 0px 10px',
+                }}
+              >
+                {'>>'}
+              </div>
+            </div>
+            <div
+              className="my review"
+              style={{
+                width: '300px',
+                height: '70px',
+                border: '1px solid lightgray',
+                borderRadius: '0px 0px 0px 0px',
+                cursor: 'pointer',
+              }}
+              onClick={myReview}
+            >
+              <div
+                style={{
+                  fontWeight: 'bold',
+                  margin: '10px 0px 0px 10px',
+                }}
+              >
+                내가 쓴 댓글 보기
+              </div>
+              <div
+                style={{
+                  fontWeight: 'bold',
+                  margin: '10px 0px 0px 10px',
+                }}
+              >
+                {'>>'}
+              </div>
+            </div>
+            <div
+              className="my counsel"
+              style={{
+                width: '300px',
+                height: '70px',
+                border: '1px solid lightgray',
+                borderRadius: '0px 0px 10px 10px',
+                cursor: 'pointer',
+              }}
+              onClick={myCounsel}
+            >
+              <div
+                style={{
+                  fontWeight: 'bold',
+                  margin: '10px 0px 0px 10px',
+                }}
+              >
+                내 상담 보기
+              </div>
+              <div
+                style={{
+                  fontWeight: 'bold',
+                  margin: '10px 0px 0px 10px',
+                }}
+              >
+                {'>>'}
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          className="right"
+          style={{
+            display: 'flex',
+            flexDirection: 'column',
+            backgroundColor: 'rgb(250, 251, 253)',
+            width: '1000px',
+            margin: '7px 0px 0px 10px',
+          }}
+        >
+          <div
+            className="right top"
+            style={{
+              margin: '95px 0px 25px 100px',
+              border: '1px solid #3b478f',
+              borderRadius: '20px',
+              width: '420px ',
+              height: '250px',
+              backgroundColor: 'white',
+            }}
+          >
+            <div
+              className="user data"
+              style={{
+                padding: '16px 10px 0px 10px',
+              }}
+            >
+              <div
+                className="email address"
+                style={{
+                  width: '400px',
+                  height: '40px',
+                  borderBottom: '1px solid lightgray',
+                  margin: '0px 0px 15px 0px',
+                  display: 'flex',
+                  justifyContent: 'left ',
+                  alignItems: 'center',
+                }}
+              >
+                <div
+                  style={{
+                    margin: '0px 0px 0px 10px',
+                  }}
+                >
+                  {email}
+                </div>
+              </div>
+
+              <div
+                className="name"
+                style={{
+                  width: '400px',
+                  height: '40px',
+                  borderBottom: '1px solid lightgray',
+                  margin: '0px 0px 15px 0px',
+                  display: 'flex',
+                  justifyContent: 'left ',
+                  alignItems: 'center',
+                }}
+              >
+                <div
+                  style={{
+                    margin: '0px 0px 0px 10px',
+                  }}
+                >
+                  {name}
+                </div>
+              </div>
+              <div
+                className="point"
+                style={{
+                  width: '400px',
+                  height: '40px',
+                  borderBottom: '1px solid lightgray',
+                  margin: '0px 0px 15px 0px',
+                  display: 'flex',
+                  justifyContent: 'left ',
+                  alignItems: 'center',
+                }}
+              >
+                <div
+                  style={{
+                    margin: '0px 0px 0px 10px',
+                  }}
+                >
+                  {point}
+                </div>
+              </div>
+              <div
+                className="phone number"
+                style={{
+                  width: '400px',
+                  height: '40px',
+                  borderBottom: '1px solid lightgray',
+                  margin: '0px 0px 15px 0px',
+                  display: 'flex',
+                  justifyContent: 'left ',
+                  alignItems: 'center',
+                }}
+              >
+                <div
+                  style={{
+                    margin: '0px 0px 0px 10px',
+                  }}
+                >
+                  {phoneNumber}
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className="right bottom">
+            <div
+              className="right bottom top"
+              style={{
+                width: '400px',
+                height: '215px',
+                border: '1px solid lightgray',
+                borderRadius: '6px',
+                margin: '41px 0px 0px 100px',
+                display: 'flex',
+                justifyContent: 'center ',
+                alignItems: 'center',
+                backgroundColor: 'white',
+              }}
+            >
+              <div>{introduction}</div>
+            </div>
+            <div>
+              <div
+                className="right bottom bottom"
+                style={{ display: 'flex', margin: '20px 0px 0px 281px' }}
+              >
+                <div style={{ margin: '0px 20px 0px 0px' }}>
+                  <Button
+                    size={{ width: '100px', height: '40px' }}
+                    text="회원정보 수정"
+                    color={{ background: '#00AAFF', color: 'white' }}
+                    onClick={editUserData}
+                  />
+                </div>
+                <div>
+                  <Button
+                    size={{ width: '100px', height: '40px' }}
+                    text="회원탈퇴"
+                    color={{ background: '#FF4D4D', color: 'white' }}
+                    onClick={() => setModalIsOpen(true)}
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <Footer />
+    </div>
   )
 }

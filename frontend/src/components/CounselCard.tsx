@@ -45,7 +45,7 @@ const CounselorCard: React.FC<CounselCardProps> = ({
         style={{ display: 'flex', alignItems: 'center', marginLeft: '30px' }}
       >
         <img
-          src="./image/star.png"
+          src="/image/star.png"
           alt="star"
           style={{
             marginRight: '10px',

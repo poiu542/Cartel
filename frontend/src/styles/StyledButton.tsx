@@ -29,8 +29,8 @@ const BasicButton = styled.button<ButtonProps>`
   background: ${(props) => props.background || '#40BFFF'};
   font-size: ${(props) => props.fontSize || '26px'};
   border: ${(props) => props.border || 'none'};
-  width: ${(props) => props.width || '100px'};
-  height: ${(props) => props.height || '50px'};
+  width: ${(props) => props.width || 'none'};
+  height: ${(props) => props.height || 'none'};
   cursor: pointer;
 
   ${(props) =>

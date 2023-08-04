@@ -56,11 +56,13 @@ export const Write: React.FC<WriteProps> = ({ name }) => {
     }
   }
 
+  /** 파일이 존재하고 파일이 업로드할 때 가장 최신것을 저장*/
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
       console.log(e.target.files[0])
     }
   }
+
   const handleTitleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setTitle(e.target.value)
   }
