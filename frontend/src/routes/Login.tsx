@@ -76,7 +76,9 @@ export const Login = () => {
     }
   }
   const handleLogIn = () => {
-    dispatch(login({ username: inputEmailValue }))
+    // dispatch(login({ username: inputEmailValue }))
+    const token = '서버로부터 받은 토큰'
+    localStorage.setItem('token', token)
     alert('로그인')
     navigate('/')
   }
