@@ -1,5 +1,5 @@
 import React, { useRef, ChangeEvent, useState } from 'react'
-import NavbarLogin from './NavbarLogout'
+import NavbarLogin from '../components/NavbarLogin'
 import ArticleBar from './ArticleBar'
 import { styled } from 'styled-components'
 import StyledButton from '../styles/StyledButton'

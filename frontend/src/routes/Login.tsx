@@ -1,5 +1,5 @@
 import React, { ChangeEvent, useState } from 'react'
-import NavbarLogout from '../components/NavbarLogout'
+import NavbarLogin from '../components/NavbarLogin'
 import { styled } from 'styled-components'
 import Input from '../components/Input'
 import { useDispatch } from 'react-redux'
@@ -93,7 +93,7 @@ export const Login = () => {
 
   return (
     <section>
-      <NavbarLogout />
+      <NavbarLogin />
 
       {/* <LoginTab>
         {LoginTabList.map((tabItem) => (

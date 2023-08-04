@@ -1,6 +1,5 @@
 import React, { useState, useRef } from 'react'
 import NavbarLogin from '../components/NavbarLogin'
-import NavbarLogout from '../components/NavbarLogout'
 import { useNavigate } from 'react-router-dom'
 import DatePicker from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css'

@@ -4,15 +4,8 @@ import NavbarLogin from '../components/NavbarLogin'
 import CounselorCard from '../components/CounselorCard'
 import PreviewBox from '../components/PreviewBox'
 import Footer from '../components/Footer'
-import EmojiObjectsOutlinedIcon from '@mui/icons-material/EmojiObjectsOutlined'
-// import PeopleIcon from '@mui/icons-material/People'
-import ReceiptIcon from '@mui/icons-material/Receipt'
-import SpeedIcon from '@mui/icons-material/Speed'
-import ShoppingCartIcon from '@mui/icons-material/ShoppingCart'
 // import CampaignIcon from '@mui/icons-material/Campaign'
 import { useNavigate } from 'react-router-dom'
-import GroupsIcon from '@mui/icons-material/Groups'
-import VaccinesIcon from '@mui/icons-material/Vaccines'
 import {
   FlexContainer,
   FlexContainerRow,
@@ -27,8 +20,6 @@ import { GoPeople } from 'react-icons/go'
 import { LuInspect } from 'react-icons/lu'
 import { MdOutlinePsychologyAlt } from 'react-icons/md'
 import { AiOutlineShoppingCart } from 'react-icons/ai'
-import { BsPersonCircle } from 'react-icons/bs'
-import { RiGroupFill } from 'react-icons/ri'
 
 // import { StyledDiv } from './../components/Write'
 console.log('|\\_/|')
@@ -47,6 +38,10 @@ export const Main = () => {
   }
   const ViewAllCounselor = () => {
     navigate(`/counselor`)
+  }
+
+  const counselorButtonClick = (id: number) => {
+    navigate(`/counselor/${id}`)
   }
 
   const iconStyle = {

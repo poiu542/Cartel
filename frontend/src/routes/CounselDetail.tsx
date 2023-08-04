@@ -1,6 +1,5 @@
 import React from 'react'
 import NavbarLogin from '../components/NavbarLogin'
-import NavbarLogout from '../components/NavbarLogout'
 import { useNavigate } from 'react-router-dom'
 import PreviewBox from '../components/PreviewBox'
 import CounselCard from '../components/CounselCard'
