@@ -11,10 +11,12 @@ interface CounselCardProps {
   minParticipantCount: number
   maxParticipantCount: number
   price: number
+  buttonText: string
   onClick: () => void
 }
 
 const CounselorCard: React.FC<CounselCardProps> = ({
+  buttonText,
   name,
   grade,
   gradeCount,
@@ -163,7 +165,7 @@ const CounselorCard: React.FC<CounselCardProps> = ({
           }}
           onClick={onClick}
         >
-          신청하기
+          {buttonText}
         </button>
       </div>
     </div>

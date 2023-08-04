@@ -82,6 +82,7 @@ export const CounselDetail = () => {
         >
           <div className="right top">
             <CounselCard
+              buttonText="결제하기"
               name="석민혁"
               grade={4.8}
               gradeCount={51}

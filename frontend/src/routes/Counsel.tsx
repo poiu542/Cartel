@@ -127,6 +127,7 @@ export const Counsel = () => {
             .map((item, index) => (
               <div style={{ margin: '10px 60px' }}>
                 <CounselCard
+                  buttonText="상세보기"
                   name="석민혁"
                   grade={4.8}
                   gradeCount={51}
