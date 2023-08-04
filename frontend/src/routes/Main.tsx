@@ -46,6 +46,9 @@ export const Main = () => {
   const counselorButtonClick = (id: number) => {
     navigate(`/counselor/${id}`)
   }
+  const tempService = () => {
+    alert('서비스 준비중입니다.')
+  }
 
   const iconStyle = {
     padding: '30px',
@@ -118,7 +121,9 @@ export const Main = () => {
               display: 'flex',
               flexDirection: 'column',
               alignItems: 'center',
+              cursor: 'pointer',
             }}
+            onClick={tempService}
           >
             <HiMagnifyingGlass
               style={{
@@ -136,7 +141,9 @@ export const Main = () => {
               display: 'flex',
               flexDirection: 'column',
               alignItems: 'center',
+              cursor: 'pointer',
             }}
+            onClick={tempService}
           >
             <GiPill
               style={{
@@ -153,9 +160,10 @@ export const Main = () => {
             style={{
               display: 'flex',
               flexDirection: 'column',
-
               alignItems: 'center',
+              cursor: 'pointer',
             }}
+            onClick={tempService}
           >
             <GoPeople
               style={{
@@ -174,7 +182,9 @@ export const Main = () => {
               flexDirection: 'column',
               fontFamily: 'IAMAPLAYER',
               alignItems: 'center',
+              cursor: 'pointer',
             }}
+            onClick={tempService}
           >
             <LuInspect
               style={{
@@ -191,7 +201,9 @@ export const Main = () => {
               display: 'flex',
               flexDirection: 'column',
               alignItems: 'center',
+              cursor: 'pointer',
             }}
+            onClick={tempService}
           >
             <MdOutlinePsychologyAlt
               style={{
@@ -209,7 +221,9 @@ export const Main = () => {
               display: 'flex',
               flexDirection: 'column',
               alignItems: 'center',
+              cursor: 'pointer',
             }}
+            onClick={tempService}
           >
             <AiOutlineShoppingCart
               style={{
