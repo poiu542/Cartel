@@ -17,7 +17,7 @@ export const CounselMake = () => {
   const [curriculums, setCurriculums] = useState(
     Array(curriculumCount).fill(''),
   )
-
+  const navigate = useNavigate()
   const [minimumMember, setMinimumMember] = useState(4)
   const [maximumMember, setMaximumMember] = useState(8)
   const [amount, setAmount] = useState('')
@@ -46,10 +46,10 @@ export const CounselMake = () => {
     flex-direction: column;
   `
   const createCounsel = () => {
-    alert('상담개설')
+    navigate(`/counsel`)
   }
   const cancle = () => {
-    alert('취소')
+    navigate(`/counsel`)
   }
 
   const handleCheckChange = (index: number) => {
@@ -478,7 +478,12 @@ export const CounselMake = () => {
                   <div style={{ marginRight: '20px' }}>시작 날짜 :</div>
                   <DatePicker
                     selected={startDate}
-                    onChange={(date: Date) => setStartDate(date)}
+                    onChange={(date: Date) => {
+                      setStartDate(date)
+                      if (endDate && date && date > endDate) {
+                        setEndDate(date)
+                      }
+                    }}
                   />
                 </div>
                 <div
@@ -492,6 +497,7 @@ export const CounselMake = () => {
                   <DatePicker
                     selected={endDate}
                     onChange={(date: Date) => setEndDate(date)}
+                    minDate={startDate}
                   />
                 </div>
               </div>
