@@ -23,7 +23,7 @@ import Badge from '@mui/material/Badge'
 import Stack from '@mui/material/Stack'
 import MailIcon from '@mui/icons-material/Mail'
 function NavbarLogin() {
-  const isLoggedIn = 1
+  const isLoggedIn = 0
   // const isLoggedIn = useSelector((state) => state.isLoggedIn);
   // const dispatch = useDispatch();
   const pages = ['상담', '상담사', '공지사항', '커뮤니티']
