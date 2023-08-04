@@ -129,10 +129,9 @@ export const Notice = () => {
         글 쓰기
       </StyledButton>
       {/* {data && <NoticeTable data={data.data.movies} />} */}
-      <StyledButton>작성</StyledButton>
-      {nav}
+
       {/* {movies && <NoticeTable data={movies.data.movies} />} */}
-      <StyledButton>작성</StyledButton>
+
       {nav}
       {/* {movies && <NoticeTable data={movies.data.movies} />} */}
       {users && <NoticeTable data={users.data} />}
