@@ -34,7 +34,7 @@ console.log('도와주셔서 감사합니다.')
 export const Main = () => {
   const navigate = useNavigate()
   const onCardClick = () => {
-    alert('상담 정보 보기')
+    alert('상담사 상세페이지에서 첫 번째 카드만 상세페이지 이동 돼요')
   }
   const ViewAll = () => {
     alert('더보기')
