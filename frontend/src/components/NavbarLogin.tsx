@@ -31,7 +31,7 @@ function NavbarLogin() {
     ? ['마이페이지', '로그아웃']
     : ['회원가입', '로그인']
   const notices = ['알림1', '알림2', '알림3', '알림4']
-  const userId = 1
+  const userId = 0
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null)
   const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(
     null,
