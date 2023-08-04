@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import Carousel from '../components/Carousel'
 import NavbarLogin from '../components/NavbarLogin'
-import NavbarLogout from '../components/NavbarLogout'
 import CounselorCard from '../components/CounselorCard'
 import PreviewBox from '../components/PreviewBox'
 import Footer from '../components/Footer'
@@ -17,6 +16,7 @@ import VaccinesIcon from '@mui/icons-material/Vaccines'
 import {
   FlexContainer,
   FlexContainerRow,
+  TextCenterDiv,
   FlexContainerAlignStart,
 } from '../styles/MainStyle'
 import StyledButton from '../styles/StyledButton'
@@ -28,6 +28,7 @@ import { LuInspect } from 'react-icons/lu'
 import { MdOutlinePsychologyAlt } from 'react-icons/md'
 import { AiOutlineShoppingCart } from 'react-icons/ai'
 import { BsPersonCircle } from 'react-icons/bs'
+import { RiGroupFill } from 'react-icons/ri'
 
 // import { StyledDiv } from './../components/Write'
 console.log('|\\_/|')
@@ -63,11 +64,19 @@ export const Main = () => {
     height: 164px;
   `
   const DrugDiv = styled.div`
-    background: #fb7e71;
+    background: #6081d1;
+    color: white;
+    border-radius: 5px;
+    width: 50%;
+    height: 164px;
   `
 
   const GroupDiv = styled.div`
-    background: #4bd4d5;
+    background: #00bc82;
+    color: white;
+    border-radius: 5px;
+    width: 50%;
+    height: 164px;
   `
 
   const ColumDiv = styled.div`
@@ -362,6 +371,61 @@ export const Main = () => {
           width: '100%',
         }}
       >
+        <FlexContainer style={{ width: '50%', marginLeft: '100px' }}>
+          <FlexContainerRow
+            style={{
+              width: '100%',
+              height: '70%',
+              padding: 0,
+              justifyContent: 'space-around',
+            }}
+          >
+            <SurviceDiv style={{ width: '30%', height: '100%' }}>
+              <div style={{ padding: '10px 0px 0px 20px' }}>
+                <p style={{ fontSize: '20px' }}>서비스소개</p>
+                <p style={{ marginRight: '20px' }}>
+                  WAW를 통해 사람들을 만나고 단약 의지를 강화해보세요.
+                </p>
+              </div>
+            </SurviceDiv>
+            <FlexContainer
+              style={{
+                width: '60%',
+                padding: 0,
+                justifyContent: 'space-between',
+              }}
+            >
+              <GroupDiv
+                style={{
+                  width: '100%',
+                  height: '45%',
+                  verticalAlign: 'middle',
+                }}
+              >
+                <FlexContainerRow>
+                  <div style={{ padding: '10px 0px 0px 20px' }}>
+                    <p style={{ fontSize: '20px' }}>자조모임이란</p>
+                    <p style={{ marginRight: '20px' }}>
+                      공통적인 문제를 가진 사람들이 모여 공통의 목적을 위하여
+                      정기적인 모임을 통해 친목을 도모하고 사회활동을 하면서
+                      정보를 공유하는 모임입니다.
+                    </p>
+                  </div>
+
+                  {/* <img src="/image/dog.png" alt="" style={{ width: '150px' }} /> */}
+                </FlexContainerRow>
+              </GroupDiv>
+              <DrugDiv style={{ width: '100%', height: '45%' }}>
+                <div style={{ padding: '10px 0px 0px 20px' }}>
+                  <p style={{ fontSize: '20px' }}>중독검사</p>
+                  <p style={{ marginRight: '20px' }}>
+                    여러분들의 상태를 자가진단 해보세요.
+                  </p>
+                </div>
+              </DrugDiv>
+            </FlexContainer>
+          </FlexContainerRow>
+        </FlexContainer>
         <div
           style={{
             display: 'flex',
@@ -384,13 +448,6 @@ export const Main = () => {
             height="235px"
           />
         </div>
-        {/* <FlexContainer style={{ width: '50%' }}>
-          <FlexContainerRow>
-            <FlexContainer style={{ justifyContent: 'space-between' }}>
-              <GroupDiv style={{ height: '100%' }}>자조모임이란</GroupDiv>
-              <DrugDiv>dafsdf</DrugDiv>
-            </FlexContainer>
-            <SurviceDiv>ㄴㅇㄴㅇ</SurviceDiv> */}
       </div>
       <div
         className="blank"

@@ -28,3 +28,8 @@ export const BackgroundBox = styled.div`
   margin-bottom: 50px;
   background: #ecf9ff;
 `
+export const TextCenterDiv = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`

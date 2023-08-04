@@ -2,6 +2,9 @@ import React, { ChangeEvent, useState } from 'react'
 import NavbarLogout from '../components/NavbarLogout'
 import { styled } from 'styled-components'
 import Input from '../components/Input'
+import { useDispatch } from 'react-redux'
+import { login } from '../features/auth/authSlice'
+import { useNavigate } from 'react-router-dom'
 import {
   FlexContainer,
   FlexContainerAlignStart,
@@ -58,6 +61,8 @@ export const Login = () => {
   const [inputPassValue, setinputPassValue] = useState('')
   const [passwordCheck, setpasswordCheck] = useState(1)
   const [inputPassCheckValue, setinputPassCheckValue] = useState('')
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
 
   const handleEmailChange = (event: ChangeEvent<HTMLInputElement>) => {
     setinputEmailValue(event.target.value)
@@ -71,7 +76,11 @@ export const Login = () => {
     }
   }
   const handleLogIn = () => {
+    // dispatch(login({ username: inputEmailValue }))
+    const token = '서버로부터 받은 토큰'
+    localStorage.setItem('token', token)
     alert('로그인')
+    navigate('/')
   }
   const handleKakaoLogIn = () => {
     alert('카카오 로그인')
