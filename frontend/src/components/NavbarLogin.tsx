@@ -1,6 +1,5 @@
 import * as React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-// import { loginAction, logoutAction } from './actions'
 import AppBar from '@mui/material/AppBar'
 import Box from '@mui/material/Box'
 import Toolbar from '@mui/material/Toolbar'
@@ -20,13 +19,11 @@ import { BsPersonCircle } from 'react-icons/bs'
 import { RootState } from '../app/store'
 import { logout } from '../features/auth/authSlice'
 
-import Badge from '@mui/material/Badge'
-import Stack from '@mui/material/Stack'
-import MailIcon from '@mui/icons-material/Mail'
 function NavbarLogin() {
   // const isLoggedIn = 1
-  const isLoggedIn = useSelector((state: RootState) => state.auth.isLoggedIn)
-  const userInfo = useSelector((state: RootState) => state.auth.userInfo)
+  // const isLoggedIn = useSelector((state: RootState) => state.auth.isLoggedIn)
+  // const userInfo = useSelector((state: RootState) => state.auth.userInfo)
+  const isLoggedIn = localStorage.getItem('token')
   const pages = ['상담', '상담사', '공지사항', '커뮤니티']
   const settings = isLoggedIn
     ? ['마이페이지', '로그아웃']
@@ -57,7 +54,8 @@ function NavbarLogin() {
       page = 'profile'
       navigate(`/${page}/${userId}`)
     } else if (page === '로그아웃') {
-      dispatch(logout())
+      // dispatch(logout())
+      localStorage.removeItem('token')
       navigate(`/`)
     } else if (page === '회원가입') {
       page = 'signup'
@@ -100,26 +98,18 @@ function NavbarLogin() {
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
-          <Typography
-            variant="h6"
-            noWrap
-            component="a"
-            href=""
-            sx={{
-              mr: 46,
-              display: { xs: 'none', md: 'flex' },
-              fontFamily: 'monospace',
-              fontWeight: 700,
-              letterSpacing: '.3rem',
-              color: 'inherit',
-              textDecoration: 'none',
-              border: 'solid',
-              borderColor: 'black',
-            }}
+          <div
             onClick={main}
+            style={{
+              cursor: 'pointer',
+            }}
           >
-            LOGO
-          </Typography>
+            <img
+              src="/image/logo.png"
+              alt="logo"
+              style={{ width: '90px', height: '60px', marginRight: '360px' }}
+            />
+          </div>
 
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
             <IconButton
