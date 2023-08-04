@@ -9,7 +9,7 @@ export const Counselor = () => {
   const [searchTerm, setSearchTerm] = useState('')
   const navigate = useNavigate()
   const [currentPage, setCurrentPage] = useState(1)
-  const itemsPerPage = 9
+  const itemsPerPage = 6
 
   // 예시 데이터
   const counselorData = [
