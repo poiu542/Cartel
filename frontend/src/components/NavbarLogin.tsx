@@ -58,8 +58,10 @@ function NavbarLogin() {
       // 로그아웃 로직
     } else if (page === '회원가입') {
       page = 'signup'
+      navigate(`/${page}`)
     } else if (page === '로그인') {
       page = 'login'
+      navigate(`/${page}`)
     }
 
     // handleCloseNavMenu()
