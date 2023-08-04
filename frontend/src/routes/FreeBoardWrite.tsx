@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useRef, useState, ChangeEvent } from 'react'
 import '../fonts/font.css'
 import NavbarLogin from '../components/NavbarLogout'
 import ArticleBar from '../components/ArticleBar'
@@ -13,6 +13,30 @@ import {
 import StyledButton from './../styles/StyledButton'
 
 export const FreeBoardWrite = () => {
+  const fileInput = useRef<HTMLInputElement>(null)
+  const [title, setTitle] = useState<string>('')
+  const [content, setContent] = useState<string>('')
+
+  const handleContentChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
+    setContent(e.target.value)
+  }
+  // 버튼 클릭시
+  const handleButtonClick = () => {
+    if (fileInput.current) {
+      fileInput.current.click()
+    }
+  }
+
+  /** 파일이 존재하고 파일이 업로드할 때 가장 최신것을 저장*/
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files && e.target.files[0]) {
+      console.log(e.target.files[0])
+    }
+  }
+  // 제목이 바뀌었을때 제목을 저장
+  const handleTitleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setTitle(e.target.value)
+  }
   return (
     <div>
       <NavbarLogin />
@@ -22,7 +46,11 @@ export const FreeBoardWrite = () => {
         <StyledForm style={{ display: 'flex', flexDirection: 'column' }}>
           <SpacedDiv />
           <div style={{ display: 'flex', alignItems: 'center' }}>
-            <StyledTitleInput maxLength={40} placeholder="제목을 입력하세요" />
+            <StyledTitleInput
+              maxLength={40}
+              placeholder="제목을 입력하세요"
+              onChange={handleTitleChange}
+            />
             <span
               style={{
                 marginLeft: '30px',
@@ -38,11 +66,20 @@ export const FreeBoardWrite = () => {
             형사상의 책임을 질 수 있습니다. [저작권법 안내] [게시물 활용 안내]
           </p>
           <SpacedDiv />
-          <StyledTextArea placeholder="내용을 입력하세요" />
+          <StyledTextArea
+            onChange={handleContentChange}
+            placeholder="내용을 입력하세요"
+          />
           <SpacedDiv />
-          <StyledFileInput />
+          {/* 파일 넣는 input 평소엔 안보이고 파일업로드 버튼 클릭시 보이도록 */}
+          <StyledFileInput
+            ref={fileInput}
+            style={{ display: 'none' }}
+            onChange={handleChange}
+          />
+          {/* 파일을 사용자가 업로드 하는 버튼 */}
           <div style={{ marginLeft: '30px', width: '400px' }}>
-            <StyledButton>파일 업로드</StyledButton>
+            <StyledButton onClick={handleButtonClick}>파일 업로드</StyledButton>
           </div>
           <div
             style={{
@@ -61,6 +98,7 @@ export const FreeBoardWrite = () => {
                 취소
               </StyledButton>
             </div>
+            {/* 등록버튼을 누르면 입력한 값들 등록되도록 */}
             <StyledButton primary>등록</StyledButton>
           </div>
         </StyledForm>
