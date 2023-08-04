@@ -63,6 +63,7 @@ export const Write: React.FC<WriteProps> = ({ name }) => {
     }
   }
 
+  /** Title이  */
   const handleTitleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setTitle(e.target.value)
   }
