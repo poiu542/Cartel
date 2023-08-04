@@ -66,8 +66,8 @@ export const CounselMake = () => {
     ).length
 
     // 이미 3개의 요일이 선택되었는데, 추가로 선택하려고 한다면 막는다.
-    if (newCheckedDaysCount > 3) {
-      alert('최대 3개의 요일만 선택할 수 있습니다.')
+    if (newCheckedDaysCount > 2) {
+      alert('최대 2개의 요일만 선택할 수 있습니다.')
       return
     }
 
@@ -370,7 +370,7 @@ export const CounselMake = () => {
                   style={{ marginLeft: '5px' }}
                   checked={checkedDays[index]}
                   onChange={() => handleCheckChange(index)}
-                  disabled={checkedDaysCount >= 3 && !checkedDays[index]}
+                  disabled={checkedDaysCount >= 2 && !checkedDays[index]}
                 />
               </label>
             ))}

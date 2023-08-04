@@ -3,6 +3,7 @@ import NavbarLogin from '../components/NavbarLogin'
 import Footer from '../components/Footer'
 import Button from '../components/Button'
 import { useNavigate } from 'react-router-dom'
+import Modal from 'react-modal'
 
 export const Profile = () => {
   const [nickname, setNickname] = useState('족구왕')
@@ -11,6 +12,23 @@ export const Profile = () => {
   const [point, setPoint] = useState('5400p')
   const [phoneNumber, setPhoneNumber] = useState('010-6723-8879')
   const [introduction, setIntroduction] = useState('족구왕이 될 사나이')
+  const [modalIsOpen, setModalIsOpen] = useState(false)
+  const [confirmationText, setConfirmationText] = useState('')
+  const modalStyles = {
+    content: {
+      display: 'flex',
+      flexDirection: 'column' as 'column',
+      alignItems: 'flex-start',
+      padding: '0px',
+      position: 'absolute' as 'absolute',
+      top: '50%',
+      left: '50%',
+      transform: 'translate(-50%, -50%)',
+      width: '480px',
+      height: '320px',
+      borderRadius: '13px',
+    },
+  }
   const navigate = useNavigate()
   const myArticle = () => {}
   const myReview = () => {}
@@ -18,9 +36,134 @@ export const Profile = () => {
   const editUserData = () => {
     navigate(`/profile/edit`)
   }
-  const Unsubscribe = () => {}
+  const Unsubscribe = () => {
+    if (confirmationText === '회원 탈퇴에 동의합니다.') {
+      // 회원 탈퇴 로직
+      setModalIsOpen(false)
+    } else {
+      alert('문구를 정확히 입력해주세요.')
+    }
+  }
   return (
     <div>
+      <Modal
+        isOpen={modalIsOpen}
+        onRequestClose={() => setModalIsOpen(false)}
+        style={modalStyles}
+      >
+        <div
+          style={{
+            display: 'flex',
+            flexDirection: 'row',
+            alignItems: 'flex-start',
+            padding: '16px',
+            gap: '10px',
+            width: '448px',
+            height: '51px',
+            background: '#FFFFFF',
+            marginBottom: '-1px',
+          }}
+        >
+          <h2 style={{ font: 'normal 600 16px/19px Inter', color: '#000000' }}>
+            정말 <span style={{ color: 'red' }}>탈퇴</span>하시겠습니까?
+          </h2>
+        </div>
+        <div
+          style={{
+            display: 'flex',
+            flexDirection: 'row',
+            alignItems: 'flex-start',
+            padding: '16px',
+            gap: '10px',
+            width: '430px',
+            height: '110px',
+            background: '#FFFFFF',
+            borderTop: '1px solid #CED4DA',
+            marginBottom: '-1px',
+            marginLeft: '10px',
+          }}
+        >
+          <p
+            style={{
+              width: '436px',
+              height: '78px',
+              font: 'normal 400 16px/26px Inter',
+              color: '#6C757D',
+            }}
+          >
+            함께한 시간을 다시 한번 생각해주세요. 탈퇴하시려면 아래 문구를
+            정확히 따라 입력해주세요. <br />
+            <span style={{ color: '#FF0000' }}>“회원 탈퇴에 동의합니다.”</span>
+          </p>
+        </div>
+
+        <div
+          style={{
+            display: 'flex',
+            // justifyContent: 'center',
+            flexDirection: 'row',
+            alignItems: 'center',
+            padding: '16px',
+            gap: '8px',
+            width: '430px',
+            height: '71px',
+            background: '#FFFFFF',
+            borderTop: '1px solid #CED4DA',
+            marginLeft: '10px',
+          }}
+        >
+          <div
+            style={{
+              display: 'flex',
+              flexDirection: 'row',
+              justifyContent: 'flex-end',
+              alignItems: 'flex-start',
+              gap: '8px',
+              width: '436px',
+              height: '39px',
+            }}
+          >
+            <input
+              style={{
+                width: '296px',
+                height: '39px',
+                background: '#FFFFFF',
+                border: '1px solid #CED4DA',
+                borderRadius: '4px',
+              }}
+              type="text"
+              value={confirmationText}
+              onChange={(e) => setConfirmationText(e.target.value)}
+            />
+            <button
+              style={{
+                width: '62px',
+                height: '39px',
+                background: '#6C757D',
+                borderRadius: '4px',
+                color: '#FFFFFF',
+                font: 'normal 600 16px/19px Inter',
+              }}
+              onClick={() => setModalIsOpen(false)}
+            >
+              취소
+            </button>
+            <button
+              style={{
+                width: '62px',
+                height: '39px',
+                background: '#80D4FF',
+                borderRadius: '4px',
+                color: '#FFFFFF',
+                font: 'normal 600 16px/19px Inter',
+              }}
+              onClick={Unsubscribe}
+            >
+              탈퇴
+            </button>
+          </div>
+        </div>
+      </Modal>
       <div className="navbar">
         <NavbarLogin />
       </div>
@@ -170,7 +313,6 @@ export const Profile = () => {
             display: 'flex',
             flexDirection: 'column',
             backgroundColor: 'rgb(250, 251, 253)',
-            // height: '100%',
             width: '1000px',
             margin: '7px 0px 0px 10px',
           }}
@@ -290,7 +432,7 @@ export const Profile = () => {
                 backgroundColor: 'white',
               }}
             >
-              <div>족구왕이 될 사나이</div>
+              <div>{introduction}</div>
             </div>
             <div>
               <div
@@ -310,7 +452,7 @@ export const Profile = () => {
                     size={{ width: '100px', height: '40px' }}
                     text="회원탈퇴"
                     color={{ background: '#FF4D4D', color: 'white' }}
-                    onClick={Unsubscribe}
+                    onClick={() => setModalIsOpen(true)}
                   />
                 </div>
               </div>
@@ -318,30 +460,7 @@ export const Profile = () => {
           </div>
         </div>
       </div>
-      {/* <div
-        className="blank"
-        style={{
-          width: '1440px',
-          height: '100px',
-        }}
-      ></div> */}
       <Footer />
     </div>
   )
-}
-
-{
-  /* <input
-            type="email"
-            value={email}
-            onChange={handleEmailChange}
-            placeholder="Enter your email"
-            style={{
-              width: '400px',
-              height: '40px',
-              border: '1px solid gray',
-              borderRadius: '6px',
-              margin: '0px 0px 0px 200px',
-            }}
-          /> */
 }
