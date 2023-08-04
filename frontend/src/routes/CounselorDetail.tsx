@@ -5,7 +5,7 @@ import {
   FlexContainer,
   BackgroundBox,
 } from '../styles/MainStyle'
-import NavbarLogin from '../components/NavbarLogout'
+import NavbarLogin from '../components/NavbarLogin'
 
 interface Evaluation {
   evaluation_rate: number

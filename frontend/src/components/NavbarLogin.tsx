@@ -195,6 +195,26 @@ function NavbarLogin() {
                 </IconButton>
               </Tooltip>
             ) : null}
+            {!isLoggedIn ? (
+              <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
+                {settings.map((page) => (
+                  <Button
+                    key={page}
+                    onClick={() => handlePageChange(page, userId)}
+                    sx={{
+                      my: 1,
+                      mr: 4,
+                      color: 'gray',
+                      display: 'block',
+                      // fontWeight: 'bold',
+                      fontSize: '5px',
+                    }}
+                  >
+                    {page}
+                  </Button>
+                ))}
+              </Box>
+            ) : null}
             <Menu
               sx={{ mt: '45px' }}
               id="menu-appbar"

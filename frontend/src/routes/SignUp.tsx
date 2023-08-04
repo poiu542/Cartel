@@ -1,5 +1,5 @@
 import React, { ChangeEvent, useState } from 'react'
-import NavbarLogout from '../components/NavbarLogout'
+import NavbarLogin from '../components/NavbarLogin'
 import Input from '../components/Input'
 import { NoneStyledLink } from '../styles/Custom'
 import {
@@ -192,7 +192,7 @@ export const SignUp = () => {
           </FlexContainerRow>
         </FlexContainerRow>
       </Modal>
-      <NavbarLogout />
+      <NavbarLogin />
       <FlexContainer>
         {userType === 0 ? (
           <>

@@ -1,6 +1,6 @@
 import React, { useRef, useState, ChangeEvent } from 'react'
 import '../fonts/font.css'
-import NavbarLogin from '../components/NavbarLogout'
+import NavbarLogin from '../components/NavbarLogin'
 import ArticleBar from '../components/ArticleBar'
 import {
   CenteredDiv,

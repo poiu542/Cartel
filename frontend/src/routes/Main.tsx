@@ -4,15 +4,8 @@ import NavbarLogin from '../components/NavbarLogin'
 import CounselorCard from '../components/CounselorCard'
 import PreviewBox from '../components/PreviewBox'
 import Footer from '../components/Footer'
-import EmojiObjectsOutlinedIcon from '@mui/icons-material/EmojiObjectsOutlined'
-// import PeopleIcon from '@mui/icons-material/People'
-import ReceiptIcon from '@mui/icons-material/Receipt'
-import SpeedIcon from '@mui/icons-material/Speed'
-import ShoppingCartIcon from '@mui/icons-material/ShoppingCart'
 // import CampaignIcon from '@mui/icons-material/Campaign'
 import { useNavigate } from 'react-router-dom'
-import GroupsIcon from '@mui/icons-material/Groups'
-import VaccinesIcon from '@mui/icons-material/Vaccines'
 import {
   FlexContainer,
   FlexContainerRow,
@@ -27,8 +20,6 @@ import { GoPeople } from 'react-icons/go'
 import { LuInspect } from 'react-icons/lu'
 import { MdOutlinePsychologyAlt } from 'react-icons/md'
 import { AiOutlineShoppingCart } from 'react-icons/ai'
-import { BsPersonCircle } from 'react-icons/bs'
-import { RiGroupFill } from 'react-icons/ri'
 
 // import { StyledDiv } from './../components/Write'
 
@@ -43,13 +34,20 @@ console.log('도와주셔서 감사합니다.')
 export const Main = () => {
   const navigate = useNavigate()
   const onCardClick = () => {
-    alert('상담 정보 보기')
+    alert('상담사 상세페이지에서 첫 번째 카드만 상세페이지 이동 돼요')
   }
   const ViewAll = () => {
     alert('더보기')
   }
   const ViewAllCounselor = () => {
     navigate(`/counselor`)
+  }
+
+  const counselorButtonClick = (id: number) => {
+    navigate(`/counselor/${id}`)
+  }
+  const tempService = () => {
+    alert('서비스 준비중입니다.')
   }
 
   const iconStyle = {
@@ -123,7 +121,9 @@ export const Main = () => {
               display: 'flex',
               flexDirection: 'column',
               alignItems: 'center',
+              cursor: 'pointer',
             }}
+            onClick={tempService}
           >
             <HiMagnifyingGlass
               style={{
@@ -141,7 +141,9 @@ export const Main = () => {
               display: 'flex',
               flexDirection: 'column',
               alignItems: 'center',
+              cursor: 'pointer',
             }}
+            onClick={tempService}
           >
             <GiPill
               style={{
@@ -158,9 +160,10 @@ export const Main = () => {
             style={{
               display: 'flex',
               flexDirection: 'column',
-
               alignItems: 'center',
+              cursor: 'pointer',
             }}
+            onClick={tempService}
           >
             <GoPeople
               style={{
@@ -179,7 +182,9 @@ export const Main = () => {
               flexDirection: 'column',
               fontFamily: 'IAMAPLAYER',
               alignItems: 'center',
+              cursor: 'pointer',
             }}
+            onClick={tempService}
           >
             <LuInspect
               style={{
@@ -196,7 +201,9 @@ export const Main = () => {
               display: 'flex',
               flexDirection: 'column',
               alignItems: 'center',
+              cursor: 'pointer',
             }}
+            onClick={tempService}
           >
             <MdOutlinePsychologyAlt
               style={{
@@ -214,7 +221,9 @@ export const Main = () => {
               display: 'flex',
               flexDirection: 'column',
               alignItems: 'center',
+              cursor: 'pointer',
             }}
+            onClick={tempService}
           >
             <AiOutlineShoppingCart
               style={{

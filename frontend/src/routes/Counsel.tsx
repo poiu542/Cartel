@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 import NavbarLogin from '../components/NavbarLogin'
-import NavbarLogout from '../components/NavbarLogout'
 import CounselCard from '../components/CounselCard'
 import { useNavigate } from 'react-router-dom'
 import Footer from '../components/Footer'

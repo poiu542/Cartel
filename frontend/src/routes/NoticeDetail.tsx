@@ -1,5 +1,5 @@
 import React from 'react'
-import NavbarLogin from './../components/NavbarLogout'
+import NavbarLogin from '../components/NavbarLogin'
 import ArticleBar from './../components/ArticleBar'
 
 export const NoticeDetail = () => {

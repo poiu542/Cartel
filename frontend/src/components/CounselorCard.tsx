@@ -48,7 +48,9 @@ function CounselorCard({
         </Typography>
       </CardContent>
       <CardActions>
-        {/* <Button size="small">더 보기</Button> */}
+        <Button onClick={onCardClick} size="small">
+          상세보기
+        </Button>
         <Rating
           name="text-feedback"
           value={grade}
