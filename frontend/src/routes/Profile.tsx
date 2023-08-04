@@ -11,9 +11,13 @@ export const Profile = () => {
   const [name, setName] = useState('석민혁')
   const [point, setPoint] = useState('5400p')
   const [phoneNumber, setPhoneNumber] = useState('010-6723-8879')
+  const [school, setSchool] = useState('서울대학교')
   const [introduction, setIntroduction] = useState('족구왕이 될 사나이')
   const [modalIsOpen, setModalIsOpen] = useState(false)
   const [confirmationText, setConfirmationText] = useState('')
+  // const isLoggedIn = localStorage.getItem('token')
+  const isLoggedIn = 0
+
   const modalStyles = {
     content: {
       display: 'flex',
@@ -33,6 +37,7 @@ export const Profile = () => {
   const myArticle = () => {}
   const myReview = () => {}
   const myCounsel = () => {}
+  const myCounselJournal = () => {}
   const editUserData = () => {
     navigate(`/profile/edit`)
   }
@@ -181,7 +186,7 @@ export const Profile = () => {
             display: 'flex',
             flexDirection: 'column',
             boxShadow: '5px 0px 5px -2px rgba(0, 0, 0, 0.2)',
-            height: '600px',
+            minHeight: '600px',
             width: '500px',
           }}
         >
@@ -221,90 +226,209 @@ export const Profile = () => {
               margin: '60px 0px 0px 0px',
             }}
           >
-            <div
-              className="my article"
-              style={{
-                width: '300px',
-                height: '70px',
-                border: '1px solid lightgray',
-                borderRadius: '10px 10px 0px 0px',
-                cursor: 'pointer',
-              }}
-              onClick={myArticle}
-            >
-              <div
-                style={{
-                  fontWeight: 'bold',
-                  margin: '10px 0px 0px 10px',
-                }}
-              >
-                내가 쓴 게시글 보기
+            {isLoggedIn ? (
+              <div>
+                <div
+                  className="my article"
+                  style={{
+                    width: '300px',
+                    height: '70px',
+                    border: '1px solid lightgray',
+                    borderRadius: '10px 10px 0px 0px',
+                    cursor: 'pointer',
+                  }}
+                  onClick={myArticle}
+                >
+                  <div
+                    style={{
+                      fontWeight: 'bold',
+                      margin: '10px 0px 0px 10px',
+                    }}
+                  >
+                    내가 쓴 게시글 보기
+                  </div>
+                  <div
+                    style={{
+                      fontWeight: 'bold',
+                      margin: '10px 0px 0px 10px',
+                    }}
+                  >
+                    {'>>'}
+                  </div>
+                </div>
+                <div
+                  className="my review"
+                  style={{
+                    width: '300px',
+                    height: '70px',
+                    border: '1px solid lightgray',
+                    borderRadius: '0px 0px 0px 0px',
+                    cursor: 'pointer',
+                  }}
+                  onClick={myReview}
+                >
+                  <div
+                    style={{
+                      fontWeight: 'bold',
+                      margin: '10px 0px 0px 10px',
+                    }}
+                  >
+                    내가 쓴 댓글 보기
+                  </div>
+                  <div
+                    style={{
+                      fontWeight: 'bold',
+                      margin: '10px 0px 0px 10px',
+                    }}
+                  >
+                    {'>>'}
+                  </div>
+                </div>
+                <div
+                  className="my counsel"
+                  style={{
+                    width: '300px',
+                    height: '70px',
+                    border: '1px solid lightgray',
+                    borderRadius: '0px 0px 10px 10px',
+                    cursor: 'pointer',
+                  }}
+                  onClick={myCounsel}
+                >
+                  <div
+                    style={{
+                      fontWeight: 'bold',
+                      margin: '10px 0px 0px 10px',
+                    }}
+                  >
+                    내 상담 보기
+                  </div>
+                  <div
+                    style={{
+                      fontWeight: 'bold',
+                      margin: '10px 0px 0px 10px',
+                    }}
+                  >
+                    {'>>'}
+                  </div>
+                </div>
               </div>
-              <div
-                style={{
-                  fontWeight: 'bold',
-                  margin: '10px 0px 0px 10px',
-                }}
-              >
-                {'>>'}
+            ) : (
+              <div>
+                <div
+                  className="my article"
+                  style={{
+                    width: '300px',
+                    height: '70px',
+                    border: '1px solid lightgray',
+                    borderRadius: '10px 10px 0px 0px',
+                    cursor: 'pointer',
+                  }}
+                  onClick={myArticle}
+                >
+                  <div
+                    style={{
+                      fontWeight: 'bold',
+                      margin: '10px 0px 0px 10px',
+                    }}
+                  >
+                    내가 쓴 게시글 보기
+                  </div>
+                  <div
+                    style={{
+                      fontWeight: 'bold',
+                      margin: '10px 0px 0px 10px',
+                    }}
+                  >
+                    {'>>'}
+                  </div>
+                </div>
+                <div
+                  className="my review"
+                  style={{
+                    width: '300px',
+                    height: '70px',
+                    border: '1px solid lightgray',
+                    borderRadius: '0px 0px 0px 0px',
+                    cursor: 'pointer',
+                  }}
+                  onClick={myReview}
+                >
+                  <div
+                    style={{
+                      fontWeight: 'bold',
+                      margin: '10px 0px 0px 10px',
+                    }}
+                  >
+                    내가 쓴 댓글 보기
+                  </div>
+                  <div
+                    style={{
+                      fontWeight: 'bold',
+                      margin: '10px 0px 0px 10px',
+                    }}
+                  >
+                    {'>>'}
+                  </div>
+                </div>
+                <div
+                  className="my counsel"
+                  style={{
+                    width: '300px',
+                    height: '70px',
+                    border: '1px solid lightgray',
+                    borderRadius: '0px 0px 0px 0px',
+                    cursor: 'pointer',
+                  }}
+                  onClick={myCounsel}
+                >
+                  <div
+                    style={{
+                      fontWeight: 'bold',
+                      margin: '10px 0px 0px 10px',
+                    }}
+                  >
+                    내 상담 보기
+                  </div>
+                  <div
+                    style={{
+                      fontWeight: 'bold',
+                      margin: '10px 0px 0px 10px',
+                    }}
+                  >
+                    {'>>'}
+                  </div>
+                </div>
+                <div
+                  className="my counsel journal"
+                  style={{
+                    width: '300px',
+                    height: '70px',
+                    border: '1px solid lightgray',
+                    borderRadius: '0px 0px 10px 10px',
+                    cursor: 'pointer',
+                  }}
+                  onClick={myCounselJournal}
+                >
+                  <div
+                    style={{
+                      fontWeight: 'bold',
+                      margin: '10px 0px 0px 10px',
+                    }}
+                  >
+                    내 상담일지 보기
+                  </div>
+                  <div
+                    style={{
+                      fontWeight: 'bold',
+                      margin: '10px 0px 0px 10px',
+                    }}
+                  >
+                    {'>>'}
+                  </div>
+                </div>
               </div>
-            </div>
-            <div
-              className="my review"
-              style={{
-                width: '300px',
-                height: '70px',
-                border: '1px solid lightgray',
-                borderRadius: '0px 0px 0px 0px',
-                cursor: 'pointer',
-              }}
-              onClick={myReview}
-            >
-              <div
-                style={{
-                  fontWeight: 'bold',
-                  margin: '10px 0px 0px 10px',
-                }}
-              >
-                내가 쓴 댓글 보기
-              </div>
-              <div
-                style={{
-                  fontWeight: 'bold',
-                  margin: '10px 0px 0px 10px',
-                }}
-              >
-                {'>>'}
-              </div>
-            </div>
-            <div
-              className="my counsel"
-              style={{
-                width: '300px',
-                height: '70px',
-                border: '1px solid lightgray',
-                borderRadius: '0px 0px 10px 10px',
-                cursor: 'pointer',
-              }}
-              onClick={myCounsel}
-            >
-              <div
-                style={{
-                  fontWeight: 'bold',
-                  margin: '10px 0px 0px 10px',
-                }}
-              >
-                내 상담 보기
-              </div>
-              <div
-                style={{
-                  fontWeight: 'bold',
-                  margin: '10px 0px 0px 10px',
-                }}
-              >
-                {'>>'}
-              </div>
-            </div>
+            )}
           </div>
         </div>
         <div
@@ -324,7 +448,7 @@ export const Profile = () => {
               border: '1px solid #3b478f',
               borderRadius: '20px',
               width: '420px ',
-              height: '250px',
+              minHeight: '250px',
               backgroundColor: 'white',
             }}
           >
@@ -415,6 +539,30 @@ export const Profile = () => {
                   {phoneNumber}
                 </div>
               </div>
+              {!isLoggedIn ? (
+                <div>
+                  <div
+                    className="school"
+                    style={{
+                      width: '400px',
+                      height: '40px',
+                      borderBottom: '1px solid lightgray',
+                      margin: '0px 0px 15px 0px',
+                      display: 'flex',
+                      justifyContent: 'left ',
+                      alignItems: 'center',
+                    }}
+                  >
+                    <div
+                      style={{
+                        margin: '0px 0px 0px 10px',
+                      }}
+                    >
+                      {school}
+                    </div>
+                  </div>
+                </div>
+              ) : null}
             </div>
           </div>
           <div className="right bottom">
@@ -434,6 +582,7 @@ export const Profile = () => {
             >
               <div>{introduction}</div>
             </div>
+
             <div>
               <div
                 className="right bottom bottom"
