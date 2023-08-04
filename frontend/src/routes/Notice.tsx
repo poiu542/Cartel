@@ -129,7 +129,6 @@ export const Notice = () => {
         글 쓰기
       </StyledButton>
       {/* {data && <NoticeTable data={data.data.movies} />} */}
-
       {/* {movies && <NoticeTable data={movies.data.movies} />} */}
 
       {nav}

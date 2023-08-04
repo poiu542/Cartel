@@ -46,6 +46,7 @@ const NoticeTable: React.FC<NoticeTableProps<UserData>> = ({ data }) => {
         paddingRight: '10px', // 우측 여백 추가
       }}
     >
+      {/* table head 부분 */}
       <Table sx={{ width: '80%', margin: '0 auto' }} aria-label="simple table">
         <TableHead>
           <TableRow style={{ background: '#F8F8F8' }}>
@@ -63,6 +64,8 @@ const NoticeTable: React.FC<NoticeTableProps<UserData>> = ({ data }) => {
             </TableCell>
           </TableRow>
         </TableHead>
+
+        {/* 테이블 바디 각각의 data를 출력하는 부분 */}
         <TableBody>
           {data.map((notice) => (
             <TableRow key={notice.id}>

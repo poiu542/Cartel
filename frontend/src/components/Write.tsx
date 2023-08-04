@@ -72,7 +72,7 @@ export const Write: React.FC<WriteProps> = ({ name }) => {
     <div>
       <NavbarLogin />
       <ArticleBar name={name} />
-      {/* <div>
+      <div>
         <input
           type="text"
           placeholder="제목을 입력해라"
@@ -101,7 +101,7 @@ export const Write: React.FC<WriteProps> = ({ name }) => {
         ref={fileInput}
         onChange={handleChange}
         style={{ display: 'none' }}
-      /> */}
+      />
     </div>
   )
 }
