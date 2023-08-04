@@ -22,12 +22,15 @@ import { MdOutlinePsychologyAlt } from 'react-icons/md'
 import { AiOutlineShoppingCart } from 'react-icons/ai'
 
 // import { StyledDiv } from './../components/Write'
+
 console.log('|\\_/|')
-console.log('|q p|   /}')
-console.log('( 0 )"""\\')
+console.log('|%cq %cp %c|   /}', 'color:red', 'color:red', 'color:black')
+console.log('( %c0 %c)"""\\', 'color:orange', 'color:black')
 console.log('|"^"`    |')
 console.log('||_/=\\\\__|')
-console.log('도와주서 고맙습니다!!!')
+console.log('불만 있으신 분들은: xogmamoc@naver.com으로 연락주세요')
+console.log('도와주셔서 감사합니다.')
+
 export const Main = () => {
   const navigate = useNavigate()
   const onCardClick = () => {
