@@ -224,6 +224,7 @@ export const SignUp = () => {
               onChange={handleEmailChange}
               placeholder="이메일"
               width="420px"
+              maxLength={30}
             />
             <Button
               border={{ radius: '0.625rem', borderColor: '#40BFFF' }}
