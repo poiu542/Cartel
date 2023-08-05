@@ -6,12 +6,7 @@ import PreviewBox from '../components/PreviewBox'
 import Footer from '../components/Footer'
 // import CampaignIcon from '@mui/icons-material/Campaign'
 import { useNavigate } from 'react-router-dom'
-import {
-  FlexContainer,
-  FlexContainerRow,
-  TextCenterDiv,
-  FlexContainerAlignStart,
-} from '../styles/MainStyle'
+import { FlexContainer, FlexContainerRow } from '../styles/MainStyle'
 import StyledButton from '../styles/StyledButton'
 import styled from 'styled-components'
 import { HiMagnifyingGlass } from 'react-icons/hi2'
