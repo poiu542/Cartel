@@ -46,6 +46,8 @@ import NotFound from './routes/NotFound'
 import { Write } from './components/Write'
 import { CounselorConfirm } from './routes/CounselorConfirm'
 import { CounselorConfirmAdmin } from './routes/CounselorConfirmAdmin'
+import { MyComments } from './routes/MyComments'
+import { MyBoards } from './routes/MyBoards'
 
 const queryClient = new QueryClient()
 
@@ -137,8 +139,11 @@ function App(): React.ReactElement {
               path="/counselorconfirmadmin/:userEmail"
               element={<CounselorConfirmAdmin />}
             />
-
-            <Route path="/write" element={<Write />} />
+            {/* 내가 쓴 댓글 페이지 */}
+            <Route path="/mycomments/:userEmail" element={<MyComments />} />
+            {/* 내가 쓴 게시글 페이지 */}
+            <Route path="/myboards/:userEmail" element={<MyBoards />} />
+            {/* <Route path="/write" element={<Write />} /> */}
             {/* 나머지모든페이지 notfound로으로 */}
             <Route path="*" element={<NotFound />} />
           </Routes>
