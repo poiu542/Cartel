@@ -42,6 +42,10 @@ import { CounselJournal } from './routes/CounselJournal'
 import { Service } from './routes/Service'
 import { Drug } from './routes/Drug'
 import { ClientList } from './routes/ClientList'
+import NotFound from './routes/NotFound'
+import { Write } from './components/Write'
+import { CounselorConfirm } from './routes/CounselorConfirm'
+import { CounselorConfirmAdmin } from './routes/CounselorConfirmAdmin'
 
 const queryClient = new QueryClient()
 
@@ -85,7 +89,6 @@ function App(): React.ReactElement {
               path={'/counsel/:couselId/counseljournal/:userId'}
               element={<CounselJournal />}
             />
-
             {/* 상담상세 수정페이지 */}
             <Route path="/counsel/edit/:counselId/" element={<CounselEdit />} />
             {/* 상담개설 페이지 */}
@@ -127,9 +130,17 @@ function App(): React.ReactElement {
               path="/counsel/:counselId/testimony/:userEmail"
               element={<ClientList />}
             />
-            <Route path="/service" element={<Service />} />
-            {/* 나머지모든페이지 메인으로 */}
-            <Route path="*" element={<Main />} />
+            {/* 상담사 자격 심사 중이라는것을 회원에게 보여주는 페이지 */}
+            <Route path="/counselorconfirm" element={<CounselorConfirm />} />
+            {/* 관리자 상담사 자격 확인하기 위한 페이지 */}
+            <Route
+              path="/counselorconfirmadmin/:userEmail"
+              element={<CounselorConfirmAdmin />}
+            />
+
+            <Route path="/write" element={<Write />} />
+            {/* 나머지모든페이지 notfound로으로 */}
+            <Route path="*" element={<NotFound />} />
           </Routes>
         </BrowserRouter>
         <ReactQueryDevtools initialIsOpen={false} position="bottom-right" />

@@ -5,7 +5,7 @@ import { styled } from 'styled-components'
 import StyledButton from '../styles/StyledButton'
 
 type WriteProps = {
-  name: string
+  // name: string
 }
 
 export const StyledForm = styled.form`
@@ -46,7 +46,7 @@ export const SpacedDiv = styled.div`
   margin-top: 30px; /* ArticleBar와 30px 간격 */
 `
 
-export const Write: React.FC<WriteProps> = ({ name }) => {
+export const Write: React.FC<WriteProps> = ({}) => {
   const fileInput = useRef<HTMLInputElement>(null)
   const [title, setTitle] = useState<string>('')
 
@@ -71,7 +71,7 @@ export const Write: React.FC<WriteProps> = ({ name }) => {
   return (
     <div>
       <NavbarLogin />
-      <ArticleBar name={name} />
+      {/* <ArticleBar name={name} /> */}
       <div>
         <input
           type="text"
