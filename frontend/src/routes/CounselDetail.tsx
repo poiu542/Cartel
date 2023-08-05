@@ -1,13 +1,16 @@
 import React from 'react'
 import NavbarLogin from '../components/NavbarLogin'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import PreviewBox from '../components/PreviewBox'
 import CounselCard from '../components/CounselCard'
 import CounselorCard from '../components/CounselorCard'
 import Button from '../components/Button'
 import Footer from '../components/Footer'
+import { CounselJournal } from './CounselJournal'
 
 export const CounselDetail = () => {
+  const params = useParams()
+
   const ViewAll = () => {
     alert('더보기')
   }

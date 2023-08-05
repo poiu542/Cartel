@@ -39,6 +39,9 @@ import { FreeBoardWrite } from './routes/FreeBoardWrite'
 import { QnaWrite } from './routes/QnaWrite'
 import { FreeBoardEdit } from './routes/FreeBoardEdit'
 import { CounselJournal } from './routes/CounselJournal'
+import { Service } from './routes/Service'
+import { Drug } from './routes/Drug'
+import { ClientList } from './routes/ClientList'
 
 const queryClient = new QueryClient()
 
@@ -77,7 +80,12 @@ function App(): React.ReactElement {
             {/* 상담리스트페이지 */}
             <Route path="/counsel" element={<Counsel />} />
             {/* 상담상세페이지 */}
-            <Route path="/counsel/:Id" element={<CounselDetail />} />
+            <Route path="/counsel/:counselId" element={<CounselDetail />} />
+            <Route
+              path={'/counsel/:couselId/counseljournal/:userId'}
+              element={<CounselJournal />}
+            />
+
             {/* 상담상세 수정페이지 */}
             <Route path="/counsel/edit/:counselId/" element={<CounselEdit />} />
             {/* 상담개설 페이지 */}
@@ -101,10 +109,25 @@ function App(): React.ReactElement {
             <Route path="/qna/:qnaId" element={<QnaDetail />} />
             {/* QnA 수정페이지 */}
             <Route path="/qna/edit/:qnaId" element={<QnaWrite />} />
-            {/* 알림 */}
-            <Route path="/counselorJournal/1" element={<CounselJournal />} />
             {/* 상담일지 리스트 */}
+            <Route path="/counselorJournal/1" element={<CounselJournal />} />
+            {/* 알림 */}
             <Route path="/alarm/:userId" element={<Alarm />} />
+            {/* 서비스소개 */}
+            <Route path="/service" element={<Service />} />
+            {/* 마약종류 */}
+            <Route path="/drug" element={<Drug />} />
+            {/* 상담받고있는 내담자리스트 */}
+            <Route
+              path="/counsel/:counselId/:userEmail"
+              element={<ClientList />}
+            />
+            {/* 내담자의 소감문 */}
+            <Route
+              path="/counsel/:counselId/testimony/:userEmail"
+              element={<ClientList />}
+            />
+            <Route path="/service" element={<Service />} />
             {/* 나머지모든페이지 메인으로 */}
             <Route path="*" element={<Main />} />
           </Routes>
