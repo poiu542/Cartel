@@ -48,6 +48,7 @@ import { CounselorConfirm } from './routes/CounselorConfirm'
 import { CounselorConfirmAdmin } from './routes/CounselorConfirmAdmin'
 import { MyComments } from './routes/MyComments'
 import { MyBoards } from './routes/MyBoards'
+import { SelfHelpGroup } from './routes/SelfHelpGroup'
 
 const queryClient = new QueryClient()
 
@@ -106,6 +107,12 @@ function App(): React.ReactElement {
             <Route path="/counsel/ready/counselId" element={<CounselReady />} />
             {/* 상담 시작페이지 */}
             <Route path="/counsel/start/counselId" element={<CounselStart />} />
+            {/* 상담일지 리스트 */}
+            <Route
+              path="/counsel/counselId/counselorJournal/:userEmail"
+              element={<CounselJournal />}
+            />
+            {/* <Route path="/counselorJournal/1" element={<CounselJournal />} /> */}
             {/* QnA 게시판페이지 */}
             <Route path="/qna" element={<Qna />} />
             {/* Qna 작성페이지 */}
@@ -114,8 +121,7 @@ function App(): React.ReactElement {
             <Route path="/qna/:qnaId" element={<QnaDetail />} />
             {/* QnA 수정페이지 */}
             <Route path="/qna/edit/:qnaId" element={<QnaWrite />} />
-            {/* 상담일지 리스트 */}
-            <Route path="/counselorJournal/1" element={<CounselJournal />} />
+
             {/* 알림 */}
             <Route path="/alarm/:userId" element={<Alarm />} />
             {/* 서비스소개 */}
@@ -143,6 +149,9 @@ function App(): React.ReactElement {
             <Route path="/mycomments/:userEmail" element={<MyComments />} />
             {/* 내가 쓴 게시글 페이지 */}
             <Route path="/myboards/:userEmail" element={<MyBoards />} />
+            {/* 자조모임 페이지 */}
+            <Route path="/selfhelpgroup" element={<SelfHelpGroup />} />
+
             {/* <Route path="/write" element={<Write />} /> */}
             {/* 나머지모든페이지 notfound로으로 */}
             <Route path="*" element={<NotFound />} />

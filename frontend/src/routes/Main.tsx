@@ -45,6 +45,18 @@ export const Main = () => {
     alert('서비스 준비중입니다.')
   }
 
+  const goServicePage = () => {
+    navigate('/service')
+  }
+
+  const goDrugPage = () => {
+    navigate('/drug')
+  }
+
+  const goSelfHelpGroup = () => {
+    navigate('/selfhelpgroup')
+  }
+
   const iconStyle = {
     padding: '30px',
     fontSize: '14px',
@@ -118,7 +130,7 @@ export const Main = () => {
               alignItems: 'center',
               cursor: 'pointer',
             }}
-            onClick={tempService}
+            onClick={goServicePage}
           >
             <HiMagnifyingGlass
               style={{
@@ -138,7 +150,7 @@ export const Main = () => {
               alignItems: 'center',
               cursor: 'pointer',
             }}
-            onClick={tempService}
+            onClick={goDrugPage}
           >
             <GiPill
               style={{
@@ -158,7 +170,7 @@ export const Main = () => {
               alignItems: 'center',
               cursor: 'pointer',
             }}
-            onClick={tempService}
+            onClick={goSelfHelpGroup}
           >
             <GoPeople
               style={{

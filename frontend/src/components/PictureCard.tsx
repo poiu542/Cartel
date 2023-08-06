@@ -6,6 +6,7 @@ interface CardProps {
   title: string
   subtitle: string
   content: string
+  onCardClick?: () => void
 }
 
 const CardContainer = styled.div`
@@ -48,9 +49,10 @@ export const LeftPictureCard: React.FC<CardProps> = ({
   title,
   subtitle,
   content,
+  onCardClick,
 }) => {
   return (
-    <CardContainer>
+    <CardContainer onClick={onCardClick}>
       <ImageContainer>
         <img src={imageSrc} alt="카드 이미지" />
       </ImageContainer>
