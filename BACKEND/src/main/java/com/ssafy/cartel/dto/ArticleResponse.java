@@ -13,7 +13,7 @@ public class ArticleResponse {
     private final String content;
     private final Integer level;
     private final Integer views;
-    private final User user;
+    private final Integer userId;
     private final Integer type;
     private final LocalDateTime date;
     private final Integer status;
@@ -24,7 +24,7 @@ public class ArticleResponse {
         this.content = article.getContent();
         this.level = article.getLevel();
         this.views = article.getViews();
-        this.user = article.getUser();
+        this.userId = article.getUser().getId();
         this.type = article.getType();
         this.date = article.getDate();
         this.status = article.getStatus();
