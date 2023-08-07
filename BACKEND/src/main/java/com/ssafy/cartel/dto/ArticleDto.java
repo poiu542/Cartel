@@ -2,6 +2,7 @@ package com.ssafy.cartel.dto;
 
 import com.ssafy.cartel.domain.Article;
 import com.ssafy.cartel.domain.User;
+import com.ssafy.cartel.repository.UserRepository;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -16,12 +17,13 @@ public class ArticleDto {
     private String content;
     private Integer level;
     private Integer views;
-    private User user;
+    private Integer userId;
     private Integer type;
     private LocalDateTime date;
     private Integer status;
 
-    public Article toEntity(){
+    public Article toEntity(User user){
+
         return Article.builder()
                 .title(title)
                 .content(content)

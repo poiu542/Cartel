@@ -46,6 +46,7 @@ public class Article {
 
     @Builder
     public Article(String title, String content, Integer level, Integer views, User user, Integer type, LocalDateTime date, Integer status) {
+
         this.title = title;
         this.content = content;
         this.level = level;

@@ -1,9 +1,12 @@
 package com.ssafy.cartel.service;
 
+import ch.qos.logback.core.CoreConstants;
 import com.ssafy.cartel.domain.Article;
+import com.ssafy.cartel.domain.User;
 import com.ssafy.cartel.dto.ArticleDto;
 import com.ssafy.cartel.dto.UpdateArticleRequest;
 import com.ssafy.cartel.repository.ArticleRepository;
+import com.ssafy.cartel.repository.UserRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -14,9 +17,13 @@ import java.util.List;
 @Service //빈으로 등록
 public class ArticleService {
     private final ArticleRepository articleRepository;
+    private final UserRepository userRepository;
 
     public Article save(ArticleDto articleDto){
-        return articleRepository.save(articleDto.toEntity());
+        System.out.println(articleDto.getContent());
+        User user = userRepository.findById(articleDto.getUserId())
+                .orElseThrow(()-> new IllegalArgumentException("not found:" ));
+        return articleRepository.save(articleDto.toEntity(user));
     }
 
     public List<Article> findAll(){
