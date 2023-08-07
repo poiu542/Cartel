@@ -10,6 +10,7 @@ import StyledButton from '../styles/StyledButton'
 import { useNavigate } from 'react-router'
 // import { BoardData } from '../model/board'
 import { getBoard } from '../hooks/useboard'
+import { BoardData } from '../model/board'
 
 export const Qna = () => {
   const navigate = useNavigate()
@@ -17,31 +18,36 @@ export const Qna = () => {
   // interface ApiResponse {
   //   data: BoardData[]
   // }
-  interface Movie {
-    id: number
-    title: string
-    year: string
-    rating: string
-    language: string
-  }
+  // interface Movie {
+  //   id: number
+  //   title: string
+  //   year: string
+  //   rating: string
+  //   language: string
+  // }
   interface ApiResponse {
-    data: {
-      movies: Movie[]
-    }
-    status: string
+    data: BoardData[]
   }
+  // interface ApiResponse {
+  //   data: {
+
+  //   }
+  // }
 
   // axios data파일 받아오기
-  const { isLoading, data, isError, error, refetch } = useQuery<ApiResponse>(
-    ['notice'],
-    getBoard,
-  )
+  const {
+    isLoading,
+    data: boards,
+    isError,
+    error,
+    refetch,
+  } = useQuery<ApiResponse>(['qna'], getBoard)
 
   if (isLoading) {
     return <h2>Loading...</h2>
   }
 
-  if (isError || !data) {
+  if (isError || !boards) {
     console.error(error) // 콘솔에 에러 메시지를 표시합니다.
     return (
       <div>
@@ -62,7 +68,7 @@ export const Qna = () => {
   // useEffect(() => {
   //   getMovies()
   // }, [])
-  console.log('에이피아이 요청' + data)
+  console.log(boards[0])
   return (
     <div>
       <NavbarLogin />
@@ -82,7 +88,7 @@ export const Qna = () => {
           글 쓰기
         </StyledButton>
       </div>
-      {data && <QnaTable data={data.data.movies} />}
+      {boards && <QnaTable data={boards} />}
       {/* {movies && <QnaTable data={movies.data.movies} />} */}
 
       {/* {nav} */}

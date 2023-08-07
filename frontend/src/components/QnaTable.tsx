@@ -6,20 +6,15 @@ import TableRow from '@mui/material/TableRow'
 import { Link } from 'react-router-dom'
 import { NoneStyledLink } from './../styles/Custom'
 import StyledButton from './../styles/StyledButton'
-
-type QnaBoardTable = {
-  id: number
-  title: string
-  year: string
-  rating: string
-  language: string
-}
+import { BoardData } from '../model/board'
 
 interface QnaTableProps {
-  data: QnaBoardTable[]
+  data: BoardData[]
 }
 
 export const QnaTable: React.FC<QnaTableProps> = ({ data }) => {
+  let index = 0
+
   return (
     <div
       style={{
@@ -54,26 +49,29 @@ export const QnaTable: React.FC<QnaTableProps> = ({ data }) => {
           </TableRow>
         </TableHead>
         <TableBody>
-          {data.map((row) => (
-            <TableRow key={row.id}>
-              <TableCell component="th" scope="row">
-                {row.id}
-              </TableCell>
-              <NoneStyledLink to={`/qna/${row.id}`}>
-                <TableCell>{row.title}</TableCell>
-              </NoneStyledLink>
+          {data &&
+            data.map((row, index) => (
+              <TableRow key={index}>
+                {/* 프론트에서 번호 증가시키기 */}
+                <TableCell component="th" scope="row">
+                  {index + 1}
+                </TableCell>
+                {/* userId를 그냥 id로 수정해야함 board의 id로 */}
+                <NoneStyledLink to={`/qna/${row.userId}`}>
+                  <TableCell>{row.title}</TableCell>
+                </NoneStyledLink>
 
-              <TableCell align="right">{row.year}</TableCell>
-              <TableCell align="right">{row.rating}</TableCell>
-              {/* 삭제버튼 */}
-              <TableCell align="right">{row.language}</TableCell>
-              <TableCell align="right">
-                <StyledButton background="white" color="red" fontSize="15px">
-                  X
-                </StyledButton>
-              </TableCell>
-            </TableRow>
-          ))}
+                <TableCell align="right">{row.userId}</TableCell>
+                <TableCell align="right">{row.level}</TableCell>
+                {/* 삭제버튼 */}
+                <TableCell align="right">{row.views}</TableCell>
+                <TableCell align="right">
+                  <StyledButton background="white" color="red" fontSize="15px">
+                    X
+                  </StyledButton>
+                </TableCell>
+              </TableRow>
+            ))}
         </TableBody>
       </Table>
     </div>

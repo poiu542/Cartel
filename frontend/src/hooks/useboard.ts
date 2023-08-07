@@ -7,7 +7,9 @@ import {
 import axios, { AxiosError, AxiosResponse } from 'axios'
 
 export const getBoard = () => {
-  return axios
-    .get(`http://i9b209.p.ssafy.io:8080/articles`)
-    .then((res) => res.data)
+  return axios.get(`/articles`).then((res) => res.data)
+}
+
+export const useGetBoard = () => {
+  useQuery(['qna'], getBoard)
 }
