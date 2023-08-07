@@ -6,6 +6,9 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
+
+
 @Entity //Entity로 지정
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED) //기본 생성자 생성
@@ -16,7 +19,7 @@ public class Article {
     @Column(name = "post_id", updatable = false)
     private Integer id;
 
-    @Column(name = "pose_title", nullable = false)
+    @Column(name = "post_title", nullable = false)
     private String title;
 
     @Column(name = "post_content", nullable = false)
@@ -28,20 +31,21 @@ public class Article {
     @Column(name = "post_views", nullable = false)
     private Integer views;
 
-    @Column(name = "user_id", nullable = false)
-    private Integer user;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
+    private User user;
 
     @Column(name ="post_type", nullable = false)
     private Integer type;
 
     @Column(name ="post_date", nullable = false)
-    private String date;
+    private LocalDateTime date;
 
     @Column(name = "post_status", nullable = false)
     private Integer status;
 
     @Builder
-    public Article(String title, String content, Integer level, Integer views, Integer user, Integer type, String date, Integer status) {
+    public Article(String title, String content, Integer level, Integer views, User user, Integer type, LocalDateTime date, Integer status) {
         this.title = title;
         this.content = content;
         this.level = level;
@@ -50,5 +54,10 @@ public class Article {
         this.type = type;
         this.date = date;
         this.status = status;
+    }
+
+    public void update(String title, String content){
+        this.title =title;
+        this.content = content;
     }
 }
