@@ -26,7 +26,7 @@ export const Qna = () => {
   //   language: string
   // }
   interface ApiResponse {
-    data: BoardData[]
+    data: BoardData
   }
   // interface ApiResponse {
   //   data: {
@@ -68,7 +68,7 @@ export const Qna = () => {
   // useEffect(() => {
   //   getMovies()
   // }, [])
-  console.log(boards[0])
+  console.log(boards)
   return (
     <div>
       <NavbarLogin />
