@@ -1,6 +1,5 @@
 package com.ssafy.cartel.domain;
 
-
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -52,5 +51,17 @@ public class Counselor {
         this.rateSum = rateSum;
         this.state = state;
         this.introduction = introduction;
+    }
+
+    public void updateRegistImg(String regist) {
+        this.regist = regist;
+    }
+
+    public void updateProfileImg(String profileImg) {
+        this.
+    }
+
+    public void updateLicenseImg(String license) {
+        this.license = license;
     }
 }

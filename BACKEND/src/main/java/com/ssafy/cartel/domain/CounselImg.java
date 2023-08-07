@@ -33,4 +33,9 @@ public class CounselImg {
         this.state = state;
         this.counselId = counselId;
     }
+
+
+    public void updateRegistImg(String imgURL) {
+        this.imgUrl = imgURL;
+    }
 }

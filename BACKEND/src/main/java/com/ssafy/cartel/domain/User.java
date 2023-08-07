@@ -5,10 +5,6 @@ import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.hibernate.sql.results.graph.tuple.TupleResult;
-
-import java.util.Collection;
-import java.util.List;
 
 @Entity
 @Getter
@@ -64,4 +60,16 @@ public class User{
         this.refreshToken = refreshToken;
     }
 
+    public void update(String name, String phone, Integer point, String profileUrl, Integer state, Integer type) {
+        this.name = name;
+        this.phone = phone;
+        this.point = point;
+        this.profileUrl = profileUrl;
+        this.state = state;
+        this.type = type;
+    }
+
+    public void updateImg( String profileUrl) {
+        this.profileUrl = profileUrl;
+    }
 }

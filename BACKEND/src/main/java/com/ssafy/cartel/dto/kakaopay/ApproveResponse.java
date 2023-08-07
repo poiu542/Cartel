@@ -1,11 +1,9 @@
-package com.ssafy.cartel.kakaopay.dto;
+package com.ssafy.cartel.dto.kakaopay;
 
 import lombok.Getter;
-import lombok.Setter;
 import lombok.ToString;
 
 @Getter
-@Setter
 @ToString
 public class ApproveResponse {
     private String cid; // 가맹점 코드, 10자
