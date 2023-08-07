@@ -6,6 +6,7 @@ import { useQuery } from 'react-query'
 import { fetchNotices, fetchTests } from '../hooks/useNoticesData'
 import StyledButton from './../styles/StyledButton'
 import PageButton from '../components/PageButton'
+import { useNavigate } from 'react-router'
 
 // const serverData = [
 //   { idx: 1, title: 'Ice cream sandwich', regDate: '2023-07-26' },
@@ -42,6 +43,7 @@ interface TestData {
 
 export const Notice = () => {
   // const [data, setData] = useState(serverData)
+  const navigate = useNavigate()
   const [page, setPage] = useState(1)
 
   // axios data파일 받아오기
@@ -122,12 +124,21 @@ export const Notice = () => {
     <div>
       <NavbarLogin />
       <CommunityNotice />
-      <StyledButton
-        primary
-        onClick={() => window.location.replace('/notice/write')}
+      <div
+        style={{ display: 'flex', justifyContent: 'end', marginRight: '360px' }}
       >
-        글 쓰기
-      </StyledButton>
+        <StyledButton
+          primary
+          marginTop="20px"
+          marginBottom="20px"
+          fontSize="18px"
+          width="100px"
+          height="50px"
+          onClick={() => navigate('/notice/write')}
+        >
+          글 쓰기
+        </StyledButton>
+      </div>
       {/* {data && <NoticeTable data={data.data.movies} />} */}
       {/* {movies && <NoticeTable data={movies.data.movies} />} */}
 
