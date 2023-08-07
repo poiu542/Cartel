@@ -31,18 +31,18 @@ public class Comment {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "post_id")
-    private Article postId;
+    private Article article;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User userId;
 
     @Builder
-    public Comment(String content, LocalDateTime date, Integer state, Article postId, User userId) {
+    public Comment(String content, LocalDateTime date, Integer state, Article article, User userId) {
         this.content = content;
         this.date = date;
         this.state = state;
-        this.postId = postId;
+        this.article = article;
         this.userId = userId;
     }
 }
