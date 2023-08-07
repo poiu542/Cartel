@@ -31,7 +31,7 @@ public class ArticleDto {
                 .views(views)
                 .user(user)
                 .type(type)
-                .date(date)
+                .date(LocalDateTime.now())
                 .status(status)
                 .build();
 
