@@ -13,7 +13,10 @@ type Client = {
 
 export const ClientList = () => {
   const navigate = useNavigate()
-  let counselId = useParams()
+  let { counselId } = useParams()
+  const id = counselId ? parseInt(counselId, 10) : null // id가 undefined일 경우 기본값 0을 사용
+  console.log(id + 'id')
+  console.log(counselId + 'coId')
 
   const clients = [
     {
@@ -24,8 +27,8 @@ export const ClientList = () => {
     },
   ]
 
-  const goCounselJournal = (counselId: number, { userEmail }: any) => {
-    navigate(`/counsel/${counselId}/counseljournal/${userEmail}`)
+  const goCounselJournal = (id: number | null, { userId }: any) => {
+    navigate(`/counsel/counseljournal/${id}/${userId}`)
   }
 
   return (
@@ -37,10 +40,10 @@ export const ClientList = () => {
       {/* 해당 상담에 해당하는 내담자들의 사진과 이름, 닉네임, 소개등의 기초정보가 들어감 */}
       {/* 카드를 클릭시 내담자의 상담일지로 들어감 */}
       <div>
-        {clients.map((client, email) => (
+        {clients.map((client, userId) => (
           <LeftPictureCard
-            // onCardClick={goCounselJournal}
-            key={email}
+            onCardClick={() => goCounselJournal(id, { userId: userId })}
+            key={userId}
             imageSrc={client.imageSrc}
             title={client.title}
             subtitle={client.subtitle}

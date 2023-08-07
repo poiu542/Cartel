@@ -6,7 +6,7 @@ interface CardProps {
   title: string
   subtitle: string
   content: string
-  onCardClick?: () => void
+  onCardClick?: (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => void
 }
 
 const CardContainer = styled.div`
