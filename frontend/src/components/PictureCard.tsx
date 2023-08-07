@@ -13,9 +13,10 @@ const CardContainer = styled.div`
   width: 60%;
   display: flex;
   justify-content: space-between;
-  padding: 16px;
+  padding: 37px;
   margin-bottom: 30px;
-  border-radius: 8px;
+  border-radius: 15px;
+  background-color: #f2f2f2;
 `
 
 const ImageContainer = styled.div`
@@ -29,6 +30,9 @@ const ImageContainer = styled.div`
 `
 
 const TextContainer = styled.div`
+  background-color: white;
+  padding: 20px;
+  border-radius: 10%;
   width: 45%;
   h2 {
     margin-bottom: 15px;
@@ -59,7 +63,9 @@ export const LeftPictureCard: React.FC<CardProps> = ({
       <TextContainer>
         <h2>{title}</h2>
         <h3>{subtitle}</h3>
-        <p>{content}</p>
+        {content.split('\n').map((item, key) => {
+          return <p key={key}>{item}</p>
+        })}
       </TextContainer>
     </CardContainer>
   )
@@ -76,7 +82,9 @@ export const RightPictureCard: React.FC<CardProps> = ({
       <TextContainer>
         <h2>{title}</h2>
         <h3>{subtitle}</h3>
-        <p>{content}</p>
+        {content.split('\n').map((item, key) => {
+          return <p key={key}>{item}</p>
+        })}
       </TextContainer>
       <ImageContainer>
         <img src={imageSrc} alt="카드 이미지" />
