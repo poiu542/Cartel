@@ -64,7 +64,6 @@ export const FreeBoardDetail = () => {
 
         <Comment />
       </div>
-<<<<<<< HEAD
       <Comment />
 
       <StyledButton onClick={() => navigate(`/freeboard/edit/${freeboardId}`)}>
@@ -72,8 +71,6 @@ export const FreeBoardDetail = () => {
       </StyledButton>
       {/* 삭제시 axios 요청 delte */}
       {/* <StyledButton red onClick={()=>}>삭제</StyledButton> */}
-=======
->>>>>>> 7f976234307629c86f4243bff5232b5b2bd76d19
     </div>
   )
 }

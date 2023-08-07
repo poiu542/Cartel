@@ -1,11 +1,11 @@
-import React from 'react'
+import React, { ReactNode } from 'react'
 import styled from 'styled-components'
 
 interface CardProps {
   imageSrc: string
   title: string
   subtitle: string
-  content: string
+  content: ReactNode
   onCardClick?: (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => void
 }
 
@@ -17,6 +17,7 @@ const CardContainer = styled.div`
   margin-bottom: 30px;
   border-radius: 15px;
   background-color: #f2f2f2;
+  box-shadow: -10px 10px 15px rgba(0, 0, 0, 0.1);
 `
 
 const ImageContainer = styled.div`
@@ -30,6 +31,7 @@ const ImageContainer = styled.div`
 `
 
 const TextContainer = styled.div`
+  white-space: pre-line;
   background-color: white;
   padding: 20px;
   border-radius: 10%;
@@ -63,9 +65,7 @@ export const LeftPictureCard: React.FC<CardProps> = ({
       <TextContainer>
         <h2>{title}</h2>
         <h3>{subtitle}</h3>
-        {content.split('\n').map((item, key) => {
-          return <p key={key}>{item}</p>
-        })}
+        <p>{content}</p>
       </TextContainer>
     </CardContainer>
   )
@@ -82,9 +82,10 @@ export const RightPictureCard: React.FC<CardProps> = ({
       <TextContainer>
         <h2>{title}</h2>
         <h3>{subtitle}</h3>
-        {content.split('\n').map((item, key) => {
-          return <p key={key}>{item}</p>
-        })}
+        <p>{content}</p>
+        {/* <p
+          dangerouslySetInnerHTML={{ __html: content.replace(/\n/g, '<br />') }}
+        /> */}
       </TextContainer>
       <ImageContainer>
         <img src={imageSrc} alt="카드 이미지" />
