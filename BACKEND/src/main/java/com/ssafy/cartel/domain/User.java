@@ -1,19 +1,23 @@
 package com.ssafy.cartel.domain;
 
+
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.hibernate.sql.results.graph.tuple.TupleResult;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
 import java.util.List;
 
+
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class User{
+public class User implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -64,4 +68,42 @@ public class User{
         this.refreshToken = refreshToken;
     }
 
+    @Override //권한 반환
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        String userType = "user";
+        if(type ==1)
+            userType = "client";
+        else if(type ==2)
+            userType ="counselor";
+        else if (type ==3)
+            userType = "admin";
+
+
+        return List.of(new SimpleGrantedAuthority(userType));
+    }
+
+    @Override//사용자 아이디 반환
+    public String getUsername() {
+        return email;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
+    }
 }

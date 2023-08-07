@@ -1,11 +1,43 @@
 package com.ssafy.cartel.config;
 
+import com.ssafy.cartel.service.UserDetailService;
+import jakarta.servlet.FilterChain;
+import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
+
+@RequiredArgsConstructor
+@Configuration
 public class WebSecurityConfig {
+
+    private final UserDetailService userService;
+
+    @Bean
+    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception{
+        return http
+                .csrf().disable()
+                .cors()
+                .and()
+                .httpBasic().disable()
+                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                .and()
+                .authorizeHttpRequests()
+                .anyRequest().permitAll()
+                .and()
+                .logout()
+                .logoutUrl("/logout")
+                .logoutSuccessUrl("/")
+                .invalidateHttpSession(true)
+                .and().build();
+    }
+
 
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
