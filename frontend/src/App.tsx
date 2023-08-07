@@ -89,7 +89,7 @@ function App(): React.ReactElement {
             {/* 상담상세페이지 */}
             <Route path="/counsel/:counselId" element={<CounselDetail />} />
             <Route
-              path={'/counsel/:couselId/counseljournal/:userId'}
+              path={'/counsel/counseljournal/:couselId/:userId'}
               element={<CounselJournal />}
             />
             {/* 상담상세 수정페이지 */}
@@ -130,12 +130,12 @@ function App(): React.ReactElement {
             <Route path="/drug" element={<Drug />} />
             {/* 상담받고있는 내담자리스트 */}
             <Route
-              path="/counsel/:counselId/:userEmail"
+              path="/counsel/clientlist/:counselId"
               element={<ClientList />}
             />
             {/* 내담자의 소감문 */}
             <Route
-              path="/counsel/:counselId/testimony/:userEmail"
+              path="/counsel/testimony/:counselId/:userEmail"
               element={<ClientList />}
             />
             {/* 상담사 자격 심사 중이라는것을 회원에게 보여주는 페이지 */}
