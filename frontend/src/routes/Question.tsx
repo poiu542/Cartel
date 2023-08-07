@@ -7,8 +7,10 @@ import { fetchNotices } from '../hooks/useNoticesData'
 import StyledButton from '../styles/StyledButton'
 import { CommunityNotice } from './../components/CommunityNotice'
 import { fetchMovies } from '../hooks/useNoticesData'
+import { useNavigate } from 'react-router'
 
 export const Qna = () => {
+  const navigate = useNavigate()
   interface Movie {
     id: number
     title: string
@@ -60,17 +62,26 @@ export const Qna = () => {
     <div>
       <NavbarLogin />
       <CommunityFree />
-      <StyledButton
-        primary
-        onClick={() => window.location.replace('/qna/write')}
+      <div
+        style={{ display: 'flex', justifyContent: 'end', marginRight: '250px' }}
       >
-        글 쓰기
-      </StyledButton>
+        <StyledButton
+          primary
+          marginTop="20px"
+          marginBottom="20px"
+          fontSize="18px"
+          width="100px"
+          height="50px"
+          onClick={() => navigate('/qna/write')}
+        >
+          글 쓰기
+        </StyledButton>
+      </div>
       {data && <QnaTable data={data.data.movies} />}
       {/* {movies && <QnaTable data={movies.data.movies} />} */}
-      <StyledButton>작성</StyledButton>
+
       {/* {nav} */}
-      {data && <QnaTable data={data.data.movies} />}
+
       {/* data가 존재하는 경우에만 <NoticeTable> 컴포넌트를 렌더링합니다. */}
     </div>
   )

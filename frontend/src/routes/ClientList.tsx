@@ -15,8 +15,8 @@ export const ClientList = () => {
   const navigate = useNavigate()
   let { counselId } = useParams()
   const id = counselId ? parseInt(counselId, 10) : null // id가 undefined일 경우 기본값 0을 사용
-  console.log(id + 'id')
-  console.log(counselId + 'coId')
+  // console.log(id + 'id')
+  // console.log(counselId + 'coId')
 
   const clients = [
     {

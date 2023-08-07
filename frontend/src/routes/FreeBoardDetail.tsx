@@ -2,8 +2,15 @@ import React from 'react'
 import ArticleBar from './../components/ArticleBar'
 import NavbarLogin from './../components/NavbarLogin'
 import Comment from './../components/Comment'
+import StyledButton from './../styles/StyledButton'
+import { NoneStyledLink } from './../styles/Custom'
+import { useNavigate, useParams } from 'react-router'
 
 export const FreeBoardDetail = () => {
+  const navigate = useNavigate()
+
+  let { freeboardId } = useParams()
+  const id = freeboardId ? parseInt(freeboardId, 10) : null
   return (
     <div>
       <NavbarLogin />
@@ -44,6 +51,12 @@ export const FreeBoardDetail = () => {
         </p>
       </div>
       <Comment />
+
+      <StyledButton onClick={() => navigate(`/freeboard/edit/${freeboardId}`)}>
+        수정
+      </StyledButton>
+      {/* 삭제시 axios 요청 delte */}
+      {/* <StyledButton red onClick={()=>}>삭제</StyledButton> */}
     </div>
   )
 }

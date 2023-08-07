@@ -16,6 +16,8 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   border?: string
   width?: string
   height?: string
+  marginTop?: string
+  marginBottom?: string
 }
 
 const BasicButton = styled.button<ButtonProps>`
@@ -32,6 +34,9 @@ const BasicButton = styled.button<ButtonProps>`
   border: ${(props) => props.border || 'none'};
   width: ${(props) => props.width || 'none'};
   height: ${(props) => props.height || 'none'};
+  margin-top: ${(props) => props.marginTop || 'none'};
+  margin-bottom: ${(props) => props.marginBottom || 'none'};
+
   cursor: pointer;
 
   ${(props) =>
