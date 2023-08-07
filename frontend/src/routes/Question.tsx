@@ -8,9 +8,15 @@ import StyledButton from '../styles/StyledButton'
 import { CommunityNotice } from './../components/CommunityNotice'
 import { fetchMovies } from '../hooks/useNoticesData'
 import { useNavigate } from 'react-router'
+import { BoardData } from '../model/board'
+import { getBoard } from '../hooks/useboard'
 
 export const Qna = () => {
   const navigate = useNavigate()
+
+  // interface ApiResponse {
+  //   data: BoardData[]
+  // }
   interface Movie {
     id: number
     title: string
@@ -25,12 +31,10 @@ export const Qna = () => {
     status: string
   }
 
-  const [page, setPage] = useState(1)
-
   // axios data파일 받아오기
   const { isLoading, data, isError, error, refetch } = useQuery<ApiResponse>(
     ['notice'],
-    fetchMovies,
+    getBoard,
   )
 
   if (isLoading) {
@@ -58,6 +62,7 @@ export const Qna = () => {
   // useEffect(() => {
   //   getMovies()
   // }, [])
+  console.log('에이피아이 요청' + data)
   return (
     <div>
       <NavbarLogin />

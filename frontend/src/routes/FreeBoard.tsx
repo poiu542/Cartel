@@ -7,6 +7,7 @@ import { useNavigate } from 'react-router'
 
 export const FreeBoard = () => {
   const navigate = useNavigate()
+  const [freeboard, setFreeboard] = useState([])
   const [movies, setMovies] = useState([])
   const getMovies = async () => {
     const json = await (

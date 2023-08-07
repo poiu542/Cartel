@@ -125,7 +125,7 @@ export const Notice = () => {
       <NavbarLogin />
       <CommunityNotice />
       <div
-        style={{ display: 'flex', justifyContent: 'end', marginRight: '360px' }}
+        style={{ display: 'flex', justifyContent: 'end', marginRight: '30px' }}
       >
         <StyledButton
           primary
