@@ -6,8 +6,9 @@ interface ButtonProps {
   color?: string
   background?: string
   primary?: boolean
-  onClick?: () => void
   //   onClick?: (argument: number) => number
+  // onClick?: () => void
+  onClick?: (e: React.MouseEvent) => void // 위 코드에서 아래로 수정 (석민혁)
   radius?: string
   green?: boolean
   red?: boolean

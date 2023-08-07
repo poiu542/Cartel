@@ -13,6 +13,8 @@ export const ProfileEdit = () => {
   const [nameInput, setNameInput] = useState('')
   const [phoneNumber, setPhoneNumber] = useState('010-6723-8879')
   const [phoneNumberInput, setPhoneNumberInput] = useState('')
+  const [school, setSchool] = useState('서울대')
+  const [schoolInput, setSchoolInput] = useState('')
   const [introduction, setIntroduction] = useState('족구왕이 될 사나이')
   const [introductionInput, setIntroductionInput] = useState('')
   const navigate = useNavigate()
@@ -119,7 +121,7 @@ export const ProfileEdit = () => {
               border: '1px solid #3b478f',
               borderRadius: '20px',
               width: '420px ',
-              height: '250px',
+              minHeight: '250px',
               backgroundColor: 'white',
             }}
           >
@@ -168,6 +170,22 @@ export const ProfileEdit = () => {
                   value={phoneNumberInput}
                   onChange={(e) => setPhoneNumberInput(e.target.value)}
                   placeholder={phoneNumber}
+                  style={{
+                    width: '400px',
+                    height: '40px',
+                    margin: '0px 0px 15px 0px',
+                    display: 'flex',
+                    justifyContent: 'left ',
+                    alignItems: 'center',
+                  }}
+                />
+              </div>
+              <div className="school">
+                <input
+                  type="text"
+                  value={schoolInput}
+                  onChange={(e) => setSchoolInput(e.target.value)}
+                  placeholder={school}
                   style={{
                     width: '400px',
                     height: '40px',

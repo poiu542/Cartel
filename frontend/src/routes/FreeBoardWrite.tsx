@@ -11,6 +11,8 @@ import {
   StyledTitleInput,
 } from './../components/Write'
 import StyledButton from './../styles/StyledButton'
+import axios from 'axios'
+import { CounSelorLoginBtn } from '../components/CounselorLoginBtn'
 
 export const FreeBoardWrite = () => {
   const fileInput = useRef<HTMLInputElement>(null)
@@ -21,7 +23,9 @@ export const FreeBoardWrite = () => {
     setContent(e.target.value)
   }
   // 버튼 클릭시
-  const handleButtonClick = () => {
+  const handleButtonClick = (e: React.MouseEvent) => {
+    e.preventDefault() // 추가한 코드 (석민혁)
+    console.log(fileInput.current)
     if (fileInput.current) {
       fileInput.current.click()
     }
@@ -29,8 +33,30 @@ export const FreeBoardWrite = () => {
 
   /** 파일이 존재하고 파일이 업로드할 때 가장 최신것을 저장*/
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    //수정할 부분 : async 추가
     if (e.target.files && e.target.files[0]) {
       console.log(e.target.files[0])
+
+      // 추가한 부분 (석민혁)
+      // const file = e.target.files[0]
+      // const formData = new FormData()
+      // formData.append('file', file)
+      // try {
+      //   const response = await axios.post(
+      //     'http://yourserver.com/upload',
+      //     formData,
+      //     {
+      //       headers: {
+      //         'Content-Type': 'multipart/form-data',
+      //       },
+      //     },
+      //   )
+
+      //   console.log(response.data)
+      // } catch (error) {
+      //   console.error(error)
+      // }
+      // 여기까지
     }
   }
   // 제목이 바뀌었을때 제목을 저장
