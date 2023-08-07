@@ -56,6 +56,10 @@ export const NoticeWrite: React.FC = () => {
         src={imageFile.location}
         alt={imageFile.type}
         onClick={fileUploadButton}
+        style={{
+          width: '100px',
+          height: '100px',
+        }}
       />
     )
   }, [imageFile])
@@ -109,19 +113,22 @@ export const NoticeWrite: React.FC = () => {
           />
           <SpacedDiv />
 
-          {/* {showImage} */}
+          {showImage}
           {/* 파일 넣는 입력창 */}
-          {/* <StyledFileInput
+          <StyledFileInput
             type="file"
             accept="image/*"
             ref={imgRef}
             onChange={uploadImage}
             style={{ display: 'none' }}
-          /> */}
+          />
           {/* 파일 input창 나오게하는 버튼 */}
-          {/* <div style={{ marginLeft: '30px', width: '400px' }}>
-            <StyledButton onClick={fileUploadButton}>파일 업로드</StyledButton>
-          </div> */}
+          <div style={{ marginLeft: '30px', width: '400px' }}>
+            {/* <StyledButton onClick={fileUploadButton}>파일 업로드</StyledButton> */}
+            <StyledButton type="button" onClick={fileUploadButton}>
+              파일 업로드
+            </StyledButton>
+          </div>
 
           <div
             style={{

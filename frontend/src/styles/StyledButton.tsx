@@ -1,7 +1,8 @@
 import React from 'react'
 import styled, { css } from 'styled-components'
 
-interface ButtonProps {
+// interface ButtonProps {
+interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   children: React.ReactNode
   color?: string
   background?: string
