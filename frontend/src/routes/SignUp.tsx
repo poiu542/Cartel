@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useState, useEffect } from 'react'
+import React, { ChangeEvent, useState } from 'react'
 import NavbarLogin from '../components/NavbarLogin'
 import Input from '../components/Input'
 import { NoneStyledLink } from '../styles/Custom'
@@ -21,8 +21,8 @@ import StyledButton from '../styles/StyledButton'
 import DeleteIcon from '@mui/icons-material/Delete'
 import { ErrorMessage } from '../styles/ErrorMessage'
 
-import { userState } from '../recoil/atoms/userState'
-import { useRecoilState } from 'recoil'
+// import { userState } from '../recoil/atoms/userState'
+// import { useRecoilState } from 'recoil'
 
 export const SignUp = () => {
   const [inputNicknameValue, setinputNicknameValue] = useState('')

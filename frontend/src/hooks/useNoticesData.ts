@@ -1,9 +1,9 @@
-import {
-  UseQueryOptions,
-  UseQueryResult,
-  useQuery,
-  useQueryClient,
-} from 'react-query'
+// import {
+//   UseQueryOptions,
+//   UseQueryResult,
+//   useQuery,
+//   useQueryClient,
+// } from 'react-query'
 import axios, { AxiosError, AxiosResponse } from 'axios'
 
 interface Notice {
