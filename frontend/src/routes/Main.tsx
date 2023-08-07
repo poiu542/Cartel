@@ -43,6 +43,8 @@ export const Main = () => {
   }
   const tempService = () => {
     alert('서비스 준비중입니다.')
+    localStorage.setItem('user', 'testuser')
+    console.log(localStorage.getItem('user'))
   }
 
   const goServicePage = () => {
