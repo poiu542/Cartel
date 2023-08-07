@@ -49,11 +49,8 @@ import { CounselorConfirmAdmin } from './routes/CounselorConfirmAdmin'
 import { MyComments } from './routes/MyComments'
 import { MyBoards } from './routes/MyBoards'
 import { SelfHelpGroup } from './routes/SelfHelpGroup'
-<<<<<<< HEAD
 import { CheckCounselor, CheckLogin } from './routes/PrivateRoute'
-=======
 import { Testimony } from './routes/Testimony'
->>>>>>> 7f976234307629c86f4243bff5232b5b2bd76d19
 
 const queryClient = new QueryClient()
 

@@ -3,10 +3,8 @@ import NavbarLogin from '../components/NavbarLogin'
 import ArticleBar from '../components/ArticleBar'
 import { FreeBoardTable } from './../components/FreeBoardTable'
 import StyledButton from './../styles/StyledButton'
-import { useNavigate } from 'react-router'
 
 export const FreeBoard = () => {
-  const navigate = useNavigate()
   const [movies, setMovies] = useState([])
   const getMovies = async () => {
     const json = await (
@@ -26,21 +24,12 @@ export const FreeBoard = () => {
       <div style={{ marginTop: '30px' }}>
         <ArticleBar name="자유게시판" />
       </div>
-      <div
-        style={{ display: 'flex', justifyContent: 'end', marginRight: '250px' }}
+      <StyledButton
+        primary
+        onClick={() => window.location.replace('/freeboard/write')}
       >
-        <StyledButton
-          primary
-          marginTop="20px"
-          marginBottom="20px"
-          fontSize="18px"
-          width="100px"
-          height="50px"
-          onClick={() => navigate('/freeboard/write')}
-        >
-          글 쓰기
-        </StyledButton>
-      </div>
+        글 쓰기
+      </StyledButton>
       <FreeBoardTable data={movies} />
     </div>
   )
