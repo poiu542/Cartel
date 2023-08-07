@@ -6,7 +6,7 @@ export const BorderTop = styled.div`
 
 export const Container = styled.div`
   margin-bottom: 10px;
-  padding: 0px 250px;
+  padding: 0px 0px;
 `
 
 export const CommentItem = styled.div`

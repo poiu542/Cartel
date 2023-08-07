@@ -132,7 +132,11 @@ export const CounselMake = () => {
   }
 
   return (
-    <div>
+    <div
+      style={{
+        marginBottom: '100px',
+      }}
+    >
       <Modal
         isOpen={isModalOpen}
         onRequestClose={() => {

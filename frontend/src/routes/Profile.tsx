@@ -6,6 +6,14 @@ import { useNavigate } from 'react-router-dom'
 import Modal from 'react-modal'
 
 export const Profile = () => {
+  const [careers, setCareers] = useState([
+    'Developer',
+    'Designer',
+    'Product Manager',
+    'Product Manager',
+    'Product Manager',
+    'Product Manager',
+  ])
   const [nickname, setNickname] = useState('족구왕')
   const [email, setEmail] = useState('jokguking@jokgu.com')
   const [name, setName] = useState('석민혁')
@@ -176,7 +184,8 @@ export const Profile = () => {
         style={{
           display: 'flex',
           width: '100%',
-          height: '800px',
+          minHeight: '800px',
+          marginBottom: '5px',
         }}
       >
         <div
@@ -444,11 +453,11 @@ export const Profile = () => {
           <div
             className="right top"
             style={{
-              margin: '95px 0px 25px 100px',
+              margin: '95px 0px 0px 100px',
               border: '1px solid #3b478f',
               borderRadius: '20px',
               width: '420px ',
-              minHeight: '250px',
+              minHeight: '300px',
               backgroundColor: 'white',
             }}
           >
@@ -566,14 +575,46 @@ export const Profile = () => {
             </div>
           </div>
           <div className="right bottom">
+            <h3
+              style={{
+                marginLeft: '100px',
+              }}
+            >
+              이력
+            </h3>
+            <div
+              className="career"
+              style={{
+                width: '400px',
+                minHeight: '80px',
+                border: '1px solid lightgray',
+                borderRadius: '6px',
+                margin: '0px 0px 0px 100px',
+                backgroundColor: 'white',
+              }}
+            >
+              {careers.map((career, index) => (
+                <span key={index} style={{ fontSize: '12px', margin: '4px' }}>
+                  {career}
+                  <br />
+                </span>
+              ))}
+            </div>
+            <h3
+              style={{
+                marginLeft: '100px',
+              }}
+            >
+              소개
+            </h3>
             <div
               className="right bottom top"
               style={{
                 width: '400px',
-                height: '215px',
+                height: '130px',
                 border: '1px solid lightgray',
                 borderRadius: '6px',
-                margin: '41px 0px 0px 100px',
+                margin: '0px 0px 0px 100px',
                 display: 'flex',
                 justifyContent: 'center ',
                 alignItems: 'center',

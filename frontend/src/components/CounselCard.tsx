@@ -39,7 +39,7 @@ const CounselorCard: React.FC<CounselCardProps> = ({
         height: '339px',
       }}
     >
-      <div className="counsel title" style={{}}>
+      <div className="counsel title" style={{ marginLeft: '30px' }}>
         <h2>{title}</h2>
       </div>
       <div
