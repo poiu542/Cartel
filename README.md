@@ -15,7 +15,7 @@ npm install --save-dev eslint prettier eslint-plugin-react eslint-plugin-react-h
 ## 이경원
 
 - 와이어프레임
-- 피그마 사용법 숙지
+- 피그마 사용법 숙지  
 - 타입 스크립트 및 리액트 공부
 
 ## 석민혁
