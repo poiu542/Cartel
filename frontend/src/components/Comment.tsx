@@ -38,7 +38,7 @@ const Comment: React.FC = () => {
   ]
 
   return (
-    <div>
+    <div style={{}}>
       <Container>
         <BorderTop>
           {comments.map((comment, index) => (

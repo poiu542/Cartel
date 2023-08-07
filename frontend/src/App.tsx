@@ -49,7 +49,11 @@ import { CounselorConfirmAdmin } from './routes/CounselorConfirmAdmin'
 import { MyComments } from './routes/MyComments'
 import { MyBoards } from './routes/MyBoards'
 import { SelfHelpGroup } from './routes/SelfHelpGroup'
+<<<<<<< HEAD
 import { CheckCounselor, CheckLogin } from './routes/PrivateRoute'
+=======
+import { Testimony } from './routes/Testimony'
+>>>>>>> 7f976234307629c86f4243bff5232b5b2bd76d19
 
 const queryClient = new QueryClient()
 
@@ -145,6 +149,8 @@ function App(): React.ReactElement {
               path="/counsel/clientlist/:counselId"
               element={<ClientList />}
             />
+            {/* 소감문 리스트*/}
+            <Route path="/counsel/testimony" element={<Testimony />} />
             {/* 내담자의 소감문 */}
             <Route
               path="/counsel/testimony/:counselId/:userId"

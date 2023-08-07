@@ -19,6 +19,7 @@ import {
 import Modal from 'react-modal'
 import StyledButton from '../styles/StyledButton'
 import DeleteIcon from '@mui/icons-material/Delete'
+import { ErrorMessage } from '../styles/ErrorMessage'
 
 export const SignUp = () => {
   const [inputNicknameValue, setinputNicknameValue] = useState('')
@@ -28,6 +29,9 @@ export const SignUp = () => {
   const [inputPassCheckValue, setinputPassCheckValue] = useState('')
   const [inputEducation, setinputEducation] = useState('')
   const [passwordCheck, setpasswordCheck] = useState(1)
+  const [emailError, setEmailError] = useState<string>('')
+  const [passwordError, setPasswordError] = useState<string>('')
+
   // 모달을 띄울 상태
   const [isModalOpen, setIsModalOpen] = useState(false)
   // 이력 저장할 State
@@ -48,22 +52,45 @@ export const SignUp = () => {
   const closeCareerModal = () => {
     setIsModalOpen(false)
   }
+  const validateEmail = (email: string) => {
+    var re =
+      /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+    return re.test(String(email).toLowerCase())
+  }
+
+  const validatePassword = (password: string) => {
+    var re = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/
+    return re.test(password)
+  }
 
   const handleNicknameChange = (event: ChangeEvent<HTMLInputElement>) => {
     setinputNicknameValue(event.target.value)
   }
+
   const handleEmailChange = (event: ChangeEvent<HTMLInputElement>) => {
     setinputEmailValue(event.target.value)
+    if (!validateEmail(event.target.value)) {
+      setEmailError('유효한 이메일 주소를 입력해주세요.')
+    } else {
+      setEmailError('')
+    }
   }
   const handleAuthNumChange = (event: ChangeEvent<HTMLInputElement>) => {
     setinputAuthNumeValue(event.target.value)
   }
   const handlePassChange = (event: ChangeEvent<HTMLInputElement>) => {
     setinputPassValue(event.target.value)
-    if (event.target.value === inputPassCheckValue) {
-      setpasswordCheck(1)
+    if (!validatePassword(event.target.value)) {
+      setPasswordError(
+        '비밀번호는 8자 이상이며, 숫자, 대문자, 소문자를 모두 포함해야 합니다.',
+      )
     } else {
-      setpasswordCheck(0)
+      setPasswordError('')
+      if (event.target.value === inputPassCheckValue) {
+        setpasswordCheck(1)
+      } else {
+        setpasswordCheck(0)
+      }
     }
   }
   const handlePassCheckChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -219,13 +246,26 @@ export const SignUp = () => {
             maxLength={20}
           />
           <FlexContainerRow style={{ width: '100%' }}>
-            <Input
-              value={inputEmailValue}
-              onChange={handleEmailChange}
-              placeholder="이메일"
-              width="420px"
-              maxLength={30}
-            />
+            <div>
+              <Input
+                padding="0px"
+                marginBottom="5px"
+                value={inputEmailValue}
+                onChange={handleEmailChange}
+                placeholder="이메일"
+                width="420px"
+                maxLength={30}
+              />
+              <p
+                style={{
+                  fontSize: '1px',
+                  margin: '0px 0px 10px 0px',
+                  padding: '0px',
+                }}
+              >
+                {emailError && <ErrorMessage>{emailError}</ErrorMessage>}
+              </p>
+            </div>
             <Button
               border={{ radius: '0.625rem', borderColor: '#40BFFF' }}
               size={{ width: '100px', height: '35px' }}
@@ -261,8 +301,18 @@ export const SignUp = () => {
             onChange={handlePassCheckChange}
             placeholder="비밀번호확인"
             type="password"
+            padding="6px"
+            marginBottom="5px"
           />
-          {passwordCheck === 0 ? <p>비번 확인 해주세요</p> : null}
+          <p
+            style={{
+              fontSize: '1px',
+              margin: '0px 0px 10px 0px',
+              padding: '0px',
+            }}
+          >
+            {passwordError && <ErrorMessage>{passwordError}</ErrorMessage>}
+          </p>
           {userType === 1 ? (
             <>
               <Input
