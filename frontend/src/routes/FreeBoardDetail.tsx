@@ -64,6 +64,10 @@ export const FreeBoardDetail = () => {
 
         <Comment />
       </div>
+<<<<<<< HEAD
+=======
+      <Comment />
+>>>>>>> ff5607696475a2ac81c0941f39d7b3846203b56d
 
       <StyledButton onClick={() => navigate(`/freeboard/edit/${freeboardId}`)}>
         수정

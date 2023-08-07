@@ -1,4 +1,4 @@
-import * as React from 'react'
+import React, { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import AppBar from '@mui/material/AppBar'
 import Box from '@mui/material/Box'
@@ -16,13 +16,8 @@ import { Link } from 'react-router-dom'
 import { useNavigate } from 'react-router-dom'
 import NotificationsNoneIcon from '@mui/icons-material/NotificationsNone'
 import { BsPersonCircle } from 'react-icons/bs'
-import { RootState } from '../app/store'
-import { logout } from '../features/auth/authSlice'
 
 function NavbarLogin() {
-  // const isLoggedIn = 1
-  // const isLoggedIn = useSelector((state: RootState) => state.auth.isLoggedIn)
-  // const userInfo = useSelector((state: RootState) => state.auth.userInfo)
   const isLoggedIn = localStorage.getItem('token')
   const pages = ['상담', '상담사', '공지사항', '커뮤니티']
   const settings = isLoggedIn

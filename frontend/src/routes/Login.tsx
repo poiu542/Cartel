@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useState } from 'react'
+import React, { ChangeEvent, useState, useEffect } from 'react'
 import NavbarLogin from '../components/NavbarLogin'
 import { styled } from 'styled-components'
 import Input from '../components/Input'
@@ -17,6 +17,9 @@ import {
   NormalLoginCheck,
   NormalLoginNoCheck,
 } from '../styles/SignBtn'
+
+import { userState } from '../recoil/atoms/userState'
+import { useRecoilState } from 'recoil'
 
 // const LoginTab = styled.div`
 //   display: flex;
@@ -76,7 +79,6 @@ export const Login = () => {
     }
   }
   const handleLogIn = () => {
-    // dispatch(login({ username: inputEmailValue }))
     const token = '서버로부터 받은 토큰'
     localStorage.setItem('token', token)
     alert('로그인')
