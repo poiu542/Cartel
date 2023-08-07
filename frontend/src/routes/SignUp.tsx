@@ -301,7 +301,7 @@ export const SignUp = () => {
             onChange={handlePassCheckChange}
             placeholder="비밀번호확인"
             type="password"
-            padding="0px"
+            padding="6px"
             marginBottom="5px"
           />
           <p
