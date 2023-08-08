@@ -4,13 +4,8 @@ import com.ssafy.cartel.domain.Article;
 import com.ssafy.cartel.domain.Comment;
 import com.ssafy.cartel.domain.User;
 import com.ssafy.cartel.dto.CommentDto;
-import com.ssafy.cartel.repository.ArticleRepository;
-import com.ssafy.cartel.repository.CommentRepository;
-import com.ssafy.cartel.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @RequiredArgsConstructor
 @Service

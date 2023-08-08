@@ -4,8 +4,6 @@ import com.ssafy.cartel.domain.Article;
 import com.ssafy.cartel.domain.User;
 import com.ssafy.cartel.dto.ArticleDto;
 import com.ssafy.cartel.dto.UpdateArticleRequest;
-import com.ssafy.cartel.repository.ArticleRepository;
-import com.ssafy.cartel.repository.UserRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
