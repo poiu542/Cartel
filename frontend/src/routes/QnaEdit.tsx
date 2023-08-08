@@ -82,7 +82,8 @@ export const QnaEdit = () => {
     }))
   }
 
-  const updateQna = () => {
+  const updateQna = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault() // 기본 폼 제출 동작 방지
     if (title.length === 0) {
       alert('제목을 입력해 주세요.')
     } else if (content.length === 0) {
@@ -103,7 +104,10 @@ export const QnaEdit = () => {
       <ArticleBar name="QnA 수정" />
       <SpacedDiv />
       <CenteredDiv>
-        <StyledForm style={{ display: 'flex', flexDirection: 'column' }}>
+        <StyledForm
+          style={{ display: 'flex', flexDirection: 'column' }}
+          onSubmit={updateQna}
+        >
           <SpacedDiv />
           {/* 입력되어 있는 값 띄우기 */}
           <div style={{ display: 'flex', alignItems: 'center' }}>
@@ -154,7 +158,7 @@ export const QnaEdit = () => {
                 취소
               </StyledButton>
             </div>
-            <StyledButton primary onClick={updateQna}>
+            <StyledButton type="submit" primary>
               수정
             </StyledButton>
           </div>
