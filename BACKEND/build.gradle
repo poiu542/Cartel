@@ -49,6 +49,14 @@ dependencies {
 	annotationProcessor "org.springframework.boot:spring-boot-configuration-processor"
 
 
+	// 이메일 인증
+	implementation 'org.springframework.boot:spring-boot-starter-mail'
+
+	//redis
+	implementation "org.springframework.boot:spring-boot-starter-data-redis"
+	implementation "redis.clients:jedis:2.9.0"
+	implementation "org.springframework.session:spring-session-data-redis"
+
 }
 
 tasks.named('test') {
