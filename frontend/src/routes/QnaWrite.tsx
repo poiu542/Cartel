@@ -29,20 +29,8 @@ export const QnaWrite: React.FC = () => {
     userId: 1,
     type: 2,
     status: 0,
-    nickname: '병신',
-    email: 'wef@sd',
   })
-  const {
-    title,
-    content,
-    level,
-    views,
-    userId,
-    type,
-    status,
-    nickname,
-    email,
-  } = board
+  const { title, content, level, views, userId, type, status } = board
 
   const handleTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setBoard((prevBoard) => ({
@@ -75,8 +63,6 @@ export const QnaWrite: React.FC = () => {
           type: 2,
           status: 0,
           date: new Date().toISOString(),
-          nickname: '병신',
-          email: '23@asdf',
         }
         postArticle(article, {
           onSuccess: () => {
@@ -98,13 +84,8 @@ export const QnaWrite: React.FC = () => {
       <SpacedDiv />
       <CenteredDiv>
         <StyledForm
-<<<<<<< HEAD
-          onSubmit={postQna}
-          style={{ display: 'flex', flexDirection: 'column' }}
-=======
           style={{ display: 'flex', flexDirection: 'column' }}
           onSubmit={postQna}
->>>>>>> c05154d8b9e64532ff66554bda0058ff1572c9f8
         >
           <SpacedDiv />
           <div style={{ display: 'flex', alignItems: 'center' }}>

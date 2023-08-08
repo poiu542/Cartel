@@ -29,8 +29,6 @@ export interface BoardData {
   userId: number
   views: number
   id?: number
-  nickname: string
-  email: string
 }
 
 export interface CommentData {}

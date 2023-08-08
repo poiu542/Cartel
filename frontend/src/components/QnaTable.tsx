@@ -40,10 +40,16 @@ export const QnaTable: React.FC<QnaTableProps> = ({ data }) => {
             >
               등록일
             </TableCell>
-            <TableCell sx={{ fontWeight: 'bold', fontSize: '18px' }}>
+            <TableCell
+              sx={{ fontWeight: 'bold', fontSize: '18px' }}
+              align="right"
+            >
               작성자
             </TableCell>
-            <TableCell sx={{ fontWeight: 'bold', fontSize: '18px' }}>
+            <TableCell
+              sx={{ fontWeight: 'bold', fontSize: '18px' }}
+              align="right"
+            >
               레벨
             </TableCell>
           </TableRow>
@@ -51,24 +57,41 @@ export const QnaTable: React.FC<QnaTableProps> = ({ data }) => {
         <TableBody>
           {data &&
             data.map((row, index) => (
-              <TableRow key={index}>
+              <TableRow
+                key={index}
+                style={{
+                  border: 'solid',
+                  borderWidth: '0px 0px 1px',
+                  borderColor: '#e6e6e6',
+                }}
+              >
                 {/* 프론트에서 번호 증가시키기 */}
-                <TableCell component="th" scope="row">
+                <TableCell
+                  style={{ border: 'none' }}
+                  component="th"
+                  scope="row"
+                >
                   {idx + 1}
                 </TableCell>
                 {/* userId를 그냥 id로 수정해야함 board의 id로 */}
-                <NoneStyledLink to={`/qna/${row.userId}`}>
-                  <TableCell>{row.title}</TableCell>
-                </NoneStyledLink>
+                <TableCell style={{ border: 'none' }}>
+                  <NoneStyledLink
+                    style={{ padding: '0px', display: 'block' }}
+                    to={`/qna/${row.userId}`}
+                  >
+                    {row.title}
+                  </NoneStyledLink>
+                </TableCell>
 
-                <TableCell align="right">{row.userId}</TableCell>
-                <TableCell align="right">{row.level}</TableCell>
+                <TableCell style={{ border: 'none' }} align="right">
+                  {row.userId}
+                </TableCell>
+                <TableCell style={{ border: 'none' }} align="right">
+                  {row.level}
+                </TableCell>
                 {/* 삭제버튼 */}
-                <TableCell align="right">{row.views}</TableCell>
-                <TableCell align="right">
-                  <StyledButton background="white" color="red" fontSize="15px">
-                    X
-                  </StyledButton>
+                <TableCell style={{ border: 'none' }} align="right">
+                  {row.views}
                 </TableCell>
               </TableRow>
             ))}
