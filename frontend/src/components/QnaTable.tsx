@@ -13,8 +13,6 @@ interface QnaTableProps {
 }
 
 export const QnaTable: React.FC<QnaTableProps> = ({ data }) => {
-  let idx = 0
-
   return (
     <div
       style={{
@@ -43,33 +41,33 @@ export const QnaTable: React.FC<QnaTableProps> = ({ data }) => {
             <TableCell sx={{ fontWeight: 'bold', fontSize: '18px' }}>
               작성자
             </TableCell>
-            <TableCell sx={{ fontWeight: 'bold', fontSize: '18px' }}>
-              레벨
-            </TableCell>
+            {/* <TableCell sx={{ fontWeight: 'bold', fontSize: '18px' }}>
+              조회수
+            </TableCell> */}
           </TableRow>
         </TableHead>
         <TableBody>
           {data &&
-            data.map((row, index) => (
-              <TableRow key={index}>
+            data.map((row, idx) => (
+              <TableRow key={row.id}>
                 {/* 프론트에서 번호 증가시키기 */}
                 <TableCell component="th" scope="row">
                   {idx + 1}
                 </TableCell>
                 {/* userId를 그냥 id로 수정해야함 board의 id로 */}
-                <NoneStyledLink to={`/qna/${row.userId}`}>
+                <NoneStyledLink to={`/qna/${row.id}`}>
                   <TableCell>{row.title}</TableCell>
                 </NoneStyledLink>
 
-                <TableCell align="right">{row.userId}</TableCell>
-                <TableCell align="right">{row.level}</TableCell>
+                <TableCell align="right">{row.nickname}</TableCell>
+                {/* <TableCell align="right">{row.views}</TableCell> */}
                 {/* 삭제버튼 */}
-                <TableCell align="right">{row.views}</TableCell>
+                {/* <TableCell align="right">{row.views}</TableCell>
                 <TableCell align="right">
                   <StyledButton background="white" color="red" fontSize="15px">
                     X
                   </StyledButton>
-                </TableCell>
+                </TableCell> */}
               </TableRow>
             ))}
         </TableBody>

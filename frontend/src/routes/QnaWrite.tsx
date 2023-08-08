@@ -98,13 +98,8 @@ export const QnaWrite: React.FC = () => {
       <SpacedDiv />
       <CenteredDiv>
         <StyledForm
-<<<<<<< HEAD
-          onSubmit={postQna}
-          style={{ display: 'flex', flexDirection: 'column' }}
-=======
           style={{ display: 'flex', flexDirection: 'column' }}
           onSubmit={postQna}
->>>>>>> c05154d8b9e64532ff66554bda0058ff1572c9f8
         >
           <SpacedDiv />
           <div style={{ display: 'flex', alignItems: 'center' }}>

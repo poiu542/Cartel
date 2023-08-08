@@ -28,14 +28,11 @@ export const QnaEdit = () => {
   const [board, setBoard] = useState({
     title: '',
     content: '',
-<<<<<<< HEAD
-=======
     // level: 0,
     // views: 0,
     // userId: 1,
     // type: 2,
     // status: 0,
->>>>>>> c05154d8b9e64532ff66554bda0058ff1572c9f8
   })
   const { title, content } = board
 
@@ -81,12 +78,6 @@ export const QnaEdit = () => {
     )
   }
 
-<<<<<<< HEAD
-  // 수정필요!!!!
-  //eslint-disable-next-line
-
-=======
->>>>>>> c05154d8b9e64532ff66554bda0058ff1572c9f8
   const handleTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setBoard((prevBoard) => ({
       ...prevBoard,
