@@ -7,7 +7,6 @@ import { Board, BoardData } from '../model/board'
 import { Link } from 'react-router-dom'
 import { NoneStyledLink } from './../styles/Custom'
 import StyledButton from './../styles/StyledButton'
-import { UserData } from './../routes/Notice'
 
 interface NoticeTableProps {
   data: BoardData[]

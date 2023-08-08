@@ -1,10 +1,6 @@
-import React, {
-  useRef,
-  ChangeEvent,
-  useMemo,
-  useState,
-  useCallback,
-} from 'react'
+import React, { useRef, ChangeEvent, useMemo, useCallback } from 'react'
+import '../fonts/font.css'
+
 import '../fonts/font.css'
 import NavbarLogin from '../components/NavbarLogin'
 import ArticleBar from '../components/ArticleBar'
@@ -17,6 +13,12 @@ import {
   StyledTitleInput,
 } from './../components/Write'
 import StyledButton from './../styles/StyledButton'
+import { useState } from 'react'
+import { usePostBoard } from '../hooks/useboard'
+import { BoardData } from '../model/board'
+import { useNavigate } from 'react-router-dom'
+import { useQueryClient } from 'react-query'
+import { Link } from 'react-router-dom'
 
 type UploadImage = {
   location: string
@@ -24,72 +26,98 @@ type UploadImage = {
   type: string
 }
 export const NoticeWrite: React.FC = () => {
-  const [imageFile, setImageFile] = useState<UploadImage | null>(null)
-  const [title, setTitle] = useState<string>('')
-  const [content, setContent] = useState<string>('')
-  const imgRef = useRef<HTMLInputElement>(null)
+  //type 공지사항 ,qna, 자유게시판인지
+  // status 삭제상태 or 게시상태
+  const queryClient = useQueryClient()
+  const navigate = useNavigate()
+  const [board, setBoard] = useState({
+    title: '',
+    content: '',
+    level: 0,
+    views: 0,
+    userId: 1,
+    type: 1,
+    status: 0,
+    nickname: '병신',
+    email: 'wef@sd',
+  })
+  const {
+    title,
+    content,
+    level,
+    views,
+    userId,
+    type,
+    status,
+    nickname,
+    email,
+  } = board
 
-  const fileUploadButton = () => {
-    imgRef.current?.click()
+  const handleTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setBoard((prevBoard) => ({
+      ...prevBoard,
+      title: e.target.value,
+    }))
   }
 
-  const uploadImage = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const fileList = e.target.files
-    const length = fileList?.length
-    if (fileList && fileList[0]) {
-      const url = URL.createObjectURL(fileList[0])
-
-      setImageFile({
-        file: fileList[0],
-        location: url,
-        type: fileList[0].type.slice(0, 5),
-      })
+  const handleContentChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setBoard((prevBoard) => ({
+      ...prevBoard,
+      content: e.target.value,
+    }))
+  }
+  const { mutate: postArticle } = usePostBoard()
+  const postNotice = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault() // 기본 폼 제출 동작 방지
+    if (title.length === 0) {
+      alert('제목을 입력해 주세요.')
+    } else if (content.length === 0) {
+      alert('내용을 입력해 주세요.')
+    } else {
+      if (window.confirm('게시글을 등록하시겠습니까?')) {
+        const article = {
+          title: title,
+          content: content,
+          level: 0,
+          views: 0,
+          userId: 1,
+          type: 2,
+          status: 0,
+          date: new Date().toISOString(),
+          nickname: '병신',
+          email: '23@asdf',
+        }
+        postArticle(article, {
+          onSuccess: () => {
+            alert('게시글이 등록되었습니다.')
+            navigate(`/notice`)
+          },
+          onError: (error) => {
+            console.error('Error posting article:', error)
+          },
+        })
+      }
     }
-  }
-
-  const showImage = useMemo(() => {
-    if (!imageFile && imageFile == null) {
-      return
-    }
-    return (
-      <img
-        src={imageFile.location}
-        alt={imageFile.type}
-        onClick={fileUploadButton}
-        style={{
-          width: '100px',
-          height: '100px',
-        }}
-      />
-    )
-  }, [imageFile])
-  /** Title 제목 입력 */
-  const handleTitleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setTitle(e.target.value)
-    console.log(title)
-  }
-  /** */
-  const handleContentChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
-    setContent(e.target.value)
-    console.log(content)
   }
 
   return (
     <div>
       <NavbarLogin />
-      <ArticleBar name="공지사항 작성" />
+      <ArticleBar name="공지사항 글 쓰기" />
       <SpacedDiv />
       <CenteredDiv>
-        <StyledForm style={{ display: 'flex', flexDirection: 'column' }}>
+        <StyledForm
+          style={{ display: 'flex', flexDirection: 'column' }}
+          onSubmit={postNotice}
+        >
           <SpacedDiv />
           <div style={{ display: 'flex', alignItems: 'center' }}>
-            {/* 공지사항 제목 입력하기 */}
             <StyledTitleInput
+              required
+              placeholder="제목을 입력하세요"
               value={title}
               onChange={handleTitleChange}
-              placeholder="제목을 입력하세요"
             />
-            {/* 작성자 입력하기 */}
             <span
               style={{
                 marginLeft: '30px',
@@ -100,36 +128,22 @@ export const NoticeWrite: React.FC = () => {
               작성자
             </span>
           </div>
-          {/* 저작권법 게시물 활용안내 경고 */}
           <p style={{ marginLeft: '30px', fontSize: '10px' }}>
             * 음란물, 차별, 비하, 혐오 및 초상권, 저작권 침해 게시물은 민,
             형사상의 책임을 질 수 있습니다. [저작권법 안내] [게시물 활용 안내]
           </p>
           <SpacedDiv />
-          {/* 공지사항 내용 적용 */}
           <StyledTextArea
+            placeholder="내용을 입력하세요"
+            value={content}
             onChange={handleContentChange}
-            placeholder="원래내용을 입력하세요"
+            required
           />
           <SpacedDiv />
-
-          {showImage}
-          {/* 파일 넣는 입력창 */}
-          <StyledFileInput
-            type="file"
-            accept="image/*"
-            ref={imgRef}
-            onChange={uploadImage}
-            style={{ display: 'none' }}
-          />
-          {/* 파일 input창 나오게하는 버튼 */}
+          {/* <StyledFileInput />
           <div style={{ marginLeft: '30px', width: '400px' }}>
-            {/* <StyledButton onClick={fileUploadButton}>파일 업로드</StyledButton> */}
-            <StyledButton type="button" onClick={fileUploadButton}>
-              파일 업로드
-            </StyledButton>
-          </div>
-
+            <StyledButton>파일 업로드</StyledButton>
+          </div> */}
           <div
             style={{
               display: 'flex',
@@ -139,8 +153,8 @@ export const NoticeWrite: React.FC = () => {
               marginBottom: '10px',
             }}
           >
+            {/* 버튼 구현하기 */}
             <div style={{ marginRight: '10px' }}>
-              {/* 작성 취소버튼 */}
               <StyledButton
                 red
                 onClick={() => window.location.replace('/notice')}
@@ -148,8 +162,9 @@ export const NoticeWrite: React.FC = () => {
                 취소
               </StyledButton>
             </div>
-            {/* 등록버튼 클릭시 등록되었습니다 창뜨기 axios로 포스트 보내기 */}
-            <StyledButton primary>등록</StyledButton>
+            <StyledButton type="submit" primary>
+              등록
+            </StyledButton>
           </div>
         </StyledForm>
       </CenteredDiv>
