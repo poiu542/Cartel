@@ -43,8 +43,8 @@ export const QnaWrite: React.FC = () => {
     }))
   }
   const { mutate: postArticle } = usePostBoard()
-  const postQna = () => {
-    // e.preventDefault()
+  const postQna = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault() // 기본 폼 제출 동작 방지
     if (title.length === 0) {
       alert('제목을 입력해 주세요.')
     } else if (content.length === 0) {
@@ -61,9 +61,15 @@ export const QnaWrite: React.FC = () => {
           status: 0,
           date: new Date().toISOString(),
         }
-        postArticle(article)
-        alert('게시글이 등록되었습니다.')
-        navigate(`/qna`)
+        postArticle(article, {
+          onSuccess: () => {
+            alert('게시글이 등록되었습니다.')
+            navigate(`/qna`)
+          },
+          onError: (error) => {
+            console.error('Error posting article:', error)
+          },
+        })
       }
     }
   }
@@ -74,7 +80,10 @@ export const QnaWrite: React.FC = () => {
       <ArticleBar name="QnA 작성" />
       <SpacedDiv />
       <CenteredDiv>
-        <StyledForm style={{ display: 'flex', flexDirection: 'column' }}>
+        <StyledForm
+          style={{ display: 'flex', flexDirection: 'column' }}
+          onSubmit={postQna}
+        >
           <SpacedDiv />
           <div style={{ display: 'flex', alignItems: 'center' }}>
             <StyledTitleInput
@@ -122,7 +131,7 @@ export const QnaWrite: React.FC = () => {
                 취소
               </StyledButton>
             </div>
-            <StyledButton primary onClick={postQna}>
+            <StyledButton type="submit" primary>
               등록
             </StyledButton>
           </div>
