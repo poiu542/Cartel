@@ -4,8 +4,8 @@ import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.ColumnDefault;
 
-import java.lang.reflect.Type;
 import java.time.LocalDateTime;
 
 @Entity
@@ -44,5 +44,21 @@ public class Payment {
         this.clientId = clientId;
         this.paymentId = paymentId;
         this.method = method;
+    }
+
+    public void updateStatus(Integer status) {
+        this.status = status;
+    }
+
+    public void updateApprovedTime(LocalDateTime time) {
+        this.time = time;
+    }
+
+    public void updateTid(String paymentId) {
+        this.paymentId = paymentId;
+    }
+
+    public void updateCanceledTime(LocalDateTime time) {
+        this.time = time;
     }
 }

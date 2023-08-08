@@ -1,11 +1,16 @@
 package com.ssafy.cartel.controller.kakaopay;
 
+import com.ssafy.cartel.domain.Payment;
 import com.ssafy.cartel.dto.kakaopay.ApproveResponse;
 import com.ssafy.cartel.dto.kakaopay.ReadyResponse;
+import com.ssafy.cartel.repository.kakaopay.KaKaopayRepository;
 import com.ssafy.cartel.service.kakaopay.KaKaoPayService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.time.LocalDateTime;
 
 
 @Slf4j
@@ -14,6 +19,9 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 public class PayController {
     private final KaKaoPayService kakaoPayService;
+
+    @Autowired
+    private KaKaopayRepository kaKaopayRepository;
 
     /**
      * 결제 준비 요청하기
@@ -31,11 +39,19 @@ public class PayController {
      * 결제 승인 요청하기
      */
     @PostMapping("/approve")
-    public String payApprove(@RequestParam("pg_token") String pgToken, @ModelAttribute("tid") String tid) {
+    public String payApprove(@RequestParam("pg_token") String pgToken, @ModelAttribute("tid") String tid, Integer paymentId, LocalDateTime time) {
         log.info("결제승인 요청을 인증하는 토큰: " + pgToken);
         log.info("결재고유 번호: " + tid);
         // 카카오 결재 요청하기
         ApproveResponse approveResponse = kakaoPayService.payApprove(pgToken);
+        if (pgToken.length() > 0) {
+            Payment payment = kaKaopayRepository.findById(paymentId)
+                    .orElseThrow(() -> new IllegalArgumentException("해당 payment가 존재하지 않습니다."));
+            payment.updateStatus(0);
+            payment.updateApprovedTime(time);
+            payment.updateTid(tid);
+        } else {
+        }
         // 카카오 페이로 넘겨받은 결재정보값을 저장.
         return "redirect:/approval_url";
     }
@@ -44,7 +60,15 @@ public class PayController {
      * 결제 취소
      */
     @GetMapping("/cancel")
-    public String payCancel() {
+    public String payCancel(@ModelAttribute("tid") String tid, Integer paymentId, LocalDateTime time) {
+        Payment payment = kaKaopayRepository.findById(paymentId)
+                .orElseThrow(() -> new IllegalArgumentException("해당 payment가 존재하지 않습니다."));
+        if (payment.getStatus() == 0) {
+            payment.updateStatus(1);
+            payment.updateCanceledTime(time);
+            payment.updateTid(tid);
+        } else {
+        }
         return "redirect:/cancel_url";
     }
 

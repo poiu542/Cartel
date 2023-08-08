@@ -57,10 +57,6 @@ public class Counselor {
         this.regist = regist;
     }
 
-    public void updateProfileImg(String profileImg) {
-        this.
-    }
-
     public void updateLicenseImg(String license) {
         this.license = license;
     }

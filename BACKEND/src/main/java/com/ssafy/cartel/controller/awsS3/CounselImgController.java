@@ -23,31 +23,31 @@ public class CounselImgController {
     private CounselImgRepository counselImgRepository;
 
     @PostMapping("/upload/img")
-    public ResponseEntity<String> uploadRegistFile(@RequestParam(value = "file") MultipartFile multipartFile, Integer counselImgId) throws IOException {
+    public ResponseEntity<String> uploadRegistFile(@RequestParam(value = "file") MultipartFile multipartFile, Integer counselImgId, String dirname) throws IOException {
         if (multipartFile.getSize() > 0) {
-            String imgURL = counselImgService.uploadFile(multipartFile);
+            String imgURL = counselImgService.upload(multipartFile);
             CounselImg counselImg = counselImgRepository.findById(counselImgId)
                     .orElseThrow(() -> new IllegalArgumentException("해당 counselImg가 존재하지 않습니다."));
             counselImg.updateRegistImg(imgURL);
         } else {
         }
-        return new ResponseEntity<>(counselImgService.uploadFile(multipartFile), HttpStatus.OK);
+        return new ResponseEntity<>(counselImgService.upload(multipartFile), HttpStatus.OK);
     }
 
-    @GetMapping("download/{fileName}")
-    public ResponseEntity<ByteArrayResource> downloadFile(@PathVariable String fileName) {
-        byte[] data = counselImgService.downloadFile(fileName);
-        ByteArrayResource resource = new ByteArrayResource(data);
-        return ResponseEntity
-                .ok()
-                .contentLength(data.length)
-                .header("Content-type", "application/octet-stream")
-                .header("Content-disposition", "attachment; filename=\"" + fileName + "\"")
-                .body(resource);
-    }
-
-    @DeleteMapping("/delete/{fileName}")
-    public ResponseEntity<String> deleteFile(@PathVariable String fileName) {
-        return new ResponseEntity<>(counselImgService.deleteFile(fileName), HttpStatus.OK);
-    }
+//    @GetMapping("download/{fileName}")
+//    public ResponseEntity<ByteArrayResource> downloadFile(@PathVariable String fileName) {
+//        byte[] data = counselImgService.downloadFile(fileName);
+//        ByteArrayResource resource = new ByteArrayResource(data);
+//        return ResponseEntity
+//                .ok()
+//                .contentLength(data.length)
+//                .header("Content-type", "application/octet-stream")
+//                .header("Content-disposition", "attachment; filename=\"" + fileName + "\"")
+//                .body(resource);
+//    }
+//
+//    @DeleteMapping("/delete/{fileName}")
+//    public ResponseEntity<String> deleteFile(@PathVariable String fileName) {
+//        return new ResponseEntity<>(counselImgService.deleteFile(fileName), HttpStatus.OK);
+//    }
 }

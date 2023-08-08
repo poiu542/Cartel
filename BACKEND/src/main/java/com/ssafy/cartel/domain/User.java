@@ -69,7 +69,12 @@ public class User{
         this.type = type;
     }
 
-    public void updateImg( String profileUrl) {
+
+    public void updateImg(String profileUrl) {
         this.profileUrl = profileUrl;
+    }
+
+    public void updateName(String name) {
+        this.nickname = name;
     }
 }

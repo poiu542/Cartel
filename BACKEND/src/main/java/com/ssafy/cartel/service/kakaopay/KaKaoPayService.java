@@ -4,6 +4,7 @@ import com.ssafy.cartel.domain.Counsel;
 import com.ssafy.cartel.domain.Payment;
 import com.ssafy.cartel.domain.User;
 import com.ssafy.cartel.dto.kakaopay.ApproveResponse;
+import com.ssafy.cartel.dto.kakaopay.CancelResponse;
 import com.ssafy.cartel.dto.kakaopay.ReadyResponse;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -24,6 +25,7 @@ public class KaKaoPayService {
     static final String admin_key = "${app.admin.key}"; // 본인 애플리케이션의 어드민 키
     private ReadyResponse readyResponse;
     private ApproveResponse approveResponse;
+    private CancelResponse cancelResponse;
     private User user;
     private Counsel counsel;
     private Payment payment;
@@ -98,6 +100,32 @@ public class KaKaoPayService {
         log.info("결제승인 응답객체: " + approveResponse);
 
         return approveResponse;
+    }
+
+    /**
+     * 결제 취소 요청 본문
+     */
+    public CancelResponse payCancle(String pg_token) {
+        // 승인 요청 양식
+        MultiValueMap<String, String> parameters = new LinkedMultiValueMap<>();
+        parameters.add("cid", cid); // 가맹점 코드, 10자
+        parameters.add("tid", readyResponse.getTid()); // 결제 고유번호, 결제 준비 API 응답에 포함
+        parameters.add("cancel_amount", String.valueOf(payment.getAmount()));
+        parameters.add("cancel_tax_free_amount", "0");
+
+        // 파라미터, 헤더
+        HttpEntity<MultiValueMap<String, String>> requestEntity = new HttpEntity<>(parameters, this.getHeaders());
+
+        // 외부에 보낼 url
+        RestTemplate restTemplate = new RestTemplate();
+
+        cancelResponse = restTemplate.postForObject(
+                "https://kapi.kakao.com/v1/payment/cancle",
+                requestEntity,
+                com.ssafy.cartel.dto.kakaopay.CancelResponse.class);
+        log.info("결제승인 응답객체: " + cancelResponse);
+
+        return cancelResponse;
     }
 
 }
