@@ -31,7 +31,7 @@ export interface BoardData {
   id?: number
   userNickname?: string
   userEmail?: string
-  comment: CommentData[]
+  comment?: CommentData[]
 }
 export interface CommentData {}
 export type Comment = Omit<Board, 'title'>
