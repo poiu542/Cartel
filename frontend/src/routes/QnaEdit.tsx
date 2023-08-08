@@ -12,7 +12,7 @@ import {
 
 import StyledButton from './../styles/StyledButton'
 import { useNavigate, useParams } from 'react-router-dom'
-import { useQuery } from 'react-query'
+import { useQuery, useQueryClient } from 'react-query'
 import { getBoard } from '../hooks/useboard'
 import { BoardData } from '../model/board'
 import axios from 'axios'
@@ -20,6 +20,7 @@ interface BoardApiResponse {
   data: BoardData[]
 }
 export const QnaEdit = () => {
+  const queryClient = useQueryClient()
   const navigate = useNavigate()
   // params를 받아올때 route url을 어떻게 쎃는지 중요하다 같은걸로 params받아와야함
   let { qnaId } = useParams()
@@ -27,13 +28,8 @@ export const QnaEdit = () => {
   const [board, setBoard] = useState({
     title: '',
     content: '',
-    level: 0,
-    views: 0,
-    userId: 1,
-    type: 2,
-    status: 0,
   })
-  const { title, content, level, views, userId, type, status } = board
+  const { title, content } = board
 
   // 이전에 썻던 내용이랑 제목 가져오기!
   const {
@@ -44,6 +40,15 @@ export const QnaEdit = () => {
     isFetched,
     refetch,
   } = useQuery<BoardData>(['qna', qnaId], () => getBoard(id), { retry: 0 })
+
+  useEffect(() => {
+    if (article) {
+      setBoard({
+        content: article.content,
+        title: article.title,
+      })
+    }
+  }, [article])
 
   if (isLoading) {
     return <h1>로딩 중입니다!!</h1>
@@ -60,13 +65,6 @@ export const QnaEdit = () => {
 
   // 수정필요!!!!
   //eslint-disable-next-line
-  useEffect(() => {
-    setBoard((prevBoard) => ({
-      ...prevBoard,
-      content: article?.content,
-      title: article?.title,
-    }))
-  }, [article])
 
   const handleTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setBoard((prevBoard) => ({

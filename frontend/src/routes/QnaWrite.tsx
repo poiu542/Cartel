@@ -14,9 +14,12 @@ import { useState } from 'react'
 import { usePostBoard } from '../hooks/useboard'
 import { BoardData } from '../model/board'
 import { useNavigate } from 'react-router-dom'
+import { useQueryClient } from 'react-query'
+import { Link } from 'react-router-dom'
 export const QnaWrite: React.FC = () => {
   //type 공지사항 ,qna, 자유게시판인지
   // status 삭제상태 or 게시상태
+  const queryClient = useQueryClient()
   const navigate = useNavigate()
   const [board, setBoard] = useState({
     title: '',
@@ -26,8 +29,20 @@ export const QnaWrite: React.FC = () => {
     userId: 1,
     type: 2,
     status: 0,
+    nickname: '병신',
+    email: 'wef@sd',
   })
-  const { title, content, level, views, userId, type, status } = board
+  const {
+    title,
+    content,
+    level,
+    views,
+    userId,
+    type,
+    status,
+    nickname,
+    email,
+  } = board
 
   const handleTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setBoard((prevBoard) => ({
@@ -60,6 +75,8 @@ export const QnaWrite: React.FC = () => {
           type: 2,
           status: 0,
           date: new Date().toISOString(),
+          nickname: '병신',
+          email: '23@asdf',
         }
         postArticle(article)
         alert('게시글이 등록되었습니다.')
@@ -74,10 +91,14 @@ export const QnaWrite: React.FC = () => {
       <ArticleBar name="QnA 작성" />
       <SpacedDiv />
       <CenteredDiv>
-        <StyledForm style={{ display: 'flex', flexDirection: 'column' }}>
+        <StyledForm
+          onSubmit={postQna}
+          style={{ display: 'flex', flexDirection: 'column' }}
+        >
           <SpacedDiv />
           <div style={{ display: 'flex', alignItems: 'center' }}>
             <StyledTitleInput
+              required
               placeholder="제목을 입력하세요"
               value={title}
               onChange={handleTitleChange}
@@ -101,6 +122,7 @@ export const QnaWrite: React.FC = () => {
             placeholder="내용을 입력하세요"
             value={content}
             onChange={handleContentChange}
+            required
           />
           <SpacedDiv />
           {/* <StyledFileInput />
@@ -122,7 +144,7 @@ export const QnaWrite: React.FC = () => {
                 취소
               </StyledButton>
             </div>
-            <StyledButton primary onClick={postQna}>
+            <StyledButton type="submit" primary>
               등록
             </StyledButton>
           </div>

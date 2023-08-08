@@ -36,5 +36,10 @@ export const postBoard = (board: BoardData) => {
 }
 
 export const usePostBoard = () => {
-  return useMutation(postBoard)
+  const queryClient = useQueryClient()
+  return useMutation(postBoard, {
+    onSuccess: () => {
+      queryClient.invalidateQueries('qna')
+    },
+  })
 }

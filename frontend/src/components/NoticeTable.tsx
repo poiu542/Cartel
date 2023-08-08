@@ -78,9 +78,9 @@ const NoticeTable: React.FC<NoticeTableProps<UserData>> = ({ data }) => {
               </NoneStyledLink>
 
               <TableCell align="right">{notice.last_name}</TableCell>
-              <StyledButton background="white" color="red" fontSize="15px">
+              {/* <StyledButton background="white" color="red" fontSize="15px">
                 X
-              </StyledButton>
+              </StyledButton> */}
             </TableRow>
           ))}
         </TableBody>
