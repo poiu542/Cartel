@@ -6,17 +6,10 @@ import TableRow from '@mui/material/TableRow'
 import { Link } from 'react-router-dom'
 import { NoneStyledLink } from '../styles/Custom'
 import StyledButton from './../styles/StyledButton'
-
-type FreeBoardTable = {
-  id: number
-  title: string
-  year: string
-  rating: string
-  language: string
-}
+import { BoardData } from '../model/board'
 
 interface FreeBoardTableProps {
-  data: FreeBoardTable[]
+  data: BoardData[]
 }
 
 export const FreeBoardTable: React.FC<FreeBoardTableProps> = ({ data }) => {
@@ -49,23 +42,25 @@ export const FreeBoardTable: React.FC<FreeBoardTableProps> = ({ data }) => {
               작성자
             </TableCell>
             <TableCell sx={{ fontWeight: 'bold', fontSize: '18px' }}>
-              레벨
+              조회수
             </TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
-          {data.map((row) => (
+          {data.map((row, idx) => (
             <TableRow key={row.id}>
               <TableCell component="th" scope="row">
-                {row.id}
+                {idx + 1}
               </TableCell>
               <NoneStyledLink to={`/freeboard/${row.id}`}>
                 <TableCell>{row.title}</TableCell>
               </NoneStyledLink>
 
-              <TableCell align="right">{row.year}</TableCell>
-              <TableCell align="right">{row.rating}</TableCell>
-              <TableCell align="right">{row.language}</TableCell>
+              <TableCell align="right">{row.date}</TableCell>
+              <TableCell align="right">
+                {row.nickname}({row.level})
+              </TableCell>
+              <TableCell align="right">{row.views}</TableCell>
               {/* <StyledButton background="white" color="red" fontSize="15px">
                 X
               </StyledButton> */}

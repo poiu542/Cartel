@@ -13,8 +13,6 @@ interface QnaTableProps {
 }
 
 export const QnaTable: React.FC<QnaTableProps> = ({ data }) => {
-  let idx = 0
-
   return (
     <div
       style={{
@@ -46,16 +44,23 @@ export const QnaTable: React.FC<QnaTableProps> = ({ data }) => {
             >
               작성자
             </TableCell>
+<<<<<<< HEAD
             <TableCell
               sx={{ fontWeight: 'bold', fontSize: '18px' }}
               align="right"
             >
               레벨
             </TableCell>
+=======
+            {/* <TableCell sx={{ fontWeight: 'bold', fontSize: '18px' }}>
+              조회수
+            </TableCell> */}
+>>>>>>> 4318972a5a4457da9f88d8da7c2858877b177f57
           </TableRow>
         </TableHead>
         <TableBody>
           {data &&
+<<<<<<< HEAD
             data.map((row, index) => (
               <TableRow
                 key={index}
@@ -65,6 +70,10 @@ export const QnaTable: React.FC<QnaTableProps> = ({ data }) => {
                   borderColor: '#e6e6e6',
                 }}
               >
+=======
+            data.map((row, idx) => (
+              <TableRow key={row.id}>
+>>>>>>> 4318972a5a4457da9f88d8da7c2858877b177f57
                 {/* 프론트에서 번호 증가시키기 */}
                 <TableCell
                   style={{ border: 'none' }}
@@ -74,6 +83,7 @@ export const QnaTable: React.FC<QnaTableProps> = ({ data }) => {
                   {idx + 1}
                 </TableCell>
                 {/* userId를 그냥 id로 수정해야함 board의 id로 */}
+<<<<<<< HEAD
                 <TableCell style={{ border: 'none' }}>
                   <NoneStyledLink
                     style={{ padding: '0px', display: 'block' }}
@@ -93,6 +103,21 @@ export const QnaTable: React.FC<QnaTableProps> = ({ data }) => {
                 <TableCell style={{ border: 'none' }} align="right">
                   {row.views}
                 </TableCell>
+=======
+                <NoneStyledLink to={`/qna/${row.id}`}>
+                  <TableCell>{row.title}</TableCell>
+                </NoneStyledLink>
+
+                <TableCell align="right">{row.nickname}</TableCell>
+                {/* <TableCell align="right">{row.views}</TableCell> */}
+                {/* 삭제버튼 */}
+                {/* <TableCell align="right">{row.views}</TableCell>
+                <TableCell align="right">
+                  <StyledButton background="white" color="red" fontSize="15px">
+                    X
+                  </StyledButton>
+                </TableCell> */}
+>>>>>>> 4318972a5a4457da9f88d8da7c2858877b177f57
               </TableRow>
             ))}
         </TableBody>

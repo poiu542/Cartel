@@ -3,10 +3,7 @@ import NavbarLogin from '../components/NavbarLogin'
 import { CommunityFree } from '../components/CommunityFree'
 import { QnaTable } from '../components/QnaTable'
 import { useQuery } from 'react-query'
-// import { fetchNotices } from '../hooks/useNoticesData'
 import StyledButton from '../styles/StyledButton'
-// import { CommunityNotice } from './../components/CommunityNotice'
-// import { fetchMovies } from '../hooks/useNoticesData'
 import { useNavigate } from 'react-router'
 // import { BoardData } from '../model/board'
 import { getBoard, getBoards } from '../hooks/useboard'
@@ -22,7 +19,7 @@ export const Qna = () => {
   const [currentPost, setCurrentPost] = useState<BoardData[]>(boardList) // 페이지네이션을 통해 보여줄 게시글
   const [page, setPage] = useState<number>(1) // 현재 페이지 번호
 
-  const postPerPage: number = 3 // 페이지 당 게시글 개수
+  const postPerPage: number = 15 // 페이지 당 게시글 개수
   const indexOfLastPost: number = page * postPerPage
   const indexOfFirstPost: number = indexOfLastPost - postPerPage
 

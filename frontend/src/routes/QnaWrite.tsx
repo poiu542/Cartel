@@ -29,8 +29,20 @@ export const QnaWrite: React.FC = () => {
     userId: 1,
     type: 2,
     status: 0,
+    nickname: '병신',
+    email: 'wef@sd',
   })
-  const { title, content, level, views, userId, type, status } = board
+  const {
+    title,
+    content,
+    level,
+    views,
+    userId,
+    type,
+    status,
+    nickname,
+    email,
+  } = board
 
   const handleTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setBoard((prevBoard) => ({
@@ -63,6 +75,8 @@ export const QnaWrite: React.FC = () => {
           type: 2,
           status: 0,
           date: new Date().toISOString(),
+          nickname: '병신',
+          email: '23@asdf',
         }
         postArticle(article, {
           onSuccess: () => {
