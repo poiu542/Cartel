@@ -28,6 +28,10 @@ export interface BoardData {
   type: number
   userId: number
   views: number
+  id?: number
+  userNickname?: string
+  userEmail?: string
+  comment: CommentData[]
 }
-
+export interface CommentData {}
 export type Comment = Omit<Board, 'title'>

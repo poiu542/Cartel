@@ -13,9 +13,11 @@ import StyledButton from './../styles/StyledButton'
 import { useState } from 'react'
 import { usePostBoard } from '../hooks/useboard'
 import { BoardData } from '../model/board'
+import { useNavigate } from 'react-router-dom'
 export const QnaWrite: React.FC = () => {
   //type 공지사항 ,qna, 자유게시판인지
   // status 삭제상태 or 게시상태
+  const navigate = useNavigate()
   const [board, setBoard] = useState({
     title: '',
     content: '',
@@ -60,6 +62,8 @@ export const QnaWrite: React.FC = () => {
           date: new Date().toISOString(),
         }
         postArticle(article)
+        alert('게시글이 등록되었습니다.')
+        navigate(`/qna`)
       }
     }
   }
@@ -113,16 +117,16 @@ export const QnaWrite: React.FC = () => {
             }}
           >
             {/* 버튼 구현하기 */}
+            <div style={{ marginRight: '10px' }}>
+              <StyledButton red onClick={() => window.location.replace('/qna')}>
+                취소
+              </StyledButton>
+            </div>
+            <StyledButton primary onClick={postQna}>
+              등록
+            </StyledButton>
           </div>
         </StyledForm>
-        <div style={{ marginRight: '10px' }}>
-          <StyledButton red onClick={() => window.location.replace('/qna')}>
-            취소
-          </StyledButton>
-        </div>
-        <StyledButton primary onClick={postQna}>
-          등록
-        </StyledButton>
       </CenteredDiv>
     </div>
   )
