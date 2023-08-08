@@ -35,14 +35,14 @@ public class Comment {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
-    private User userId;
+    private User user;
 
     @Builder
-    public Comment(String content, LocalDateTime date, Integer state, Article article, User userId) {
+    public Comment(String content, LocalDateTime date, Integer state, Article article, User user) {
         this.content = content;
         this.date = date;
         this.state = state;
         this.article = article;
-        this.userId = userId;
+        this.user = user;
     }
 }
