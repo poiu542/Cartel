@@ -53,4 +53,12 @@ public class Counselor {
         this.state = state;
         this.introduction = introduction;
     }
+
+    public void updateRegistImg(String imgURL) {
+        this.regist = imgURL;
+    }
+
+    public void updateLicenseImg(String imgURL) {
+        this.license = imgURL;
+    }
 }

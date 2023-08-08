@@ -64,4 +64,7 @@ public class User{
         this.refreshToken = refreshToken;
     }
 
+    public void updateImg(String imgURL) {
+        this.profileUrl = imgURL;
+    }
 }
