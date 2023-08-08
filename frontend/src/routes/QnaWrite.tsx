@@ -58,8 +58,8 @@ export const QnaWrite: React.FC = () => {
     }))
   }
   const { mutate: postArticle } = usePostBoard()
-  const postQna = () => {
-    // e.preventDefault()
+  const postQna = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault() // 기본 폼 제출 동작 방지
     if (title.length === 0) {
       alert('제목을 입력해 주세요.')
     } else if (content.length === 0) {
@@ -78,9 +78,15 @@ export const QnaWrite: React.FC = () => {
           nickname: '병신',
           email: '23@asdf',
         }
-        postArticle(article)
-        alert('게시글이 등록되었습니다.')
-        navigate(`/qna`)
+        postArticle(article, {
+          onSuccess: () => {
+            alert('게시글이 등록되었습니다.')
+            navigate(`/qna`)
+          },
+          onError: (error) => {
+            console.error('Error posting article:', error)
+          },
+        })
       }
     }
   }
@@ -92,8 +98,13 @@ export const QnaWrite: React.FC = () => {
       <SpacedDiv />
       <CenteredDiv>
         <StyledForm
+<<<<<<< HEAD
           onSubmit={postQna}
           style={{ display: 'flex', flexDirection: 'column' }}
+=======
+          style={{ display: 'flex', flexDirection: 'column' }}
+          onSubmit={postQna}
+>>>>>>> c05154d8b9e64532ff66554bda0058ff1572c9f8
         >
           <SpacedDiv />
           <div style={{ display: 'flex', alignItems: 'center' }}>

@@ -28,6 +28,14 @@ export const QnaEdit = () => {
   const [board, setBoard] = useState({
     title: '',
     content: '',
+<<<<<<< HEAD
+=======
+    // level: 0,
+    // views: 0,
+    // userId: 1,
+    // type: 2,
+    // status: 0,
+>>>>>>> c05154d8b9e64532ff66554bda0058ff1572c9f8
   })
   const { title, content } = board
 
@@ -39,7 +47,17 @@ export const QnaEdit = () => {
     error,
     isFetched,
     refetch,
-  } = useQuery<BoardData>(['qna', qnaId], () => getBoard(id), { retry: 0 })
+  } = useQuery<BoardData>(['qna', id], () => getBoard(id), { retry: 0 })
+
+  useEffect(() => {
+    // article 데이터가 있는 경우 board 상태를 설정합니다.
+    if (article) {
+      setBoard({
+        title: article.title,
+        content: article.content,
+      })
+    }
+  }, [article])
 
   useEffect(() => {
     if (article) {
@@ -63,9 +81,12 @@ export const QnaEdit = () => {
     )
   }
 
+<<<<<<< HEAD
   // 수정필요!!!!
   //eslint-disable-next-line
 
+=======
+>>>>>>> c05154d8b9e64532ff66554bda0058ff1572c9f8
   const handleTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setBoard((prevBoard) => ({
       ...prevBoard,
@@ -81,7 +102,18 @@ export const QnaEdit = () => {
   }
 
   const updateQna = () => {
-    axios.patch(`/articles/${id}`, board)
+    if (title.length === 0) {
+      alert('제목을 입력해 주세요.')
+    } else if (content.length === 0) {
+      alert('내용을 입력해 주세요.')
+    } else {
+      if (window.confirm('게시글을 수정하시겠습니까?')) {
+        axios.put(`/articles/${id}`, board).then(() => {
+          alert('게시글이 수정되었습니다.')
+          navigate(`/qna`)
+        })
+      }
+    }
   }
   console.log(board)
   return (
@@ -115,7 +147,11 @@ export const QnaEdit = () => {
             형사상의 책임을 질 수 있습니다. [저작권법 안내] [게시물 활용 안내]
           </p>
           <SpacedDiv />
-          <StyledTextArea value={content} onChange={handleContentChange} />
+          <StyledTextArea
+            required
+            value={content}
+            onChange={handleContentChange}
+          />
           <SpacedDiv />
 
           {/* <StyledFileInput />
