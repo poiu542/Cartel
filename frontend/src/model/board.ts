@@ -29,9 +29,9 @@ export interface BoardData {
   userId: number
   views: number
   id?: number
-  userNickname?: string
-  userEmail?: string
-  comment?: CommentData[]
+  nickname: string
+  email: string
 }
+
 export interface CommentData {}
 export type Comment = Omit<Board, 'title'>

@@ -66,9 +66,9 @@ export const FreeBoardTable: React.FC<FreeBoardTableProps> = ({ data }) => {
               <TableCell align="right">{row.year}</TableCell>
               <TableCell align="right">{row.rating}</TableCell>
               <TableCell align="right">{row.language}</TableCell>
-              <StyledButton background="white" color="red" fontSize="15px">
+              {/* <StyledButton background="white" color="red" fontSize="15px">
                 X
-              </StyledButton>
+              </StyledButton> */}
             </TableRow>
           ))}
         </TableBody>
