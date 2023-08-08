@@ -47,7 +47,7 @@ public class Article {
     @Column(name = "post_status", nullable = false)
     private Integer status;
 
-    @OneToMany(mappedBy = "article", fetch = FetchType.EAGER )
+    @OneToMany(mappedBy = "article", fetch = FetchType.LAZY )
     private List<Comment> comments = new ArrayList<>();
 
     @Builder
