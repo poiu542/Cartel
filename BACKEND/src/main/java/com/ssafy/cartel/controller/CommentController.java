@@ -17,10 +17,9 @@ public class CommentController {
     private final CommentService commentService;
 
     @PostMapping("/articles/comments")
-    public ResponseEntity<Comment> addComment(@RequestBody CommentDto commentDto){
+    public Comment addComment(@RequestBody CommentDto commentDto){
         Comment comment = commentService.save(commentDto);
 
-        return ResponseEntity.status(HttpStatus.CREATED)
-                .body(comment);
+        return comment;
     }
 }

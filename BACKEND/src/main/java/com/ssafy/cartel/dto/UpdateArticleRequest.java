@@ -1,6 +1,5 @@
 package com.ssafy.cartel.dto;
 
-
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -9,6 +8,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Getter
 public class UpdateArticleRequest {
+
     private String title;
     private String content;
 }

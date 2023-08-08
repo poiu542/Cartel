@@ -2,7 +2,6 @@ package com.ssafy.cartel.dto;
 
 import com.ssafy.cartel.domain.Article;
 import com.ssafy.cartel.domain.User;
-import com.ssafy.cartel.repository.UserRepository;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

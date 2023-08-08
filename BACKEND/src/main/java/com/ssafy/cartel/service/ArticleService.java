@@ -1,6 +1,5 @@
 package com.ssafy.cartel.service;
 
-import ch.qos.logback.core.CoreConstants;
 import com.ssafy.cartel.domain.Article;
 import com.ssafy.cartel.domain.User;
 import com.ssafy.cartel.dto.ArticleDto;
@@ -20,7 +19,6 @@ public class ArticleService {
     private final UserRepository userRepository;
 
     public Article save(ArticleDto articleDto){
-        System.out.println(articleDto.getContent());
         User user = userRepository.findById(articleDto.getUserId())
                 .orElseThrow(()-> new IllegalArgumentException("not found:" ));
         return articleRepository.save(articleDto.toEntity(user));

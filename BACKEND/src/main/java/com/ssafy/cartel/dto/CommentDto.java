@@ -17,13 +17,11 @@ public class CommentDto {
 
     private String content;
     private Integer userId;
-    private Integer nickname;
     private LocalDateTime date;
     private Integer state;
     private Integer postId;
 
     public Comment toEntity(User user, Article article){
-
 
         return Comment.builder()
                 .content(content)
@@ -33,7 +31,5 @@ public class CommentDto {
                 .article(article)
                 .build();
     }
-
-
 
 }
