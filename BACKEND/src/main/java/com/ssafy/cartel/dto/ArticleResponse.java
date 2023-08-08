@@ -1,14 +1,17 @@
 package com.ssafy.cartel.dto;
 
 import com.ssafy.cartel.domain.Article;
+import com.ssafy.cartel.domain.Comment;
 import com.ssafy.cartel.domain.User;
 import lombok.Getter;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Getter
 public class ArticleResponse {
 
+    private final Integer id;
     private final String title;
     private final String content;
     private final Integer level;
@@ -17,9 +20,11 @@ public class ArticleResponse {
     private final Integer type;
     private final LocalDateTime date;
     private final Integer status;
+    private final List<Comment> comments;
 
 
     public ArticleResponse(Article article) {
+        this.id = article.getId();
         this.title = article.getTitle();
         this.content = article.getContent();
         this.level = article.getLevel();
@@ -28,5 +33,6 @@ public class ArticleResponse {
         this.type = article.getType();
         this.date = article.getDate();
         this.status = article.getStatus();
+        this.comments = article.getComments();
     }
 }

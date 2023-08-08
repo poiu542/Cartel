@@ -1,5 +1,6 @@
 package com.ssafy.cartel.config.jwt;
 
+import com.ssafy.cartel.domain.Client;
 import com.ssafy.cartel.domain.User;
 import com.ssafy.cartel.service.UserDetailService;
 import io.jsonwebtoken.Claims;
@@ -34,6 +35,13 @@ public class TokenProvider {
     private String makeToken(Date expired, User user) {
 
         Date now = new Date();
+        String type = "user";
+        if(user.getType()==1)
+            type = "client";
+        else if(user.getType()==2)
+            type = "counselor";
+        else if(user.getType()==3)
+            type = "admin";
 
         return Jwts.builder()
                 .setHeaderParam(Header.TYPE, Header.JWT_TYPE)
@@ -41,6 +49,7 @@ public class TokenProvider {
                 .setIssuedAt(now)
                 .setExpiration(expired)
                 .setSubject(user.getEmail())
+                .claim("type",type)
                 .claim("id", user.getId())
                 .signWith(SignatureAlgorithm.HS256, jwtProperties.getSecretKey())
                 .compact(); //jwt
@@ -60,14 +69,24 @@ public class TokenProvider {
 
     public Authentication getAuthentication(String token){
         Claims claims = getClaims(token);
-        UserDetails userDetails = userDetailsService.loadUserByUsername(claims.getSubject());
-        Set<SimpleGrantedAuthority> authorities = Collections.singleton(new SimpleGrantedAuthority(userDetails.getAuthorities()));
+
+
+        Set<SimpleGrantedAuthority> authorities = Collections.singleton(new SimpleGrantedAuthority("user"));
 
         return new UsernamePasswordAuthenticationToken(new org.springframework.security.core.userdetails.User(
                 claims.getSubject(),"",authorities),token,authorities);
 
     }
 
+    public Integer getUserId(String token){
+        Claims claims = getClaims(token);
+        return claims.get("id", Integer.class);
+    }
+
     private Claims getClaims(String token) {
+        return Jwts.parser()
+                .setSigningKey(jwtProperties.getSecretKey())
+                .parseClaimsJws(token)
+                .getBody();
     }
 }
