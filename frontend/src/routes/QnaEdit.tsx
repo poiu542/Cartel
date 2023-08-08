@@ -27,13 +27,13 @@ export const QnaEdit = () => {
   const [board, setBoard] = useState({
     title: '',
     content: '',
-    level: 0,
-    views: 0,
-    userId: 1,
-    type: 2,
-    status: 0,
+    // level: 0,
+    // views: 0,
+    // userId: 1,
+    // type: 2,
+    // status: 0,
   })
-  const { title, content, level, views, userId, type, status } = board
+  const { title, content } = board
 
   // 이전에 썻던 내용이랑 제목 가져오기!
   const {
@@ -43,7 +43,17 @@ export const QnaEdit = () => {
     error,
     isFetched,
     refetch,
-  } = useQuery<BoardData>(['qna', qnaId], () => getBoard(id), { retry: 0 })
+  } = useQuery<BoardData>(['qna', id], () => getBoard(id), { retry: 0 })
+
+  useEffect(() => {
+    // article 데이터가 있는 경우 board 상태를 설정합니다.
+    if (article) {
+      setBoard({
+        title: article.title,
+        content: article.content,
+      })
+    }
+  }, [article])
 
   if (isLoading) {
     return <h1>로딩 중입니다!!</h1>
@@ -57,16 +67,6 @@ export const QnaEdit = () => {
       </div>
     )
   }
-
-  // 수정필요!!!!
-  //eslint-disable-next-line
-  useEffect(() => {
-    setBoard((prevBoard) => ({
-      ...prevBoard,
-      content: article?.content,
-      title: article?.title,
-    }))
-  }, [article])
 
   const handleTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setBoard((prevBoard) => ({
@@ -83,7 +83,17 @@ export const QnaEdit = () => {
   }
 
   const updateQna = () => {
-    axios.patch(`/articles/${id}`, board)
+    if (title.length === 0) {
+      alert('제목을 입력해 주세요.')
+    } else if (content.length === 0) {
+      alert('내용을 입력해 주세요.')
+    } else {
+      if (window.confirm('게시글을 수정하시겠습니까?')) {
+        axios.put(`/articles/${id}`, board)
+        alert('게시글이 수정되었습니다.')
+        navigate(`/qna`)
+      }
+    }
   }
   console.log(board)
   return (
@@ -117,7 +127,11 @@ export const QnaEdit = () => {
             형사상의 책임을 질 수 있습니다. [저작권법 안내] [게시물 활용 안내]
           </p>
           <SpacedDiv />
-          <StyledTextArea value={content} onChange={handleContentChange} />
+          <StyledTextArea
+            required
+            value={content}
+            onChange={handleContentChange}
+          />
           <SpacedDiv />
 
           {/* <StyledFileInput />
