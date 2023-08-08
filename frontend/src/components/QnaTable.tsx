@@ -13,7 +13,7 @@ interface QnaTableProps {
 }
 
 export const QnaTable: React.FC<QnaTableProps> = ({ data }) => {
-  let index = 0
+  let idx = 0
 
   return (
     <div
@@ -54,7 +54,7 @@ export const QnaTable: React.FC<QnaTableProps> = ({ data }) => {
               <TableRow key={index}>
                 {/* 프론트에서 번호 증가시키기 */}
                 <TableCell component="th" scope="row">
-                  {index + 1}
+                  {idx + 1}
                 </TableCell>
                 {/* userId를 그냥 id로 수정해야함 board의 id로 */}
                 <NoneStyledLink to={`/qna/${row.userId}`}>

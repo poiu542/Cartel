@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import NavbarLogin from '../components/NavbarLogin'
 import ArticleBar from '../components/ArticleBar'
 import {
@@ -11,8 +11,81 @@ import {
 } from '../components/Write'
 
 import StyledButton from './../styles/StyledButton'
-
+import { useNavigate, useParams } from 'react-router-dom'
+import { useQuery } from 'react-query'
+import { getBoard } from '../hooks/useboard'
+import { BoardData } from '../model/board'
+import axios from 'axios'
+interface BoardApiResponse {
+  data: BoardData[]
+}
 export const QnaEdit = () => {
+  const navigate = useNavigate()
+  // params를 받아올때 route url을 어떻게 쎃는지 중요하다 같은걸로 params받아와야함
+  let { qnaId } = useParams()
+  const id = qnaId ? parseInt(qnaId, 10) : null
+  const [board, setBoard] = useState({
+    title: '',
+    content: '',
+    level: 0,
+    views: 0,
+    userId: 1,
+    type: 2,
+    status: 0,
+  })
+  const { title, content, level, views, userId, type, status } = board
+
+  // 이전에 썻던 내용이랑 제목 가져오기!
+  const {
+    isLoading,
+    data: article,
+    isError,
+    error,
+    isFetched,
+    refetch,
+  } = useQuery<BoardData>(['qna', qnaId], () => getBoard(id), { retry: 0 })
+
+  if (isLoading) {
+    return <h1>로딩 중입니다!!</h1>
+  }
+
+  if (isError || !article) {
+    console.error(error) // 콘솔에 에러 메시지를 표시합니다.
+    return (
+      <div>
+        <h2>데이터를 불러오는데 에러가 발생했습니다...</h2>
+      </div>
+    )
+  }
+
+  // 수정필요!!!!
+  //eslint-disable-next-line
+  useEffect(() => {
+    setBoard((prevBoard) => ({
+      ...prevBoard,
+      content: article?.content,
+      title: article?.title,
+    }))
+  }, [article])
+
+  const handleTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setBoard((prevBoard) => ({
+      ...prevBoard,
+      title: e.target.value,
+    }))
+  }
+
+  const handleContentChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setBoard((prevBoard) => ({
+      ...prevBoard,
+      content: e.target.value,
+    }))
+  }
+
+  const updateQna = () => {
+    axios.patch(`/articles/${id}`, board)
+  }
+  console.log(board)
   return (
     <>
       <NavbarLogin />
@@ -26,7 +99,8 @@ export const QnaEdit = () => {
             <StyledTitleInput
               required
               maxLength={40}
-              placeholder="{{원래내용}}}"
+              value={title}
+              onChange={handleTitleChange}
             />
             <span
               style={{
@@ -43,12 +117,14 @@ export const QnaEdit = () => {
             형사상의 책임을 질 수 있습니다. [저작권법 안내] [게시물 활용 안내]
           </p>
           <SpacedDiv />
-          <StyledTextArea placeholder="원래 입력되어 있는 값 올리기" />
+          <StyledTextArea value={content} onChange={handleContentChange} />
           <SpacedDiv />
-          <StyledFileInput />
+
+          {/* <StyledFileInput />
           <div style={{ marginLeft: '30px', width: '400px' }}>
             <StyledButton>파일 업로드</StyledButton>
-          </div>
+          </div> */}
+
           <div
             style={{
               display: 'flex',
@@ -59,9 +135,13 @@ export const QnaEdit = () => {
             }}
           >
             <div style={{ marginRight: '10px' }}>
-              <StyledButton red>취소</StyledButton>
+              <StyledButton red onClick={() => navigate(`/qna/${qnaId}`)}>
+                취소
+              </StyledButton>
             </div>
-            <StyledButton primary>등록</StyledButton>
+            <StyledButton primary onClick={updateQna}>
+              수정
+            </StyledButton>
           </div>
         </StyledForm>
       </CenteredDiv>

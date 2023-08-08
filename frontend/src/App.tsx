@@ -51,6 +51,7 @@ import { MyBoards } from './routes/MyBoards'
 import { SelfHelpGroup } from './routes/SelfHelpGroup'
 import { CheckCounselor, CheckLogin } from './routes/PrivateRoute'
 import { Testimony } from './routes/Testimony'
+import { QnaEdit } from './routes/QnaEdit'
 
 const queryClient = new QueryClient()
 
@@ -133,7 +134,7 @@ function App(): React.ReactElement {
             {/* QnA 상세페이지 */}
             <Route path="/qna/:qnaId" element={<QnaDetail />} />
             {/* QnA 수정페이지 */}
-            <Route path="/qna/edit/:qnaId" element={<QnaWrite />} />
+            <Route path="/qna/edit/:qnaId" element={<QnaEdit />} />
 
             {/* 알림 */}
             <Route path="/alarm/:userId" element={<Alarm />} />
