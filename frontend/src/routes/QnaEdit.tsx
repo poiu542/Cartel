@@ -16,6 +16,7 @@ import { useQuery } from 'react-query'
 import { getBoard } from '../hooks/useboard'
 import { BoardData } from '../model/board'
 import axios from 'axios'
+import { response } from 'express'
 interface BoardApiResponse {
   data: BoardData[]
 }
@@ -27,65 +28,56 @@ export const QnaEdit = () => {
   const [board, setBoard] = useState({
     title: '',
     content: '',
-    level: 0,
-    views: 0,
-    userId: 1,
-    type: 2,
-    status: 0,
+    // level: 0,
+    // views: 0,
+    // userId: 1,
+    // type: 2,
+    // status: 0,
   })
-  const { title, content, level, views, userId, type, status } = board
-
-  // 이전에 썻던 내용이랑 제목 가져오기!
-  const {
-    isLoading,
-    data: article,
-    isError,
-    error,
-    isFetched,
-    refetch,
-  } = useQuery<BoardData>(['qna', qnaId], () => getBoard(id), { retry: 0 })
-
-  if (isLoading) {
-    return <h1>로딩 중입니다!!</h1>
-  }
-
-  if (isError || !article) {
-    console.error(error) // 콘솔에 에러 메시지를 표시합니다.
-    return (
-      <div>
-        <h2>데이터를 불러오는데 에러가 발생했습니다...</h2>
-      </div>
-    )
-  }
-
-  // 수정필요!!!!
-  //eslint-disable-next-line
-  useEffect(() => {
-    setBoard((prevBoard) => ({
-      ...prevBoard,
-      content: article?.content,
-      title: article?.title,
-    }))
-  }, [article])
+  const { title, content } = board
 
   const handleTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setBoard((prevBoard) => ({
-      ...prevBoard,
+    setBoard(() => ({
+      ...board,
       title: e.target.value,
     }))
   }
 
   const handleContentChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    setBoard((prevBoard) => ({
-      ...prevBoard,
+    setBoard(() => ({
+      ...board,
       content: e.target.value,
     }))
   }
 
   const updateQna = () => {
-    axios.patch(`/articles/${id}`, board)
+    axios
+      .put(`/articles/${id}`, board)
+      .then((response) => {
+        console.log(response)
+      })
+      .catch((error) => {
+        console.error('Error updating QnA:', error)
+      })
+
+    navigate('/qna')
   }
-  console.log(board)
+
+  useEffect(() => {
+    axios
+      .get(`/articles/${id}`)
+      .then((response) => {
+        const data = response.data
+        setBoard({
+          title: data.title,
+          content: data.content,
+        })
+      })
+      .catch((error) => {
+        console.error('Error fetching QnA:', error)
+      })
+  }, [])
+
   return (
     <>
       <NavbarLogin />
