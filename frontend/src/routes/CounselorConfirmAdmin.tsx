@@ -1,7 +1,13 @@
 import React from 'react'
 import StyledButton from './../styles/StyledButton'
-
+import axios from 'axios'
 export const CounselorConfirmAdmin = () => {
+  const counselorfail = (counselor: any) => {
+    axios.put('http;~~~', counselor)
+  }
+  const counselorpass = (counselor: any) => {
+    axios.put('http:~~', counselor)
+  }
   return (
     <div>
       <h1>상담사 회원가입 심사 페이지</h1>
@@ -36,8 +42,10 @@ export const CounselorConfirmAdmin = () => {
             style={{ width: '200px', height: '200px' }}
           />
         </div>
-        <StyledButton primary>승인</StyledButton>
-        <StyledButton red>반려</StyledButton>
+        <button onClick={counselorpass}>승인</button>
+        <br />
+        <br />
+        <button onClick={counselorfail}>반려</button>
       </div>
     </div>
   )

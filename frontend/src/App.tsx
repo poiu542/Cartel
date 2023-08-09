@@ -51,6 +51,7 @@ import { MyBoards } from './routes/MyBoards'
 import { SelfHelpGroup } from './routes/SelfHelpGroup'
 import { CheckCounselor, CheckLogin } from './routes/PrivateRoute'
 import { Testimony } from './routes/Testimony'
+import { QnaEdit } from './routes/QnaEdit'
 
 const queryClient = new QueryClient()
 
@@ -133,7 +134,7 @@ function App(): React.ReactElement {
             {/* QnA 상세페이지 */}
             <Route path="/qna/:qnaId" element={<QnaDetail />} />
             {/* QnA 수정페이지 */}
-            <Route path="/qna/edit/:qnaId" element={<QnaWrite />} />
+            <Route path="/qna/edit/:qnaId" element={<QnaEdit />} />
 
             {/* 알림 */}
             <Route path="/alarm/:userId" element={<Alarm />} />
@@ -146,13 +147,13 @@ function App(): React.ReactElement {
               path="/counsel/clientlist/:counselId"
               element={<ClientList />}
             />
-            {/* 소감문 리스트*/}
-            <Route path="/counsel/testimony" element={<Testimony />} />
-            {/* 내담자의 소감문 */}
+            {/* 나의 소감문 리스트*/}
+            <Route path="/testimony/:userId" element={<Testimony />} />
+            {/* 내담자의 소감문
             <Route
               path="/counsel/testimony/:counselId/:userId"
               element={<ClientList />}
-            />
+            /> */}
             {/* 상담사 자격 심사 중이라는것을 회원에게 보여주는 페이지 */}
             <Route path="/counselorconfirm" element={<CounselorConfirm />} />
             {/* 관리자 상담사 자격 확인하기 위한 페이지 */}
