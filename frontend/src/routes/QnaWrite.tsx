@@ -10,18 +10,105 @@ import {
   StyledTitleInput,
 } from './../components/Write'
 import StyledButton from './../styles/StyledButton'
-
+import { useState } from 'react'
+import { usePostBoard } from '../hooks/useboard'
+import { BoardData } from '../model/board'
+import { useNavigate } from 'react-router-dom'
+import { useQueryClient } from 'react-query'
+import { Link } from 'react-router-dom'
 export const QnaWrite: React.FC = () => {
+  //type 공지사항 ,qna, 자유게시판인지
+  // status 삭제상태 or 게시상태
+  const queryClient = useQueryClient()
+  const navigate = useNavigate()
+  const [board, setBoard] = useState({
+    title: '',
+    content: '',
+    level: 0,
+    views: 0,
+    userId: 1,
+    type: 2,
+    status: 0,
+    nickname: '병신',
+    email: 'wef@sd',
+  })
+  const {
+    title,
+    content,
+    level,
+    views,
+    userId,
+    type,
+    status,
+    nickname,
+    email,
+  } = board
+
+  const handleTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setBoard((prevBoard) => ({
+      ...prevBoard,
+      title: e.target.value,
+    }))
+  }
+
+  const handleContentChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setBoard((prevBoard) => ({
+      ...prevBoard,
+      content: e.target.value,
+    }))
+  }
+  const { mutate: postArticle } = usePostBoard()
+  const postQna = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault() // 기본 폼 제출 동작 방지
+    if (title.length === 0) {
+      alert('제목을 입력해 주세요.')
+    } else if (content.length === 0) {
+      alert('내용을 입력해 주세요.')
+    } else {
+      if (window.confirm('게시글을 등록하시겠습니까?')) {
+        const article = {
+          title: title,
+          content: content,
+          level: 0,
+          views: 0,
+          userId: 1,
+          type: 2,
+          status: 0,
+          date: new Date().toISOString(),
+          nickname: '병신',
+          email: '23@asdf',
+        }
+        postArticle(article, {
+          onSuccess: () => {
+            alert('게시글이 등록되었습니다.')
+            navigate(`/qna`)
+          },
+          onError: (error) => {
+            console.error('Error posting article:', error)
+          },
+        })
+      }
+    }
+  }
+
   return (
     <div>
       <NavbarLogin />
       <ArticleBar name="QnA 작성" />
       <SpacedDiv />
       <CenteredDiv>
-        <StyledForm style={{ display: 'flex', flexDirection: 'column' }}>
+        <StyledForm
+          style={{ display: 'flex', flexDirection: 'column' }}
+          onSubmit={postQna}
+        >
           <SpacedDiv />
           <div style={{ display: 'flex', alignItems: 'center' }}>
-            <StyledTitleInput placeholder="제목을 입력하세요" />
+            <StyledTitleInput
+              required
+              placeholder="제목을 입력하세요"
+              value={title}
+              onChange={handleTitleChange}
+            />
             <span
               style={{
                 marginLeft: '30px',
@@ -37,12 +124,17 @@ export const QnaWrite: React.FC = () => {
             형사상의 책임을 질 수 있습니다. [저작권법 안내] [게시물 활용 안내]
           </p>
           <SpacedDiv />
-          <StyledTextArea placeholder="내용을 입력하세요" />
+          <StyledTextArea
+            placeholder="내용을 입력하세요"
+            value={content}
+            onChange={handleContentChange}
+            required
+          />
           <SpacedDiv />
-          <StyledFileInput />
+          {/* <StyledFileInput />
           <div style={{ marginLeft: '30px', width: '400px' }}>
             <StyledButton>파일 업로드</StyledButton>
-          </div>
+          </div> */}
           <div
             style={{
               display: 'flex',
@@ -58,7 +150,9 @@ export const QnaWrite: React.FC = () => {
                 취소
               </StyledButton>
             </div>
-            <StyledButton primary>등록</StyledButton>
+            <StyledButton type="submit" primary>
+              등록
+            </StyledButton>
           </div>
         </StyledForm>
       </CenteredDiv>

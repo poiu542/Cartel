@@ -6,17 +6,11 @@ import TableRow from '@mui/material/TableRow'
 import { Link } from 'react-router-dom'
 import { NoneStyledLink } from '../styles/Custom'
 import StyledButton from './../styles/StyledButton'
-
-type FreeBoardTable = {
-  id: number
-  title: string
-  year: string
-  rating: string
-  language: string
-}
+import { BoardData } from '../model/board'
+import { formatDate } from '../utils/dateUtils'
 
 interface FreeBoardTableProps {
-  data: FreeBoardTable[]
+  data: BoardData[]
 }
 
 export const FreeBoardTable: React.FC<FreeBoardTableProps> = ({ data }) => {
@@ -45,32 +39,63 @@ export const FreeBoardTable: React.FC<FreeBoardTableProps> = ({ data }) => {
             >
               등록일
             </TableCell>
-            <TableCell sx={{ fontWeight: 'bold', fontSize: '18px' }}>
+            <TableCell
+              align="right"
+              sx={{ fontWeight: 'bold', fontSize: '18px' }}
+            >
               작성자
             </TableCell>
-            <TableCell sx={{ fontWeight: 'bold', fontSize: '18px' }}>
-              레벨
+            <TableCell
+              align="right"
+              sx={{ fontWeight: 'bold', fontSize: '18px' }}
+            >
+              조회수
             </TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
-          {data.map((row) => (
-            <TableRow key={row.id}>
-              <TableCell component="th" scope="row">
-                {row.id}
-              </TableCell>
-              <NoneStyledLink to={`/freeboard/${row.id}`}>
-                <TableCell>{row.title}</TableCell>
-              </NoneStyledLink>
+          {data &&
+            [...data]
+              .filter((row) => row.type === 0)
+              .map((row, index, filteredData) => (
+                <TableRow
+                  key={index}
+                  style={{
+                    border: 'solid',
+                    borderWidth: '0px 0px 1px',
+                    borderColor: '#e6e6e6',
+                  }}
+                >
+                  <TableCell
+                    component="th"
+                    scope="row"
+                    style={{ border: 'none' }}
+                  >
+                    {filteredData.length - index}
+                  </TableCell>
+                  <TableCell style={{ border: 'none' }}>
+                    <NoneStyledLink
+                      style={{ padding: '0px', display: 'block' }}
+                      to={`/freeboard/${row.id}`}
+                    >
+                      {row.title}
+                    </NoneStyledLink>
+                  </TableCell>
 
-              <TableCell align="right">{row.year}</TableCell>
-              <TableCell align="right">{row.rating}</TableCell>
-              <TableCell align="right">{row.language}</TableCell>
-              <StyledButton background="white" color="red" fontSize="15px">
+                  <TableCell align="right" style={{ border: 'none' }}>
+                    {formatDate(row.date)}
+                  </TableCell>
+                  <TableCell align="right" style={{ border: 'none' }}>
+                    {row.nickname}({row.level})
+                  </TableCell>
+                  <TableCell align="right" style={{ border: 'none' }}>
+                    {row.views}
+                  </TableCell>
+                  {/* <StyledButton background="white" color="red" fontSize="15px">
                 X
-              </StyledButton>
-            </TableRow>
-          ))}
+              </StyledButton> */}
+                </TableRow>
+              ))}
         </TableBody>
       </Table>
     </div>

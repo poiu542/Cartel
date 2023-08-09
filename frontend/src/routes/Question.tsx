@@ -1,70 +1,54 @@
-// import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import NavbarLogin from '../components/NavbarLogin'
 import { CommunityFree } from '../components/CommunityFree'
 import { QnaTable } from '../components/QnaTable'
 import { useQuery } from 'react-query'
-// import { fetchNotices } from '../hooks/useNoticesData'
 import StyledButton from '../styles/StyledButton'
-// import { CommunityNotice } from './../components/CommunityNotice'
-// import { fetchMovies } from '../hooks/useNoticesData'
 import { useNavigate } from 'react-router'
 // import { BoardData } from '../model/board'
-import { getBoard } from '../hooks/useboard'
+import { getBoard, getBoards } from '../hooks/useboard'
+import { BoardData } from '../model/board'
+import Pagination from 'react-js-pagination'
+import axios from 'axios'
+import './Question.css'
 
 export const Qna = () => {
   const navigate = useNavigate()
 
-  // interface ApiResponse {
-  //   data: BoardData[]
-  // }
-  interface Movie {
-    id: number
-    title: string
-    year: string
-    rating: string
-    language: string
+  const [boardList, setBoardList] = useState<BoardData[]>([]) // axios에서 받아온 전체 게시글 데이터
+  const [currentPost, setCurrentPost] = useState<BoardData[]>(boardList) // 페이지네이션을 통해 보여줄 게시글
+  const [page, setPage] = useState<number>(1) // 현재 페이지 번호
+
+  const postPerPage: number = 15 // 페이지 당 게시글 개수
+  const indexOfLastPost: number = page * postPerPage
+  const indexOfFirstPost: number = indexOfLastPost - postPerPage
+
+  const handlePageChange = (page: number) => {
+    setPage(page)
   }
-  interface ApiResponse {
-    data: {
-      movies: Movie[]
-    }
-    status: string
+  interface BoardApiResponse {
+    reverse(): BoardApiResponse
+    data: BoardData[]
   }
 
-  // axios data파일 받아오기
-  const { isLoading, data, isError, error, refetch } = useQuery<ApiResponse>(
-    ['notice'],
-    getBoard,
-  )
+  useEffect(() => {
+    axios
+      .get('/articles')
+      .then((response) => {
+        setBoardList([...response.data].reverse())
+      })
 
-  if (isLoading) {
-    return <h2>Loading...</h2>
-  }
+      .catch(function (error) {
+        console.log(error)
+      })
+  }, [])
 
-  if (isError || !data) {
-    console.error(error) // 콘솔에 에러 메시지를 표시합니다.
-    return (
-      <div>
-        <h2>데이터를 불러오는데 에러가 발생했습니다...</h2>
-      </div>
-    )
-  }
-  // const [movies, setMovies] = useState([])
-  // const getMovies = async () => {
-  //   const json = await (
-  //     await fetch(
-  //       `https://yts.mx/api/v2/list_movies.json?minimum_rating=9&sort_by=year`,
-  //     )
-  //   ).json()
-  //   console.log(json)
-  //   setMovies(json.data.movies)
-  // }
-  // useEffect(() => {
-  //   getMovies()
-  // }, [])
-  console.log('에이피아이 요청' + data)
+  useEffect(() => {
+    setCurrentPost(boardList.slice(indexOfFirstPost, indexOfLastPost))
+  }, [boardList, page])
+
   return (
-    <div>
+    <>
       <NavbarLogin />
       <CommunityFree />
       <div
@@ -82,12 +66,21 @@ export const Qna = () => {
           글 쓰기
         </StyledButton>
       </div>
-      {data && <QnaTable data={data.data.movies} />}
-      {/* {movies && <QnaTable data={movies.data.movies} />} */}
+      <div className="board-list">
+        {boardList && <QnaTable data={currentPost} />}
 
-      {/* {nav} */}
-
-      {/* data가 존재하는 경우에만 <NoticeTable> 컴포넌트를 렌더링합니다. */}
-    </div>
+        <Pagination
+          activePage={page}
+          itemsCountPerPage={postPerPage}
+          totalItemsCount={boardList.length}
+          pageRangeDisplayed={5}
+          prevPageText={'‹'}
+          nextPageText={'›'}
+          onChange={handlePageChange}
+        />
+      </div>
+    </>
   )
 }
+
+export default Qna
