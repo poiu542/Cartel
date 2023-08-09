@@ -4,6 +4,8 @@ import axios from 'axios'
 import React, { Component } from 'react'
 import './Drug.css'
 import UserVideoComponent from './UserVideoComponent'
+// import { ToolBar } from './ToolBar.jsx'
+import CallEndIcon from '@mui/icons-material/CallEnd'
 
 const APPLICATION_SERVER_URL = 'http://i9b209.p.ssafy.io:8080/'
 
@@ -285,6 +287,8 @@ class CounselOpenvidu extends Component {
             </div>
           </div>
         ) : null}
+        {/* <ToolBar /> */}
+        <CallEndIcon />
 
         {this.state.session !== undefined ? (
           <div id="session">
