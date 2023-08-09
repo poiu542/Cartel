@@ -45,11 +45,6 @@ export const QnaTable: React.FC<QnaTableProps> = ({ data }) => {
             >
               작성자
             </TableCell>
-<<<<<<< HEAD
-            <TableCell sx={{ fontWeight: 'bold', fontSize: '18px' }}>
-              조회수
-            </TableCell>
-=======
             <TableCell
               sx={{ fontWeight: 'bold', fontSize: '18px' }}
               align="right"
@@ -59,35 +54,10 @@ export const QnaTable: React.FC<QnaTableProps> = ({ data }) => {
             {/* <TableCell sx={{ fontWeight: 'bold', fontSize: '18px' }}>
               조회수
             </TableCell> */}
->>>>>>> 7bc1532cd67cd708be1902cb61b25a6e1f45d7a0
           </TableRow>
         </TableHead>
         <TableBody>
           {data &&
-<<<<<<< HEAD
-            data.map((row, index) => (
-              <TableRow
-                key={row.id}
-                style={{
-                  border: 'solid',
-                  borderWidth: '0px 0px 1px',
-                  borderColor: '#e6e6e6',
-                }}
-              >
-                {/* 프론트에서 번호 증가시키기 */}
-                <TableCell
-                  style={{ border: 'none' }}
-                  component="th"
-                  scope="row"
-                >
-                  {index + 1}
-                </TableCell>
-                {/* userId를 그냥 id로 수정해야함 board의 id로 */}
-                <TableCell style={{ border: 'none' }}>
-                  <NoneStyledLink
-                    style={{ padding: '0px', display: 'block' }}
-                    to={`/qna/${row.userId}`}
-=======
             [...data]
               .filter((row) => row.type === 2)
               .map((row, index, filteredData) => (
@@ -104,7 +74,6 @@ export const QnaTable: React.FC<QnaTableProps> = ({ data }) => {
                     style={{ border: 'none' }}
                     component="th"
                     scope="row"
->>>>>>> 7bc1532cd67cd708be1902cb61b25a6e1f45d7a0
                   >
                     {filteredData.length - index}
                   </TableCell>
@@ -118,33 +87,6 @@ export const QnaTable: React.FC<QnaTableProps> = ({ data }) => {
                     </NoneStyledLink>
                   </TableCell>
 
-<<<<<<< HEAD
-                <TableCell style={{ border: 'none' }} align="right">
-                  {row.userId}
-                </TableCell>
-                <TableCell style={{ border: 'none' }} align="right">
-                  {row.level}
-                </TableCell>
-                {/* 삭제버튼 */}
-                <TableCell style={{ border: 'none' }} align="right">
-                  {row.views}
-                </TableCell>
-                <NoneStyledLink to={`/qna/${row.id}`}>
-                  <TableCell>{row.title}</TableCell>
-                </NoneStyledLink>
-
-                <TableCell align="right">{row.nickname}</TableCell>
-                {/* <TableCell align="right">{row.views}</TableCell> */}
-                {/* 삭제버튼 */}
-                {/* <TableCell align="right">{row.views}</TableCell>
-                <TableCell align="right">
-                  <StyledButton background="white" color="red" fontSize="15px">
-                    X
-                  </StyledButton>
-                </TableCell> */}
-              </TableRow>
-            ))}
-=======
                   <TableCell style={{ border: 'none' }} align="right">
                     {formatDate(row.date)}
                   </TableCell>
@@ -157,7 +99,6 @@ export const QnaTable: React.FC<QnaTableProps> = ({ data }) => {
                   </TableCell>
                 </TableRow>
               ))}
->>>>>>> 7bc1532cd67cd708be1902cb61b25a6e1f45d7a0
         </TableBody>
       </Table>
     </div>
