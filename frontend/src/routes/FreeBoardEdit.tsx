@@ -1,51 +1,181 @@
-import React from 'react'
+import React, { useRef, useState, ChangeEvent, useMemo } from 'react'
+import '../fonts/font.css'
 import NavbarLogin from '../components/NavbarLogin'
 import ArticleBar from '../components/ArticleBar'
 import {
   CenteredDiv,
   SpacedDiv,
+  StyledForm,
   StyledFileInput,
   StyledTextArea,
   StyledTitleInput,
-} from '../components/Write'
-
+} from './../components/Write'
 import StyledButton from './../styles/StyledButton'
+import Box from '@mui/material/Box'
+import InputLabel from '@mui/material/InputLabel'
+import MenuItem from '@mui/material/MenuItem'
+import FormControl from '@mui/material/FormControl'
+import Select, { SelectChangeEvent } from '@mui/material/Select'
+import { useNavigate, useParams } from 'react-router-dom'
+
+type UploadImage = {
+  location: string
+  file: File
+  type: string
+}
+
 export const FreeBoardEdit = () => {
+  const navigate = useNavigate()
+  const { idx } = useParams()
+  const [level, setLevel] = React.useState('')
+
+  const [imageFile, setImageFile] = useState<UploadImage | null>(null)
+  const [title, setTitle] = useState<string>('')
+  const [content, setContent] = useState<string>('')
+  const imgRef = useRef<HTMLInputElement>(null)
+
+  const fileUploadButton = () => {
+    imgRef.current?.click()
+  }
+
+  const uploadImage = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const fileList = e.target.files
+    const length = fileList?.length
+    if (fileList && fileList[0]) {
+      const url = URL.createObjectURL(fileList[0])
+
+      setImageFile({
+        file: fileList[0],
+        location: url,
+        type: fileList[0].type.slice(0, 5),
+      })
+    }
+  }
+
+  const showImage = useMemo(() => {
+    if (!imageFile && imageFile == null) {
+      return
+    }
+    return (
+      <img
+        src={imageFile.location}
+        alt={imageFile.type}
+        onClick={fileUploadButton}
+        style={{
+          width: '100px',
+          height: '100px',
+        }}
+      />
+    )
+  }, [imageFile])
+  /** Title 제목 입력 */
+  const handleTitleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setTitle(e.target.value)
+    console.log(title)
+  }
+  /** */
+  const handleContentChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
+    setContent(e.target.value)
+    console.log(content)
+  }
+
+  // 수정시 입력될 정보 가져오는 것
+  // const getBoard = async () => {
+  //   const resp = await (await axios.get(`//localhost:8080/board/${idx}`)).data;
+  //   setTitle(resp.data.title);
+  //   setContent(resp.data.content)
+  //   setImageFile(resp.data.content);
+  // };
+
+  // 업데이트 이후로 디테일로 돌아가기
+  // const updateBoard = async () => {
+  //   await axios.patch(`//localhost:8080/board`, board).then((res) => {
+  //     alert('수정되었습니다.');
+  //     navigate('freeboard/' + idx);
+  //   });
+  // };
+
+  // 처음 렌더링시 입력된 값들 받아오는 코드
+  // useEffect(() => {
+  //   getBoard();
+  // }, []);
+
   return (
     <div>
       <NavbarLogin />
-      <ArticleBar name="공지사항" />
-      <div
-        style={{
-          borderBottom: '1px solid gray',
-          width: '100%',
-          alignItems: 'center',
-        }}
-      >
-        {/* title 작성 */}
-        <h1 style={{ marginLeft: '50px' }}>오늘 금약 25일째....</h1>
-        {/* 작성, 작성자 정보  */}
-        <div style={{ marginBottom: '10px', marginLeft: '50px' }}>
-          작성자<span style={{ marginLeft: '30px' }}>작성날짜</span>
-          <span style={{ marginLeft: '30px' }}>레벨</span>
-        </div>
-      </div>
-      <div style={{ marginLeft: '40px', marginTop: '40px' }}>
-        <img
-          style={{
-            width: '300px',
-            height: '300px',
-          }}
-          src={process.env.PUBLIC_URL + '/image/seulyoon.jpg'}
-          alt="설윤"
-        />
-        {/* context작성 */}
-        <p>
-          펜타닐, 메스암페타민, 마리화나 등등 온갖마약을 하고 살았는데 이번엔
-          제대로 끊어보려고 자조모임 하고있습니다. 모두 화이팅!{' '}
-        </p>
-        <div></div>
-      </div>
+      <ArticleBar name="자유게시판 수정" />
+      <SpacedDiv />
+      <CenteredDiv>
+        <StyledForm style={{ display: 'flex', flexDirection: 'column' }}>
+          <SpacedDiv />
+          <div style={{ display: 'flex', alignItems: 'center' }}>
+            {/* 공지사항 제목 입력하기 */}
+            <StyledTitleInput
+              value={title}
+              onChange={handleTitleChange}
+              placeholder="제목을 입력하세요"
+            />
+            {/* 작성자 입력하기 */}
+            <span
+              style={{
+                marginLeft: '30px',
+                fontSize: '15px',
+                fontWeight: '500',
+              }}
+            >
+              작성자
+            </span>
+          </div>
+          {/* 저작권법 게시물 활용안내 경고 */}
+          <p style={{ marginLeft: '30px', fontSize: '10px' }}>
+            * 음란물, 차별, 비하, 혐오 및 초상권, 저작권 침해 게시물은 민,
+            형사상의 책임을 질 수 있습니다. [저작권법 안내] [게시물 활용 안내]
+          </p>
+          <SpacedDiv />
+          {/* 자유게시판 내용 적용 */}
+          <StyledTextArea
+            onChange={handleContentChange}
+            placeholder="내용을 입력하세요"
+          />
+          <SpacedDiv />
+
+          {showImage}
+          {/* 파일 넣는 입력창 */}
+          <StyledFileInput
+            type="file"
+            accept="image/*"
+            ref={imgRef}
+            onChange={uploadImage}
+            style={{ display: 'none' }}
+          />
+          {/* 파일 input창 나오게하는 버튼 */}
+          <div style={{ marginLeft: '30px', width: '400px' }}>
+            {/* <StyledButton onClick={fileUploadButton}>파일 업로드</StyledButton> */}
+            <StyledButton type="button" onClick={fileUploadButton}>
+              파일 업로드
+            </StyledButton>
+          </div>
+
+          <div
+            style={{
+              display: 'flex',
+              justifyContent: 'flex-end',
+              marginRight: '30px',
+              marginTop: '10px', // Add some top margin to separate buttons from textarea
+              marginBottom: '10px',
+            }}
+          >
+            <div style={{ marginRight: '10px' }}>
+              {/* 작성 취소버튼 */}
+              <StyledButton red onClick={() => navigate('/freeboard')}>
+                취소
+              </StyledButton>
+            </div>
+            {/* 등록버튼 클릭시 등록되었습니다 창뜨기 axios로 포스트 보내기 */}
+            <StyledButton primary>등록</StyledButton>
+          </div>
+        </StyledForm>
+      </CenteredDiv>
     </div>
   )
 }

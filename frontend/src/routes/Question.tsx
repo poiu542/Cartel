@@ -1,14 +1,22 @@
-import React, { useState, useEffect } from 'react'
+// import React, { useState, useEffect } from 'react'
 import NavbarLogin from '../components/NavbarLogin'
 import { CommunityFree } from '../components/CommunityFree'
 import { QnaTable } from '../components/QnaTable'
 import { useQuery } from 'react-query'
-import { fetchNotices } from '../hooks/useNoticesData'
+// import { fetchNotices } from '../hooks/useNoticesData'
 import StyledButton from '../styles/StyledButton'
-import { CommunityNotice } from './../components/CommunityNotice'
-import { fetchMovies } from '../hooks/useNoticesData'
+// import { CommunityNotice } from './../components/CommunityNotice'
+// import { fetchMovies } from '../hooks/useNoticesData'
+import { useNavigate } from 'react-router'
+// import { BoardData } from '../model/board'
+import { getBoard } from '../hooks/useboard'
 
 export const Qna = () => {
+  const navigate = useNavigate()
+
+  // interface ApiResponse {
+  //   data: BoardData[]
+  // }
   interface Movie {
     id: number
     title: string
@@ -23,12 +31,10 @@ export const Qna = () => {
     status: string
   }
 
-  const [page, setPage] = useState(1)
-
   // axios data파일 받아오기
   const { isLoading, data, isError, error, refetch } = useQuery<ApiResponse>(
     ['notice'],
-    fetchMovies,
+    getBoard,
   )
 
   if (isLoading) {
@@ -56,21 +62,31 @@ export const Qna = () => {
   // useEffect(() => {
   //   getMovies()
   // }, [])
+  console.log('에이피아이 요청' + data)
   return (
     <div>
       <NavbarLogin />
       <CommunityFree />
-      <StyledButton
-        primary
-        onClick={() => window.location.replace('/qna/write')}
+      <div
+        style={{ display: 'flex', justifyContent: 'end', marginRight: '250px' }}
       >
-        글 쓰기
-      </StyledButton>
+        <StyledButton
+          primary
+          marginTop="20px"
+          marginBottom="20px"
+          fontSize="18px"
+          width="100px"
+          height="50px"
+          onClick={() => navigate('/qna/write')}
+        >
+          글 쓰기
+        </StyledButton>
+      </div>
       {data && <QnaTable data={data.data.movies} />}
       {/* {movies && <QnaTable data={movies.data.movies} />} */}
-      <StyledButton>작성</StyledButton>
+
       {/* {nav} */}
-      {data && <QnaTable data={data.data.movies} />}
+
       {/* data가 존재하는 경우에만 <NoticeTable> 컴포넌트를 렌더링합니다. */}
     </div>
   )

@@ -19,4 +19,15 @@ export type CounselBoard = {
   type?: number
 }
 
+export interface BoardData {
+  id: number
+  title: string
+  content: string
+  level: number
+  views: number
+  userId: number
+  type: number
+  status: number
+}
+
 export type Comment = Omit<Board, 'title'>

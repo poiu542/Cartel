@@ -1,10 +1,10 @@
-import React from 'react'
+// import React from 'react'
 import NavbarLogin from './../components/NavbarLogin'
 import { CommunityBackground } from '../components/CommunityNotice'
 import { CommunityTitle } from '../components/CommunityNotice'
-import AlarmTable from './../components/AlarmTable'
-import { useQuery } from 'react-query'
-import { fetchNotices } from './../hooks/useNoticesData'
+// import AlarmTable from './../components/AlarmTable'
+// import { useQuery } from 'react-query'
+// import { fetchNotices } from './../hooks/useNoticesData'
 
 interface Movie {
   id: number

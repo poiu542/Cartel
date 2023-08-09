@@ -50,10 +50,13 @@ import { MyComments } from './routes/MyComments'
 import { MyBoards } from './routes/MyBoards'
 import { SelfHelpGroup } from './routes/SelfHelpGroup'
 import CounselOpenvidu from './openvidu/CounselOpenvidu'
+import { CheckCounselor, CheckLogin } from './routes/PrivateRoute'
+import { Testimony } from './routes/Testimony'
 
 const queryClient = new QueryClient()
 
 function App(): React.ReactElement {
+  const loginStatus = 1
   return (
     <div>
       <QueryClientProvider client={queryClient}>
@@ -82,7 +85,17 @@ function App(): React.ReactElement {
               element={<FreeBoardDetail />}
             />
             {/* 자유게시판 작성페이지 */}
-            <Route path="/freeboard/write" element={<FreeBoardWrite />} />
+            {/* <Route path="/freeboard/write" element={<FreeBoardWrite />} /> */}
+
+            <Route
+              path="/freeboard/write"
+              element={
+                <CheckLogin
+                  authenticated={loginStatus}
+                  component={<FreeBoardWrite />}
+                />
+              }
+            />
             {/* 자유게시판 수정페이지 */}
             <Route path="/freeboard/edit/:userId" element={<FreeBoardEdit />} />
             {/* 상담리스트페이지 */}
@@ -134,9 +147,11 @@ function App(): React.ReactElement {
               path="/counsel/clientlist/:counselId"
               element={<ClientList />}
             />
+            {/* 소감문 리스트*/}
+            <Route path="/counsel/testimony" element={<Testimony />} />
             {/* 내담자의 소감문 */}
             <Route
-              path="/counsel/testimony/:counselId/:userEmail"
+              path="/counsel/testimony/:counselId/:userId"
               element={<ClientList />}
             />
             {/* 상담사 자격 심사 중이라는것을 회원에게 보여주는 페이지 */}

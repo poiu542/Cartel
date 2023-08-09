@@ -1,15 +1,15 @@
 import React from 'react'
 import NavbarLogin from '../components/NavbarLogin'
-import { useNavigate, useParams } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import PreviewBox from '../components/PreviewBox'
 import CounselCard from '../components/CounselCard'
 import CounselorCard from '../components/CounselorCard'
 import Button from '../components/Button'
 import Footer from '../components/Footer'
-import { CounselJournal } from './CounselJournal'
 
 export const CounselDetail = () => {
-  const params = useParams()
+  const navigate = useNavigate()
+  const userState: number = 2
 
   const ViewAll = () => {
     alert('더보기')
@@ -20,7 +20,15 @@ export const CounselDetail = () => {
   const onCardClick = () => {
     alert('상담 정보 보기')
   }
-  const openCounselJournal = () => {}
+  const handleCounselViewClick = () => {
+    if (userState === 1) {
+      navigate('/')
+      window.scrollTo(0, 0)
+    } else if (userState === 2) {
+      navigate('/')
+      window.scrollTo(0, 0)
+    }
+  }
   const editCounselDetail = () => {}
   const deleteCounselDetail = () => {}
 
@@ -115,17 +123,19 @@ export const CounselDetail = () => {
             />
           </div>
           <div className="right bottom" style={{ margin: '40px 0px 0px 41px' }}>
-            <div
-              className="counsel journal open"
-              style={{ marginBottom: '10px' }}
-            >
-              <Button
-                size={{ width: '284px', height: '60px' }}
-                text="상담일지 보기"
-                color={{ background: '#00AAFF', color: 'white' }}
-                onClick={openCounselJournal}
-              />
-            </div>
+            {userState !== 0 && (
+              <div
+                className="counsel journal open"
+                style={{ marginBottom: '10px' }}
+              >
+                <Button
+                  size={{ width: '284px', height: '60px' }}
+                  text={userState === 1 ? '소감문 보기' : '상담일지 보기'}
+                  color={{ background: '#00AAFF', color: 'white' }}
+                  onClick={handleCounselViewClick}
+                />
+              </div>
+            )}
             <div className="edit" style={{ marginBottom: '10px' }}>
               <Button
                 size={{ width: '284px', height: '60px' }}

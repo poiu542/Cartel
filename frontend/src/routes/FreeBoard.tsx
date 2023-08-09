@@ -3,8 +3,11 @@ import NavbarLogin from '../components/NavbarLogin'
 import ArticleBar from '../components/ArticleBar'
 import { FreeBoardTable } from './../components/FreeBoardTable'
 import StyledButton from './../styles/StyledButton'
+import { useNavigate } from 'react-router'
 
 export const FreeBoard = () => {
+  const navigate = useNavigate()
+  const [freeboard, setFreeboard] = useState([])
   const [movies, setMovies] = useState([])
   const getMovies = async () => {
     const json = await (

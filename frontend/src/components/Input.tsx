@@ -7,6 +7,8 @@ type InputProps = {
   width?: string
   type?: 'text' | 'password'
   maxLength?: number // 최대 글자 수 제한을 위한 속성 추가
+  marginBottom?: string
+  padding?: string
 }
 
 const Input: React.FC<InputProps> = ({
@@ -16,6 +18,8 @@ const Input: React.FC<InputProps> = ({
   width,
   type = 'text',
   maxLength = 15, // 최대 글자 수 제한의 기본값 15로 설정
+  padding = '7px',
+  marginBottom = '20px',
 }) => {
   const inputStyle: React.CSSProperties = {
     borderBottom: '1px solid black',
@@ -23,9 +27,9 @@ const Input: React.FC<InputProps> = ({
     borderLeft: 'none',
     borderRight: 'none',
     outline: 'none',
-    padding: '7px',
+    padding: padding,
     width: width || '550px',
-    marginBottom: '20px',
+    marginBottom: marginBottom,
     fontSize: '18px',
   }
 
