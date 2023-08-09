@@ -7,6 +7,7 @@ import { Board, BoardData } from '../model/board'
 import { Link } from 'react-router-dom'
 import { NoneStyledLink } from './../styles/Custom'
 import StyledButton from './../styles/StyledButton'
+import { formatDate } from '../utils/dateUtils'
 
 interface NoticeTableProps {
   data: BoardData[]
@@ -44,22 +45,42 @@ const NoticeTable: React.FC<NoticeTableProps> = ({ data }) => {
 
         {/* 테이블 바디 각각의 data를 출력하는 부분 */}
         <TableBody>
-          {data.map((notice, idx) => (
-            <TableRow key={notice.id}>
-              <TableCell component="th" scope="row">
-                {idx + 1}
-              </TableCell>
+          {data &&
+            [...data]
+              .filter((row) => row.type === 1)
+              .map((notice, index, filteredData) => (
+                <TableRow
+                  key={index}
+                  style={{
+                    border: 'solid',
+                    borderWidth: '0px 0px 1px',
+                    borderColor: '#e6e6e6',
+                  }}
+                >
+                  <TableCell
+                    style={{ border: 'none' }}
+                    component="th"
+                    scope="row"
+                  >
+                    {filteredData.length - index}
+                  </TableCell>
 
-              <NoneStyledLink to={`/notice/${notice.id}`}>
-                <TableCell>{notice.title}</TableCell>
-              </NoneStyledLink>
-
-              <TableCell align="right">{notice.date}</TableCell>
-              {/* <StyledButton background="white" color="red" fontSize="15px">
+                  <TableCell style={{ border: 'none' }}>
+                    <NoneStyledLink
+                      style={{ padding: '0px', display: 'block' }}
+                      to={`/notice/${notice.id}`}
+                    >
+                      {notice.title}
+                    </NoneStyledLink>
+                  </TableCell>
+                  <TableCell style={{ border: 'none' }} align="right">
+                    {formatDate(notice.date)}
+                  </TableCell>
+                  {/* <StyledButton background="white" color="red" fontSize="15px">
                 X
               </StyledButton> */}
-            </TableRow>
-          ))}
+                </TableRow>
+              ))}
         </TableBody>
       </Table>
     </div>

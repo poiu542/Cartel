@@ -20,6 +20,51 @@ export const CustumDiv = styled.div`
   border-bottom: 1px solid gray;
 `
 
+// Emotion 스타일 컴포넌트
+const ArticleContainer = styled.div`
+  margin: 50px 150px;
+  min-height: 800px;
+  border: 1px solid gray;
+  padding: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  background-color: #fff;
+`
+
+const ArticleHeader = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`
+
+const ArticleTitle = styled.h1`
+  font-size: 1.5rem;
+  font-weight: 700;
+`
+
+const ArticleMeta = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding-bottom: 10px;
+  margin-bottom: 20px;
+  border-bottom: 1px solid gray;
+`
+
+const ArticleContent = styled.p`
+  font-size: 1rem;
+  line-height: 1.5;
+  min-height: 300px;
+  padding: 20px;
+  border: 1px solid #e0e0e0;
+`
+
+const ButtonGroup = styled.div`
+  display: flex;
+  justify-content: end;
+  gap: 10px;
+  margin-top: 20px;
+`
+
 export const QnaDetail = () => {
   const navigate = useNavigate()
   let { qnaId } = useParams()
@@ -29,6 +74,7 @@ export const QnaDetail = () => {
     content: '',
     nickname: '',
     date: '',
+    views: 0,
   })
   const { title, content, nickname, date } = board
 
@@ -50,6 +96,7 @@ export const QnaDetail = () => {
         content: article.content,
         nickname: article.nickname,
         date: article.date,
+        views: article.views,
       })
     }
   }, [article])
@@ -82,61 +129,27 @@ export const QnaDetail = () => {
       <div style={{ marginTop: '30px' }}>
         <ArticleBar name="QnA 상세정보" />
       </div>
-      <div
-        style={{
-          margin: '50px 150px 0px 150px',
-        }}
-      >
-        <div
-          style={{
-            minHeight: '800px',
-          }}
-        >
-          <div
-            style={{
-              borderBottom: '1px solid gray',
-              width: '100%',
-              alignItems: 'center',
-            }}
-          >
-            {/* post.title */}
-            <h1 style={{ marginLeft: '50px' }}>{board.title}</h1>
-            <div style={{ marginBottom: '10px', marginLeft: '50px' }}>
-              {/* post.user , post.date */}
-              작성자 : {board.nickname}
-              <span style={{ marginLeft: '30px' }}>{board.date}</span>
-              {/* post.points */}
-              {/* <span style={{ marginLeft: '30px' }}>레벨</span> */}
-            </div>
-          </div>
-          {/* 이미지삽입 */}
-          <div style={{ marginLeft: '40px', marginTop: '40px' }}>
-            {/* <img
-              style={{
-                width: '300px',
-                height: '300px',
-              }}
-              // {post.image}
-              src={process.env.PUBLIC_URL + '/image/seulyoon.jpg'}
-              alt="설윤"
-            /> */}
-            {/* 내용삽입 {post.content} */}
-            <p>{board.content}</p>
-          </div>
-        </div>
+      <ArticleContainer>
+        <ArticleHeader>
+          <ArticleTitle>{board.title}</ArticleTitle>
+        </ArticleHeader>
+        <ArticleMeta>
+          <span>작성자 : {board.nickname}</span>
+          <span style={{ marginLeft: '30px' }}>{board.date}</span>
+        </ArticleMeta>
+        <ArticleContent>{board.content}</ArticleContent>
 
         <Comment />
-      </div>
 
-      {/* 버튼 구현하기 */}
-      <div style={{ marginRight: '10px' }}>
-        <StyledButton green onClick={() => navigate(`/qna/edit/${qnaId}`)}>
-          수정
-        </StyledButton>
-      </div>
-      <StyledButton red onClick={deleteQna}>
-        삭제
-      </StyledButton>
+        <ButtonGroup>
+          <StyledButton green onClick={() => navigate(`/qna/edit/${qnaId}`)}>
+            수정
+          </StyledButton>
+          <StyledButton red onClick={deleteQna}>
+            삭제
+          </StyledButton>
+        </ButtonGroup>
+      </ArticleContainer>
     </>
   )
 }
