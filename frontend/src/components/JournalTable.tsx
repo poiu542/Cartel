@@ -44,7 +44,7 @@ export const JournalTable: React.FC<JournalTableProps> = ({
               sx={{ fontWeight: 'bold', fontSize: '18px' }}
               align="right"
             >
-              작성자
+              내담자
             </TableCell>
             <TableCell
               sx={{ fontWeight: 'bold', fontSize: '18px' }}
