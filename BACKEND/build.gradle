@@ -46,6 +46,7 @@ dependencies {
 	//runtimeOnly 'org.mariadb.jdbc:mariadb-java-client'
 	implementation 'org.hibernate.validator:hibernate-validator:7.0.1.Final'
 
+	implementation 'io.openvidu:openvidu-java-client:2.28.0'
 
 
 }
