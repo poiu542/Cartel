@@ -1,8 +1,9 @@
 package com.ssafy.cartel.config.jwt;
 
-import com.ssafy.cartel.domain.Client;
+
 import com.ssafy.cartel.domain.User;
-import com.ssafy.cartel.service.UserDetailService;
+
+
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Header;
 import io.jsonwebtoken.Jwts;
@@ -11,7 +12,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
+
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;
 
@@ -22,7 +23,7 @@ import java.util.Set;
 
 @RequiredArgsConstructor
 @Service
-public class TokenProvider {
+public class TokenProvider { //토큰 생성
 
     private final JwtProperties jwtProperties;
     private final UserDetailsService userDetailsService;
@@ -32,6 +33,7 @@ public class TokenProvider {
         return makeToken(new Date(now.getTime() + expired.toMillis()), user);
     }
 
+    //토큰 생성하기
     private String makeToken(Date expired, User user) {
 
         Date now = new Date();
@@ -42,6 +44,7 @@ public class TokenProvider {
             type = "counselor";
         else if(user.getType()==3)
             type = "admin";
+
 
         return Jwts.builder()
                 .setHeaderParam(Header.TYPE, Header.JWT_TYPE)
@@ -70,18 +73,19 @@ public class TokenProvider {
     public Authentication getAuthentication(String token){
         Claims claims = getClaims(token);
 
-
-        Set<SimpleGrantedAuthority> authorities = Collections.singleton(new SimpleGrantedAuthority("user"));
+        Set<SimpleGrantedAuthority> authorities = Collections.singleton(new SimpleGrantedAuthority(claims.get("type", String.class)));
 
         return new UsernamePasswordAuthenticationToken(new org.springframework.security.core.userdetails.User(
                 claims.getSubject(),"",authorities),token,authorities);
 
     }
 
+    //토큰 기반으로 유저 ID가져오기
     public Integer getUserId(String token){
         Claims claims = getClaims(token);
         return claims.get("id", Integer.class);
     }
+
 
     private Claims getClaims(String token) {
         return Jwts.parser()

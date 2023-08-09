@@ -47,6 +47,10 @@ dependencies {
 	//runtimeOnly 'org.mariadb.jdbc:mariadb-java-client'
 	implementation 'org.hibernate.validator:hibernate-validator:7.0.1.Final'
 	annotationProcessor "org.springframework.boot:spring-boot-configuration-processor"
+	implementation 'com.sun.xml.bind:jaxb-impl:4.0.1'
+	implementation 'com.sun.xml.bind:jaxb-core:4.0.1'
+	// javax.xml.bind
+	implementation 'javax.xml.bind:jaxb-api:2.4.0-b180830.0359'
 
 
 	// 이메일 인증

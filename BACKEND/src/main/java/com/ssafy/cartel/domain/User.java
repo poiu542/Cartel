@@ -1,6 +1,5 @@
 package com.ssafy.cartel.domain;
 
-
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -11,7 +10,6 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import java.util.Collection;
 import java.util.List;
-
 
 @Entity
 @Getter
@@ -67,7 +65,7 @@ public class User implements UserDetails {
         this.refreshToken = refreshToken;
     }
 
-    @Override //권한 반환
+    @Override //사용자 권한 반환
     public Collection<? extends GrantedAuthority> getAuthorities() {
         String userType = "user";
         if(type ==1)
@@ -84,7 +82,7 @@ public class User implements UserDetails {
     @Override//사용자 아이디 반환
     public String getUsername() {
         return email;
-    }
+    } // 이메일 유니크 속성
 
     @Override
     public boolean isAccountNonExpired() {
@@ -105,4 +103,11 @@ public class User implements UserDetails {
     public boolean isEnabled() {
         return true;
     }
+
+
+    public User refresh(String newToken){ // 토큰 갱신
+        this.refreshToken = newToken;
+        return this;
+    }
+
 }
