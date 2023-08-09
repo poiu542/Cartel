@@ -49,6 +49,7 @@ import { CounselorConfirmAdmin } from './routes/CounselorConfirmAdmin'
 import { MyComments } from './routes/MyComments'
 import { MyBoards } from './routes/MyBoards'
 import { SelfHelpGroup } from './routes/SelfHelpGroup'
+import CounselOpenvidu from './openvidu/CounselOpenvidu'
 
 const queryClient = new QueryClient()
 
@@ -151,6 +152,9 @@ function App(): React.ReactElement {
             <Route path="/myboards/:userEmail" element={<MyBoards />} />
             {/* 자조모임 페이지 */}
             <Route path="/selfhelpgroup" element={<SelfHelpGroup />} />
+
+            {/* 상담 */}
+            <Route path="/counseling" element={<CounselOpenvidu />} />
 
             {/* <Route path="/write" element={<Write />} /> */}
             {/* 나머지모든페이지 notfound로으로 */}
