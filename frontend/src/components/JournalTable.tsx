@@ -50,11 +50,8 @@ export const JournalTable: React.FC<JournalTableProps> = ({
               sx={{ fontWeight: 'bold', fontSize: '18px' }}
               align="right"
             >
-              조회수
+              {/* 조회수 */}
             </TableCell>
-            {/* <TableCell sx={{ fontWeight: 'bold', fontSize: '18px' }}>
-              조회수
-            </TableCell> */}
           </TableRow>
         </TableHead>
         <TableBody>
@@ -98,7 +95,7 @@ export const JournalTable: React.FC<JournalTableProps> = ({
                   </TableCell>
                   {/* 삭제버튼 */}
                   <TableCell style={{ border: 'none' }} align="right">
-                    {row.views}
+                    {/* {row.views} */}
                   </TableCell>
                 </TableRow>
               ))}
