@@ -69,6 +69,9 @@ export const Main = () => {
     window.location.href =
       'http://bgnmh.go.kr/checkmehealme/selftest/drgTest3.xx'
   }
+  const goPsychologyTest = () => {
+    window.location.href = 'https://testharo.com/bpd/ko'
+  }
 
   const iconStyle = {
     padding: '30px',
@@ -227,7 +230,7 @@ export const Main = () => {
               alignItems: 'center',
               cursor: 'pointer',
             }}
-            onClick={tempService}
+            onClick={goPsychologyTest}
           >
             <MdOutlinePsychologyAlt
               style={{
