@@ -92,7 +92,7 @@ export const NoticeWrite: React.FC = () => {
             alert('게시글이 등록되었습니다.')
             navigate(`/notice`)
           },
-          onError: (error) => {
+          onError: (error: any) => {
             console.error('Error posting article:', error)
           },
         })

@@ -15,8 +15,14 @@ import { GoPeople } from 'react-icons/go'
 import { LuInspect } from 'react-icons/lu'
 import { MdOutlinePsychologyAlt } from 'react-icons/md'
 import { AiOutlineShoppingCart } from 'react-icons/ai'
+import { Test } from '../components/Test'
+import { Testimony } from './Testimony'
+import TestimonyModal from '../components/TestimonyModal'
 
 // import { StyledDiv } from './../components/Write'
+import counselJournalModal from './../components/CounselJournalModal'
+import CounselJournalModal from './../components/CounselJournalModal'
+import { NoneStyledLink } from './../styles/Custom'
 
 console.log('|\\_/|')
 console.log('|%cq %cp %c|   /}', 'color:red', 'color:red', 'color:black')
@@ -57,6 +63,11 @@ export const Main = () => {
 
   const goSelfHelpGroup = () => {
     navigate('/selfhelpgroup')
+  }
+
+  const goAddictTest = () => {
+    window.location.href =
+      'http://bgnmh.go.kr/checkmehealme/selftest/drgTest3.xx'
   }
 
   const iconStyle = {
@@ -193,7 +204,7 @@ export const Main = () => {
               alignItems: 'center',
               cursor: 'pointer',
             }}
-            onClick={tempService}
+            onClick={goAddictTest}
           >
             <LuInspect
               style={{
@@ -202,7 +213,11 @@ export const Main = () => {
                 scale: '3',
               }}
             />
-            <span style={iconStyle}>중독검사</span>
+            <span style={iconStyle}>
+              <NoneStyledLink to="http://bgnmh.go.kr/checkmehealme/selftest/drgTest3.xx">
+                중독검사
+              </NoneStyledLink>
+            </span>
           </div>
 
           <div
@@ -477,6 +492,8 @@ export const Main = () => {
           width: '100%',
         }}
       ></div>
+      <TestimonyModal />
+      <CounselJournalModal />
       <Footer />
     </div>
   )
