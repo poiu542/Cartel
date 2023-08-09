@@ -67,7 +67,7 @@ export const Notice = () => {
           fontSize="18px"
           width="100px"
           height="50px"
-          onClick={() => navigate('/qna/write')}
+          onClick={() => navigate('/notice/write')}
         >
           글 쓰기
         </StyledButton>
@@ -85,6 +85,7 @@ export const Notice = () => {
           onChange={handlePageChange}
         />
       </div>
+      <button>상담.....</button>
     </div>
   )
 }

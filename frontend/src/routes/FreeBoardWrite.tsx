@@ -82,7 +82,7 @@ export const FreeBoardWrite: React.FC = () => {
           level: 0,
           views: 0,
           userId: 1,
-          type: 2,
+          type: type,
           status: 0,
           date: new Date().toISOString(),
           nickname: '병신',

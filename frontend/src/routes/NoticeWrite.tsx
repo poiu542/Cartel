@@ -1,7 +1,6 @@
 import React, { useRef, ChangeEvent, useMemo, useCallback } from 'react'
 import '../fonts/font.css'
 
-import '../fonts/font.css'
 import NavbarLogin from '../components/NavbarLogin'
 import ArticleBar from '../components/ArticleBar'
 import {
@@ -81,12 +80,13 @@ export const NoticeWrite: React.FC = () => {
           level: 0,
           views: 0,
           userId: 1,
-          type: 2,
+          type: type,
           status: 0,
           date: new Date().toISOString(),
           nickname: '병신',
           email: '23@asdf',
         }
+        console.log(article)
         postArticle(article, {
           onSuccess: () => {
             alert('게시글이 등록되었습니다.')
