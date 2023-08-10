@@ -41,6 +41,8 @@ public class ArticleController {
     @GetMapping("/articles/{id}")
     public ResponseEntity<ArticleResponse> findArticle(@PathVariable Integer id){
         Article article = articleService.findById(id);
+        articleService.view(id);
+
 
         return ResponseEntity.ok()
                 .body(new ArticleResponse(article));

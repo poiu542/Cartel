@@ -15,12 +15,11 @@ import java.util.List;
 @RequiredArgsConstructor
 @Service
 public class CommentService {
-    private final CommentRepository commentRepository;
-    private final UserRepository userRepository;
-    private final ArticleRepository articleRepository;
+    private CommentRepository commentRepository;
+    private UserRepository userRepository;
+    private ArticleRepository articleRepository;
 
     public Comment save(CommentDto commentDto){
-
         User user = userRepository.findById(commentDto.getUserId())
                 .orElseThrow(()-> new IllegalArgumentException("not found user_id" ));
         Article article = articleRepository.findById(commentDto.getPostId())
