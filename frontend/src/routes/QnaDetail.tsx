@@ -42,7 +42,6 @@ export const QnaDetail = () => {
     refetch,
   } = useQuery<BoardData>(['qna', id], () => getBoard(id))
 
-  console.log(article)
   useEffect(() => {
     // article 데이터가 있는 경우 board 상태를 설정합니다.
     if (article) {
