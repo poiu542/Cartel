@@ -1,6 +1,7 @@
 package com.ssafy.cartel.config.jwt;
 
 
+import com.ssafy.cartel.domain.Day;
 import com.ssafy.cartel.domain.User;
 
 
@@ -30,11 +31,16 @@ public class TokenProvider { //토큰 생성
 
     public String generateToken(User user, Duration expired){
         Date now = new Date();
-        return makeToken(new Date(now.getTime() + expired.toMillis()), user);
+
+        //최초 로그인으로 refreshtoken 필요
+        if(user.getRefreshToken()==null)
+            makeRefreshToken(new Date(now.getTime() + Duration.ofDays(7).toMillis()),user);
+
+        return makeAccessToken(new Date(now.getTime() + expired.toMillis()), user);
     }
 
     //jwt 토큰 생성하기
-    private String makeToken(Date expired, User user) {
+    private String makeAccessToken(Date expired, User user) {
 
         Date now = new Date(); //지금
         String type = "user";
@@ -44,7 +50,6 @@ public class TokenProvider { //토큰 생성
             type = "counselor";
         else if(user.getType()==3)
             type = "admin";
-
 
         return Jwts.builder()
                 .setHeaderParam(Header.TYPE, Header.JWT_TYPE)
@@ -57,6 +62,18 @@ public class TokenProvider { //토큰 생성
                 .signWith(SignatureAlgorithm.HS256, jwtProperties.getSecretKey())
                 .compact(); //jwt
     }
+
+    private String makeRefreshToken(Date expired, User user){
+        Date now = new Date();
+
+        return  Jwts.builder()
+                .setSubject(user.getEmail())
+                .setExpiration(expired)
+                .setIssuedAt(now)
+                .signWith(SignatureAlgorithm.HS256, jwtProperties.getSecretKey())
+                .compact();
+    }
+
 
     public boolean validToken(String token){ //검증
         try{
@@ -77,7 +94,6 @@ public class TokenProvider { //토큰 생성
 
         return new UsernamePasswordAuthenticationToken(new org.springframework.security.core.userdetails.User(
                 claims.getSubject(),"",authorities),token,authorities);
-
     }
 
     //토큰 기반으로 유저 ID가져오기
@@ -85,7 +101,6 @@ public class TokenProvider { //토큰 생성
         Claims claims = getClaims(token);
         return claims.get("id", Integer.class);
     }
-
 
     private Claims getClaims(String token) {
         return Jwts.parser()// 토큰 기반 클래임 조회
