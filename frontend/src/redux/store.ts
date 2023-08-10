@@ -1,10 +1,12 @@
 // src/redux/store.ts
 import { configureStore } from '@reduxjs/toolkit'
 import todosReducer from './todosSlice'
-
+import chatReducer from './chatSlice'
+import userReducer from './userSlice'
 export const store = configureStore({
   reducer: {
-    todos: todosReducer,
+    chatReducer,
+    userReducer,
   },
 })
 
