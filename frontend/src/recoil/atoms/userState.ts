@@ -2,9 +2,17 @@ import { atom } from 'recoil'
 
 type User = {
   name: string
+  email: string
+  type: number
+  isLoggedIn: boolean
 }
 
-export const userState = atom<User | null>({
+export const userState = atom<User>({
   key: 'userState',
-  default: null,
+  default: {
+    name: '',
+    email: '',
+    type: 0,
+    isLoggedIn: false,
+  },
 })

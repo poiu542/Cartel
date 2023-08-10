@@ -16,11 +16,13 @@ import { Link } from 'react-router-dom'
 import { useNavigate } from 'react-router-dom'
 import NotificationsNoneIcon from '@mui/icons-material/NotificationsNone'
 import { BsPersonCircle } from 'react-icons/bs'
+import { useRecoilValue, useRecoilState } from 'recoil'
+import { userState } from '../recoil/atoms/userState'
 
 function NavbarLogin() {
-  const isLoggedIn = localStorage.getItem('token')
+  const [user, setUser] = useRecoilState(userState)
   const pages = ['상담', '상담사', '공지사항', '커뮤니티']
-  const settings = isLoggedIn
+  const settings = user.isLoggedIn
     ? ['마이페이지', '로그아웃']
     : ['회원가입', '로그인']
   const notices = ['알림1', '알림2', '알림3', '알림4']
@@ -49,8 +51,10 @@ function NavbarLogin() {
       page = 'profile'
       navigate(`/${page}/${userId}`)
     } else if (page === '로그아웃') {
-      // dispatch(logout())
-      localStorage.removeItem('token')
+      setUser((prevUser) => ({
+        ...prevUser,
+        isLoggedIn: false,
+      }))
       navigate(`/`)
     } else if (page === '회원가입') {
       page = 'signup'
@@ -179,7 +183,7 @@ function NavbarLogin() {
             ))}
           </Box>
           <Box sx={{ flexGrow: 0 }}>
-            {isLoggedIn ? (
+            {user.isLoggedIn ? (
               <Tooltip title="Open Notice">
                 <IconButton onClick={handleOpenNoticeMenu} sx={{ p: 0, mr: 3 }}>
                   <Link to="/alarm/:userId">
@@ -190,7 +194,7 @@ function NavbarLogin() {
                 </IconButton>
               </Tooltip>
             ) : null}
-            {!isLoggedIn ? (
+            {!user.isLoggedIn ? (
               <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
                 {settings.map((page) => (
                   <Button
@@ -236,7 +240,6 @@ function NavbarLogin() {
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open user settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                {/* {isLoggedIn && props.profile.image? <img src={props.profile.image} alt="" />  */}
                 <BsPersonCircle style={{ width: '40px', height: '40px' }} />
               </IconButton>
             </Tooltip>

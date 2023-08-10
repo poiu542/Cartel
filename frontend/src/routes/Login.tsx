@@ -17,9 +17,8 @@ import {
   NormalLoginCheck,
   NormalLoginNoCheck,
 } from '../styles/SignBtn'
-
+import { useRecoilValue, useRecoilState } from 'recoil'
 import { userState } from '../recoil/atoms/userState'
-import { useRecoilState } from 'recoil'
 
 // const LoginTab = styled.div`
 //   display: flex;
@@ -59,6 +58,8 @@ import { useRecoilState } from 'recoil'
 // ]
 
 export const Login = () => {
+  const [user, setUser] = useRecoilState(userState)
+
   const [userType, setUserType] = useState(0)
   const [inputEmailValue, setinputEmailValue] = useState('')
   const [inputPassValue, setinputPassValue] = useState('')
@@ -79,8 +80,10 @@ export const Login = () => {
     }
   }
   const handleLogIn = () => {
-    const token = '서버로부터 받은 토큰'
-    localStorage.setItem('token', token)
+    setUser((prevUser) => ({
+      ...prevUser,
+      isLoggedIn: true,
+    }))
     alert('로그인')
     navigate('/')
   }
