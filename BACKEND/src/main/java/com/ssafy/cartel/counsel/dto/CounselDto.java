@@ -3,18 +3,21 @@ package com.ssafy.cartel.counsel.dto;
 import com.ssafy.cartel.counsel.entity.Counsel;
 import com.ssafy.cartel.counselor.entity.Counselor;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @NoArgsConstructor //기본 생성자
 @AllArgsConstructor //모든 필드값을 파라미터로 받는 생성자
 @Getter
+@Builder
 public class CounselDto {
 
-    private LocalDateTime startDate;
-    private LocalDateTime endDate;
+    private LocalDate startDate;
+    private LocalDate endDate;
     private Integer counselCount;
     private String title;
     private Integer state;

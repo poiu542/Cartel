@@ -37,7 +37,7 @@ public class Review { //소감문
     private LocalDateTime date;
 
     @Builder
-    public Review(Counsel counselId, Client clientId, Curriculum curriculumId, Integer state, LocalDateTime date) {
+    public Review( Client clientId, Curriculum curriculumId, Integer state, LocalDateTime date) {
 
         this.clientId = clientId;
         this.curriculumId = curriculumId;

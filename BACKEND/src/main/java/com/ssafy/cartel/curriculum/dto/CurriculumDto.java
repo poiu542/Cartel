@@ -1,6 +1,7 @@
 package com.ssafy.cartel.curriculum.dto;
 
 import com.ssafy.cartel.counsel.entity.Counsel;
+import com.ssafy.cartel.curriculum.entity.Curriculum;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -12,6 +13,15 @@ public class CurriculumDto {
 
     private Integer title;
     private String content;
-    private Counsel counselId;
+    private Integer counselId;
+
+    public Curriculum toEntity(Counsel counsel){
+        return Curriculum.builder()
+                .content(content)
+                .title(title)
+                .counselId(counsel)
+                .build();
+    }
+
 
 }

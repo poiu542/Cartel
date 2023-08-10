@@ -18,18 +18,18 @@ public class CounselController {
 
     //상담 목록 조회
     @GetMapping
-    public ResponseEntity<List<Counsel>> findAllCounsels(){
-        List<Counsel> counsels = counselService.findAll();
+    public ResponseEntity<List<CounselDto>> findAllCounsels(){
+        List<CounselDto> counselList = counselService.findAll();
 
         return ResponseEntity.ok()
-                .body(counsels);
+                .body(counselList);
     }
 
     // 조회
     @GetMapping("/{counsel_id}")
     public ResponseEntity<?> findCounsel(@PathVariable Integer counsel_id) {
-        Counsel counsel = counselService.findById(counsel_id);
-        return ResponseEntity.ok().body(counsel);
+        CounselDto counselDto = counselService.findById(counsel_id);
+        return ResponseEntity.ok().body(counselDto);
     }
 
     // 등록
@@ -39,17 +39,17 @@ public class CounselController {
         return ResponseEntity.ok().build();
     }
 
-    // 수정
-    @PutMapping("/{counsel_id}")
-    public ResponseEntity<?> updateCounsel(@PathVariable Integer counsel_id, @RequestBody CounselDto counselDto) {
-        counselService.update(counsel_id, counselDto);
-        return ResponseEntity.ok().build();
-    }
+//    // 수정
+//    @PutMapping("/{counsel_id}")
+//    public ResponseEntity<?> updateCounsel(@PathVariable Integer counsel_id, @RequestBody CounselDto counselDto) {
+//        counselService.update(counsel_id, counselDto);
+//        return ResponseEntity.ok().build();
+//    }
 
-    // 삭제
-    @DeleteMapping("/{counsel_id}")
-    public ResponseEntity<?> deleteCounsel(@PathVariable Integer counsel_id){
-        counselService.delete(counsel_id);
-        return ResponseEntity.ok().build();
-    }
+//    // 삭제
+//    @PutMapping("/delete/{counsel_id}")
+//    public ResponseEntity<?> updateCounselState(@PathVariable Integer counsel_id, CounselDto counselDto){
+//        counselService.updateState(counsel_id, counselDto);
+//        return ResponseEntity.ok().build();
+//    }
 }

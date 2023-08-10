@@ -14,15 +14,15 @@ import java.time.LocalDateTime;
 @Getter
 public class ReviewDto {
 
-    private Client clientId;
-    private Curriculum curriculumId;
+    private Integer clientId;
+    private Integer curriculumId;
     private Integer state;
     private LocalDateTime date;
 
-    public Review toEntity() {
+    public Review toEntity(Client client, Curriculum curriculum) {
         return Review.builder()
-                .clientId(clientId)
-                .curriculumId(curriculumId)
+                .clientId(client)
+                .curriculumId(curriculum)
                 .state(state)
                 .date(LocalDateTime.now())
                 .build();

@@ -43,14 +43,12 @@ public class Consulting {
     public Consulting(String consulting, LocalDateTime date, Curriculum curriculumId, Client clientId, Integer state) {
         this.consulting = consulting;
         this.date = date;
-        this.curriculumId = curriculumId;
-        this.clientId = clientId;
         this.state = state;
+        this.clientId = clientId;
+        this.curriculumId = curriculumId;
     }
 
-    public void update(String consulting, LocalDateTime date, Integer state) {
-        this.consulting = consulting;
-        this.date = date;
+    public void changeState(Integer state) {
         this.state = state;
     }
 }

@@ -17,17 +17,17 @@ public class ConsultingDto {
     private String consulting;
     private LocalDateTime date;
     private Integer state;
-    private Curriculum curriculumId;
-    private Client clientId;
+    private Integer curriculumId;
+    private Integer clientId;
 
 
-    public Consulting toEntity(){
+    public Consulting toEntity(Client client, Curriculum curriculum){
         return Consulting.builder()
                 .consulting(consulting)
-                .clientId(clientId)
-                .curriculumId(curriculumId)
-                .date(date)
+                .date(LocalDateTime.now())
                 .state(state)
+                .curriculumId(curriculum)
+                .clientId(client)
                 .build();
     }
 }
