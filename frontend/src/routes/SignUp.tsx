@@ -20,9 +20,24 @@ import Modal from 'react-modal'
 import StyledButton from '../styles/StyledButton'
 import DeleteIcon from '@mui/icons-material/Delete'
 import { ErrorMessage } from '../styles/ErrorMessage'
+import axios from 'axios'
 
 // import { userState } from '../recoil/atoms/userState'
 // import { useRecoilState } from 'recoil'
+
+interface UserCommonData {
+  nickname: string
+  email: string
+  password: string
+}
+
+interface UserType1Data extends UserCommonData {
+  education: string
+  career: string[]
+  profileImg: string
+  certificationImg: string
+  residentRegistrationImg: string
+}
 
 export const SignUp = () => {
   const [inputNicknameValue, setinputNicknameValue] = useState('')
@@ -134,8 +149,49 @@ export const SignUp = () => {
   const handleCheckClick = () => {
     alert('인증되었습니다 로직 짜야함')
   }
-  const handleSignUp = () => {
-    alert('회원가입 로직 짜야함')
+
+  ////////////////////////////////
+  //          회원가입          //
+  ///////////////////////////////
+  const handleSignUp = (): void => {
+    let userData: UserCommonData | UserType1Data | undefined
+
+    if (userType === 0) {
+      userData = {
+        nickname: inputNicknameValue,
+        email: inputEmailValue,
+        password: inputPassValue,
+      }
+    } else if (userType === 1) {
+      userData = {
+        nickname: inputNicknameValue,
+        email: inputEmailValue,
+        password: inputPassValue,
+        education: inputEducation,
+        career: careers,
+        // profileImg: inputProfileImgValue,
+        // certificationImg: inputCertificationImgValue,
+        // residentRegistrationImg: inputResidentRegistrationImgValue,
+      }
+    }
+
+    if (userData && userData.nickname && userData.email && userData.password) {
+      // 기본 정보 확인
+      axios
+        .post('http://i9b209.p.ssafy.io:8080/signup', userData)
+        .then((response) => {
+          console.log(response.data) // 응답 데이터 출력
+          alert('회원가입이 성공적으로 완료되었습니다.')
+          // 성공적으로 회원가입이 완료되면 다른 페이지로 리다이렉션 또는 추가 작업 수행
+        })
+        .catch((error: any) => {
+          console.error('Error registering new user:', error)
+          alert('회원가입 중 오류가 발생했습니다.')
+          // 실패한 경우 오류 메시지 표시 또는 추가 작업 수행
+        })
+    } else {
+      alert('필수 입력 항목을 모두 채워주세요.')
+    }
   }
   const handleProfileUpload = () => {
     alert('프로필 사진 올리기')
