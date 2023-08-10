@@ -13,7 +13,7 @@ import { PostTestimonyData, TestimonyData } from '../model/counsel'
 //   testimony: PostTestimonyData,
 //   counselId: number,
 // ) => {
-//   return axios.post(`/counsel/}consulting/${counselId}`, testimony)
+//   return axios.post(`api/counsel/}consulting/${counselId}`, testimony)
 // }
 
 // export const usePostTestimony = () => {

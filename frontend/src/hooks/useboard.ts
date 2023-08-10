@@ -10,11 +10,11 @@ import { Observable } from 'rxjs'
 import { BoardData } from '../model/board'
 
 export const getBoards = () => {
-  return axios.get(`/articles`).then((res) => res.data)
+  return axios.get(`api/articles`).then((res) => res.data)
 }
 
 export const getBoard = (id: number | null) => {
-  return axios.get(`/articles/${id}`).then((res) => res.data)
+  return axios.get(`api/articles/${id}`).then((res) => res.data)
 }
 
 // export const getBoard = () => {
@@ -32,7 +32,7 @@ export const getBoard = (id: number | null) => {
 // }
 
 export const postBoard = (board: BoardData) => {
-  return axios.post('/articles', board)
+  return axios.post('api/articles', board)
 }
 
 export const usePostBoard = () => {

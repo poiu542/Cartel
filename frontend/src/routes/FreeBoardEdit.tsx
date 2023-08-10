@@ -102,7 +102,7 @@ export const FreeBoardEdit = () => {
       alert('내용을 입력해 주세요.')
     } else {
       if (window.confirm('게시글을 수정하시겠습니까?')) {
-        axios.put(`/articles/${id}`, board).then(() => {
+        axios.put(`api/articles/${id}`, board).then(() => {
           alert('게시글이 수정되었습니다.')
           navigate(`/qna`)
         })
