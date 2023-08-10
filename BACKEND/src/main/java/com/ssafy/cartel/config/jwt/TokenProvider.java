@@ -62,8 +62,8 @@ public class TokenProvider { //토큰 생성
                 .signWith(SignatureAlgorithm.HS256, jwtProperties.getSecretKey())
                 .compact(); //jwt
     }
-
-    private String makeRefreshToken(Date expired, User user){
+    //refresh토큰 만들기
+    public String makeRefreshToken(Date expired, User user){
         Date now = new Date();
 
         return  Jwts.builder()
@@ -74,7 +74,7 @@ public class TokenProvider { //토큰 생성
                 .compact();
     }
 
-
+    //유효성 검증
     public boolean validToken(String token){ //검증
         try{
             Jwts.parser()
@@ -88,10 +88,13 @@ public class TokenProvider { //토큰 생성
 
     //토큰 기반으로 인증 정보 가져오기
     public Authentication getAuthentication(String token){
-        Claims claims = getClaims(token);// 클레임, 내용과 관련된 정보를 담기
+        Claims claims = getClaims(token);// 클레임, 내용과 관련된 정보
 
+        //사용자 권한을 나타내기
         Set<SimpleGrantedAuthority> authorities = Collections.singleton(new SimpleGrantedAuthority(claims.get("type", String.class)));
 
+        //사용자 정보 생성 - security의 username~~~ 객체를 생성하여 사용자의 인증 정보를 나타낸다.
+        //유저 객체에 유저이름(이메일), 비밀번호, 권한과 같은 인증 정보가 포함된다.
         return new UsernamePasswordAuthenticationToken(new org.springframework.security.core.userdetails.User(
                 claims.getSubject(),"",authorities),token,authorities);
     }
