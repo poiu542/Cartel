@@ -15,6 +15,7 @@ import ExitToAppIcon from '@mui/icons-material/ExitToApp'
 import ChatIcon from '@mui/icons-material/Chat'
 import ChatBox from '../Chat/ChatBox'
 import styled from '@emotion/styled'
+
 const APPLICATION_SERVER_URL = 'http://i9b209.p.ssafy.io:8080/'
 const Container = styled.div`
   height: 100vh;
@@ -408,8 +409,10 @@ class CounselOpenvidu extends Component {
   }
 
   render() {
-    const mySessionId = this.state.mySessionId
-    const myUserName = this.state.myUserName
+    // const mySessionId = this.state.mySessionId
+    // const myUserName = this.state.myUserName
+    const { mySessionId } = this.state
+    const { localUser } = this.state
     return (
       <Container>
         <Header>
@@ -470,11 +473,12 @@ class CounselOpenvidu extends Component {
               ) : null}
             </VideoContainer>
           </Left>
-          {/* <Right primary={this.state.isChat}>
-            <Chat>
+
+          <Right primary={this.state.isChat}>
+            {/* <Chat>
               <ChatBox />
-            </Chat>
-          </Right> */}
+            </Chat> */}
+          </Right>
         </Middle>
         <Bottom>
           <BottomBox>
