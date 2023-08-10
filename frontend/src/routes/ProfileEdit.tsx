@@ -123,9 +123,6 @@ export const ProfileEdit = () => {
                     onChange={(event) => updateCareer(index, event)}
                     style={{ width: '900px', borderBlockColor: '#40BFFF' }}
                   />
-                  {/* <StyledButton color="gray" background="white">
-                    <DeleteIcon />
-                  </StyledButton> */}
                   <IconButton
                     aria-label="delete"
                     onClick={() => deleteCareer(index)}
@@ -203,7 +200,6 @@ export const ProfileEdit = () => {
               position: 'relative',
               flexDirection: 'column',
               alignItems: 'center',
-              // display: 'flex',
               justifyContent: 'center',
             }}
           >
@@ -422,13 +418,6 @@ export const ProfileEdit = () => {
           </div>
         </div>
       </div>
-      {/* <div
-        className="blank"
-        style={{
-          width: '1440px',
-          height: '100px',
-        }}
-      ></div> */}
       <Footer />
     </div>
   )

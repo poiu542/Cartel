@@ -72,6 +72,10 @@ function App(): React.ReactElement {
             <Route path="/profile/:userId/" element={<Profile />} />
             {/* 내 마이페이지 수정페이지 */}
             <Route path="/profile/edit/" element={<ProfileEdit />} />
+            {/* 내가 쓴 게시글 */}
+            <Route path="/userId/MyBoards/" element={<MyBoards />} />
+            {/* 내가 쓴 댓글 */}
+            <Route path="/userId/myComments" element={<MyComments />} />
             {/* 공지페이지 */}
             <Route path="/notice" element={<Notice />} />
             {/* 공지 상세페이지 */}
