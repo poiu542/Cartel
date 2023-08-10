@@ -40,7 +40,7 @@ public class UserService {
 
 
 
-    //refreshtoken user
+    //refreshtoken user 찾기
     public User findbyRefreshToken(String Token){
         return userRepository.findByRefreshToken(Token)
                 .orElseThrow(()-> new IllegalArgumentException("unexpexted token"));

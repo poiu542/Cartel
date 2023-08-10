@@ -67,6 +67,9 @@ public class UserController {
 
         HttpHeaders headers = new HttpHeaders();
         headers.add("Authorization", "Bearer"+ accessToken);
+        headers.add("userId",user.getId().toString());
+        System.out.println(headers.get("Authorization"));
+
         return headers;
 
         }
