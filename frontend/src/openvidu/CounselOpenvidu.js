@@ -15,6 +15,9 @@ import ExitToAppIcon from '@mui/icons-material/ExitToApp'
 import ChatIcon from '@mui/icons-material/Chat'
 import ChatBox from '../Chat/ChatBox'
 import styled from '@emotion/styled'
+import ScreenShareOutlinedIcon from '@mui/icons-material/ScreenShareOutlined'
+import StopScreenShareOutlinedIcon from '@mui/icons-material/StopScreenShareOutlined'
+// import { Icon } from '@mui/material'
 
 const APPLICATION_SERVER_URL = 'http://i9b209.p.ssafy.io:8080/'
 const Container = styled.div`
@@ -232,10 +235,45 @@ class CounselOpenvidu extends Component {
             this.state.publisher.publishAudio(this.state.isMike)
           })
           break
+
+        case 'share':
+          this.setState({ isShareScreen: !this.state.isShareScreen }, () => {
+            this.state.subscribers.forEach((s) =>
+              s.publishScreen(this.state.isShareScreen),
+            )
+          })
+          break
+      }
+    }
+  }
+  startScreenSharing = async () => {
+    const { session } = this.state
+
+    if (session) {
+      const publisher = this.OV.initPublisher(undefined, {
+        videoSource: 'screen',
+        publishVideo: true, // 화면 공유 비디오 활성화
+        publishAudio: false, // 오디오 비활성화
+      })
+
+      try {
+        await session.publish(publisher)
+        this.setState({ publisher })
+      } catch (error) {
+        console.error('Error publishing screen share:', error)
       }
     }
   }
 
+  stopScreenSharing = () => {
+    const { session, publisher } = this.state
+
+    if (publisher) {
+      session.unpublish(publisher)
+      publisher.stream.dispose()
+      this.setState({ publisher: null })
+    }
+  }
   deleteSubscriber(streamManager) {
     let subscribers = this.state.subscribers
     let index = subscribers.indexOf(streamManager, 0)
@@ -292,6 +330,7 @@ class CounselOpenvidu extends Component {
 
         // Get a token from the OpenVidu deployment
         this.getToken().then((token) => {
+          console.log(token)
           // First param is the token got from the OpenVidu deployment. Second param can be retrieved by every user on event
           // 'streamCreated' (property Stream.connection.data), and will be appended to DOM as the user's nickname
           mySession
@@ -317,6 +356,7 @@ class CounselOpenvidu extends Component {
               mySession.publish(publisher)
 
               // Obtain the current video device in use
+
               var devices = await this.OV.getDevices()
               var videoDevices = devices.filter(
                 (device) => device.kind === 'videoinput',
@@ -506,7 +546,18 @@ class CounselOpenvidu extends Component {
             >
               {this.state.isSpeaker ? <HeadsetIcon /> : <HeadsetOffIcon />}
             </Icon>
-
+            <Icon
+              primary={!this.state.isShareScreen}
+              onClick={() => this.handleToggle('speaker')}
+            >
+              {this.state.isShareScreen ? (
+                <ScreenShareOutlinedIcon onClick={this.stopScreenSharing} />
+              ) : (
+                <StopScreenShareOutlinedIcon
+                  onClick={this.startScreenSharing}
+                />
+              )}
+            </Icon>
             <Icon primary onClick={this.leaveSession}>
               <ExitToAppIcon />
             </Icon>
