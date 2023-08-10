@@ -2,7 +2,7 @@
   "name": "frontend",
   "version": "0.1.0",
   "private": true,
-  "proxy": "https://i9b209.p.ssafy.io/api",
+  "proxy": "http://i9b209.p.ssafy.io:8080",
   "dependencies": {
     "@emailjs/browser": "^3.11.0",
     "@emotion/react": "^11.11.1",
@@ -21,7 +21,6 @@
     "@types/react-redux": "^7.1.25",
     "@types/react-router-dom": "^5.3.3",
     "axios": "^1.4.0",
-    "openvidu-browser": "^2.28.0",
     "bootstrap": "^5.3.1",
     "emailjs-com": "^3.2.0",
     "net": "^1.0.2",
