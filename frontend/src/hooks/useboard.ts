@@ -16,6 +16,8 @@ export const getBoards = () => {
 }
 
 export const getBoard = (id: number | null) => {
+  console.log('여기는 useboard.ts')
+  console.log(`${process.env.REACT_APP_BASE_URL}articles/${id}`)
   return axios
     .get(`${process.env.REACT_APP_BASE_URL}articles/${id}`)
     .then((res) => res.data)
