@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 
 const NoticeBtn = styled.button`
   background-color: rgba(63, 137, 176, 0.7);
-  width: 65rem;
+  width: 47.4rem;
   padding: 0.5rem 1rem;
   height: 5.5625rem;
   border-radius: 0.1875rem;
@@ -18,7 +18,7 @@ const NoticeBtn = styled.button`
 
 const FreeBtn = styled.button`
   background-color: #80d4ff;
-  width: 65rem;
+  width: 47.4rem;
   padding: 0.5rem 1rem;
   height: 5.5625rem;
   border-radius: 0.1875rem;
