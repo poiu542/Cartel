@@ -28,7 +28,7 @@ public class CommentDto {
         return Comment.builder()
                 .content(content)
                 .user(user)
-                .date(LocalDateTime.now())
+                .date(date)
                 .state(state)
                 .article(article)
                 .build();

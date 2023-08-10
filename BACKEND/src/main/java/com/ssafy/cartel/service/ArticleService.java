@@ -47,6 +47,16 @@ public class ArticleService {
         article.update(request.getTitle(), request.getContent());
         return article;
     }
+    @Transactional
+    public void view(Integer id){
+        Article article = articleRepository.findById(id)
+                .orElseThrow(()-> new IllegalArgumentException("not found:" + id));
+        article.view(article.getViews());
+
+
+
+
+    }
 
 
 }
