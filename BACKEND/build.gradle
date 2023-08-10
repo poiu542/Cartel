@@ -10,6 +10,12 @@ tasks {
 	}
 }
 
+tasks {
+    bootJar {
+        duplicatesStrategy = 'exclude'
+    }
+}
+
 group = 'com.ssafy'
 version = '0.0.1-SNAPSHOT'
 
