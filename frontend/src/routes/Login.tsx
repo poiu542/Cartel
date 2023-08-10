@@ -20,6 +20,7 @@ import {
 
 import { userState } from '../recoil/atoms/userState'
 import { useRecoilState } from 'recoil'
+import axios from 'axios'
 
 // const LoginTab = styled.div`
 //   display: flex;
@@ -79,10 +80,34 @@ export const Login = () => {
     }
   }
   const handleLogIn = () => {
-    const token = '서버로부터 받은 토큰'
-    localStorage.setItem('token', token)
-    alert('로그인')
-    navigate('/')
+    const email = inputEmailValue
+    const password = inputPassValue
+
+    if (!email || !password) {
+      alert('이메일과 비밀번호를 입력해주세요.')
+      return
+    }
+    const data = {
+      email,
+      password,
+    }
+
+    axios
+      .post(`${process.env.REACT_APP_BASE_URL}login`, data)
+      .then((response) => {
+        console.log(response)
+        // const  accessToken  = response.data.token
+
+        // API 요청하는 콜마다 헤더에 accessToken 담아 보내도록 설정
+        // axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`
+        // localStorage.setItem('accesstoken', accesstoken)
+        alert('로그인')
+        navigate('/')
+        // accessToken을 localStorage, cookie 등에 저장하지 않는다!
+      })
+      .catch((error) => {
+        console.log(error)
+      })
   }
   const handleKakaoLogIn = () => {
     alert('카카오 로그인')
