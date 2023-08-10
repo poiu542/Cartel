@@ -11,7 +11,13 @@ export const CounselDetail = () => {
   const navigate = useNavigate()
   const userState: number = 2
 
-  const ViewAll = () => {
+  const ViewAllNotice = () => {
+    navigate('/counsel/counselId/notice')
+  }
+  const ViewAllQna = () => {
+    navigate('/counsel/counselId/qna')
+  }
+  const ViewAllCurriculum = () => {
     alert('더보기')
   }
   const counselButtonClick = () => {
@@ -22,10 +28,10 @@ export const CounselDetail = () => {
   }
   const handleCounselViewClick = () => {
     if (userState === 1) {
-      navigate('/')
+      navigate('/testimony/userId')
       window.scrollTo(0, 0)
     } else if (userState === 2) {
-      navigate('/')
+      navigate('/counsel/counselId/counselorJournal/:userEmail')
       window.scrollTo(0, 0)
     }
   }
@@ -64,7 +70,7 @@ export const CounselDetail = () => {
                 { title: '공지3' },
                 { title: '공지4' },
               ]}
-              onClick={ViewAll}
+              onClick={ViewAllNotice}
               width="300px"
               height="235px"
             />
@@ -78,7 +84,7 @@ export const CounselDetail = () => {
                 { title: '공지3' },
                 { title: '공지4' },
               ]}
-              onClick={ViewAll}
+              onClick={ViewAllQna}
               width="300px"
               height="235px"
             />
@@ -170,7 +176,7 @@ export const CounselDetail = () => {
             { title: '공지3' },
             { title: '공지4' },
           ]}
-          onClick={ViewAll}
+          onClick={ViewAllCurriculum}
           width="702px"
           height="235px"
         />

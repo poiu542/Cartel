@@ -122,7 +122,6 @@ export const Profile = () => {
         <div
           style={{
             display: 'flex',
-            // justifyContent: 'center',
             flexDirection: 'row',
             alignItems: 'center',
             padding: '16px',
