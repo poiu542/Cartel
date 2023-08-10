@@ -67,4 +67,8 @@ public class User{
     public void updateImg(String imgURL) {
         this.profileUrl = imgURL;
     }
+
+    public void updateType(Integer type) {
+        this.type = type+1;
+    }
 }

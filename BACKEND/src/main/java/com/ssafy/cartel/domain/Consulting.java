@@ -1,12 +1,10 @@
 package com.ssafy.cartel.domain;
 
-
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.springframework.scheduling.support.SimpleTriggerContext;
 
 import java.time.LocalDateTime;
 
