@@ -4,6 +4,8 @@ import Footer from '../components/Footer'
 import Button from '../components/Button'
 import { useNavigate } from 'react-router-dom'
 import Modal from 'react-modal'
+import { useRecoilValue, useRecoilState } from 'recoil'
+import { userState } from '../recoil/atoms/userState'
 
 export const Profile = () => {
   const [careers, setCareers] = useState([
@@ -23,7 +25,9 @@ export const Profile = () => {
   const [introduction, setIntroduction] = useState('족구왕이 될 사나이')
   const [modalIsOpen, setModalIsOpen] = useState(false)
   const [confirmationText, setConfirmationText] = useState('')
-  // const isLoggedIn = localStorage.getItem('token')
+
+  const [user, setUser] = useRecoilState(userState)
+
   const isLoggedIn = 1
 
   const [profileImageFile, setProfileImageFile] = useState<File | null>(null)
@@ -243,7 +247,7 @@ export const Profile = () => {
               margin: '60px 0px 0px 0px',
             }}
           >
-            {isLoggedIn ? (
+            {user.type ? (
               <div>
                 <div
                   className="my article"
@@ -584,7 +588,7 @@ export const Profile = () => {
                   {phoneNumber}
                 </div>
               </div>
-              {!isLoggedIn ? (
+              {!user.type ? (
                 <div>
                   <div
                     className="school"
