@@ -7,12 +7,26 @@ import CounselorCard from '../components/CounselorCard'
 import Button from '../components/Button'
 import Footer from '../components/Footer'
 import Modal from 'react-modal'
+import styled from 'styled-components'
 
 export const CounselDetail = () => {
   const navigate = useNavigate()
   const userState: number = 2
-  const [modalIsOpen, setModalIsOpen] = useState(false)
+  const [deleteModalIsOpen, setDeleteModalIsOpen] = useState(false)
+  const [curriculumModalIsOpen, setCurriculumModalIsOpen] = useState(false)
   const [confirmationText, setConfirmationText] = useState('')
+  const curriculums: string[] = [
+    'Intro to Web Development: Setting up your environment',
+    'HTML Basics: Understanding the structure of web pages',
+    'CSS Fundamentals: Styling your HTML',
+    'JavaScript Essentials: Adding interactivity to your site',
+    'Introduction to Web APIs: Fetching data from the web',
+    'Responsive Web Design: Making sites mobile-friendly',
+    'Frontend Frameworks Overview: React, Vue, and Angular',
+    'Backend Basics: Node.js and Express introduction',
+    'Database Management: SQL vs NoSQL',
+    'Deploying your website: Hosting and domain management',
+  ]
 
   const ViewAllNotice = () => {
     navigate('/counsel/counselId/notice')
@@ -21,8 +35,9 @@ export const CounselDetail = () => {
     navigate('/counsel/counselId/qna')
   }
   const ViewAllCurriculum = () => {
-    alert('더보기')
+    setCurriculumModalIsOpen(true)
   }
+
   const counselButtonClick = () => {
     alert('버튼클릭')
   }
@@ -45,7 +60,7 @@ export const CounselDetail = () => {
   const deleteCounselDetail = () => {
     if (confirmationText === '상담 삭제에 동의합니다.') {
       // 회원 탈퇴 로직
-      setModalIsOpen(false)
+      setDeleteModalIsOpen(false)
     } else {
       alert('문구를 정확히 입력해주세요.')
     }
@@ -67,11 +82,82 @@ export const CounselDetail = () => {
     },
   }
 
+  const ModalHeader = styled.div`
+    display: flex;
+    justify-content: space-between;
+  `
+
+  const CurriculumInputList = styled.div`
+    display: flex;
+    flex-direction: column;
+  `
+
   return (
     <div>
       <Modal
-        isOpen={modalIsOpen}
-        onRequestClose={() => setModalIsOpen(false)}
+        isOpen={curriculumModalIsOpen}
+        onRequestClose={() => {
+          setCurriculumModalIsOpen(false)
+        }}
+        style={{
+          overlay: {
+            backgroundColor: 'rgba(0, 0, 0, 0.5)',
+          },
+          content: {
+            color: 'darkslategray',
+            width: '780px',
+            height: '600px',
+            top: '5%',
+            left: '23%',
+          },
+        }}
+        contentLabel="Curriculum Modal"
+      >
+        <ModalHeader>
+          <h1>Curriculum</h1>
+          <div>
+            <div
+              style={{
+                backgroundColor: '#EF5C5C',
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+                width: '100px',
+                height: '30px ',
+                borderRadius: '10px',
+                margin: '10px ',
+                cursor: 'pointer',
+              }}
+              onClick={() => {
+                setCurriculumModalIsOpen(false)
+              }}
+            >
+              <div style={{ color: 'white' }}>Close</div>
+            </div>
+          </div>
+        </ModalHeader>
+
+        <CurriculumInputList>
+          {curriculums.map((curriculum: string, index: number) => (
+            <div
+              key={index}
+              style={{
+                margin: '10px 0px 10px 23px',
+                borderRadius: '10px',
+                width: '700px',
+                padding: '10px',
+                backgroundColor: 'lightgray',
+              }}
+            >
+              {index + 1} 회차: {curriculum}
+            </div>
+          ))}
+        </CurriculumInputList>
+      </Modal>
+
+      <Modal
+        isOpen={deleteModalIsOpen}
+        onRequestClose={() => setDeleteModalIsOpen(false)}
         style={modalStyles}
       >
         <div
@@ -167,7 +253,7 @@ export const CounselDetail = () => {
                 color: '#FFFFFF',
                 font: 'normal 600 16px/19px Inter',
               }}
-              onClick={() => setModalIsOpen(false)}
+              onClick={() => setDeleteModalIsOpen(false)}
             >
               취소
             </button>
@@ -302,7 +388,7 @@ export const CounselDetail = () => {
                 size={{ width: '284px', height: '60px' }}
                 text="삭제하기"
                 color={{ background: '#EF5C5C', color: 'white' }}
-                onClick={() => setModalIsOpen(true)}
+                onClick={() => setDeleteModalIsOpen(true)}
               />
             </div>
           </div>
