@@ -12,10 +12,10 @@ export const CounselDetail = () => {
   const userState: number = 2
 
   const ViewAllNotice = () => {
-    alert('더보기')
+    navigate('/counsel/counselId/notice')
   }
   const ViewAllQna = () => {
-    alert('더보기')
+    navigate('/counsel/counselId/qna')
   }
   const ViewAllCurriculum = () => {
     alert('더보기')

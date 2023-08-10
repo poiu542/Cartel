@@ -53,6 +53,8 @@ import CounselOpenvidu from './openvidu/CounselOpenvidu'
 import { CheckCounselor, CheckLogin } from './routes/PrivateRoute'
 import { Testimony } from './routes/Testimony'
 import { QnaEdit } from './routes/QnaEdit'
+import { CounselNotice } from './routes/CounselNotice'
+import { CounselQna } from './routes/CounselQna'
 
 const queryClient = new QueryClient()
 
@@ -115,6 +117,15 @@ function App(): React.ReactElement {
             <Route path="/counsel/edit/:counselId/" element={<CounselEdit />} />
             {/* 상담개설 페이지 */}
             <Route path="/counsel/make" element={<CounselMake />} />
+
+            {/* 상담 공지사항 페이지 */}
+            <Route
+              path="/counsel/counselId/notice"
+              element={<CounselNotice />}
+            />
+            {/* 상담 QnA 페이지 */}
+            <Route path="/counsel/counselId/qna" element={<CounselQna />} />
+
             {/* 상담사리스트페이지 */}
             <Route path="/counselor" element={<Counselor />} />
             {/* 상담사상세페이지 */}
