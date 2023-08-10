@@ -20,6 +20,8 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
 import java.time.Duration;
 import java.util.ResourceBundle;
@@ -61,29 +63,19 @@ public class UserController {
         User user = userRepository.findByEmail(email).get();
 
         SecurityContextHolder.getContext().setAuthentication(authentication);
-        //String accessToken = tokenProvider.generateToken(user, Duration.ofHours(4));
-        String accessToken = tokenProvider.generateToken(user, Duration.ofMillis(60));
-        System.out.println(accessToken);
-
-        userService.update(user,accessToken);
+        //accesstoken 생성
+        String accessToken = tokenProvider.generateToken(user, Duration.ofHours(2));
+        //String accessToken = tokenProvider.generateToken(user, Duration.ofMillis(60));
 
         return ResponseEntity.ok("로그인 성공");
         }
 
-        @PostMapping("/logout")
-        public ResponseEntity<String> logout(HttpServletRequest request){
-            String token = request.getHeader("Authorization");
-            if(token != null && token.startsWith("Bearer")){
-                 token = token.substring(7);
-            }
-
-            if(token != null){
-                User user = userRepository.findByRefreshToken(token).get();
-                user.refresh(null);
-                return ResponseEntity.ok("로그아웃");
-            }
-            return ResponseEntity.ok("로그아웃 실패");
-        }
+//        @PostMapping("/logout")
+//        public ResponseEntity<String> logout(HttpServletRequest request){
+//
+//
+//
+//        }
 
 
 

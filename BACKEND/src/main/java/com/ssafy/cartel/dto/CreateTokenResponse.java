@@ -2,10 +2,10 @@ package com.ssafy.cartel.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.Setter;
 
 @Getter
 @AllArgsConstructor
 public class CreateTokenResponse {
     private String token;
+
 }

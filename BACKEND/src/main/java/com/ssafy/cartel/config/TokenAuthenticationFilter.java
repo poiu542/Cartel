@@ -22,21 +22,25 @@ public class TokenAuthenticationFilter extends OncePerRequestFilter {
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
+
+
         String authorizationHeader = request.getHeader(HEADER_AUTHORIZATION);
         String token = getAccessToken(authorizationHeader);
 
+        //토큰 유효성 확인
         if(tokenProvider.validToken(token)){
+            //인증 정보 설정
             Authentication authentication = tokenProvider.getAuthentication(token);
             SecurityContextHolder.getContext().setAuthentication(authentication);
         }
 
-        filterChain.doFilter(request,response);
 
+        filterChain.doFilter(request,response);
     }
 
     private String getAccessToken(String authorizationHeader) {
         if(authorizationHeader != null && authorizationHeader.startsWith(TOKEN_PREFIX)){
-            return authorizationHeader.substring(TOKEN_PREFIX.length());
+            return authorizationHeader.substring(TOKEN_PREFIX.length()); //bearer를 제외한 나머지 부분
         }
         return null;
     }
