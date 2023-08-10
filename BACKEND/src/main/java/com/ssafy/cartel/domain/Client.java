@@ -30,7 +30,6 @@ public class Client {
     @Column(name = "client_state")
     private Integer state;
 
-
     @Builder
     public Client(User user, Counsel counsel, Integer attendance, Integer state) {
         this.user = user;

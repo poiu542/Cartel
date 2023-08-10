@@ -28,7 +28,12 @@ public class CounselorImgController {
     private CounselorRepository counselorRepository;
 
     @PostMapping("/upload/regist")
-    public ResponseEntity<String> uploadRegistFile(@RequestParam(value = "file") MultipartFile multipartFile, Integer counselorId) throws IOException {
+    public ResponseEntity<String> uploadRegistFile(
+//            @RequestParam(value = "memberInfo") MultipartFile memberDTO,
+            @RequestParam(value = "file") MultipartFile multipartFile,
+//            @RequestParam(value = "license") MultipartFile multipartFile2,
+//            @RequestParam(value = "jubun") MultipartFile multipartFile3,
+            Integer counselorId) throws IOException {
         String imgURL = licenseImgService.upload(multipartFile);
         Counselor counselor = counselorRepository.findById(counselorId)
                 .orElseThrow(() -> new IllegalArgumentException("해당 counselor가 존재하지 않습니다."));
