@@ -56,16 +56,19 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("회원가입 실패");
     }
 
+
     @PostMapping("/login")
     public ResponseEntity<Map> login(@RequestParam String email, @RequestParam String password) {
+
 
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(email, password));
         User user = userRepository.findByEmail(email).get();
 
         SecurityContextHolder.getContext().setAuthentication(authentication);
-        //accesstoken 생성
+        //accesstoken 생성 , 최초 로그인이면 refreshtoken도 만들어
         String accessToken = tokenProvider.generateToken(user, Duration.ofHours(2));
+
 
         Map<String, Object> loginresponse = new HashMap<>();
         loginresponse.put("token",accessToken);
@@ -73,19 +76,6 @@ public class UserController {
 
         return ResponseEntity.ok(loginresponse);
         }
-
-        @PostMapping("/logout")
-        public ResponseEntity<String> logout(HttpServletRequest request){
-
-            return ResponseEntity.ok("로그아웃 성공");
-
-
-
-        }
-
-
-
-
 
     }
 
