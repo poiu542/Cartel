@@ -17,7 +17,6 @@ public class ArticleResponse {
     private final Integer level;
     private final Integer views;
     private final Integer userId;
-    private final String email;
     private final String nickname;
     private final Integer type;
     private final LocalDateTime date;
