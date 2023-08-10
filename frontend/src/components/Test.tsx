@@ -73,7 +73,7 @@ export const Test: React.FC = () => {
     } else {
       if (window.confirm('소감문을 등록하시겠습니까?')) {
         const response = axios.post(
-          `/counsel/${counselId}/testimony/`,
+          `api/counsel/${counselId}/testimony/`,
           testimony,
         )
       }

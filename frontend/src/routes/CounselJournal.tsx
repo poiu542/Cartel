@@ -58,7 +58,7 @@ export const CounselJournal = () => {
 
   useEffect(() => {
     axios
-      .get('/articles')
+      .get('api/articles')
       .then((response) => {
         setBoardList([...response.data].reverse())
       })

@@ -39,7 +39,7 @@ export const FreeBoard = () => {
   useEffect(() => {
     console.log('애초에 안 오나?')
     axios
-      .get('api/articles')
+      .get('https://i9b209.p.ssafy.io/api/articles')
       .then((response) => {
         console.log('일단 여기 와야 하고')
         console.log(response.data)
