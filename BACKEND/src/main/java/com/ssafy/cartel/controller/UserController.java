@@ -1,6 +1,5 @@
 package com.ssafy.cartel.controller;
 
-
 import com.ssafy.cartel.config.jwt.TokenProvider;
 import com.ssafy.cartel.domain.User;
 import com.ssafy.cartel.dto.EmailAuthRequest;
@@ -24,6 +23,8 @@ import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 import java.time.Duration;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.ResourceBundle;
 
 @RequiredArgsConstructor
@@ -56,7 +57,7 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<String> login(@RequestParam String email, @RequestParam String password) {
+    public ResponseEntity<Map> login(@RequestParam String email, @RequestParam String password) {
 
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(email, password));
@@ -65,17 +66,22 @@ public class UserController {
         SecurityContextHolder.getContext().setAuthentication(authentication);
         //accesstoken 생성
         String accessToken = tokenProvider.generateToken(user, Duration.ofHours(2));
-        //String accessToken = tokenProvider.generateToken(user, Duration.ofMillis(60));
 
-        return ResponseEntity.ok("로그인 성공");
+        Map<String, Object> loginresponse = new HashMap<>();
+        loginresponse.put("token",accessToken);
+        loginresponse.put("userId",user.getId());
+
+        return ResponseEntity.ok(loginresponse);
         }
 
-//        @PostMapping("/logout")
-//        public ResponseEntity<String> logout(HttpServletRequest request){
-//
-//
-//
-//        }
+        @PostMapping("/logout")
+        public ResponseEntity<String> logout(HttpServletRequest request){
+
+            return ResponseEntity.ok("로그아웃 성공");
+
+
+
+        }
 
 
 
