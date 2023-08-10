@@ -10,7 +10,7 @@ import { Observable } from 'rxjs'
 import { BoardData } from '../model/board'
 
 export const getBoards = () => {
-  return axios.get(`/articles`).then((res) => res.data)
+  return axios.get(`/api/articles`).then((res) => res.data)
 }
 
 export const getBoard = (id: number | null) => {
