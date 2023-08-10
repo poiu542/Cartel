@@ -10,15 +10,15 @@ import { BoardData } from '../model/board'
 import Comment from './../components/Comment'
 import { CenteredDiv, SpacedDiv, StyledForm } from '../components/Write'
 import styled from '@emotion/styled'
-
-export const CustumDiv = styled.div`
-  width: 80%;
-  height: 90%;
-  border-top: 4px solid #3b478f;
-  border-left: 1px solid gray;
-  border-right: 1px solid gray;
-  border-bottom: 1px solid gray;
-`
+import { formatDateDetail } from '../utils/dateUtils'
+import {
+  ArticleContainer,
+  ArticleHeader,
+  ArticleContent,
+  ArticleMeta,
+  ArticleTitle,
+  ButtonGroup,
+} from '../styles/articles'
 
 export const FreeBoardDetail = () => {
   const navigate = useNavigate()
@@ -30,6 +30,7 @@ export const FreeBoardDetail = () => {
     nickname: '',
     date: '',
     level: 0,
+    views: 0,
   })
   const { title, content, nickname, date, level } = board
 
@@ -52,6 +53,7 @@ export const FreeBoardDetail = () => {
         nickname: article.nickname,
         date: article.date,
         level: article.level,
+        views: article.views,
       })
     }
   }, [article])
@@ -64,7 +66,7 @@ export const FreeBoardDetail = () => {
     return <h1>화면을 불러오는데 문제가 있습니다.</h1>
   }
   console.log(board)
-  const deleteQna = () => {
+  const deleteFreeBoard = () => {
     if (window.confirm('게시글을 삭제하시겠습니까?')) {
       axios
         .delete(`/articles/${freeboardId}`, {})
@@ -82,66 +84,37 @@ export const FreeBoardDetail = () => {
     <>
       <NavbarLogin />
       <div style={{ marginTop: '30px' }}>
-        <ArticleBar name="QnA 상세정보" />
+        <ArticleBar name="게시판 상세정보" />
       </div>
-      <div
-        style={{
-          margin: '50px 150px 0px 150px',
-        }}
-      >
-        <div
-          style={{
-            minHeight: '800px',
-          }}
-        >
-          <div
-            style={{
-              borderBottom: '1px solid gray',
-              width: '100%',
-              alignItems: 'center',
-            }}
-          >
-            {/* post.title */}
-            <h1 style={{ marginLeft: '50px' }}>{board.title}</h1>
-            <div style={{ marginBottom: '10px', marginLeft: '50px' }}>
-              {/* post.user , post.date */}
-              작성자 : {board.nickname}
-              <span style={{ marginLeft: '30px' }}>{board.date}</span>
-              {/* post.points */}
-              {/* <span style={{ marginLeft: '30px' }}>레벨</span> */}
-            </div>
-          </div>
-          {/* 이미지삽입 */}
-          <div style={{ marginLeft: '40px', marginTop: '40px' }}>
-            {/* <img
-              style={{
-                width: '300px',
-                height: '300px',
-              }}
-              // {post.image}
-              src={process.env.PUBLIC_URL + '/image/seulyoon.jpg'}
-              alt="설윤"
-            /> */}
-            {/* 내용삽입 {post.content} */}
-            <p>{board.content}</p>
-          </div>
-        </div>
+      <ArticleContainer>
+        <ArticleHeader>
+          <ArticleTitle>{board.title}</ArticleTitle>
+        </ArticleHeader>
+        <ArticleMeta>
+          <span>
+            작성자 : {board.nickname}({board.level})
+          </span>
+          <span style={{ marginLeft: '35px' }}>조회수 : {board.views}</span>
+          <span style={{ marginLeft: '35px' }}>
+            등록일 : {formatDateDetail(board.date)}
+          </span>
+        </ArticleMeta>
+        <ArticleContent>{board.content}</ArticleContent>
 
         <Comment />
-      </div>
 
-      {/* 버튼 구현하기 */}
-      <div style={{ marginRight: '10px' }}>
-        <StyledButton
-          green
-          onClick={() => navigate(`/qna/edit/${freeboardId}`)}
-        >
-          수정
-        </StyledButton>
-      </div>
-      <StyledButton red onClick={deleteQna}>
-        삭제
-      </StyledButton>
+        <ButtonGroup>
+          <StyledButton
+            green
+            onClick={() => navigate(`/freeboard/edit/${freeboardId}`)}
+          >
+            수정
+          </StyledButton>
+          <StyledButton red onClick={deleteFreeBoard}>
+            삭제
+          </StyledButton>
+        </ButtonGroup>
+      </ArticleContainer>
     </>
   )
 }

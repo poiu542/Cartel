@@ -10,15 +10,15 @@ import { BoardData } from '../model/board'
 import Comment from './../components/Comment'
 import { CenteredDiv, SpacedDiv, StyledForm } from '../components/Write'
 import styled from '@emotion/styled'
-
-export const CustumDiv = styled.div`
-  width: 80%;
-  height: 90%;
-  border-top: 4px solid #3b478f;
-  border-left: 1px solid gray;
-  border-right: 1px solid gray;
-  border-bottom: 1px solid gray;
-`
+import { formatDateDetail } from '../utils/dateUtils'
+import {
+  ArticleContainer,
+  ArticleHeader,
+  ArticleContent,
+  ArticleMeta,
+  ArticleTitle,
+  ButtonGroup,
+} from '../styles/articles'
 
 export const NoticeDetail = () => {
   const navigate = useNavigate()
@@ -28,6 +28,7 @@ export const NoticeDetail = () => {
     title: '',
     content: '',
     date: '',
+    views: 0,
   })
   const { title, content, date } = board
 
@@ -47,8 +48,8 @@ export const NoticeDetail = () => {
       setBoard({
         title: article.title,
         content: article.content,
-
         date: article.date,
+        views: article.views,
       })
     }
   }, [article])
@@ -81,59 +82,28 @@ export const NoticeDetail = () => {
       <div style={{ marginTop: '30px' }}>
         <ArticleBar name="공지사항 상세정보" />
       </div>
-      <div
-        style={{
-          margin: '50px 150px 0px 150px',
-        }}
-      >
-        <div
-          style={{
-            minHeight: '800px',
-          }}
-        >
-          <div
-            style={{
-              borderBottom: '1px solid gray',
-              width: '100%',
-              alignItems: 'center',
-            }}
-          >
-            {/* post.title */}
-            <h1 style={{ marginLeft: '50px' }}>{board.title}</h1>
-            <div style={{ marginBottom: '10px', marginLeft: '50px' }}>
-              {/* post.user , post.date */}
+      <ArticleContainer>
+        <ArticleHeader>
+          <ArticleTitle>{board.title}</ArticleTitle>
+        </ArticleHeader>
+        <ArticleMeta>
+          <span>조회수 : {board.views}</span>
+          <span style={{ marginLeft: '35px' }}>
+            등록일 : {formatDateDetail(board.date)}
+          </span>
+        </ArticleMeta>
+        <ArticleContent>{board.content}</ArticleContent>
 
-              <span style={{ marginLeft: '30px' }}>{board.date}</span>
-              {/* post.points */}
-              {/* <span style={{ marginLeft: '30px' }}>레벨</span> */}
-            </div>
-          </div>
-          {/* 이미지삽입 */}
-          <div style={{ marginLeft: '40px', marginTop: '40px' }}>
-            {/* <img
-              style={{
-                width: '300px',
-                height: '300px',
-              }}
-              // {post.image}
-              src={process.env.PUBLIC_URL + '/image/seulyoon.jpg'}
-              alt="설윤"
-            /> */}
-            {/* 내용삽입 {post.content} */}
-            <p>{board.content}</p>
-          </div>
-        </div>
-      </div>
-
-      {/* 버튼 구현하기 */}
-      <div style={{ marginRight: '10px' }}>
-        <StyledButton green onClick={() => navigate(`/qna/edit/${noticeId}`)}>
-          수정
-        </StyledButton>
-      </div>
-      <StyledButton red onClick={deleteQna}>
-        삭제
-      </StyledButton>
+        {/* 공지사항은 수정 삭제 불가? */}
+        {/* <ButtonGroup>
+          <StyledButton green onClick={() => navigate(`/qna/edit/${noticeId}`)}>
+            수정
+          </StyledButton>
+          <StyledButton red onClick={deleteQna}>
+            삭제
+          </StyledButton>
+        </ButtonGroup> */}
+      </ArticleContainer>
     </>
   )
 }

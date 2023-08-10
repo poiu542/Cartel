@@ -81,7 +81,7 @@ export const QnaTable: React.FC<QnaTableProps> = ({ data }) => {
                   <TableCell style={{ border: 'none' }}>
                     <NoneStyledLink
                       style={{ padding: '0px', display: 'block' }}
-                      to={`/qna/${row.userId}`}
+                      to={`/qna/${row.id}`}
                     >
                       {row.title}
                     </NoneStyledLink>
