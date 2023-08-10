@@ -23,9 +23,8 @@ public class TokenAuthenticationFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
 
-
-        String authorizationHeader = request.getHeader(HEADER_AUTHORIZATION);
-        String token = getAccessToken(authorizationHeader);
+        String authorizationHeader = request.getHeader(HEADER_AUTHORIZATION); //헤더 받아오기
+        String token = getAccessToken(authorizationHeader);//
 
         //토큰 유효성 확인
         if(tokenProvider.validToken(token)){

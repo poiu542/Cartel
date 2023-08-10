@@ -6,10 +6,8 @@ import com.ssafy.cartel.dto.EmailAuthRequest;
 import com.ssafy.cartel.dto.UserDto;
 import com.ssafy.cartel.repository.UserRepository;
 import com.ssafy.cartel.service.UserService;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
-import org.springframework.boot.autoconfigure.neo4j.Neo4jProperties;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -17,10 +15,7 @@ import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.context.request.RequestContextHolder;
-import org.springframework.web.context.request.ServletRequestAttributes;
 
 import java.time.Duration;
 import java.util.HashMap;
@@ -58,8 +53,9 @@ public class UserController {
 
 
     @PostMapping("/login")
-    public ResponseEntity<Map> login(@RequestParam String email, @RequestParam String password) {
-
+    public HttpHeaders login(@RequestBody Map<String,String> login) {
+        String email = login.get("email");
+        String password = login.get("password");
 
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(email, password));
@@ -69,14 +65,11 @@ public class UserController {
         //accesstoken 생성 , 최초 로그인이면 refreshtoken도 만들어
         String accessToken = tokenProvider.generateToken(user, Duration.ofHours(2));
 
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Authorization", "Bearer"+ accessToken);
+        return headers;
 
-        Map<String, Object> loginresponse = new HashMap<>();
-        loginresponse.put("token",accessToken);
-        loginresponse.put("userId",user.getId());
-
-        return ResponseEntity.ok(loginresponse);
         }
-
     }
 
 
