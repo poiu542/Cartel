@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState, useRef } from 'react'
 import NavbarLogin from '../components/NavbarLogin'
 import Footer from '../components/Footer'
 import Button from '../components/Button'
@@ -23,6 +23,28 @@ export const ProfileEdit = () => {
   const [phoneNumberInput, setPhoneNumberInput] = useState('')
   const [introduction, setIntroduction] = useState('족구왕이 될 사나이')
   const [introductionInput, setIntroductionInput] = useState('')
+
+  const [profileImageFile, setProfileImageFile] = useState<File | null>(null)
+  const fileInputRef = useRef<HTMLInputElement>(null)
+
+  let imageURL: string
+  if (profileImageFile) {
+    imageURL = URL.createObjectURL(profileImageFile)
+  } else {
+    imageURL = '/image/default_Image.jpg'
+  }
+  const handleEditProfileImageClick = () => {
+    console.log('Edit button clicked!')
+
+    // Input element를 통해 사용자가 이미지 파일을 선택할 수 있게 합니다.
+    fileInputRef.current?.click()
+  }
+
+  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    if (event.target.files && event.target.files[0]) {
+      setProfileImageFile(event.target.files[0])
+    }
+  }
 
   // 모달을 띄울 상태
   const [isModalOpen, setIsModalOpen] = useState(false)
@@ -181,13 +203,49 @@ export const ProfileEdit = () => {
               position: 'relative',
               flexDirection: 'column',
               alignItems: 'center',
+              // display: 'flex',
+              justifyContent: 'center',
             }}
           >
             <div className="profile image">
               <img
-                src="/image/seulyoon.jpg"
-                alt="seulyoon"
-                style={{ width: '200px', height: '200px', borderRadius: '50%' }}
+                src={imageURL}
+                alt="user profile"
+                style={{
+                  width: '200px',
+                  height: '200px',
+                  borderRadius: '50%',
+                  objectFit: 'cover',
+                }}
+              />
+              <div
+                onClick={handleEditProfileImageClick}
+                style={{
+                  bottom: '70px',
+                  right: '200px',
+                  position: 'absolute',
+                  padding: '5px 10px',
+                  backgroundColor: 'rgba(0, 0, 0, 0.6)',
+                  color: 'white',
+                  borderRadius: '3px',
+                  cursor: 'pointer',
+                  fontSize: '15px',
+                  transition: 'background-color 0.2s',
+                }}
+                onMouseOver={(e) =>
+                  (e.currentTarget.style.backgroundColor = 'rgba(0, 0, 0, 0.8)')
+                }
+                onMouseOut={(e) =>
+                  (e.currentTarget.style.backgroundColor = 'rgba(0, 0, 0, 0.6)')
+                }
+              >
+                Edit
+              </div>
+              <input
+                ref={fileInputRef}
+                type="file"
+                style={{ display: 'none' }}
+                onChange={handleFileChange}
               />
             </div>
             <div
