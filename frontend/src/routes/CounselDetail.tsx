@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import NavbarLogin from '../components/NavbarLogin'
 import { useNavigate } from 'react-router-dom'
 import PreviewBox from '../components/PreviewBox'
@@ -6,14 +6,38 @@ import CounselCard from '../components/CounselCard'
 import CounselorCard from '../components/CounselorCard'
 import Button from '../components/Button'
 import Footer from '../components/Footer'
+import Modal from 'react-modal'
+import styled from 'styled-components'
 
 export const CounselDetail = () => {
   const navigate = useNavigate()
   const userState: number = 2
+  const [deleteModalIsOpen, setDeleteModalIsOpen] = useState(false)
+  const [curriculumModalIsOpen, setCurriculumModalIsOpen] = useState(false)
+  const [confirmationText, setConfirmationText] = useState('')
+  const curriculums: string[] = [
+    'Intro to Web Development: Setting up your environment',
+    'HTML Basics: Understanding the structure of web pages',
+    'CSS Fundamentals: Styling your HTML',
+    'JavaScript Essentials: Adding interactivity to your site',
+    'Introduction to Web APIs: Fetching data from the web',
+    'Responsive Web Design: Making sites mobile-friendly',
+    'Frontend Frameworks Overview: React, Vue, and Angular',
+    'Backend Basics: Node.js and Express introduction',
+    'Database Management: SQL vs NoSQL',
+    'Deploying your website: Hosting and domain management',
+  ]
 
-  const ViewAll = () => {
-    alert('더보기')
+  const ViewAllNotice = () => {
+    navigate('/counsel/counselId/notice')
   }
+  const ViewAllQna = () => {
+    navigate('/counsel/counselId/qna')
+  }
+  const ViewAllCurriculum = () => {
+    setCurriculumModalIsOpen(true)
+  }
+
   const counselButtonClick = () => {
     alert('버튼클릭')
   }
@@ -22,18 +46,233 @@ export const CounselDetail = () => {
   }
   const handleCounselViewClick = () => {
     if (userState === 1) {
-      navigate('/')
+      navigate('/testimony/userId')
       window.scrollTo(0, 0)
     } else if (userState === 2) {
-      navigate('/')
+      navigate('/counsel/counselId/counselorJournal/:userEmail')
       window.scrollTo(0, 0)
     }
   }
-  const editCounselDetail = () => {}
-  const deleteCounselDetail = () => {}
+  const editCounselDetail = () => {
+    navigate('/counsel/edit/:counselId/')
+  }
+
+  const deleteCounselDetail = () => {
+    if (confirmationText === '상담 삭제에 동의합니다.') {
+      // 회원 탈퇴 로직
+      setDeleteModalIsOpen(false)
+    } else {
+      alert('문구를 정확히 입력해주세요.')
+    }
+  }
+
+  const modalStyles = {
+    content: {
+      display: 'flex',
+      flexDirection: 'column' as 'column',
+      alignItems: 'flex-start',
+      padding: '0px',
+      position: 'absolute' as 'absolute',
+      top: '50%',
+      left: '50%',
+      transform: 'translate(-50%, -50%)',
+      width: '480px',
+      height: '320px',
+      borderRadius: '13px',
+    },
+  }
+
+  const ModalHeader = styled.div`
+    display: flex;
+    justify-content: space-between;
+  `
+
+  const CurriculumInputList = styled.div`
+    display: flex;
+    flex-direction: column;
+  `
 
   return (
     <div>
+      <Modal
+        isOpen={curriculumModalIsOpen}
+        onRequestClose={() => {
+          setCurriculumModalIsOpen(false)
+        }}
+        style={{
+          overlay: {
+            backgroundColor: 'rgba(0, 0, 0, 0.5)',
+          },
+          content: {
+            color: 'darkslategray',
+            width: '780px',
+            height: '600px',
+            top: '5%',
+            left: '23%',
+          },
+        }}
+        contentLabel="Curriculum Modal"
+      >
+        <ModalHeader>
+          <h1>Curriculum</h1>
+          <div>
+            <div
+              style={{
+                backgroundColor: '#EF5C5C',
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+                width: '100px',
+                height: '30px ',
+                borderRadius: '10px',
+                margin: '10px ',
+                cursor: 'pointer',
+              }}
+              onClick={() => {
+                setCurriculumModalIsOpen(false)
+              }}
+            >
+              <div style={{ color: 'white' }}>Close</div>
+            </div>
+          </div>
+        </ModalHeader>
+
+        <CurriculumInputList>
+          {curriculums.map((curriculum: string, index: number) => (
+            <div
+              key={index}
+              style={{
+                margin: '10px 0px 10px 23px',
+                borderRadius: '10px',
+                width: '700px',
+                padding: '10px',
+                backgroundColor: 'lightgray',
+              }}
+            >
+              {index + 1} 회차: {curriculum}
+            </div>
+          ))}
+        </CurriculumInputList>
+      </Modal>
+
+      <Modal
+        isOpen={deleteModalIsOpen}
+        onRequestClose={() => setDeleteModalIsOpen(false)}
+        style={modalStyles}
+      >
+        <div
+          style={{
+            display: 'flex',
+            flexDirection: 'row',
+            alignItems: 'flex-start',
+            padding: '16px',
+            gap: '10px',
+            width: '448px',
+            height: '51px',
+            background: '#FFFFFF',
+            marginBottom: '-1px',
+          }}
+        >
+          <h2 style={{ font: 'normal 600 16px/19px Inter', color: '#000000' }}>
+            정말 <span style={{ color: 'red' }}>삭제 </span>하시겠습니까?
+          </h2>
+        </div>
+        <div
+          style={{
+            display: 'flex',
+            flexDirection: 'row',
+            alignItems: 'flex-start',
+            padding: '16px',
+            gap: '10px',
+            width: '430px',
+            height: '110px',
+            background: '#FFFFFF',
+            borderTop: '1px solid #CED4DA',
+            marginBottom: '-1px',
+            marginLeft: '10px',
+          }}
+        >
+          <p
+            style={{
+              width: '436px',
+              height: '78px',
+              font: 'normal 400 16px/26px Inter',
+              color: '#6C757D',
+            }}
+          >
+            삭제한 상담 내용은 복구할 수 없습니다. 삭제하시려면 아래 문구를
+            정확히 따라 입력해주세요.
+            <br />
+            <span style={{ color: '#FF0000' }}>“상담 삭제에 동의합니다.”</span>
+          </p>
+        </div>
+
+        <div
+          style={{
+            display: 'flex',
+            flexDirection: 'row',
+            alignItems: 'center',
+            padding: '16px',
+            gap: '8px',
+            width: '430px',
+            height: '71px',
+            background: '#FFFFFF',
+            borderTop: '1px solid #CED4DA',
+            marginLeft: '10px',
+          }}
+        >
+          <div
+            style={{
+              display: 'flex',
+              flexDirection: 'row',
+              justifyContent: 'flex-end',
+              alignItems: 'flex-start',
+              gap: '8px',
+              width: '436px',
+              height: '39px',
+            }}
+          >
+            <input
+              style={{
+                width: '296px',
+                height: '39px',
+                background: '#FFFFFF',
+                border: '1px solid #CED4DA',
+                borderRadius: '4px',
+              }}
+              type="text"
+              value={confirmationText}
+              onChange={(e) => setConfirmationText(e.target.value)}
+            />
+            <button
+              style={{
+                width: '62px',
+                height: '39px',
+                background: '#6C757D',
+                borderRadius: '4px',
+                color: '#FFFFFF',
+                font: 'normal 600 16px/19px Inter',
+              }}
+              onClick={() => setDeleteModalIsOpen(false)}
+            >
+              취소
+            </button>
+            <button
+              style={{
+                width: '62px',
+                height: '39px',
+                background: '#80D4FF',
+                borderRadius: '4px',
+                color: '#FFFFFF',
+                font: 'normal 600 16px/19px Inter',
+              }}
+              onClick={deleteCounselDetail}
+            >
+              탈퇴
+            </button>
+          </div>
+        </div>
+      </Modal>
       <div className="Navbar">
         <NavbarLogin />
       </div>
@@ -64,7 +303,7 @@ export const CounselDetail = () => {
                 { title: '공지3' },
                 { title: '공지4' },
               ]}
-              onClick={ViewAll}
+              onClick={ViewAllNotice}
               width="300px"
               height="235px"
             />
@@ -78,7 +317,7 @@ export const CounselDetail = () => {
                 { title: '공지3' },
                 { title: '공지4' },
               ]}
-              onClick={ViewAll}
+              onClick={ViewAllQna}
               width="300px"
               height="235px"
             />
@@ -149,7 +388,7 @@ export const CounselDetail = () => {
                 size={{ width: '284px', height: '60px' }}
                 text="삭제하기"
                 color={{ background: '#EF5C5C', color: 'white' }}
-                onClick={deleteCounselDetail}
+                onClick={() => setDeleteModalIsOpen(true)}
               />
             </div>
           </div>
@@ -170,7 +409,7 @@ export const CounselDetail = () => {
             { title: '공지3' },
             { title: '공지4' },
           ]}
-          onClick={ViewAll}
+          onClick={ViewAllCurriculum}
           width="702px"
           height="235px"
         />

@@ -45,7 +45,7 @@ export default function CounselJournalModal() {
     } else {
       if (window.confirm('소감문을 등록하시겠습니까?')) {
         const response = axios.post(
-          `/counsel/${counselId}/counseljournal/`,
+          `${process.env.REACT_APP_BASE_URL}counsel/${counselId}/counseljournal/`,
           counselJournal,
         )
       }

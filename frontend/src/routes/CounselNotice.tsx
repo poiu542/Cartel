@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from 'react'
 import NavbarLogin from '../components/NavbarLogin'
 import ArticleBar from '../components/ArticleBar'
-import { JournalTable } from '../components/JournalTable'
 import { useNavigate } from 'react-router'
 import { BoardData } from '../model/board'
 import Pagination from 'react-js-pagination'
 import axios from 'axios'
 import './Question.css'
 import Modal from 'react-modal'
+import { TestimonyTable } from '../components/TestimonyTable'
 
-export const CounselJournal = () => {
+export const CounselNotice = () => {
   const modalStyle = {
     content: {
       width: '500px',
@@ -72,17 +72,20 @@ export const CounselJournal = () => {
     setCurrentPost(boardList.slice(indexOfFirstPost, indexOfLastPost))
   }, [boardList, page])
 
-  const detailJournal = (post: BoardData) => {
+  const detailTestimony = (post: BoardData) => {
     setModalContent({ title: post.title, content: post.content })
     setShowModal(true)
   }
   return (
     <div>
       <NavbarLogin />
-      <ArticleBar name="상담 일지" />
+      <ArticleBar name="상담 공지사항" />
       <div className="board-list">
         {boardList && (
-          <JournalTable data={currentPost} DetailJournal={detailJournal} />
+          <TestimonyTable
+            data={currentPost}
+            DetailTestimony={detailTestimony}
+          />
         )}
 
         <Pagination
@@ -99,7 +102,7 @@ export const CounselJournal = () => {
         isOpen={showModal}
         onRequestClose={() => setShowModal(false)}
         style={modalStyle}
-        contentLabel="Journal Modal"
+        contentLabel="Content Modal"
       >
         <button
           style={{

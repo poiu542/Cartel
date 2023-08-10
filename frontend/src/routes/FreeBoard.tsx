@@ -37,8 +37,9 @@ export const FreeBoard = () => {
   // axios data파일 받아오기
   useEffect(() => {
     axios
-      .get('/articles')
+      .get(`${process.env.REACT_APP_BASE_URL}articles`)
       .then((response) => {
+        console.log(response.data)
         setBoardList([...response.data].reverse())
       })
       .catch(function (error) {

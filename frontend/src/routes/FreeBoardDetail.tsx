@@ -69,7 +69,7 @@ export const FreeBoardDetail = () => {
   const deleteFreeBoard = () => {
     if (window.confirm('게시글을 삭제하시겠습니까?')) {
       axios
-        .delete(`/articles/${freeboardId}`, {})
+        .delete(`${process.env.REACT_APP_BASE_URL}articles/${freeboardId}`, {})
         .then(function (response) {
           alert('게시글이 삭제되었습니다.')
           navigate('/freeboard')

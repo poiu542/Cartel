@@ -90,6 +90,9 @@ export const FreeBoardWrite: React.FC = () => {
         }
         postArticle(article, {
           onSuccess: () => {
+            console.log(title)
+            console.log(content)
+
             alert('게시글이 등록되었습니다.')
             navigate(`/freeboard`)
           },

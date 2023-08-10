@@ -17,7 +17,7 @@ export const CounselEdit = () => {
   const [curriculums, setCurriculums] = useState(
     Array(curriculumCount).fill(''),
   )
-
+  const navigate = useNavigate()
   const [minimumMember, setMinimumMember] = useState(4)
   const [maximumMember, setMaximumMember] = useState(8)
   const [amount, setAmount] = useState('')
@@ -46,10 +46,11 @@ export const CounselEdit = () => {
     flex-direction: column;
   `
   const createCounsel = () => {
-    alert('상담개설`')
+    navigate(`/counsel`)
   }
   const cancle = () => {
-    alert('취소')
+    navigate(`/counsel/counselId`)
+    window.scrollTo(0, 0)
   }
 
   const handleCheckChange = (index: number) => {
@@ -65,8 +66,8 @@ export const CounselEdit = () => {
     ).length
 
     // 이미 3개의 요일이 선택되었는데, 추가로 선택하려고 한다면 막는다.
-    if (newCheckedDaysCount > 3) {
-      alert('최대 3개의 요일만 선택할 수 있습니다.')
+    if (newCheckedDaysCount > 2) {
+      alert('최대 2개의 요일만 선택할 수 있습니다.')
       return
     }
 
@@ -132,7 +133,11 @@ export const CounselEdit = () => {
   }
 
   return (
-    <div>
+    <div
+      style={{
+        marginBottom: '100px',
+      }}
+    >
       <Modal
         isOpen={isModalOpen}
         onRequestClose={() => {
@@ -369,7 +374,7 @@ export const CounselEdit = () => {
                   style={{ marginLeft: '5px' }}
                   checked={checkedDays[index]}
                   onChange={() => handleCheckChange(index)}
-                  disabled={checkedDaysCount >= 3 && !checkedDays[index]}
+                  disabled={checkedDaysCount >= 2 && !checkedDays[index]}
                 />
               </label>
             ))}
@@ -478,7 +483,12 @@ export const CounselEdit = () => {
                   <div style={{ marginRight: '20px' }}>시작 날짜 :</div>
                   <DatePicker
                     selected={startDate}
-                    onChange={(date: Date) => setStartDate(date)}
+                    onChange={(date: Date) => {
+                      setStartDate(date)
+                      if (endDate && date && date > endDate) {
+                        setEndDate(date)
+                      }
+                    }}
                   />
                 </div>
                 <div
@@ -492,6 +502,7 @@ export const CounselEdit = () => {
                   <DatePicker
                     selected={endDate}
                     onChange={(date: Date) => setEndDate(date)}
+                    minDate={startDate}
                   />
                 </div>
               </div>

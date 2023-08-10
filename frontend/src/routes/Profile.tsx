@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import NavbarLogin from '../components/NavbarLogin'
 import Footer from '../components/Footer'
 import Button from '../components/Button'
@@ -24,7 +24,15 @@ export const Profile = () => {
   const [modalIsOpen, setModalIsOpen] = useState(false)
   const [confirmationText, setConfirmationText] = useState('')
   // const isLoggedIn = localStorage.getItem('token')
-  const isLoggedIn = 0
+  const isLoggedIn = 1
+
+  const [profileImageFile, setProfileImageFile] = useState<File | null>(null)
+  let imageURL: string
+  if (profileImageFile) {
+    imageURL = URL.createObjectURL(profileImageFile)
+  } else {
+    imageURL = '/image/default_Image.jpg'
+  }
 
   const modalStyles = {
     content: {
@@ -46,6 +54,7 @@ export const Profile = () => {
   const myReview = () => {}
   const myCounsel = () => {}
   const myCounselJournal = () => {}
+  const myTestimony = () => {}
   const editUserData = () => {
     navigate(`/profile/edit`)
   }
@@ -113,7 +122,6 @@ export const Profile = () => {
         <div
           style={{
             display: 'flex',
-            // justifyContent: 'center',
             flexDirection: 'row',
             alignItems: 'center',
             padding: '16px',
@@ -209,8 +217,8 @@ export const Profile = () => {
           >
             <div className="profile image">
               <img
-                src="/image/seulyoon.jpg"
-                alt="seulyoon"
+                src={imageURL}
+                alt="user profile"
                 style={{ width: '200px', height: '200px', borderRadius: '50%' }}
               />
             </div>
@@ -299,7 +307,7 @@ export const Profile = () => {
                     width: '300px',
                     height: '70px',
                     border: '1px solid lightgray',
-                    borderRadius: '0px 0px 10px 10px',
+                    borderRadius: '0px 0px 0px 0px',
                     cursor: 'pointer',
                   }}
                   onClick={myCounsel}
@@ -311,6 +319,34 @@ export const Profile = () => {
                     }}
                   >
                     내 상담 보기
+                  </div>
+                  <div
+                    style={{
+                      fontWeight: 'bold',
+                      margin: '10px 0px 0px 10px',
+                    }}
+                  >
+                    {'>>'}
+                  </div>
+                </div>
+                <div
+                  className="my testimony"
+                  style={{
+                    width: '300px',
+                    height: '70px',
+                    border: '1px solid lightgray',
+                    borderRadius: '0px 0px 10px 10px',
+                    cursor: 'pointer',
+                  }}
+                  onClick={myTestimony}
+                >
+                  <div
+                    style={{
+                      fontWeight: 'bold',
+                      margin: '10px 0px 0px 10px',
+                    }}
+                  >
+                    소감문 보기
                   </div>
                   <div
                     style={{

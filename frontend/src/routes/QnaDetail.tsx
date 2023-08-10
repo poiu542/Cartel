@@ -42,7 +42,6 @@ export const QnaDetail = () => {
     refetch,
   } = useQuery<BoardData>(['qna', id], () => getBoard(id))
 
-  console.log(article)
   useEffect(() => {
     // article 데이터가 있는 경우 board 상태를 설정합니다.
     if (article) {
@@ -67,7 +66,7 @@ export const QnaDetail = () => {
   const deleteQna = () => {
     if (window.confirm('게시글을 삭제하시겠습니까?')) {
       axios
-        .delete(`/articles/${qnaId}`, {})
+        .delete(`${process.env.REACT_APP_BASE_URL}articles/${qnaId}`, {})
         .then(function (response) {
           alert('게시글이 삭제되었습니다.')
           navigate('/qna')
