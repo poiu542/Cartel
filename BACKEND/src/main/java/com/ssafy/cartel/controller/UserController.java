@@ -53,7 +53,9 @@ public class UserController {
 
 
     @PostMapping("/login")
-    public HttpHeaders login(@RequestParam String email, @RequestParam String password) {
+    public HttpHeaders login(@RequestBody Map<String,String> login) {
+        String email = login.get("email");
+        String password = login.get("password");
 
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(email, password));
