@@ -53,11 +53,6 @@ public class ArticleService {
         Article article = articleRepository.findById(id)
                 .orElseThrow(()-> new IllegalArgumentException("not found:" + id));
         article.view(article.getViews());
-
-
-
-
     }
-
 
 }
