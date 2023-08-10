@@ -38,8 +38,8 @@ export const FreeBoardWrite: React.FC = () => {
     userId: 1,
     type: 0,
     status: 0,
-    nickname: '병신',
-    email: 'wef@sd',
+    nickname: '',
+    email: '',
   })
 
   const {
@@ -85,8 +85,8 @@ export const FreeBoardWrite: React.FC = () => {
           type: type,
           status: 0,
           date: new Date().toISOString(),
-          nickname: '병신',
-          email: '23@asdf',
+          nickname: '',
+          email: '',
         }
         postArticle(article, {
           onSuccess: () => {

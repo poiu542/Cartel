@@ -189,8 +189,6 @@ export const SignUp = () => {
           alert('회원가입 중 오류가 발생했습니다.')
           // 실패한 경우 오류 메시지 표시 또는 추가 작업 수행
         })
-    } else {
-      alert('필수 입력 항목을 모두 채워주세요.')
     }
   }
   const handleProfileUpload = () => {
