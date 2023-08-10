@@ -35,7 +35,9 @@ export const CounselDetail = () => {
       window.scrollTo(0, 0)
     }
   }
-  const editCounselDetail = () => {}
+  const editCounselDetail = () => {
+    navigate('/counsel/edit/:counselId/')
+  }
   const deleteCounselDetail = () => {}
 
   return (
