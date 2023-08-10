@@ -17,7 +17,7 @@ export const getChatMessage = createAsyncThunk(
     }
     try {
       const response = await axios.get(
-        `/api/chat-rooms/${payload.roomId}/messages`,
+        `${process.env.REACT_APP_BASE_URL}/chat-rooms/${payload.roomId}/messages`,
         config,
       )
       return response

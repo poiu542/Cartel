@@ -695,7 +695,7 @@ class CounselOpenvidu extends Component {
 
   async createSession(sessionId) {
     const response = await axios.post(
-      'api/sessions',
+      `${process.env.REACT_APP_BASE_URL}sessions`,
       { customSessionId: sessionId },
       {
         headers: { 'Content-Type': 'application/json' },
@@ -706,7 +706,7 @@ class CounselOpenvidu extends Component {
 
   async createToken(sessionId) {
     const response = await axios.post(
-      'api/sessions/' + sessionId + '/connections',
+      `${process.env.REACT_APP_BASE_URL}sessions/` + sessionId + '/connections',
       {},
       {
         headers: { 'Content-Type': 'application/json' },

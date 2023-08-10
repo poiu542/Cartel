@@ -67,7 +67,7 @@ export const QnaDetail = () => {
   const deleteQna = () => {
     if (window.confirm('게시글을 삭제하시겠습니까?')) {
       axios
-        .delete(`api/articles/${qnaId}`, {})
+        .delete(`${process.env.REACT_APP_BASE_URL}articles/${qnaId}`, {})
         .then(function (response) {
           alert('게시글이 삭제되었습니다.')
           navigate('/qna')

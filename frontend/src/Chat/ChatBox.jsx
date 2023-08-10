@@ -96,7 +96,10 @@ const ChatBox = () => {
 
   useEffect(() => {
     axios
-      .get(`/api/chat-rooms/otherUserInfo/${roomId}`, config)
+      .get(
+        `${process.env.REACT_APP_BASE_URL}/chat-rooms/otherUserInfo/${roomId}`,
+        config,
+      )
       .then((response) => {
         setOtherUserInfo(response.data.result.data)
       })

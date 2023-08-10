@@ -58,7 +58,7 @@ export const Testimony = () => {
 
   useEffect(() => {
     axios
-      .get('api/articles')
+      .get(`${process.env.REACT_APP_BASE_URL}articles`)
       .then((response) => {
         setBoardList([...response.data].reverse())
       })
