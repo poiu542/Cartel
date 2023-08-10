@@ -37,8 +37,10 @@ export const FreeBoard = () => {
   // axios data파일 받아오기
   useEffect(() => {
     axios
-      .get('/articles')
+      .get('/api/articles')
       .then((response) => {
+        console.log('일단 여기 와야 하고')
+        console.log(response.data)
         setBoardList([...response.data].reverse())
       })
 
