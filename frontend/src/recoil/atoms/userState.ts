@@ -1,4 +1,10 @@
 import { atom } from 'recoil'
+import { recoilPersist } from 'recoil-persist'
+
+const { persistAtom } = recoilPersist({
+  key: 'loginUser',
+  storage: sessionStorage,
+})
 
 type User = {
   id: number | null
@@ -23,4 +29,5 @@ export const userState = atom<User>({
     school: '',
     introduction: '',
   },
+  effects_UNSTABLE: [persistAtom],
 })
