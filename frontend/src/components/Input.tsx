@@ -17,7 +17,7 @@ const Input: React.FC<InputProps> = ({
   placeholder,
   width,
   type = 'text',
-  maxLength = 15, // 최대 글자 수 제한의 기본값 15로 설정
+  maxLength = 255, // 최대 글자 수 제한의 기본값 15로 설정
   padding = '7px',
   marginBottom = '20px',
 }) => {
