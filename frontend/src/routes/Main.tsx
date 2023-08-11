@@ -21,7 +21,6 @@ import CounselJournalModal from './../components/CounselJournalModal'
 import { NoneStyledLink } from './../styles/Custom'
 import { useQuery } from 'react-query'
 import { getBoards } from '../hooks/useboard'
-import { BoardData } from '../model/board'
 
 console.log('|\\_/|')
 console.log('|%cq %cp %c|   /}', 'color:red', 'color:red', 'color:black')
