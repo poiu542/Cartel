@@ -4,7 +4,6 @@ import NavbarLogin from '../components/NavbarLogin'
 import CounselorCard from '../components/CounselorCard'
 import PreviewBox from '../components/PreviewBox'
 import Footer from '../components/Footer'
-// import CampaignIcon from '@mui/icons-material/Campaign'
 import { useNavigate } from 'react-router-dom'
 import { FlexContainer, FlexContainerRow } from '../styles/MainStyle'
 import StyledButton from '../styles/StyledButton'
@@ -15,12 +14,9 @@ import { GoPeople } from 'react-icons/go'
 import { LuInspect } from 'react-icons/lu'
 import { MdOutlinePsychologyAlt } from 'react-icons/md'
 import { AiOutlineShoppingCart } from 'react-icons/ai'
-import { Test } from '../components/Test'
-import { Testimony } from './Testimony'
 import TestimonyModal from '../components/TestimonyModal'
-
-// import { StyledDiv } from './../components/Write'
-import counselJournalModal from './../components/CounselJournalModal'
+import axios from 'axios'
+import { BoardData } from '../model/board'
 import CounselJournalModal from './../components/CounselJournalModal'
 import { NoneStyledLink } from './../styles/Custom'
 import { useQuery } from 'react-query'
@@ -36,6 +32,9 @@ console.log('불만 있으신 분들은: xogmamoc@naver.com으로 연락주세�
 console.log('도와주셔서 감사합니다.')
 
 export const Main = () => {
+  const [boardList, setBoardList] = useState<BoardData[]>([])
+  const [convertedPosts, setConvertedPosts] = useState<Post[]>([])
+
   const navigate = useNavigate()
   const [bestBoard, setBestBoard] = useState<BoardData[]>([])
   const onCardClick = () => {
@@ -118,48 +117,35 @@ export const Main = () => {
     justify-content: space-between;
   `
 
-  const { isLoading, data: boards, isError } = useQuery(['articles'], getBoards)
-
-  // 첫 번째 useEffect: 데이터 로딩 후 실행
-  useEffect(() => {
-    if (boards) {
-      const filteredBoards = boards.filter(
-        (article: BoardData) => article.type === 0,
-      )
-      const sortedBestBoard = filteredBoards
-        .filter(
-          (board: BoardData) =>
-            board.reviews !== undefined && board.reviews !== null,
-        )
-        .sort(
-          (a: BoardData, b: BoardData) => (b.reviews || 0) - (a.reviews || 0),
-        )
-      const topSixBestBoard = sortedBestBoard.slice(0, 6)
-      setBestBoard(topSixBestBoard)
-    }
-  }, [boards])
-
-  // 두 번째 useEffect: bestBoard 변경 시 실행
-  useEffect(() => {
-    if (bestBoard.length > 0) {
-      const sortedBestBoard = bestBoard
-        .filter(
-          (board) => board.reviews !== undefined && board.reviews !== null,
-        )
-        .sort((a, b) => (b.reviews || 0) - (a.reviews || 0))
-      const topSixBestBoard = sortedBestBoard.slice(0, 6)
-      setBestBoard(topSixBestBoard)
-    }
-  }, [bestBoard])
-
-  if (isLoading) {
-    return <h1>로딩 중입니다!!</h1>
+  interface Post {
+    title: string
+    content: string
+    id: number
+    views: number
   }
 
-  if (isError) {
-    return <h1>에러가 발생했습니다.</h1>
-  }
-  console.log(bestBoard)
+  useEffect(() => {
+    axios
+      .get(`${process.env.REACT_APP_BASE_URL}articles`)
+      .then((response) => {
+        console.log(response)
+
+        const sortedData = [...response.data]
+          .sort((a, b) => b.views - a.views)
+          .slice(0, 6)
+
+        setBoardList(sortedData)
+        const convertedPosts: Post[] = sortedData.map((item) => ({
+          ...item,
+          id: item.id ?? 0,
+        }))
+        setConvertedPosts(convertedPosts)
+      })
+      .catch(function (error) {
+        console.log(error)
+      })
+  }, [])
+
   return (
     <div>
       <div className="Navbar">
@@ -522,7 +508,11 @@ export const Main = () => {
         >
           <PreviewBox
             title="BEST 게시글"
+<<<<<<< HEAD
             posts={bestBoard}
+=======
+            posts={convertedPosts}
+>>>>>>> frontend-seok
             onClick={ViewAll}
             width="300px"
             height="235px"

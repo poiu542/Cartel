@@ -402,7 +402,7 @@ export const CounselDetail = () => {
       >
         <PreviewBox
           title="상담 커리큘럼"
-          posts={[
+          curriculum={[
             { title: '[공지] 상담일정 변경 안내' },
             { title: '공지2' },
             { title: '공지3' },
