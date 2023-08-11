@@ -1,10 +1,9 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import Carousel from '../components/Carousel'
 import NavbarLogin from '../components/NavbarLogin'
 import CounselorCard from '../components/CounselorCard'
 import PreviewBox from '../components/PreviewBox'
 import Footer from '../components/Footer'
-// import CampaignIcon from '@mui/icons-material/Campaign'
 import { useNavigate } from 'react-router-dom'
 import { FlexContainer, FlexContainerRow } from '../styles/MainStyle'
 import StyledButton from '../styles/StyledButton'
@@ -15,12 +14,9 @@ import { GoPeople } from 'react-icons/go'
 import { LuInspect } from 'react-icons/lu'
 import { MdOutlinePsychologyAlt } from 'react-icons/md'
 import { AiOutlineShoppingCart } from 'react-icons/ai'
-import { Test } from '../components/Test'
-import { Testimony } from './Testimony'
 import TestimonyModal from '../components/TestimonyModal'
-
-// import { StyledDiv } from './../components/Write'
-import counselJournalModal from './../components/CounselJournalModal'
+import axios from 'axios'
+import { BoardData } from '../model/board'
 import CounselJournalModal from './../components/CounselJournalModal'
 import { NoneStyledLink } from './../styles/Custom'
 
@@ -33,6 +29,9 @@ console.log('불만 있으신 분들은: xogmamoc@naver.com으로 연락주세�
 console.log('도와주셔서 감사합니다.')
 
 export const Main = () => {
+  const [boardList, setBoardList] = useState<BoardData[]>([])
+  const [convertedPosts, setConvertedPosts] = useState<Post[]>([])
+
   const navigate = useNavigate()
   const onCardClick = () => {
     alert('상담사 상세페이지에서 첫 번째 카드만 상세페이지 이동 돼요')
@@ -113,6 +112,35 @@ export const Main = () => {
     display: flex;
     justify-content: space-between;
   `
+
+  interface Post {
+    title: string
+    content: string
+    id: number
+    views: number
+  }
+
+  useEffect(() => {
+    axios
+      .get(`${process.env.REACT_APP_BASE_URL}articles`)
+      .then((response) => {
+        console.log(response)
+
+        const sortedData = [...response.data]
+          .sort((a, b) => b.views - a.views)
+          .slice(0, 6)
+
+        setBoardList(sortedData)
+        const convertedPosts: Post[] = sortedData.map((item) => ({
+          ...item,
+          id: item.id ?? 0,
+        }))
+        setConvertedPosts(convertedPosts)
+      })
+      .catch(function (error) {
+        console.log(error)
+      })
+  }, [])
 
   return (
     <div>
@@ -476,12 +504,7 @@ export const Main = () => {
         >
           <PreviewBox
             title="BEST 게시글"
-            posts={[
-              { title: '[공지] 상담일정 변경 안내' },
-              { title: '공지2' },
-              { title: '공지3' },
-              { title: '공지4' },
-            ]}
+            posts={convertedPosts}
             onClick={ViewAll}
             width="300px"
             height="235px"
