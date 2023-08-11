@@ -1,11 +1,15 @@
 package com.ssafy.cartel.controller;
 
 import com.ssafy.cartel.config.jwt.TokenProvider;
+import com.ssafy.cartel.domain.Article;
 import com.ssafy.cartel.domain.User;
+import com.ssafy.cartel.dto.ArticleResponse;
 import com.ssafy.cartel.dto.EmailAuthRequest;
 import com.ssafy.cartel.dto.UserDto;
+import com.ssafy.cartel.dto.UserResponse;
 import com.ssafy.cartel.repository.UserRepository;
 import com.ssafy.cartel.service.UserService;
+import jakarta.websocket.server.PathParam;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -16,7 +20,6 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
-
 import java.time.Duration;
 import java.util.*;
 
@@ -28,6 +31,8 @@ public class UserController {
     private final UserService userService;
     private final TokenProvider tokenProvider;
     private final UserRepository userRepository;
+
+
 
     @PostMapping("/signup/email")
     public ResponseEntity<Void> authMail(@RequestBody EmailAuthRequest request) {
@@ -80,8 +85,13 @@ public class UserController {
         userinfo.put("userId",user.getId());
         userinfo.put("token",accessToken);
         userinfo.put("type",user.getType());
-
         return userinfo;
+    }
+    @GetMapping("/userinfo/{id}")
+    public ResponseEntity<UserResponse> userInfo(@PathVariable Integer id){
+        User user = userService.findbyId(id);
+
+        return ResponseEntity.ok().body(new UserResponse(user));
 
     }
 }

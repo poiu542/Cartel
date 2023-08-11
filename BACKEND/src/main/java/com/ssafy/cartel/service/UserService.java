@@ -46,6 +46,12 @@ public class UserService {
                 .orElseThrow(()-> new IllegalArgumentException("unexpexted token"));
     }
 
+    //id로 user 찾기
+    public User findbyId(Integer id){
+        return userRepository.findById(id)
+                .orElseThrow(()-> new IllegalArgumentException("unexpexted id"));
+    }
+
 
 
     // 인증 메일 전송 로직
