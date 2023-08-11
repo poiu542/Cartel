@@ -46,4 +46,10 @@ public class Comment {
         this.article = article;
         this.user = user;
     }
+
+    public void update(String content, LocalDateTime date, Integer state) {
+        this.content = content;
+        this.date = date;
+        this.state = state;
+    }
 }

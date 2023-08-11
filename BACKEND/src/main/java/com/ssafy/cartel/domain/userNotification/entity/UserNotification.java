@@ -24,7 +24,13 @@ public class UserNotification {
     private Notification notificationId;
 
     @Builder
-    public UserNotification(Client cliendId, Notification notificationId) {
+    public UserNotification(Client cliendId, Notification notificationId, Integer id) {
+        this.cliendId = cliendId;
+        this.notificationId = notificationId;
+        this.id = id;
+    }
+
+    public void update(Client cliendId, Notification notificationId) {
         this.cliendId = cliendId;
         this.notificationId = notificationId;
     }

@@ -1,10 +1,16 @@
 package com.ssafy.cartel.domain.article.dto;
 
 import com.ssafy.cartel.domain.article.entity.Article;
+<<<<<<< HEAD
+=======
+import com.ssafy.cartel.domain.user.entity.User;
+import lombok.AllArgsConstructor;
+>>>>>>> 450fc5b08cc0bcdcbee8d5ab7b997741843b6736
 import lombok.Getter;
 
 import java.time.LocalDateTime;
 
+@AllArgsConstructor //모든 필드값을 파라미터로 받는 생성자
 @Getter
 public class ArticleResponse {
 

@@ -3,6 +3,7 @@ package com.ssafy.cartel.domain.payment.entity;
 import com.ssafy.cartel.domain.client.entity.Client;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -37,6 +38,7 @@ public class Payment {
     @Column(name = "payment_method", nullable = false)
     private String method;
 
+    @Builder
     public Payment(Integer status, Integer amount, LocalDateTime time, Client clientId, String paymentId, String method) {
         this.status = status;
         this.amount = amount;
@@ -44,5 +46,9 @@ public class Payment {
         this.clientId = clientId;
         this.paymentId = paymentId;
         this.method = method;
+    }
+
+    public void update(Integer status) {
+        this.status = status;
     }
 }

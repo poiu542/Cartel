@@ -29,9 +29,13 @@ public class ReviewQuestion {
     private Review review;
 
     @Builder
-    public ReviewQuestion(String question, Integer type, Review reviewId) {
+    public ReviewQuestion(String question, Integer type, Review review) {
         this.question = question;
         this.type = type;
         this.review = review;
+    }
+
+    public void update(String question) {
+        this.question = question;
     }
 }

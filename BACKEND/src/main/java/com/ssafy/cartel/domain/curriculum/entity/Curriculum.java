@@ -34,4 +34,10 @@ public class Curriculum {
         this.content = content;
         this.counselId = counselId;
     }
+
+    public void update(Integer title, String content) {
+        this.title = title;
+        this.content = content;
+    }
+
 }

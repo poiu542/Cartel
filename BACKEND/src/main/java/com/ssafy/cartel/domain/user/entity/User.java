@@ -65,6 +65,7 @@ public class User implements UserDetails {
         this.refreshToken = refreshToken;
     }
 
+<<<<<<< HEAD
     public void updateImg(String imgURL) {
         this.profileUrl = imgURL;
     }

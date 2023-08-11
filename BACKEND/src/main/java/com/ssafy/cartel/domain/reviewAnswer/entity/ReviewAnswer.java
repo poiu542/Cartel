@@ -37,4 +37,8 @@ public class ReviewAnswer {
         this.date = date;
         this.reviewQuestion = reviewQuestion;
     }
+
+    public void update(String answer) {
+        this.answer = answer;
+    }
 }

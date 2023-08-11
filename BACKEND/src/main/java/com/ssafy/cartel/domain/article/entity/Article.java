@@ -1,5 +1,6 @@
 package com.ssafy.cartel.domain.article.entity;
 
+
 import com.ssafy.cartel.domain.comment.entity.Comment;
 import com.ssafy.cartel.domain.user.entity.User;
 import jakarta.persistence.*;
@@ -42,7 +43,7 @@ public class Article {
     @Column(name ="post_type", nullable = false)
     private Integer type;
 
-    @Column(name ="post_date", nullable = false)
+    @Column(name ="post_date", nullable = false )
     private LocalDateTime date;
 
     @Column(name = "post_status", nullable = false)

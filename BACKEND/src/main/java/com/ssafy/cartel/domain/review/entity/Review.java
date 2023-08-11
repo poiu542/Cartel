@@ -2,7 +2,10 @@ package com.ssafy.cartel.domain.review.entity;
 
 
 import com.ssafy.cartel.domain.client.entity.Client;
+<<<<<<< HEAD
 import com.ssafy.cartel.domain.counsel.entity.Counsel;
+=======
+>>>>>>> 450fc5b08cc0bcdcbee8d5ab7b997741843b6736
 import com.ssafy.cartel.domain.curriculum.entity.Curriculum;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
@@ -37,8 +40,15 @@ public class Review { //소감문
     private LocalDateTime date;
 
     @Builder
-    public Review(Counsel counselId, Client clientId, Curriculum curriculumId, Integer state, LocalDateTime date) {
+    public Review( Client clientId, Curriculum curriculumId, Integer state, LocalDateTime date) {
 
+        this.clientId = clientId;
+        this.curriculumId = curriculumId;
+        this.state = state;
+        this.date = date;
+    }
+
+    public void update(Client clientId, Curriculum curriculumId, Integer state, LocalDateTime date) {
         this.clientId = clientId;
         this.curriculumId = curriculumId;
         this.state = state;
