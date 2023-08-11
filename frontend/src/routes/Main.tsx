@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import Carousel from '../components/Carousel'
 import NavbarLogin from '../components/NavbarLogin'
 import CounselorCard from '../components/CounselorCard'
@@ -23,6 +23,9 @@ import TestimonyModal from '../components/TestimonyModal'
 import counselJournalModal from './../components/CounselJournalModal'
 import CounselJournalModal from './../components/CounselJournalModal'
 import { NoneStyledLink } from './../styles/Custom'
+import { useQuery } from 'react-query'
+import { getBoards } from '../hooks/useboard'
+import { BoardData } from '../model/board'
 
 console.log('|\\_/|')
 console.log('|%cq %cp %c|   /}', 'color:red', 'color:red', 'color:black')
@@ -34,6 +37,7 @@ console.log('도와주셔서 감사합니다.')
 
 export const Main = () => {
   const navigate = useNavigate()
+  const [bestBoard, setBestBoard] = useState<BoardData[]>([])
   const onCardClick = () => {
     alert('상담사 상세페이지에서 첫 번째 카드만 상세페이지 이동 돼요')
   }
@@ -114,6 +118,48 @@ export const Main = () => {
     justify-content: space-between;
   `
 
+  const { isLoading, data: boards, isError } = useQuery(['articles'], getBoards)
+
+  // 첫 번째 useEffect: 데이터 로딩 후 실행
+  useEffect(() => {
+    if (boards) {
+      const filteredBoards = boards.filter(
+        (article: BoardData) => article.type === 0,
+      )
+      const sortedBestBoard = filteredBoards
+        .filter(
+          (board: BoardData) =>
+            board.reviews !== undefined && board.reviews !== null,
+        )
+        .sort(
+          (a: BoardData, b: BoardData) => (b.reviews || 0) - (a.reviews || 0),
+        )
+      const topSixBestBoard = sortedBestBoard.slice(0, 6)
+      setBestBoard(topSixBestBoard)
+    }
+  }, [boards])
+
+  // 두 번째 useEffect: bestBoard 변경 시 실행
+  useEffect(() => {
+    if (bestBoard.length > 0) {
+      const sortedBestBoard = bestBoard
+        .filter(
+          (board) => board.reviews !== undefined && board.reviews !== null,
+        )
+        .sort((a, b) => (b.reviews || 0) - (a.reviews || 0))
+      const topSixBestBoard = sortedBestBoard.slice(0, 6)
+      setBestBoard(topSixBestBoard)
+    }
+  }, [bestBoard])
+
+  if (isLoading) {
+    return <h1>로딩 중입니다!!</h1>
+  }
+
+  if (isError) {
+    return <h1>에러가 발생했습니다.</h1>
+  }
+  console.log(bestBoard)
   return (
     <div>
       <div className="Navbar">
@@ -476,12 +522,7 @@ export const Main = () => {
         >
           <PreviewBox
             title="BEST 게시글"
-            posts={[
-              { title: '[공지] 상담일정 변경 안내' },
-              { title: '공지2' },
-              { title: '공지3' },
-              { title: '공지4' },
-            ]}
+            posts={bestBoard}
             onClick={ViewAll}
             width="300px"
             height="235px"
