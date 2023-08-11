@@ -19,8 +19,6 @@ import axios from 'axios'
 import { BoardData } from '../model/board'
 import CounselJournalModal from './../components/CounselJournalModal'
 import { NoneStyledLink } from './../styles/Custom'
-import { useQuery } from 'react-query'
-import { getBoards } from '../hooks/useboard'
 
 console.log('|\\_/|')
 console.log('|%cq %cp %c|   /}', 'color:red', 'color:red', 'color:black')
@@ -450,7 +448,10 @@ export const Main = () => {
               justifyContent: 'space-around',
             }}
           >
-            <SurviceDiv style={{ width: '30%', height: '100%' }}>
+            <SurviceDiv
+              style={{ width: '30%', height: '100%', cursor: 'pointer' }}
+              onClick={goServicePage}
+            >
               <div style={{ padding: '10px 0px 0px 20px' }}>
                 <p style={{ fontSize: '20px' }}>서비스소개</p>
                 <p style={{ marginRight: '20px' }}>
@@ -470,7 +471,9 @@ export const Main = () => {
                   width: '100%',
                   height: '45%',
                   verticalAlign: 'middle',
+                  cursor: 'pointer',
                 }}
+                onClick={goSelfHelpGroup}
               >
                 <FlexContainerRow>
                   <div style={{ padding: '10px 0px 0px 20px' }}>
@@ -485,7 +488,13 @@ export const Main = () => {
                   {/* <img src="/image/dog.png" alt="" style={{ width: '150px' }} /> */}
                 </FlexContainerRow>
               </GroupDiv>
-              <DrugDiv style={{ width: '100%', height: '45%' }}>
+              <DrugDiv
+                style={{ width: '100%', height: '45%', cursor: 'pointer' }}
+                onClick={() =>
+                  (window.location.href =
+                    'http://bgnmh.go.kr/checkmehealme/selftest/drgTest3.xx')
+                }
+              >
                 <div style={{ padding: '10px 0px 0px 20px' }}>
                   <p style={{ fontSize: '20px' }}>중독검사</p>
                   <p style={{ marginRight: '20px' }}>

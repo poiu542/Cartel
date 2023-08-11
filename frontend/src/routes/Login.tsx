@@ -59,8 +59,6 @@ import axios from 'axios'
 // ]
 
 export const Login = () => {
-  const [user, setUser] = useRecoilState(userState)
-
   const [userType, setUserType] = useState(0)
   const [inputEmailValue, setinputEmailValue] = useState('')
   const [inputPassValue, setinputPassValue] = useState('')
@@ -68,6 +66,7 @@ export const Login = () => {
   const [inputPassCheckValue, setinputPassCheckValue] = useState('')
   const dispatch = useDispatch()
   const navigate = useNavigate()
+  const [user, setUser] = useRecoilState(userState)
 
   const handleEmailChange = (event: ChangeEvent<HTMLInputElement>) => {
     setinputEmailValue(event.target.value)
@@ -81,7 +80,6 @@ export const Login = () => {
     }
   }
   const handleLogIn = () => {
-    console.log('로그인눌렀다')
     const email = inputEmailValue
     const password = inputPassValue
 
@@ -96,15 +94,23 @@ export const Login = () => {
     axios
       .post(`${process.env.REACT_APP_BASE_URL}login`, data)
       .then((response) => {
-        // 'Authorization' 헤더 값 가져오기
-        const accessToken = response.headers.authorization
+        // 헤더 정보
+        console.log(response)
+        const accessToken = response.data.token
+        const type = response.data.type
+        const userId = response.data.userId
+        const nickname = response.data.nickname
 
         // API 요청하는 콜마다 헤더에 accessToken 담아 보내도록 설정
-        // axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`
+        axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`
         localStorage.setItem('accesstoken', accessToken)
-        if (localStorage.getItem(accessToken)) {
-          setUser((prevUser) => ({ ...prevUser, isLoggedIn: true }))
-        }
+        setUser((prevUser) => ({
+          ...prevUser,
+          isLoggedIn: true,
+          nickname: nickname,
+          type: type,
+          id: userId,
+        }))
 
         navigate('/')
       })
@@ -114,6 +120,7 @@ export const Login = () => {
         } else {
           console.log('Error Message:', error.message)
         }
+        setUser((prevUser) => ({ ...prevUser, isLoggedIn: false }))
       })
   }
   const handleKakaoLogIn = () => {
@@ -163,6 +170,7 @@ export const Login = () => {
               value={inputEmailValue}
               onChange={handleEmailChange}
               placeholder="이메일"
+              maxLength={50}
             />
           </FlexContainerRow>
           <Input
@@ -170,6 +178,7 @@ export const Login = () => {
             onChange={handlePassChange}
             placeholder="비밀번호"
             type="password"
+            maxLength={255}
           />
         </FlexContainerAlignStart>
         <Button
