@@ -42,7 +42,6 @@ export const FreeBoard = () => {
         console.log(response.data)
         setBoardList([...response.data].reverse())
       })
-
       .catch(function (error) {
         console.log(error)
       })

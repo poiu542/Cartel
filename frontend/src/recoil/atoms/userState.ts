@@ -5,6 +5,9 @@ type User = {
   email: string
   type: number
   isLoggedIn: boolean
+  phoneNumber: string
+  school: string
+  introduction: string
 }
 
 export const userState = atom<User>({
@@ -14,5 +17,8 @@ export const userState = atom<User>({
     email: '',
     type: 0,
     isLoggedIn: false,
+    phoneNumber: '',
+    school: '',
+    introduction: '',
   },
 })

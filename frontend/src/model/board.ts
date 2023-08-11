@@ -31,6 +31,7 @@ export interface BoardData {
   id?: number
   nickname: string
   email: string
+  reviews?: number
 }
 
 export interface CommentData {}
