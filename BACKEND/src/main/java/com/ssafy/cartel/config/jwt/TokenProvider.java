@@ -5,6 +5,7 @@ import com.ssafy.cartel.domain.Day;
 import com.ssafy.cartel.domain.User;
 
 
+import com.ssafy.cartel.service.UserService;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Header;
 import io.jsonwebtoken.Jwts;
@@ -28,13 +29,16 @@ import java.util.Set;
 public class TokenProvider { //토큰 생성
 
     private final JwtProperties jwtProperties;
+    private final UserService userService;
 
     public String generateToken(User user, Duration expired){
         Date now = new Date();
 
         //최초 로그인으로 refreshtoken 필요
-        if(user.getRefreshToken()==null)
-            makeRefreshToken(new Date(now.getTime() + Duration.ofDays(7).toMillis()),user);
+        if(user.getRefreshToken()==null) {
+            String newrefresh = makeRefreshToken(new Date(now.getTime() + Duration.ofDays(7).toMillis()), user);
+            userService.update(user,newrefresh);
+        }
 
         return makeAccessToken(new Date(now.getTime() + expired.toMillis()), user);
     }
