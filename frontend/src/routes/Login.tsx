@@ -1,4 +1,3 @@
-// eslint-disable-next-line
 import React, { ChangeEvent, useState, useEffect } from 'react'
 import NavbarLogin from '../components/NavbarLogin'
 import { styled } from 'styled-components'
