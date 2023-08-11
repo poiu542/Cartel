@@ -7,6 +7,7 @@ interface ButtonProps {
   size?: Size
   text?: string
   onClick?: () => void
+  disabled?: boolean
 }
 
 const Button: React.FC<ButtonProps> = ({
