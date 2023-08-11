@@ -2,6 +2,7 @@ package com.ssafy.cartel.controller;
 
 import com.ssafy.cartel.domain.Comment;
 import com.ssafy.cartel.dto.CommentDto;
+import com.ssafy.cartel.service.ArticleService;
 import com.ssafy.cartel.service.CommentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -15,12 +16,18 @@ import org.springframework.web.bind.annotation.RestController;
 public class CommentController {
 
     private final CommentService commentService;
+    private final ArticleService articleService;
 
     @PostMapping("/articles/comments")
-    public ResponseEntity<Comment> addComment(@RequestBody CommentDto commentDto){
+    public Comment addComment(@RequestBody CommentDto commentDto){
+        Integer postId = commentDto.getPostId();
         Comment comment = commentService.save(commentDto);
 
-        return ResponseEntity.status(HttpStatus.CREATED)
-                .body(comment);
+        articleService.comment(postId,comment);
+
+
+        return comment;
     }
+
+
 }

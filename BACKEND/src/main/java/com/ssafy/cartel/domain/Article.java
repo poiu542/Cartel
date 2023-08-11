@@ -70,4 +70,8 @@ public class Article {
     public void view(Integer views){
         this.views = views+1;
     }
+
+    public void comment(List<Comment> comments){
+        this.comments = comments;
+    }
 }
