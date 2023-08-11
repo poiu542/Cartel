@@ -20,7 +20,7 @@ import styled from '@emotion/styled'
 // import StopScreenShareOutlinedIcon from '@mui/icons-material/StopScreenShareOutlined'
 // import { Icon } from '@mui/material'
 
-const APPLICATION_SERVER_URL = 'http://i9b209.p.ssafy.io:8080/'
+// const APPLICATION_SERVER_URL = 'http://i9b209.p.ssafy.io:8080/'
 const Container = styled.div`
   height: 100vh;
   width: 100%;
@@ -291,6 +291,13 @@ class CounselOpenvidu extends Component {
 
     this.OV = new OpenVidu()
 
+    this.OV.setAdvancedConfiguration({
+      publisherSpeakingEventsOptions: {
+        interval: 100,
+        threshold: -50,
+      },
+    })
+
     // --- 2) Init a session ---
 
     this.setState(
@@ -301,6 +308,42 @@ class CounselOpenvidu extends Component {
         var mySession = this.state.session
 
         // --- 3) Specify the actions when events take place in the session ---
+
+        // 발언자가 말하기 시작할 때
+        mySession.on('publisherStartSpeaking', (event) => {
+          console.log(
+            'User ' + event.connection.connectionId + ' start speaking',
+          )
+          // 현재 발언자의 비디오 요소 가져오기
+          let currentSpeakerVideo = document.getElementById(
+            event.connection.connectionId,
+          )
+
+          if (currentSpeakerVideo && currentSpeakerVideo.srcObject) {
+            currentSpeakerVideo.style.border = '5px solid red'
+
+            let mainVideoElement = document.getElementById('mainVideo')
+            if (mainVideoElement) {
+              mainVideoElement.srcObject = currentSpeakerVideo.srcObject
+            }
+          }
+        })
+
+        // 발언자가 말하기를 멈출 때
+        mySession.on('publisherStopSpeaking', (event) => {
+          console.log(
+            'User ' + event.connection.connectionId + ' stop speaking',
+          )
+          // 현재 발언자의 비디오 요소 가져오기
+          let currentSpeakerVideo = document.getElementById(
+            event.connection.connectionId,
+          )
+
+          if (currentSpeakerVideo) {
+            // 발언자의 비디오 테두리 제거
+            currentSpeakerVideo.style.border = 'none'
+          }
+        })
 
         // On every new Stream received...
         mySession.on('streamCreated', (event) => {
@@ -492,7 +535,7 @@ class CounselOpenvidu extends Component {
             </div>
           ) : null}
           <Left>
-            <VideoContainer>
+            <VideoContainer className="currentSpeakerVideo">
               {this.state.session !== undefined ? (
                 <StreamContainerWrapper
                   primary={this.state.isChat}
@@ -571,107 +614,6 @@ class CounselOpenvidu extends Component {
         </Bottom>
       </Container>
     )
-    // return (
-    //   <div className="container">
-    //     {this.state.session === undefined ? (
-    //       <div id="join">
-    //         <div id="img-div">
-    //           <img
-    //             src="resources/images/openvidu_grey_bg_transp_cropped.png"
-    //             alt="OpenVidu logo"
-    //           />
-    //         </div>
-    //         <div id="join-dialog" className="jumbotron vertical-center">
-    //           <h1> Join a video session </h1>
-    //           <form className="form-group" onSubmit={this.joinSession}>
-    //             <p>
-    //               <label>약쟁이 이름: </label>
-    //               <input
-    //                 className="form-control"
-    //                 type="text"
-    //                 id="userName"
-    //                 value={myUserName}
-    //                 onChange={this.handleChangeUserName}
-    //                 required
-    //               />
-    //             </p>
-    //             <p>
-    //               <label>약팔이방 </label>
-    //               <input
-    //                 className="form-control"
-    //                 type="text"
-    //                 id="sessionId"
-    //                 value={mySessionId}
-    //                 onChange={this.handleChangeSessionId}
-    //                 required
-    //               />
-    //             </p>
-    //             <p className="text-center">
-    //               <input
-    //                 className="btn btn-lg btn-success"
-    //                 name="commit"
-    //                 type="submit"
-    //                 value="JOIN"
-    //               />
-    //             </p>
-    //           </form>
-    //         </div>
-    //       </div>
-    //     ) : null}
-
-    //     {this.state.session !== undefined ? (
-    //       <div id="session">
-    //         <div id="session-header">
-    //           <h1 id="session-title">{mySessionId}</h1>
-    //           <input
-    //             className="btn btn-large btn-danger"
-    //             type="button"
-    //             id="buttonLeaveSession"
-    //             onClick={this.leaveSession}
-    //             value="Leave session"
-    //           />
-    //           <input
-    //             className="btn btn-large btn-success"
-    //             type="button"
-    //             id="buttonSwitchCamera"
-    //             onClick={this.switchCamera}
-    //             value="Switch Camera"
-    //           />
-    //         </div>
-
-    //         {this.state.mainStreamManager !== undefined ? (
-    //           <div id="main-video" className="col-md-6">
-    //             <UserVideoComponent
-    //               streamManager={this.state.mainStreamManager}
-    //             />
-    //           </div>
-    //         ) : null}
-    //         <div id="video-container" className="col-md-6">
-    //           {this.state.publisher !== undefined ? (
-    //             <div
-    //               className="stream-container col-md-6 col-xs-6"
-    //               onClick={() =>
-    //                 this.handleMainVideoStream(this.state.publisher)
-    //               }
-    //             >
-    //               <UserVideoComponent streamManager={this.state.publisher} />
-    //             </div>
-    //           ) : null}
-    //           {this.state.subscribers.map((sub, i) => (
-    //             <div
-    //               key={sub.id}
-    //               className="stream-container col-md-6 col-xs-6"
-    //               onClick={() => this.handleMainVideoStream(sub)}
-    //             >
-    //               <span>{sub.id}</span>
-    //               <UserVideoComponent streamManager={sub} />
-    //             </div>
-    //           ))}
-    //         </div>
-    //       </div>
-    //     ) : null}
-    //   </div>
-    // )
   }
 
   /**
@@ -696,7 +638,7 @@ class CounselOpenvidu extends Component {
 
   async createSession(sessionId) {
     const response = await axios.post(
-      `${process.env.REACT_APP_BASE_URL}sessions`,
+      `${process.env.REACT_APP_BASE_URL}api/sessions`,
       { customSessionId: sessionId },
       {
         headers: { 'Content-Type': 'application/json' },
@@ -707,7 +649,9 @@ class CounselOpenvidu extends Component {
 
   async createToken(sessionId) {
     const response = await axios.post(
-      `${process.env.REACT_APP_BASE_URL}sessions/` + sessionId + '/connections',
+      `${process.env.REACT_APP_BASE_URL}api/sessions/` +
+        sessionId +
+        '/connections',
       {},
       {
         headers: { 'Content-Type': 'application/json' },

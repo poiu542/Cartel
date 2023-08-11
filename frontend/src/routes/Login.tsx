@@ -1,3 +1,4 @@
+// eslint-disable-next-line
 import React, { ChangeEvent, useState, useEffect } from 'react'
 import NavbarLogin from '../components/NavbarLogin'
 import { styled } from 'styled-components'
@@ -80,6 +81,7 @@ export const Login = () => {
     }
   }
   const handleLogIn = () => {
+    console.log('로그인눌렀다')
     const email = inputEmailValue
     const password = inputPassValue
 
@@ -96,12 +98,15 @@ export const Login = () => {
       .then((response) => {
         // 헤더 정보
         const headers = response.headers
+        console.log('ㅁㄴㅇ')
+        console.log(headers)
 
         // 'Authorization' 헤더 값 가져오기
         const authorizationValue =
           headers['authorization'] || headers['Authorization']
 
-        console.log('토큰값:', authorizationValue)
+        console.log('토큰값가져와:', authorizationValue)
+        console.log('1234')
         // const  accessToken  = response.data.token
 
         // API 요청하는 콜마다 헤더에 accessToken 담아 보내도록 설정
