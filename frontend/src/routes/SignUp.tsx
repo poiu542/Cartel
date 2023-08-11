@@ -248,11 +248,7 @@ export const SignUp = () => {
       }
 
       axios
-<<<<<<< HEAD
         .post(`${process.env.REACT_APP_BASE_URL}signup`, userData)
-=======
-        .post('http://i9b209.p.ssafy.io:8080/signup', formData)
->>>>>>> 492672c24273fc2eb4fb667fc1ac06c042ac9398
         .then((response) => {
           console.log(response.data)
           alert('회원가입이 성공적으로 완료되었습니다.')
