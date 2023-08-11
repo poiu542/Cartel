@@ -54,9 +54,6 @@ public class ArticleService {
                 .orElseThrow(()-> new IllegalArgumentException("not found:" + id));
         article.view(article.getViews());
 
-
-
-
     }
 
     @Transactional

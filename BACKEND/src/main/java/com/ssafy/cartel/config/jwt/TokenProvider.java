@@ -37,7 +37,7 @@ public class TokenProvider { //토큰 생성
         //최초 로그인으로 refreshtoken 필요
         if(user.getRefreshToken()==null) {
             String newrefresh = makeRefreshToken(new Date(now.getTime() + Duration.ofDays(7).toMillis()), user);
-            userService.update(user,newrefresh);
+            userService.tokenUpdate(user,newrefresh);
         }
 
         return makeAccessToken(new Date(now.getTime() + expired.toMillis()), user);
