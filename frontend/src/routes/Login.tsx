@@ -1,3 +1,4 @@
+// eslint-disable-next-line
 import React, { ChangeEvent, useState, useEffect } from 'react'
 import NavbarLogin from '../components/NavbarLogin'
 import { styled } from 'styled-components'
@@ -19,6 +20,7 @@ import {
 } from '../styles/SignBtn'
 import { useRecoilValue, useRecoilState } from 'recoil'
 import { userState } from '../recoil/atoms/userState'
+import axios from 'axios'
 
 // const LoginTab = styled.div`
 //   display: flex;
@@ -80,12 +82,40 @@ export const Login = () => {
     }
   }
   const handleLogIn = () => {
-    setUser((prevUser) => ({
-      ...prevUser,
-      isLoggedIn: true,
-    }))
-    alert('로그인')
-    navigate('/')
+    console.log('로그인눌렀다')
+    const email = inputEmailValue
+    const password = inputPassValue
+
+    if (!email || !password) {
+      alert('이메일과 비밀번호를 입력해주세요.')
+      return
+    }
+    const data = {
+      email,
+      password,
+    }
+    axios
+      .post(`${process.env.REACT_APP_BASE_URL}login`, data)
+      .then((response) => {
+        // 'Authorization' 헤더 값 가져오기
+        const accessToken = response.headers.authorization
+
+        // API 요청하는 콜마다 헤더에 accessToken 담아 보내도록 설정
+        // axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`
+        localStorage.setItem('accesstoken', accessToken)
+        if (localStorage.getItem(accessToken)) {
+          setUser((prevUser) => ({ ...prevUser, isLoggedIn: true }))
+        }
+
+        navigate('/')
+      })
+      .catch((error) => {
+        if (error.response) {
+          console.log('Server Response:', error.response.data)
+        } else {
+          console.log('Error Message:', error.message)
+        }
+      })
   }
   const handleKakaoLogIn = () => {
     alert('카카오 로그인')

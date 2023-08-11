@@ -26,10 +26,10 @@ export default function TestimonyModal() {
   const handleClose = () => setOpen(false)
   const [testimony, setTestimony] = React.useState({
     content: '',
-    userId: 1,
+    clientId: 1,
     counselId: 1,
   })
-  const { content, userId, counselId } = testimony
+  const { content, clientId, counselId } = testimony
 
   const handleTestimony = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setTestimony((prevTestimony) => ({

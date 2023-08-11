@@ -5,6 +5,12 @@ type User = {
   email: string
   type: number
   isLoggedIn: boolean
+<<<<<<< HEAD
+=======
+  phoneNumber: string
+  school: string
+  introduction: string
+>>>>>>> frontend-feature-tae
 }
 
 export const userState = atom<User>({
@@ -14,5 +20,11 @@ export const userState = atom<User>({
     email: '',
     type: 0,
     isLoggedIn: false,
+<<<<<<< HEAD
+=======
+    phoneNumber: '',
+    school: '',
+    introduction: '',
+>>>>>>> frontend-feature-tae
   },
 })
