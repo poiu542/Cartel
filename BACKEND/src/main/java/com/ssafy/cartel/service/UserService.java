@@ -80,8 +80,13 @@ public class UserService {
     }
 
     // 이메일 인증 코드 검증
-    public boolean validAuthMailCode(EmailAuthRequest emailAuthRequestDto) {
+    public boolean validAuthMailCode(EmailAuthRequest emailAuthRequestDto) throws Exception {
+        System.out.println(emailAuthRequestDto.getAuthCode());
         String emailFindByCode = redisUtil.getData(emailAuthRequestDto.getAuthCode());
+        if(emailFindByCode == null){
+            throw new Exception("인증번호가 일치하지 않거나 만료되었습니다.");
+        }
+
         return emailFindByCode.equals(emailAuthRequestDto.getEmail());
     }
 

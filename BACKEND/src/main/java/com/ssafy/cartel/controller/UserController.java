@@ -32,28 +32,34 @@ public class UserController {
     private final UserRepository userRepository;
 
     @PostMapping("/signup/email")
-    public ResponseEntity<Void> authMail(@RequestBody EmailAuthRequest request){
+    public ResponseEntity<Void> authMail(@RequestBody EmailAuthRequest request) {
         userService.authMail(request);
         return ResponseEntity.ok().build();
     }
 
     @PostMapping("/signup/email/auth")
-    public ResponseEntity<String> validAuthMailCode(@RequestBody EmailAuthRequest request){
-        if(userService.validAuthMailCode(request))
-            return ResponseEntity.ok("인증되었습니다.");
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("인증코드를 다시 확인해주세요.");
+    public ResponseEntity<String> validAuthMailCode(@RequestBody EmailAuthRequest request) {
+        System.out.println(request);
+
+        try {
+            if (userService.validAuthMailCode(request))
+                return ResponseEntity.ok("인증되었습니다.");
+            else return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("인증코드를 다시 확인해주세요.");
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+        }
     }
 
     @PostMapping("/signup")
-    public ResponseEntity<String> signup(@RequestBody UserDto userDto){
-        if(userService.save(userDto) != null)//회원가입
+    public ResponseEntity<String> signup(@RequestBody UserDto userDto) {
+        if (userService.save(userDto) != null)//회원가입
             return ResponseEntity.ok("회원가입이 완료 되었습니다.");
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("회원가입 실패");
     }
 
 
     @PostMapping("/login")
-    public HttpHeaders login(@RequestBody Map<String,String> login) {
+    public HttpHeaders login(@RequestBody Map<String, String> login) {
         String email = login.get("email");
         String password = login.get("password");
 
@@ -66,14 +72,14 @@ public class UserController {
         String accessToken = tokenProvider.generateToken(user, Duration.ofHours(2));
 
         HttpHeaders headers = new HttpHeaders();
-        headers.add("Authorization", "Bearer"+ accessToken);
-        headers.add("userId",user.getId().toString());
+        headers.add("Authorization", "Bearer" + accessToken);
+        headers.add("userId", user.getId().toString());
         System.out.println(headers.get("Authorization"));
 
         return headers;
 
-        }
     }
+}
 
 
 
