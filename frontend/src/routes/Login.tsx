@@ -65,6 +65,7 @@ export const Login = () => {
   const [inputPassValue, setinputPassValue] = useState('')
   const [passwordCheck, setpasswordCheck] = useState(1)
   const [inputPassCheckValue, setinputPassCheckValue] = useState('')
+  const [user, setUser] = useRecoilState(userState)
   const dispatch = useDispatch()
   const navigate = useNavigate()
 
@@ -95,21 +96,18 @@ export const Login = () => {
       .post(`${process.env.REACT_APP_BASE_URL}login`, data)
       .then((response) => {
         // 헤더 정보
-        const headers = response.headers
 
-        // 'Authorization' 헤더 값 가져오기
-        const authorizationValue =
-          headers['authorization'] || headers['Authorization']
-
-        console.log('토큰값:', authorizationValue)
-        // const  accessToken  = response.data.token
+        const accessToken = response.headers.authorization
 
         // API 요청하는 콜마다 헤더에 accessToken 담아 보내도록 설정
         // axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`
-        // localStorage.setItem('accesstoken', accesstoken)
+        localStorage.setItem('accesstoken', accessToken)
+        if (localStorage.getItem(accessToken)) {
+          setUser((prevUser) => ({ ...prevUser, isLoggedIn: true }))
+        }
+
         alert('로그인')
         navigate('/')
-        // accessToken을 localStorage, cookie 등에 저장하지 않는다!
       })
       .catch((error) => {
         if (error.response) {
