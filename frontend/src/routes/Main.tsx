@@ -26,6 +26,8 @@ import { NoneStyledLink } from './../styles/Custom'
 import { useQuery } from 'react-query'
 import { getBoards } from '../hooks/useboard'
 import { BoardData } from '../model/board'
+import { useRecoilState } from 'recoil'
+import { userState } from './../recoil/atoms/userState'
 
 console.log('|\\_/|')
 console.log('|%cq %cp %c|   /}', 'color:red', 'color:red', 'color:black')
@@ -36,8 +38,10 @@ console.log('불만 있으신 분들은: xogmamoc@naver.com으로 연락주세�
 console.log('도와주셔서 감사합니다.')
 
 export const Main = () => {
+  const [user, setUser] = useRecoilState(userState)
   const navigate = useNavigate()
   const [bestBoard, setBestBoard] = useState<BoardData[]>([])
+  console.log(user.type)
   const onCardClick = () => {
     alert('상담사 상세페이지에서 첫 번째 카드만 상세페이지 이동 돼요')
   }

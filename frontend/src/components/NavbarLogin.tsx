@@ -18,6 +18,7 @@ import NotificationsNoneIcon from '@mui/icons-material/NotificationsNone'
 import { BsPersonCircle } from 'react-icons/bs'
 import { useRecoilValue, useRecoilState } from 'recoil'
 import { userState } from '../recoil/atoms/userState'
+import axios from 'axios'
 
 function NavbarLogin() {
   const [user, setUser] = useRecoilState(userState)
@@ -55,6 +56,7 @@ function NavbarLogin() {
         ...prevUser,
         isLoggedIn: false,
       }))
+      axios.defaults.headers.common['Authorization'] = ``
       navigate(`/`)
     } else if (page === '회원가입') {
       page = 'signup'

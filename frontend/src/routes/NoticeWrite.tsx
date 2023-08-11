@@ -18,6 +18,8 @@ import { BoardData } from '../model/board'
 import { useNavigate } from 'react-router-dom'
 import { useQueryClient } from 'react-query'
 import { Link } from 'react-router-dom'
+import { useRecoilState } from 'recoil'
+import { userState } from '../recoil/atoms/userState'
 
 type UploadImage = {
   location: string
@@ -29,6 +31,8 @@ export const NoticeWrite: React.FC = () => {
   // status 삭제상태 or 게시상태
   const queryClient = useQueryClient()
   const navigate = useNavigate()
+  const [user, setUser] = useRecoilState(userState)
+
   const [board, setBoard] = useState({
     title: '',
     content: '',
