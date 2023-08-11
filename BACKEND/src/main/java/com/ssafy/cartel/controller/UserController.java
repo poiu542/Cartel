@@ -18,9 +18,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.Duration;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.ResourceBundle;
+import java.util.*;
 
 @RequiredArgsConstructor
 @RestController
@@ -59,7 +57,7 @@ public class UserController {
 
 
     @PostMapping("/login")
-    public HttpHeaders login(@RequestBody Map<String, String> login) {
+    public Map<String,Object> login(@RequestBody Map<String, String> login) {
         String email = login.get("email");
         String password = login.get("password");
 
@@ -71,12 +69,19 @@ public class UserController {
         //accesstoken 생성 , 최초 로그인이면 refreshtoken도 만들어
         String accessToken = tokenProvider.generateToken(user, Duration.ofHours(2));
 
-        HttpHeaders headers = new HttpHeaders();
-        headers.add("Authorization", "Bearer" + accessToken);
-        headers.add("userId", user.getId().toString());
-        System.out.println(headers.get("Authorization"));
+//        HttpHeaders headers = new HttpHeaders();
+//        headers.add("Authorization", "Bearer" + accessToken);
+//        headers.add("userId", user.getId().toString());
+//        System.out.println(headers.get("Authorization"));
 
-        return headers;
+
+        Map<String,Object> userinfo = new HashMap<>();
+        userinfo.put("nickname",user.getNickname());
+        userinfo.put("userId",user.getId());
+        userinfo.put("token",accessToken);
+        userinfo.put("type",user.getType());
+
+        return userinfo;
 
     }
 }
