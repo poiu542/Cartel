@@ -106,7 +106,6 @@ export const Login = () => {
           setUser((prevUser) => ({ ...prevUser, isLoggedIn: true }))
         }
 
-        alert('로그인')
         navigate('/')
       })
       .catch((error) => {
