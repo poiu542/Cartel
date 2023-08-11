@@ -18,13 +18,13 @@ public class Client {
     @Column(name = "client_id", updatable = false)
     private Integer id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @OneToOne
     @JoinColumn (name = "user_id", nullable = false)
-    private User userId;
+    private User user;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "counsel_id", nullable = false)
-    private Counsel counselId;
+    private Counsel counsel;
 
     @Column(name = "client_attendance", nullable = false)
     private Integer attendance;
@@ -32,11 +32,10 @@ public class Client {
     @Column(name = "client_state")
     private Integer state;
 
-
     @Builder
-    public Client(User userId, Counsel counselId, Integer attendance, Integer state) {
-        this.userId = userId;
-        this.counselId = counselId;
+    public Client(User user, Counsel counsel, Integer attendance, Integer state) {
+        this.user = user;
+        this.counsel = counsel;
         this.attendance = attendance;
         this.state = state;
     }

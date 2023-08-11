@@ -26,14 +26,18 @@ public class Career {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn (name = "counselor_id")
-    private Counselor counselorId;
+    private Counselor counselor;
 
     @Builder
+<<<<<<< HEAD
+    public Career(String content, Integer state, Counselor counselor) {
+=======
     public Career(Integer careerId, String content, Integer state, Counselor counselorId) {
         this.id = careerId;
+>>>>>>> 450fc5b08cc0bcdcbee8d5ab7b997741843b6736
         this.content = content;
         this.state = state;
-        this.counselorId = counselorId;
+        this.counselor = counselor;
     }
 
     public void update(String content, Integer state) {

@@ -32,19 +32,19 @@ public class Comment {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "post_id")
-    private Article postId;
+    private Article article;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
-    private User userId;
+    private User user;
 
     @Builder
-    public Comment(String content, LocalDateTime date, Integer state, Article postId, User userId) {
+    public Comment(String content, LocalDateTime date, Integer state, Article article, User user) {
         this.content = content;
         this.date = date;
         this.state = state;
-        this.postId = postId;
-        this.userId = userId;
+        this.article = article;
+        this.user = user;
     }
 
     public void update(String content, LocalDateTime date, Integer state) {

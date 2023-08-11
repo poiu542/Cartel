@@ -12,17 +12,28 @@ import java.time.LocalDateTime;
 @AllArgsConstructor //모든 필드값을 파라미터로 받는 생성자
 @Getter
 public class ArticleDto {
+<<<<<<< HEAD
+    private String id;
+=======
 
+>>>>>>> 450fc5b08cc0bcdcbee8d5ab7b997741843b6736
     private String title;
     private String content;
     private Integer level;
     private Integer views;
+<<<<<<< HEAD
+    private Integer userId;
+=======
     private Integer user;
+>>>>>>> 450fc5b08cc0bcdcbee8d5ab7b997741843b6736
     private Integer type;
     private LocalDateTime date;
     private Integer status;
 
+<<<<<<< HEAD
+=======
 
+>>>>>>> 450fc5b08cc0bcdcbee8d5ab7b997741843b6736
     public Article toEntity(User user){
         return Article.builder()
                 .title(title)

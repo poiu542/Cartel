@@ -1,5 +1,8 @@
 package com.ssafy.cartel.domain.consulting.entity;
+<<<<<<< HEAD
+=======
 
+>>>>>>> 450fc5b08cc0bcdcbee8d5ab7b997741843b6736
 
 import com.ssafy.cartel.domain.client.entity.Client;
 import com.ssafy.cartel.domain.curriculum.entity.Curriculum;

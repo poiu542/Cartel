@@ -2,6 +2,10 @@ package com.ssafy.cartel.domain.review.entity;
 
 
 import com.ssafy.cartel.domain.client.entity.Client;
+<<<<<<< HEAD
+import com.ssafy.cartel.domain.counsel.entity.Counsel;
+=======
+>>>>>>> 450fc5b08cc0bcdcbee8d5ab7b997741843b6736
 import com.ssafy.cartel.domain.curriculum.entity.Curriculum;
 import jakarta.persistence.*;
 import lombok.AccessLevel;

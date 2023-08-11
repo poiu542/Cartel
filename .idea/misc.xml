@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+<<<<<<< HEAD
+  <component name="ExternalStorageConfigurationManager" enabled="true" />
+  <component name="FrameworkDetectionExcludesConfiguration">
+    <file type="web" url="file://$PROJECT_DIR$/BACKEND" />
+  </component>
+  <component name="ProjectRootManager" version="2" project-jdk-name="17" project-jdk-type="JavaSDK">
+=======
   <component name="ProjectRootManager">
+>>>>>>> 450fc5b08cc0bcdcbee8d5ab7b997741843b6736
     <output url="file://$PROJECT_DIR$/out" />
   </component>
 </project>

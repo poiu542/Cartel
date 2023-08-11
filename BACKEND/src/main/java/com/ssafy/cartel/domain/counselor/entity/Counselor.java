@@ -20,7 +20,7 @@ public class Counselor {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id",nullable = false)
-    private User userId;
+    private User user;
 
     @Column(name = "counselor_regist")
     private String regist;
@@ -44,8 +44,8 @@ public class Counselor {
     private String introduction;
 
     @Builder
-    public Counselor(User userId, String regist, String license, String school, String company, Integer rateSum, Integer state, String introduction) {
-        this.userId = userId;
+    public Counselor(User user, String regist, String license, String school, String company, Integer rateSum, Integer state, String introduction) {
+        this.user = user;
         this.regist = regist;
         this.license = license;
         this.school = school;
@@ -53,5 +53,13 @@ public class Counselor {
         this.rateSum = rateSum;
         this.state = state;
         this.introduction = introduction;
+    }
+
+    public void updateRegistImg(String imgURL) {
+        this.regist = imgURL;
+    }
+
+    public void updateLicenseImg(String imgURL) {
+        this.license = imgURL;
     }
 }
