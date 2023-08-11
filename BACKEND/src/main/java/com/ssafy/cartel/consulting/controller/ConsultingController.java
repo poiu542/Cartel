@@ -27,9 +27,9 @@ public class ConsultingController {
     }
 
     // 조회
-    @GetMapping("/{id}")
-    public ResponseEntity<?> findConsulting(@PathVariable Integer id) {
-        ConsultingResDto consultingResDto = consultingService.findById(id);
+    @GetMapping("/{consulting_id}")
+    public ResponseEntity<?> findConsulting(@PathVariable Integer consulting_id) {
+        ConsultingResDto consultingResDto = consultingService.findById(consulting_id);
         return ResponseEntity.ok().body(consultingResDto);
     }
 
@@ -47,10 +47,10 @@ public class ConsultingController {
 //        return ResponseEntity.ok().build();
 //    }
 
-    // 삭제
-    @DeleteMapping("/")
-    public ResponseEntity<?> deleteConsulting(@PathVariable Integer id){
-        consultingService.delete(id);
-        return ResponseEntity.ok().build();
-    }
+//    // 삭제
+//    @DeleteMapping("/")
+//    public ResponseEntity<?> deleteConsulting(@PathVariable Integer id){
+//        consultingService.delete(id);
+//        return ResponseEntity.ok().build();
+//    }
 }

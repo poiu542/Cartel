@@ -58,10 +58,10 @@ public class ConsultingService {
         return null;
     }
 
-    @Transactional
-    public void delete(Integer id){
-        consultingRepository.deleteById(id);
-    }
+//    @Transactional
+//    public void delete(Integer id){
+//        consultingRepository.deleteById(id);
+//    }
 
 //    @Transactional
 //    public Consulting update(Integer id, ConsultingDto consultingDto){

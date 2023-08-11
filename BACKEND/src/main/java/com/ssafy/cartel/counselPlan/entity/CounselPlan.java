@@ -8,7 +8,6 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDateTime;
 
 @Entity
 @Getter
@@ -21,7 +20,7 @@ public class CounselPlan {
     private Integer id;
 
     @Column(name = "counsel_time", nullable = false)
-    private LocalDateTime time;
+    private String time;
 
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -30,12 +29,12 @@ public class CounselPlan {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "day_id")
-    private Day day;
+    private Day dayId;
 
     @Builder
-    public CounselPlan(LocalDateTime time, Counsel counselId, Day day) {
+    public CounselPlan(String time, Counsel counselId, Day dayId) {
         this.time = time;
         this.counselId = counselId;
-        this.day = day;
+        this.dayId = dayId;
     }
 }

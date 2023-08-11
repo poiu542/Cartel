@@ -18,10 +18,10 @@ public class Day {
     private Integer id;
 
     @Column(name = "day", updatable = false)
-    private String day;
+    private Integer day;
 
     @Builder
-    public Day(String day) {
+    public Day(Integer day) {
         this.day = day;
     }
 }
