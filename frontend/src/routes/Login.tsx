@@ -111,7 +111,7 @@ export const Login = () => {
           type: type,
           id: userId,
         }))
-
+        alert('로그인 완료')
         navigate('/')
       })
       .catch((error) => {
@@ -121,6 +121,8 @@ export const Login = () => {
           console.log('Error Message:', error.message)
         }
         setUser((prevUser) => ({ ...prevUser, isLoggedIn: false }))
+
+        alert('로그인 실패')
       })
   }
   const handleKakaoLogIn = () => {

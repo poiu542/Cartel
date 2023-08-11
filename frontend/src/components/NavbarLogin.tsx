@@ -33,8 +33,6 @@ function NavbarLogin() {
     null,
   )
   const navigate = useNavigate()
-  const dispatch = useDispatch()
-
   const handlePageChange = (page: string, userId: number) => {
     if (page === '상담') {
       page = 'counsel'
