@@ -508,11 +508,7 @@ export const Main = () => {
         >
           <PreviewBox
             title="BEST 게시글"
-<<<<<<< HEAD
-            posts={bestBoard}
-=======
             posts={convertedPosts}
->>>>>>> frontend-seok
             onClick={ViewAll}
             width="300px"
             height="235px"
