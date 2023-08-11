@@ -21,6 +21,7 @@ import StyledButton from '../styles/StyledButton'
 import DeleteIcon from '@mui/icons-material/Delete'
 import { ErrorMessage } from '../styles/ErrorMessage'
 import axios from 'axios'
+import { useNavigate } from 'react-router-dom'
 
 // import { userState } from '../recoil/atoms/userState'
 // import { useRecoilState } from 'recoil'
@@ -40,6 +41,7 @@ interface UserType1Data extends UserCommonData {
 }
 
 export const SignUp = () => {
+  const navigate = useNavigate()
   const [inputNicknameValue, setinputNicknameValue] = useState('')
   const [inputEmailValue, setinputEmailValue] = useState('')
   const [inputAuthNumValue, setinputAuthNumeValue] = useState('')
@@ -49,6 +51,7 @@ export const SignUp = () => {
   const [passwordCheck, setpasswordCheck] = useState(1)
   const [emailError, setEmailError] = useState<string>('')
   const [passwordError, setPasswordError] = useState<string>('')
+  const [emailCheck, setEmailCheck] = useState(false)
 
   const [profileImg, setProfileImg] = useState<File | null>(null)
   const [certificationImg, setCertificationImg] = useState<File | null>(null)
@@ -92,6 +95,7 @@ export const SignUp = () => {
 
   const handleEmailChange = (event: ChangeEvent<HTMLInputElement>) => {
     setinputEmailValue(event.target.value)
+    setEmailCheck(false)
     if (!validateEmail(event.target.value)) {
       setEmailError('유효한 이메일 주소를 입력해주세요.')
     } else {
@@ -149,10 +153,33 @@ export const SignUp = () => {
   }
 
   const handleEmailClick = () => {
-    alert('인증번호 보내는 로직 짜야함')
+    axios
+      .post(`${process.env.REACT_APP_BASE_URL}signup/email`, {
+        email: inputEmailValue,
+      })
+      .then((res) => {
+        alert('인증번호를 전송했습니다.')
+        console.log(res)
+      })
+      .catch((err) => {
+        alert('이메일을 다시 확인해 주십시오')
+        console.log('이메일 전송 오류:', err)
+      })
   }
   const handleCheckClick = () => {
-    alert('인증되었습니다 로직 짜야함')
+    axios
+      .post(`${process.env.REACT_APP_BASE_URL}signup/email/auth`, {
+        email: inputEmailValue,
+        authCode: inputAuthNumValue,
+      })
+      .then((res) => {
+        if (res.status === 200) {
+          setEmailCheck(true)
+        } else {
+          alert('인증번호가 틀립니다.')
+        }
+      })
+      .catch((err) => alert('인증번호가 틀립니다.'))
   }
   const handleFileChange = (
     event: ChangeEvent<HTMLInputElement>,
@@ -186,7 +213,14 @@ export const SignUp = () => {
       }
     }
 
-    if (userData && userData.nickname && userData.email && userData.password) {
+    if (
+      userData &&
+      userData.nickname &&
+      userData.email &&
+      userData.password &&
+      emailCheck &&
+      passwordCheck
+    ) {
       // 기본 정보 확인
       const formData = new FormData()
 
@@ -214,10 +248,11 @@ export const SignUp = () => {
       }
 
       axios
-        .post('http://i9b209.p.ssafy.io:8080/signup', formData)
+        .post(`${process.env.REACT_APP_BASE_URL}signup`, userData)
         .then((response) => {
           console.log(response.data)
           alert('회원가입이 성공적으로 완료되었습니다.')
+          navigate('/')
           // 성공적으로 회원가입이 완료되면 다른 페이지로 리다이렉션 또는 추가 작업 수행
         })
         .catch((error: any) => {
@@ -225,7 +260,7 @@ export const SignUp = () => {
           alert('회원가입 중 오류가 발생했습니다.')
           // 실패한 경우 오류 메시지 표시 또는 추가 작업 수행
         })
-    }
+    } else alert('다시 확인해주세요')
   }
   const handleProfileUpload = () => {
     const input = document.getElementById(
@@ -386,9 +421,13 @@ export const SignUp = () => {
             <Button
               border={{ radius: '0.625rem', borderColor: '#40BFFF' }}
               size={{ width: '100px', height: '35px' }}
-              color={{ background: '#40BFFF', color: 'white' }}
+              color={{
+                background: emailCheck ? 'gray' : '#40BFFF',
+                color: 'white',
+              }}
               text="인증번호 확인"
               onClick={handleCheckClick}
+              disabled={emailCheck}
             />
           </FlexContainerRow>
           <Input
