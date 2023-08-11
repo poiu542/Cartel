@@ -72,6 +72,10 @@ dependencies {
 	implementation "org.springframework.boot:spring-boot-starter-data-redis"
 	implementation "redis.clients:jedis:2.9.0"
 	implementation "org.springframework.session:spring-session-data-redis"
+
+	// aws S3
+	implementation 'org.springframework.cloud:spring-cloud-starter-aws:2.2.6.RELEASE'
+
 }
 
 tasks.named('test') {

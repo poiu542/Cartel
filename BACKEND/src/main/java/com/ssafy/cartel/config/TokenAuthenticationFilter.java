@@ -1,10 +1,8 @@
 package com.ssafy.cartel.config;
 
-import com.ssafy.cartel.config.jwt.TokenProvider;
-import jakarta.servlet.Filter;
+import com.ssafy.cartel.jwt.TokenProvider;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
-import jakarta.servlet.http.HttpServletMapping;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
