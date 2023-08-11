@@ -53,9 +53,11 @@ import CounselOpenvidu from './openvidu/CounselOpenvidu'
 import { CheckCounselor, CheckLogin } from './routes/PrivateRoute'
 import { Testimony } from './routes/Testimony'
 import { QnaEdit } from './routes/QnaEdit'
+import axios from 'axios'
 
 const queryClient = new QueryClient()
-
+axios.defaults.baseURL = process.env.REACT_APP_BASE_URL
+axios.defaults.withCredentials = true
 function App(): React.ReactElement {
   const loginStatus = 1
   return (

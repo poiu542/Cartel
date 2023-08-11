@@ -20,6 +20,8 @@ import {
 import { useRecoilValue, useRecoilState } from 'recoil'
 import { userState } from '../recoil/atoms/userState'
 
+import axios from 'axios'
+
 // const LoginTab = styled.div`
 //   display: flex;
 //   align-items: center;
@@ -58,13 +60,12 @@ import { userState } from '../recoil/atoms/userState'
 // ]
 
 export const Login = () => {
-  const [user, setUser] = useRecoilState(userState)
-
   const [userType, setUserType] = useState(0)
   const [inputEmailValue, setinputEmailValue] = useState('')
   const [inputPassValue, setinputPassValue] = useState('')
   const [passwordCheck, setpasswordCheck] = useState(1)
   const [inputPassCheckValue, setinputPassCheckValue] = useState('')
+  const [user, setUser] = useRecoilState(userState)
   const dispatch = useDispatch()
   const navigate = useNavigate()
 
@@ -80,12 +81,40 @@ export const Login = () => {
     }
   }
   const handleLogIn = () => {
-    setUser((prevUser) => ({
-      ...prevUser,
-      isLoggedIn: true,
-    }))
-    alert('로그인')
-    navigate('/')
+    const email = inputEmailValue
+    const password = inputPassValue
+
+    if (!email || !password) {
+      alert('이메일과 비밀번호를 입력해주세요.')
+      return
+    }
+    const data = {
+      email,
+      password,
+    }
+    axios
+      .post(`${process.env.REACT_APP_BASE_URL}login`, data)
+      .then((response) => {
+        // 헤더 정보
+
+        const accessToken = response.headers.authorization
+
+        // API 요청하는 콜마다 헤더에 accessToken 담아 보내도록 설정
+        // axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`
+        localStorage.setItem('accesstoken', accessToken)
+        if (localStorage.getItem(accessToken)) {
+          setUser((prevUser) => ({ ...prevUser, isLoggedIn: true }))
+        }
+
+        navigate('/')
+      })
+      .catch((error) => {
+        if (error.response) {
+          console.log('Server Response:', error.response.data)
+        } else {
+          console.log('Error Message:', error.message)
+        }
+      })
   }
   const handleKakaoLogIn = () => {
     alert('카카오 로그인')

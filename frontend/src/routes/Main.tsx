@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import Carousel from '../components/Carousel'
 import NavbarLogin from '../components/NavbarLogin'
 import CounselorCard from '../components/CounselorCard'
@@ -23,6 +23,9 @@ import TestimonyModal from '../components/TestimonyModal'
 import counselJournalModal from './../components/CounselJournalModal'
 import CounselJournalModal from './../components/CounselJournalModal'
 import { NoneStyledLink } from './../styles/Custom'
+import { useQuery } from 'react-query'
+import { getBoards } from '../hooks/useboard'
+import { BoardData } from '../model/board'
 
 console.log('|\\_/|')
 console.log('|%cq %cp %c|   /}', 'color:red', 'color:red', 'color:black')
@@ -34,6 +37,7 @@ console.log('도와주셔서 감사합니다.')
 
 export const Main = () => {
   const navigate = useNavigate()
+  const [bestBoard, setBestBoard] = useState<BoardData[]>([])
   const onCardClick = () => {
     alert('상담사 상세페이지에서 첫 번째 카드만 상세페이지 이동 돼요')
   }
@@ -476,12 +480,7 @@ export const Main = () => {
         >
           <PreviewBox
             title="BEST 게시글"
-            posts={[
-              { title: '[공지] 상담일정 변경 안내' },
-              { title: '공지2' },
-              { title: '공지3' },
-              { title: '공지4' },
-            ]}
+            posts={bestBoard}
             onClick={ViewAll}
             width="300px"
             height="235px"

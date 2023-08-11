@@ -4,19 +4,20 @@ import axios from 'axios'
 import React, { Component } from 'react'
 import './Drug.css'
 import UserVideoComponent from './UserVideoComponent'
+// import { ToolBar } from './ToolBar.jsx'
+import CallEndIcon from '@mui/icons-material/CallEnd'
 import VideocamOutlinedIcon from '@mui/icons-material/VideocamOutlined'
 import MicOutlinedIcon from '@mui/icons-material/MicOutlined'
 import HeadsetIcon from '@mui/icons-material/Headset'
 import VideocamOffOutlinedIcon from '@mui/icons-material/VideocamOffOutlined'
 import MicOffIcon from '@mui/icons-material/MicOff'
 import HeadsetOffIcon from '@mui/icons-material/HeadsetOff'
-import CallEndIcon from '@mui/icons-material/CallEnd'
 import ExitToAppIcon from '@mui/icons-material/ExitToApp'
 import ChatIcon from '@mui/icons-material/Chat'
 import ChatBox from '../Chat/ChatBox'
 import styled from '@emotion/styled'
-import ScreenShareOutlinedIcon from '@mui/icons-material/ScreenShareOutlined'
-import StopScreenShareOutlinedIcon from '@mui/icons-material/StopScreenShareOutlined'
+// import ScreenShareOutlinedIcon from '@mui/icons-material/ScreenShareOutlined'
+// import StopScreenShareOutlinedIcon from '@mui/icons-material/StopScreenShareOutlined'
 // import { Icon } from '@mui/material'
 
 const APPLICATION_SERVER_URL = 'http://i9b209.p.ssafy.io:8080/'
@@ -236,44 +237,44 @@ class CounselOpenvidu extends Component {
           })
           break
 
-        case 'share':
-          this.setState({ isShareScreen: !this.state.isShareScreen }, () => {
-            this.state.subscribers.forEach((s) =>
-              s.publishScreen(this.state.isShareScreen),
-            )
-          })
-          break
+        // case 'share':
+        //   this.setState({ isShareScreen: !this.state.isShareScreen }, () => {
+        //     this.state.subscribers.forEach((s) =>
+        //       s.publishScreen(this.state.isShareScreen),
+        //     )
+        //   })
+        //   break
       }
     }
   }
-  startScreenSharing = async () => {
-    const { session } = this.state
+  // startScreenSharing = async () => {
+  //   const { session } = this.state
 
-    if (session) {
-      const publisher = this.OV.initPublisher(undefined, {
-        videoSource: 'screen',
-        publishVideo: true, // 화면 공유 비디오 활성화
-        publishAudio: false, // 오디오 비활성화
-      })
+  //   if (session) {
+  //     const publisher = this.OV.initPublisher(undefined, {
+  //       videoSource: 'screen',
+  //       publishVideo: true, // 화면 공유 비디오 활성화
+  //       publishAudio: false, // 오디오 비활성화
+  //     })
 
-      try {
-        await session.publish(publisher)
-        this.setState({ publisher })
-      } catch (error) {
-        console.error('Error publishing screen share:', error)
-      }
-    }
-  }
+  //     try {
+  //       await session.publish(publisher)
+  //       this.setState({ publisher })
+  //     } catch (error) {
+  //       console.error('Error publishing screen share:', error)
+  //     }
+  //   }
+  // }
 
-  stopScreenSharing = () => {
-    const { session, publisher } = this.state
+  // stopScreenSharing = () => {
+  //   const { session, publisher } = this.state
 
-    if (publisher) {
-      session.unpublish(publisher)
-      publisher.stream.dispose()
-      this.setState({ publisher: null })
-    }
-  }
+  //   if (publisher) {
+  //     session.unpublish(publisher)
+  //     publisher.stream.dispose()
+  //     this.setState({ publisher: null })
+  //   }
+  // }
   deleteSubscriber(streamManager) {
     let subscribers = this.state.subscribers
     let index = subscribers.indexOf(streamManager, 0)
@@ -546,7 +547,7 @@ class CounselOpenvidu extends Component {
             >
               {this.state.isSpeaker ? <HeadsetIcon /> : <HeadsetOffIcon />}
             </Icon>
-            <Icon
+            {/* <Icon
               primary={!this.state.isShareScreen}
               onClick={() => this.handleToggle('speaker')}
             >
@@ -557,7 +558,7 @@ class CounselOpenvidu extends Component {
                   onClick={this.startScreenSharing}
                 />
               )}
-            </Icon>
+            </Icon> */}
             <Icon primary onClick={this.leaveSession}>
               <ExitToAppIcon />
             </Icon>
