@@ -431,43 +431,94 @@ export const SignUp = () => {
               <br />
               <h3>상담사 인증하기</h3>
               <FlexContainerRow style={{ width: '100%' }}>
-                <Button
-                  text="프로필 사진"
-                  size={buttonSize}
-                  onClick={handleProfileUpload}
-                />
-                <input
-                  type="file"
-                  id="profileUploadInput"
-                  hidden
-                  onChange={(e) => handleFileChange(e, setProfileImg)}
-                />
+                <div
+                  style={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                  }}
+                >
+                  <Button
+                    text="프로필 사진"
+                    size={buttonSize}
+                    onClick={handleProfileUpload}
+                  />
+                  <input
+                    type="file"
+                    id="profileUploadInput"
+                    hidden
+                    onChange={(e) => handleFileChange(e, setProfileImg)}
+                  />
+                  {profileImg && (
+                    <img
+                      src={URL.createObjectURL(profileImg)}
+                      alt="Profile"
+                      width="100"
+                      height="100"
+                      style={{ marginTop: '20px' }}
+                    />
+                  )}
+                </div>
 
-                <Button
-                  text="자격증 사진"
-                  size={buttonSize}
-                  onClick={handleCertificateUpload}
-                />
-                <input
-                  type="file"
-                  id="certificateUploadInput"
-                  hidden
-                  onChange={(e) => handleFileChange(e, setCertificationImg)}
-                />
+                <div
+                  style={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                  }}
+                >
+                  <Button
+                    text="자격증 사진"
+                    size={buttonSize}
+                    onClick={handleCertificateUpload}
+                  />
+                  <input
+                    type="file"
+                    id="certificateUploadInput"
+                    hidden
+                    onChange={(e) => handleFileChange(e, setCertificationImg)}
+                  />
+                  {certificationImg && (
+                    <img
+                      src={URL.createObjectURL(certificationImg)}
+                      alt="Certification"
+                      width="100"
+                      height="100"
+                      style={{ marginTop: '20px' }}
+                    />
+                  )}
+                </div>
 
-                <Button
-                  text="주민등록증 사진"
-                  size={buttonSize}
-                  onClick={handleIdentUpload}
-                />
-                <input
-                  type="file"
-                  id="identUploadInput"
-                  hidden
-                  onChange={(e) =>
-                    handleFileChange(e, setResidentRegistrationImg)
-                  }
-                />
+                <div
+                  style={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                  }}
+                >
+                  <Button
+                    text="주민등록증 사진"
+                    size={buttonSize}
+                    onClick={handleIdentUpload}
+                  />
+                  <input
+                    type="file"
+                    id="identUploadInput"
+                    hidden
+                    onChange={(e) =>
+                      handleFileChange(e, setResidentRegistrationImg)
+                    }
+                  />
+                  {residentRegistrationImg && (
+                    <img
+                      src={URL.createObjectURL(residentRegistrationImg)}
+                      alt="Resident Registration"
+                      width="100"
+                      height="100"
+                      style={{ marginTop: '20px' }}
+                    />
+                  )}
+                </div>
               </FlexContainerRow>
             </>
           ) : null}
