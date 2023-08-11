@@ -28,8 +28,6 @@ public class ConsultingService {
     private final ConsultingRepository consultingRepository;
     private final ClientRepository clientRepository;
     private final CurriculumRepository curriculumRepository;
-    private final CounselRepository counselRepository;
-    private final UserRepository userRepository;
 
 
     @Transactional
@@ -46,8 +44,16 @@ public class ConsultingService {
 
         for (int i = 0; i < consulting.size(); i++) {
             ConsultingResDto consultingResDto = ConsultingResDto.builder()
-//                    .counselId(consulting.get(i).getId())
-//                    .counselTitle(consulting.get(i).get)
+                    .counselId(consulting.get(i).getCurriculumId().getCounselId().getId())
+                    .counselTitle(consulting.get(i).getCurriculumId().getCounselId().getTitle())
+                    .consultingId(consulting.get(i).getId())
+                    .consulting(consulting.get(i).getConsulting())
+                    .consultingDate(consulting.get(i).getDate().toLocalDate())
+                    .consultingState(consulting.get(i).getState())
+                    .userId(consulting.get(i).getClientId().getUserId().getId())
+                    .userNickname(consulting.get(i).getClientId().getUserId().getNickname())
+                    .userEmail(consulting.get(i).getClientId().getUserId().getEmail())
+                    .clientId(consulting.get(i).getClientId().getId())
                     .build();
 
             consultingResDtoList.add(consultingResDto);
@@ -57,18 +63,21 @@ public class ConsultingService {
     }
 
     public ConsultingResDto findById(Integer id){
-        //Consulting consulting = consultingRepository.findById(id).orElseThrow();
-        Consulting consulting1 = consultingRepository.selectConsulting(id);
-
-        log.info(String.valueOf(consulting1.getClientId().getUserId().getId()));
-        consulting1.getId();
-        consulting1.getClientId().getUserId().getNickname();
-        consulting1.getCurriculumId().getCounselId().getId();
-//        ConsultingResDto consultingResDto = ConsultingResDto.builder()
-//
-//                .build();
-        //return consultingResDto;
-        return null;
+        Consulting consulting = consultingRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("not found:" + id));
+        ConsultingResDto consultingResDto = ConsultingResDto.builder()
+                .counselId(consulting.getCurriculumId().getCounselId().getId())
+                .counselTitle(consulting.getCurriculumId().getCounselId().getTitle())
+                .consultingId(consulting.getId())
+                .consulting(consulting.getConsulting())
+                .consultingDate(consulting.getDate().toLocalDate())
+                .consultingState(consulting.getState())
+                .userId(consulting.getClientId().getUserId().getId())
+                .userNickname(consulting.getClientId().getUserId().getNickname())
+                .userEmail(consulting.getClientId().getUserId().getEmail())
+                .clientId(consulting.getClientId().getId())
+                .build();
+        return consultingResDto;
     }
 
 //    @Transactional

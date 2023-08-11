@@ -17,19 +17,19 @@ public class ConsultingResDto {
     private LocalDate consultingDate;
     private Integer userId;
     private String userNickname;
-    private String email;
+    private String userEmail;
     private Integer clientId;
     private Integer consultingId;
     private Integer consultingState;
 
-    public ConsultingResDto(Integer counselId, String counselTitle, String consulting, LocalDate consultingDate, Integer userId, String userNickname, String email, Integer clientId, Integer consultingId, Integer consultingState) {
+    public ConsultingResDto(Integer counselId, String counselTitle, String consulting, LocalDate consultingDate, Integer userId, String userNickname, String userEmail, Integer clientId, Integer consultingId, Integer consultingState) {
         this.counselId = counselId;
         this.counselTitle = counselTitle;
         this.consulting = consulting;
         this.consultingDate = consultingDate;
         this.userId = userId;
         this.userNickname = userNickname;
-        this.email = email;
+        this.userEmail = userEmail;
         this.clientId = clientId;
         this.consultingId = consultingId;
         this.consultingState = consultingState;
