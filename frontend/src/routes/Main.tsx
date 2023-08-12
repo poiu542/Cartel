@@ -19,6 +19,7 @@ import axios from 'axios'
 import { BoardData } from '../model/board'
 import CounselJournalModal from './../components/CounselJournalModal'
 import { NoneStyledLink } from './../styles/Custom'
+import { RolePlayModal } from './../components/RolePlayModal'
 
 console.log('|\\_/|')
 console.log('|%cq %cp %c|   /}', 'color:red', 'color:red', 'color:black')
@@ -530,8 +531,7 @@ export const Main = () => {
           width: '100%',
         }}
       ></div>
-      <TestimonyModal />
-      <CounselJournalModal />
+      <RolePlayModal />
       <Footer />
     </div>
   )
