@@ -1,4 +1,9 @@
-import React, { ChangeEvent, useState, useEffect } from 'react'
+import React, {
+  ChangeEvent,
+  useState,
+  useEffect,
+  ReactHTMLElement,
+} from 'react'
 import NavbarLogin from '../components/NavbarLogin'
 import { styled } from 'styled-components'
 import Input from '../components/Input'
@@ -79,6 +84,13 @@ export const Login = () => {
       setpasswordCheck(0)
     }
   }
+  const handleEnter = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    if (event.key === 'Enter') {
+      // 엔터 키가 눌렸을 때 로그인 처리하는 로직을 여기에 구현
+      handleLogIn()
+    }
+  }
+
   const handleLogIn = () => {
     const email = inputEmailValue
     const password = inputPassValue
@@ -175,12 +187,24 @@ export const Login = () => {
               maxLength={50}
             />
           </FlexContainerRow>
-          <Input
+          <input
+            style={{
+              borderBottom: '1px solid black',
+              borderTop: 'none',
+              borderLeft: 'none',
+              borderRight: 'none',
+              outline: 'none',
+              padding: '7px',
+              width: '550px',
+              marginBottom: '20px',
+              fontSize: '18px',
+            }}
             value={inputPassValue}
             onChange={handlePassChange}
             placeholder="비밀번호"
             type="password"
             maxLength={255}
+            onKeyDown={handleEnter}
           />
         </FlexContainerAlignStart>
         <Button
