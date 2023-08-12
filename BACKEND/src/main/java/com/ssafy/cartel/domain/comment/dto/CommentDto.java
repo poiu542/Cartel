@@ -25,8 +25,7 @@ public class CommentDto {
                 .content(content)
                 .date(date)
                 .state(state)
-                .postId(postId)
-                .userId(userId)
+                .user(userId)
                 .build();
     }
 }

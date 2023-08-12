@@ -20,9 +20,9 @@ public class ClientDto {
     public Client toEntity() {
 
         return Client.builder()
-                .userId(userId)
+                .user(userId)
                 .attendance(attendance)
-                .counselId(counselId)
+                .counsel(counselId)
                 .state(state)
                 .build();
     }

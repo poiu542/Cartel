@@ -70,4 +70,12 @@ public class User{
         this.nickname = nickname;
         this.phone = phone;
     }
+
+    public void updateImg(String imgURL) {
+        this.profileUrl = imgURL;
+    }
+
+    public void updateType(Integer type) {
+        this.type = type+1;
+    }
 }

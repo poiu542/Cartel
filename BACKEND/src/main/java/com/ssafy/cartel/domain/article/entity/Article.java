@@ -1,5 +1,6 @@
 package com.ssafy.cartel.domain.article.entity;
 
+import com.ssafy.cartel.domain.comment.entity.Comment;
 import com.ssafy.cartel.domain.user.entity.User;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
@@ -7,7 +8,10 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import javax.naming.Name;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 
 @Entity //Entity로 지정
@@ -45,8 +49,12 @@ public class Article {
     @Column(name = "post_status", nullable = false)
     private Integer status;
 
+    @OneToMany(mappedBy = "article", fetch = FetchType.LAZY )
+    private List<Comment> comments = new ArrayList<>();
+
     @Builder
     public Article(String title, String content, Integer level, Integer views, User user, Integer type, LocalDateTime date, Integer status) {
+
         this.title = title;
         this.content = content;
         this.level = level;
