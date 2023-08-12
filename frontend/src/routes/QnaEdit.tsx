@@ -16,6 +16,8 @@ import { useQuery, useQueryClient } from 'react-query'
 import { getBoard } from '../hooks/useboard'
 import { BoardData } from '../model/board'
 import axios from 'axios'
+import { userState } from '../recoil/atoms/userState'
+import { useRecoilState } from 'recoil'
 interface BoardApiResponse {
   data: BoardData[]
 }
@@ -24,6 +26,8 @@ export const QnaEdit = () => {
   const navigate = useNavigate()
   // params를 받아올때 route url을 어떻게 쎃는지 중요하다 같은걸로 params받아와야함
   let { qnaId } = useParams()
+  const [user, setUser] = useRecoilState(userState)
+
   const id = qnaId ? parseInt(qnaId, 10) : null
   const [board, setBoard] = useState({
     title: '',
@@ -136,7 +140,7 @@ export const QnaEdit = () => {
                 fontWeight: '500',
               }}
             >
-              작성자 레벨
+              작성자 : {user.nickname}
             </span>
           </div>
           <p style={{ marginLeft: '30px', fontSize: '10px' }}>

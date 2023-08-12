@@ -90,7 +90,6 @@ export const Notice = () => {
           onChange={handlePageChange}
         />
       </div>
-      <button>상담.....</button>
     </div>
   )
 }

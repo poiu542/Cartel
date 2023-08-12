@@ -19,11 +19,15 @@ import {
   ArticleTitle,
   ButtonGroup,
 } from '../styles/articles'
+import { userState } from '../recoil/atoms/userState'
+import { useRecoilState } from 'recoil'
 
 export const FreeBoardDetail = () => {
   const navigate = useNavigate()
+  const [user, setUser] = useRecoilState(userState)
   let { freeboardId } = useParams()
   const id = freeboardId ? parseInt(freeboardId, 10) : null
+  const [checkUser, setCheckUser] = useState(false)
   const [board, setBoard] = useState({
     title: '',
     content: '',
@@ -31,8 +35,9 @@ export const FreeBoardDetail = () => {
     date: '',
     level: 0,
     views: 0,
+    userId: 0,
   })
-  const { title, content, nickname, date, level } = board
+  const { title, content, nickname, date, level, userId } = board
 
   const {
     isLoading,
@@ -43,7 +48,6 @@ export const FreeBoardDetail = () => {
     refetch,
   } = useQuery<BoardData>(['freeboard', id], () => getBoard(id))
 
-  console.log(article)
   useEffect(() => {
     // article 데이터가 있는 경우 board 상태를 설정합니다.
     if (article) {
@@ -54,6 +58,7 @@ export const FreeBoardDetail = () => {
         date: article.date,
         level: article.level,
         views: article.views,
+        userId: article.userId,
       })
     }
   }, [article])
@@ -65,18 +70,23 @@ export const FreeBoardDetail = () => {
     console.log(error)
     return <h1>화면을 불러오는데 문제가 있습니다.</h1>
   }
-  console.log(board)
+  if (user.id === board.userId || user.type === 3) {
+    setCheckUser(true)
+  }
   const deleteFreeBoard = () => {
-    if (window.confirm('게시글을 삭제하시겠습니까?')) {
-      axios
-        .delete(`${process.env.REACT_APP_BASE_URL}articles/${freeboardId}`, {})
-        .then(function (response) {
-          alert('게시글이 삭제되었습니다.')
-          navigate('/freeboard')
-        })
-        .catch((error) => console.log(error))
-    } else {
-      return false
+    if (user.id === board.userId || user.type === 3) {
+      if (window.confirm('게시글을 삭제하시겠습니까?')) {
+        axios
+          .delete(
+            `${process.env.REACT_APP_BASE_URL}articles/${freeboardId}`,
+            {},
+          )
+          .then(function (response) {
+            alert('게시글이 삭제되었습니다.')
+            navigate('/freeboard')
+          })
+          .catch((error) => console.log(error))
+      }
     }
   }
 
@@ -91,9 +101,7 @@ export const FreeBoardDetail = () => {
           <ArticleTitle>{board.title}</ArticleTitle>
         </ArticleHeader>
         <ArticleMeta>
-          <span>
-            작성자 : {board.nickname}({board.level})
-          </span>
+          <span>작성자 : {board.nickname}</span>
           <span style={{ marginLeft: '35px' }}>조회수 : {board.views}</span>
           <span style={{ marginLeft: '35px' }}>
             등록일 : {formatDateDetail(board.date)}
@@ -106,11 +114,16 @@ export const FreeBoardDetail = () => {
         <ButtonGroup>
           <StyledButton
             green
+            display={checkUser ? true : false}
             onClick={() => navigate(`/freeboard/edit/${freeboardId}`)}
           >
             수정
           </StyledButton>
-          <StyledButton red onClick={deleteFreeBoard}>
+          <StyledButton
+            red
+            display={checkUser ? true : false}
+            onClick={deleteFreeBoard}
+          >
             삭제
           </StyledButton>
         </ButtonGroup>

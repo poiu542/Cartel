@@ -41,7 +41,7 @@ export const NoticeWrite: React.FC = () => {
     userId: 1,
     type: 1,
     status: 0,
-    nickname: '병신',
+    nickname: 'gd',
     email: 'wef@sd',
   })
   const {
@@ -87,7 +87,7 @@ export const NoticeWrite: React.FC = () => {
           type: type,
           status: 0,
           date: new Date().toISOString(),
-          nickname: '병신',
+          nickname: 'ㅎㅇ',
           email: '23@asdf',
         }
         console.log(article)
@@ -129,7 +129,7 @@ export const NoticeWrite: React.FC = () => {
                 fontWeight: '500',
               }}
             >
-              작성자
+              작성자 : {user.nickname}
             </span>
           </div>
           <p style={{ marginLeft: '30px', fontSize: '10px' }}>

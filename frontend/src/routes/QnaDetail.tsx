@@ -19,9 +19,14 @@ import {
   ArticleTitle,
   ButtonGroup,
 } from '../styles/articles'
+import { useRecoilState } from 'recoil'
+import { userState } from '../recoil/atoms/userState'
 
 export const QnaDetail = () => {
+  const [checkUser, setCheckUser] = useState(false)
+
   const navigate = useNavigate()
+  const [user, setUser] = useRecoilState(userState)
   let { qnaId } = useParams()
   const id = qnaId ? parseInt(qnaId, 10) : null
   const [board, setBoard] = useState({
@@ -30,8 +35,9 @@ export const QnaDetail = () => {
     nickname: '',
     date: '',
     views: 0,
+    userId: 1,
   })
-  const { title, content, nickname, date } = board
+  const { title, content, nickname, date, userId } = board
 
   const {
     isLoading,
@@ -51,6 +57,7 @@ export const QnaDetail = () => {
         nickname: article.nickname,
         date: article.date,
         views: article.views,
+        userId: article.userId,
       })
     }
   }, [article])
@@ -62,18 +69,24 @@ export const QnaDetail = () => {
     console.log(error)
     return <h1>화면을 불러오는데 문제가 있습니다.</h1>
   }
-  console.log(board)
+  if (user.id === board.userId || user.type === 3) {
+    setCheckUser(true)
+  }
   const deleteQna = () => {
-    if (window.confirm('게시글을 삭제하시겠습니까?')) {
-      axios
-        .delete(`${process.env.REACT_APP_BASE_URL}articles/${qnaId}`, {})
-        .then(function (response) {
-          alert('게시글이 삭제되었습니다.')
-          navigate('/qna')
-        })
-        .catch((error) => console.log(error))
+    if (user.id === board.userId || user.type === 3) {
+      if (window.confirm('게시글을 삭제하시겠습니까?')) {
+        axios
+          .delete(`${process.env.REACT_APP_BASE_URL}articles/${qnaId}`, {})
+          .then(function (response) {
+            alert('게시글이 삭제되었습니다.')
+            navigate('/qna')
+          })
+          .catch((error) => console.log(error))
+      } else {
+        return false
+      }
     } else {
-      return false
+      alert('삭제 권한이 없습니다.')
     }
   }
 
@@ -99,10 +112,18 @@ export const QnaDetail = () => {
         <Comment />
 
         <ButtonGroup>
-          <StyledButton green onClick={() => navigate(`/qna/edit/${qnaId}`)}>
+          <StyledButton
+            green
+            display={checkUser ? true : false}
+            onClick={() => navigate(`/qna/edit/${qnaId}`)}
+          >
             수정
           </StyledButton>
-          <StyledButton red onClick={deleteQna}>
+          <StyledButton
+            display={checkUser ? true : false}
+            red
+            onClick={deleteQna}
+          >
             삭제
           </StyledButton>
         </ButtonGroup>

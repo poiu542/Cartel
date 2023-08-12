@@ -18,6 +18,7 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   height?: string
   marginTop?: string
   marginBottom?: string
+  display?: boolean
 }
 
 const BasicButton = styled.button<ButtonProps>`
@@ -26,7 +27,7 @@ const BasicButton = styled.button<ButtonProps>`
   font-weight: bold;
   justify-content: center;
   font-family: Inter;
-
+  display: true;
   border-radius: ${(props) => props.radius || '8px'};
   color: ${(props) => props.color || 'white'};
   background: ${(props) => props.background || '#40BFFF'};

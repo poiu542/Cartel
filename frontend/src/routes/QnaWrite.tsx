@@ -16,10 +16,14 @@ import { BoardData } from '../model/board'
 import { useNavigate } from 'react-router-dom'
 import { useQueryClient } from 'react-query'
 import { Link } from 'react-router-dom'
+import { userState } from '../recoil/atoms/userState'
+import { useRecoilState } from 'recoil'
 export const QnaWrite: React.FC = () => {
   //type 공지사항 ,qna, 자유게시판인지
   // status 삭제상태 or 게시상태
   const queryClient = useQueryClient()
+  const [user, setUser] = useRecoilState(userState)
+
   const navigate = useNavigate()
   const [board, setBoard] = useState({
     title: '',
@@ -116,7 +120,7 @@ export const QnaWrite: React.FC = () => {
                 fontWeight: '500',
               }}
             >
-              작성자
+              작성자 : {user.nickname}
             </span>
           </div>
           <p style={{ marginLeft: '30px', fontSize: '10px' }}>
