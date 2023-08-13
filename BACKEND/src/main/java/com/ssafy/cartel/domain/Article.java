@@ -47,8 +47,8 @@ public class Article {
     @Column(name = "post_status", nullable = false)
     private Integer status;
 
-    @OneToMany(mappedBy = "article", fetch = FetchType.LAZY )
-    private List<Comment> comments = new ArrayList<>();
+//    @OneToMany(mappedBy = "article", fetch = FetchType.LAZY )
+//    private List<Comment> comments = new ArrayList<>();
 
     @Builder
     public Article(String title, String content, Integer level, Integer views, User user, Integer type, LocalDateTime date, Integer status) {

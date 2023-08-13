@@ -26,9 +26,17 @@ public class CommentService {
         Article article = articleRepository.findById(commentDto.getPostId())
                 .orElseThrow(()->new IllegalArgumentException("nor found post_id"));
         Comment comment = commentDto.toEntity(user,article);
-
         return commentRepository.save(comment);
 
+    }
+
+    public List<Comment> getComments(Integer id){//post id
+        List<Comment> comments = commentRepository.findAllById(id);
+        return comments;
+    }
+
+    public void delete(Integer id){
+        commentRepository.deleteById(id);
     }
 
 
