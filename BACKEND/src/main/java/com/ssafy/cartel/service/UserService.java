@@ -4,6 +4,7 @@ import com.ssafy.cartel.domain.Article;
 import com.ssafy.cartel.domain.User;
 import com.ssafy.cartel.dto.EmailAuthRequest;
 import com.ssafy.cartel.dto.UpdateArticleRequest;
+import com.ssafy.cartel.dto.UpdateUserRequest;
 import com.ssafy.cartel.dto.UserDto;
 import com.ssafy.cartel.repository.UserRepository;
 import jakarta.mail.MessagingException;
@@ -38,8 +39,6 @@ public class UserService {
                 .build());
     }
 
-
-
     //refreshtoken user 찾기
     public User findbyRefreshToken(String Token){
         return userRepository.findByRefreshToken(Token)
@@ -51,8 +50,6 @@ public class UserService {
         return userRepository.findById(id)
                 .orElseThrow(()-> new IllegalArgumentException("unexpexted id"));
     }
-
-
 
     // 인증 메일 전송 로직
     // 6자리 코드 랜덤 생성 후 전송
@@ -97,8 +94,35 @@ public class UserService {
     }
 
     @Transactional
-    public void update(User user,String token){
+    public void tokenUpdate(User user,String token){
         user.refresh(token);
 
     }
+
+    @Transactional
+    public User update(Integer id, UpdateUserRequest request){
+        User user = userRepository.findById(id)
+                .orElseThrow(()->new IllegalArgumentException("not found"+ id));
+
+        user.update(request);
+        return user;
+    }
+
+    @Transactional
+    public boolean checkUseremailDuplication(String email){
+        boolean emailDuplication = userRepository.existsByEmail(email);
+        return emailDuplication;
+
+    }
+
+    @Transactional
+    public boolean checkUsernicknameDuplication(String nickname){
+        boolean nicknameDuplication = userRepository.existsByNickname(nickname);
+        return nicknameDuplication;
+
+    }
+
+
+
+
 }

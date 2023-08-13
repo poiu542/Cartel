@@ -1,5 +1,6 @@
 package com.ssafy.cartel.domain;
 
+import com.ssafy.cartel.dto.UpdateUserRequest;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -107,6 +108,13 @@ public class User implements UserDetails {
 
     public User refresh(String newToken){ // 토큰 갱신
         this.refreshToken = newToken;
+        return this;
+    }
+
+    public User update(UpdateUserRequest request){
+        this.nickname = request.getNickname();
+        this.name = request.getName();
+        this.phone = request.getPhone();
         return this;
     }
 
