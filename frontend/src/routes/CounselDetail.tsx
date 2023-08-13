@@ -281,7 +281,7 @@ export const CounselDetail = () => {
         className="top"
         style={{
           display: 'flex',
-          height: '500px',
+          height: '430px',
         }}
       >
         <div
@@ -290,44 +290,43 @@ export const CounselDetail = () => {
             display: 'flex',
             justifyContent: 'left',
             alignItems: 'center',
-            margin: '100px 0px 0px 200px ',
+            margin: '30px 0px 0px 200px ',
             width: '50%',
           }}
         >
-          <div className="notice" style={{ marginRight: '60px' }}>
-            <PreviewBox
-              title="상담 공지사항"
-              posts={[
-                { title: '[공지] 상담일정 변경 안내' },
-                { title: '공지2' },
-                { title: '공지3' },
-                { title: '공지4' },
-              ]}
-              onClick={ViewAllNotice}
-              width="300px"
-              height="235px"
-            />
-          </div>
-          <div className="qna">
-            <PreviewBox
-              title="상담 Q&A"
-              posts={[
-                { title: '[공지] 상담일정 변경 안내' },
-                { title: '공지2' },
-                { title: '공지3' },
-                { title: '공지4' },
-              ]}
-              onClick={ViewAllQna}
-              width="300px"
-              height="235px"
-            />
+          <div
+            style={{
+              border: '1px solid #3b478f',
+              borderRadius: '13px',
+              width: '702px',
+              minHeight: '260px',
+              padding: '20px',
+              position: 'relative',
+              background: 'white',
+            }}
+          >
+            <h2 style={{ textAlign: 'left', margin: '0px 0px 5px 0px' }}>
+              상담 소개
+            </h2>
+            <hr style={{ borderTop: '2px solid black' }} />
+            <div
+              style={{
+                fontWeight: 'bold',
+              }}
+            >
+              불안을 해결 할 수 있는 방법은 진짜 나를 알아가고, 내가 원하는
+              인생을 설계하며, 작은것부터 실천하고 이루어 가는 것입니다. 내
+              삶에, 내 고민에는 반드시 내가 있어야 합니다. 인생설계 프로젝트를
+              통해 이제부터 나를 알아가고 인정하고 지지해주는 멋진 삶을 만들어
+              보아요.
+            </div>
           </div>
         </div>
 
         <div
           className="right"
           style={{
-            margin: '124px 0px 0px 35px',
+            margin: '78px 0px 0px 35px',
           }}
         >
           <div className="right top">
@@ -349,7 +348,7 @@ export const CounselDetail = () => {
           <div
             className="right middle"
             style={{
-              margin: '70px 0px 0px 30px',
+              margin: '80px 0px 0px 30px',
             }}
           >
             <CounselorCard
@@ -361,7 +360,7 @@ export const CounselDetail = () => {
               imgSrc="../image/iesur.jpg"
             />
           </div>
-          <div className="right bottom" style={{ margin: '40px 0px 0px 41px' }}>
+          <div className="right bottom" style={{ margin: '85px 0px 0px 41px' }}>
             {userState !== 0 && (
               <div
                 className="counsel journal open"
@@ -397,13 +396,13 @@ export const CounselDetail = () => {
       <div
         className="middle"
         style={{
-          margin: '30px 0px 0px 200px',
+          margin: '0px 0px 0px 200px',
           width: '800px',
         }}
       >
         <PreviewBox
           title="상담 커리큘럼"
-          posts={[
+          curriculum={[
             { title: '[공지] 상담일정 변경 안내' },
             { title: '공지2' },
             { title: '공지3' },
@@ -422,27 +421,27 @@ export const CounselDetail = () => {
       >
         <div
           style={{
-            border: '1px solid #3b478f',
-            borderRadius: '13px',
-            width: '702px',
-            minHeight: '120px',
-            padding: '20px',
-            position: 'relative',
-            background: 'white',
+            display: 'flex',
           }}
         >
-          <h2 style={{ textAlign: 'left', margin: '0 0 5px 0' }}>상담 소개</h2>
-          <hr style={{ borderTop: '2px solid black' }} />
-          <div
+          <img
+            src="/image/counsel_detail.png"
+            alt="counsel_detail"
             style={{
-              fontWeight: 'bold',
+              width: '350px',
+              height: '330px',
+              margin: '0px 35px 0px 5px',
             }}
-          >
-            불안을 해결 할 수 있는 방법은 진짜 나를 알아가고, 내가 원하는 인생을
-            설계하며, 작은것부터 실천하고 이루어 가는 것입니다. 내 삶에, 내
-            고민에는 반드시 내가 있어야 합니다. 인생설계 프로젝트를 통해
-            이제부터 나를 알아가고 인정하고 지지해주는 멋진 삶을 만들어 보아요.
-          </div>
+          />
+          <img
+            src="/image/counsel_detail2.png"
+            alt="counsel_detail"
+            style={{
+              width: '350px',
+              height: '330px',
+              margin: '0px 0px 0px 0px',
+            }}
+          />
         </div>
       </div>
       <div

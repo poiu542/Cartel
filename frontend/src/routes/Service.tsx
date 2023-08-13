@@ -97,39 +97,39 @@ export const Service = () => {
         </Subtitle>
         <CardsContainer style={{ margin: '0px 200px 0px 200px' }}>
           <LeftPictureCard
-            imageSrc="/image/cat.png"
-            title="서비스 1"
-            subtitle="서비스 1 설명"
-            content="이곳에는 서비스의 상세 설명이는 서비스의 상세 설명이는 서비스의 상세 설명이 들어갑니다."
+            imageSrc="/image/group.jpg"
+            title="집단 상담"
+            subtitle=""
+            content="동료 중독자들과 함께하는 집단상담을 통해 서로의 경험을 공유하고, 회복을 위한 지원과 격려를 받을 수 있습니다."
           />
           <RightPictureCard
-            imageSrc="/image/dog.png"
-            title="서비스 2"
-            subtitle="서비스 2 설명"
-            content="이곳에는 서비스의 상세 설명이 들어갑니다."
+            imageSrc="/image/expert.jpg"
+            title="전문가 지도"
+            subtitle=""
+            content="경험 많은 상담사와 전문가들이 상담 프로세스를 안내합니다. 개인의 상황에 맞는 조언과 지원을 받을 수 있습니다."
           />
           <LeftPictureCard
-            imageSrc="/image/dog.png"
-            title="서비스 3"
-            subtitle="서비스 3 설명"
-            content="이곳에는 서비스의 상세 설명이 들어갑니다."
+            imageSrc="/image/accessibility.jpg"
+            title="편리한 접근성"
+            subtitle=""
+            content="언제 어디서나 온라인으로 상담 서비스를 이용할 수 있습니다. 회복의 여정을 시작하려는 당신을 위해 항상 열려 있습니다."
           />
           <RightPictureCard
+            imageSrc="/image/secret.jpg"
+            title="비밀 보장"
+            subtitle=""
+            content="모든 이야기와 정보는 엄격히 비밀로 처리됩니다. 자유롭고 솔직하게 자신의 이야기를 나눌 수 있습니다."
+          />
+          {/* <LeftPictureCard
             imageSrc="/image/dog.png"
             title="서비스 3"
             subtitle="서비스 3 설명"
             content="이곳에는 서비스의 상세 설명이 들어갑니다."
-          />
-          <LeftPictureCard
-            imageSrc="/image/dog.png"
-            title="서비스 3"
-            subtitle="서비스 3 설명"
-            content="이곳에는 서비스의 상세 설명이 들어갑니다."
-          />
+          /> */}
         </CardsContainer>
-        <div style={{ height: '800px' }}>
+        {/* <div style={{ height: '800px' }}>
           <h1>서비스 이용 방법, 서비스 스크린샷 찍기</h1>
-        </div>
+        </div> */}
       </PageContainer>
       <Footer />
     </>

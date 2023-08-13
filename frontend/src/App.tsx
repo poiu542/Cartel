@@ -50,16 +50,18 @@ import { MyComments } from './routes/MyComments'
 import { MyBoards } from './routes/MyBoards'
 import { SelfHelpGroup } from './routes/SelfHelpGroup'
 import CounselOpenvidu from './openvidu/CounselOpenvidu'
-import { CheckCounselor, CheckLogin } from './routes/PrivateRoute'
+import { CheckAdmin, CheckCounselor, CheckLogin } from './routes/PrivateRoute'
 import { Testimony } from './routes/Testimony'
 import { QnaEdit } from './routes/QnaEdit'
-import { CounselNotice } from './routes/CounselNotice'
-import { CounselQna } from './routes/CounselQna'
+import { useRecoilState } from 'recoil'
+import { userState } from './recoil/atoms/userState'
 
 const queryClient = new QueryClient()
 
 function App(): React.ReactElement {
-  const loginStatus = 1
+  const [user, setUser] = useRecoilState(userState)
+
+  const loginStatus = user.type
   return (
     <div>
       <QueryClientProvider client={queryClient}>
@@ -83,7 +85,15 @@ function App(): React.ReactElement {
             {/* 공지 상세페이지 */}
             <Route path="/notice/:noticeId" element={<NoticeDetail />} />
             {/* 공지 작성페이지 */}
-            <Route path="/notice/write" element={<NoticeWrite />} />
+            <Route
+              path="/notice/write"
+              element={
+                <CheckAdmin
+                  authenticated={loginStatus}
+                  component={<Notice />}
+                />
+              }
+            />
             {/* 자유게시판페이지 */}
             <Route path="/freeboard" element={<FreeBoard />} />
             {/* 자유게시판 상세피이지 */}
@@ -92,8 +102,6 @@ function App(): React.ReactElement {
               element={<FreeBoardDetail />}
             />
             {/* 자유게시판 작성페이지 */}
-            {/* <Route path="/freeboard/write" element={<FreeBoardWrite />} /> */}
-
             <Route
               path="/freeboard/write"
               element={
@@ -109,6 +117,8 @@ function App(): React.ReactElement {
             <Route path="/counsel" element={<Counsel />} />
             {/* 상담상세페이지 */}
             <Route path="/counsel/:counselId" element={<CounselDetail />} />
+
+            {/* 상담 일지 페이지 */}
             <Route
               path={'/counsel/counseljournal/:couselId/:userId'}
               element={<CounselJournal />}
@@ -116,15 +126,15 @@ function App(): React.ReactElement {
             {/* 상담상세 수정페이지 */}
             <Route path="/counsel/edit/:counselId/" element={<CounselEdit />} />
             {/* 상담개설 페이지 */}
-            <Route path="/counsel/make" element={<CounselMake />} />
-
-            {/* 상담 공지사항 페이지 */}
             <Route
-              path="/counsel/counselId/notice"
-              element={<CounselNotice />}
+              path="/counsel/make"
+              element={
+                <CheckCounselor
+                  authenticated={loginStatus}
+                  component={<CounselMake />}
+                />
+              }
             />
-            {/* 상담 QnA 페이지 */}
-            <Route path="/counsel/counselId/qna" element={<CounselQna />} />
 
             {/* 상담사리스트페이지 */}
             <Route path="/counselor" element={<Counselor />} />
@@ -139,14 +149,22 @@ function App(): React.ReactElement {
             <Route path="/counsel/start/counselId" element={<CounselStart />} />
             {/* 상담일지 리스트 */}
             <Route
-              path="/counsel/counselId/counselorJournal/:userEmail"
+              path="/counsel/:counselId/counselorJournal/:userEmail"
               element={<CounselJournal />}
             />
             {/* <Route path="/counselorJournal/1" element={<CounselJournal />} /> */}
             {/* QnA 게시판페이지 */}
             <Route path="/qna" element={<Qna />} />
             {/* Qna 작성페이지 */}
-            <Route path="/qna/write" element={<QnaWrite />} />
+            <Route
+              path="/qna/write"
+              element={
+                <CheckLogin
+                  authenticated={loginStatus}
+                  component={<QnaWrite />}
+                />
+              }
+            />
             {/* QnA 상세페이지 */}
             <Route path="/qna/:qnaId" element={<QnaDetail />} />
             {/* QnA 수정페이지 */}

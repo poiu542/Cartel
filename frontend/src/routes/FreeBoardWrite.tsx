@@ -19,6 +19,8 @@ import { BoardData } from '../model/board'
 import { useNavigate } from 'react-router-dom'
 import { useQueryClient } from 'react-query'
 import { Link } from 'react-router-dom'
+import { useRecoilState } from 'recoil'
+import { userState } from '../recoil/atoms/userState'
 
 type UploadImage = {
   location: string
@@ -28,6 +30,7 @@ type UploadImage = {
 export const FreeBoardWrite: React.FC = () => {
   //type 공지사항 1 ,qna 2, 자유게시판인지 0
   // status 삭제상태 or 게시상태
+  const [user, setUser] = useRecoilState(userState)
   const queryClient = useQueryClient()
   const navigate = useNavigate()
   const [board, setBoard] = useState({
@@ -129,7 +132,7 @@ export const FreeBoardWrite: React.FC = () => {
                 fontWeight: '500',
               }}
             >
-              {board.nickname}
+              {user.nickname}
             </span>
           </div>
           <p style={{ marginLeft: '30px', fontSize: '10px' }}>

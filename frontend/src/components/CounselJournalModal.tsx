@@ -1,7 +1,6 @@
 import * as React from 'react'
 import Box from '@mui/material/Box'
 import Button from '@mui/material/Button'
-import Typography from '@mui/material/Typography'
 import Modal from '@mui/material/Modal'
 import StyledButton from './../styles/StyledButton'
 import axios from 'axios'
@@ -71,12 +70,8 @@ export default function CounselJournalModal(props: CounselJournalModalProps) {
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
-          <Typography id="modal-modal-title" variant="h6" component="h2">
-            상담일지를 입력해 주세요
-          </Typography>
-          <Typography id="modal-modal-title" variant="h6" component="h2">
-            내담자 이름 : {props.nickname}
-          </Typography>
+          <h2>상담일지를 입력해 주세요</h2>
+          <h3>내담자 이름 : {props.nickname}</h3>
           <br />
           <form onSubmit={postMyTestimony}>
             <textarea

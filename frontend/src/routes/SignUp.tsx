@@ -21,6 +21,7 @@ import StyledButton from '../styles/StyledButton'
 import DeleteIcon from '@mui/icons-material/Delete'
 import { ErrorMessage } from '../styles/ErrorMessage'
 import axios from 'axios'
+import { useNavigate } from 'react-router-dom'
 
 // import { userState } from '../recoil/atoms/userState'
 // import { useRecoilState } from 'recoil'
@@ -40,6 +41,7 @@ interface UserType1Data extends UserCommonData {
 }
 
 export const SignUp = () => {
+  const navigate = useNavigate()
   const [inputNicknameValue, setinputNicknameValue] = useState('')
   const [inputEmailValue, setinputEmailValue] = useState('')
   const [inputAuthNumValue, setinputAuthNumeValue] = useState('')
@@ -49,6 +51,12 @@ export const SignUp = () => {
   const [passwordCheck, setpasswordCheck] = useState(1)
   const [emailError, setEmailError] = useState<string>('')
   const [passwordError, setPasswordError] = useState<string>('')
+  const [emailCheck, setEmailCheck] = useState(false)
+
+  const [profileImg, setProfileImg] = useState<File | null>(null)
+  const [certificationImg, setCertificationImg] = useState<File | null>(null)
+  const [residentRegistrationImg, setResidentRegistrationImg] =
+    useState<File | null>(null)
 
   // 모달을 띄울 상태
   const [isModalOpen, setIsModalOpen] = useState(false)
@@ -87,6 +95,7 @@ export const SignUp = () => {
 
   const handleEmailChange = (event: ChangeEvent<HTMLInputElement>) => {
     setinputEmailValue(event.target.value)
+    setEmailCheck(false)
     if (!validateEmail(event.target.value)) {
       setEmailError('유효한 이메일 주소를 입력해주세요.')
     } else {
@@ -144,10 +153,42 @@ export const SignUp = () => {
   }
 
   const handleEmailClick = () => {
-    alert('인증번호 보내는 로직 짜야함')
+    axios
+      .post(`${process.env.REACT_APP_BASE_URL}signup/email`, {
+        email: inputEmailValue,
+      })
+      .then((res) => {
+        alert('인증번호를 전송했습니다.')
+        console.log(res)
+      })
+      .catch((err) => {
+        alert('이메일을 다시 확인해 주십시오')
+        console.log('이메일 전송 오류:', err)
+      })
   }
   const handleCheckClick = () => {
-    alert('인증되었습니다 로직 짜야함')
+    axios
+      .post(`${process.env.REACT_APP_BASE_URL}signup/email/auth`, {
+        email: inputEmailValue,
+        authCode: inputAuthNumValue,
+      })
+      .then((res) => {
+        if (res.status === 200) {
+          setEmailCheck(true)
+        } else {
+          alert('인증번호가 틀립니다.')
+        }
+      })
+      .catch((err) => alert('인증번호가 틀립니다.'))
+  }
+  const handleFileChange = (
+    event: ChangeEvent<HTMLInputElement>,
+    setter: React.Dispatch<React.SetStateAction<File | null>>,
+  ) => {
+    const file = event.target.files?.[0]
+    if (file) {
+      setter(file)
+    }
   }
 
   ////////////////////////////////
@@ -169,19 +210,49 @@ export const SignUp = () => {
         password: inputPassValue,
         education: inputEducation,
         career: careers,
-        // profileImg: inputProfileImgValue,
-        // certificationImg: inputCertificationImgValue,
-        // residentRegistrationImg: inputResidentRegistrationImgValue,
       }
     }
 
-    if (userData && userData.nickname && userData.email && userData.password) {
+    if (
+      userData &&
+      userData.nickname &&
+      userData.email &&
+      userData.password &&
+      emailCheck &&
+      passwordCheck
+    ) {
       // 기본 정보 확인
+      const formData = new FormData()
+
+      // 기존 유저 데이터를 formData에 추가
+      for (let key in userData) {
+        if ('career' in userData && Array.isArray(userData.career)) {
+          userData.career.forEach((value: string, index: number) => {
+            formData.append(`career[${index}]`, value)
+          })
+        } else {
+          formData.append(key, (userData as any)[key])
+        }
+      }
+
+      if (profileImg) {
+        formData.append('profileImg', profileImg)
+      }
+
+      if (certificationImg) {
+        formData.append('certificationImg', certificationImg)
+      }
+
+      if (residentRegistrationImg) {
+        formData.append('residentRegistrationImg', residentRegistrationImg)
+      }
+
       axios
         .post(`${process.env.REACT_APP_BASE_URL}signup`, userData)
         .then((response) => {
-          console.log(response.data) // 응답 데이터 출력
+          console.log(response.data)
           alert('회원가입이 성공적으로 완료되었습니다.')
+          navigate('/')
           // 성공적으로 회원가입이 완료되면 다른 페이지로 리다이렉션 또는 추가 작업 수행
         })
         .catch((error: any) => {
@@ -189,16 +260,27 @@ export const SignUp = () => {
           alert('회원가입 중 오류가 발생했습니다.')
           // 실패한 경우 오류 메시지 표시 또는 추가 작업 수행
         })
-    }
+    } else alert('다시 확인해주세요')
   }
   const handleProfileUpload = () => {
-    alert('프로필 사진 올리기')
+    const input = document.getElementById(
+      'profileUploadInput',
+    ) as HTMLInputElement
+    input?.click()
   }
+
   const handleCertificateUpload = () => {
-    alert('자격증 사진 올리기')
+    const input = document.getElementById(
+      'certificateUploadInput',
+    ) as HTMLInputElement
+    input?.click()
   }
+
   const handleIdentUpload = () => {
-    alert('주민등록증 사진 올리기')
+    const input = document.getElementById(
+      'identUploadInput',
+    ) as HTMLInputElement
+    input?.click()
   }
 
   // 일반 회원인지 상담사 회원인지
@@ -223,9 +305,6 @@ export const SignUp = () => {
                     onChange={(event) => updateCareer(index, event)}
                     style={{ width: '900px', borderBlockColor: '#40BFFF' }}
                   />
-                  {/* <StyledButton color="gray" background="white">
-                    <DeleteIcon />
-                  </StyledButton> */}
                   <IconButton
                     aria-label="delete"
                     onClick={() => deleteCareer(index)}
@@ -342,9 +421,13 @@ export const SignUp = () => {
             <Button
               border={{ radius: '0.625rem', borderColor: '#40BFFF' }}
               size={{ width: '100px', height: '35px' }}
-              color={{ background: '#40BFFF', color: 'white' }}
+              color={{
+                background: emailCheck ? 'gray' : '#40BFFF',
+                color: 'white',
+              }}
               text="인증번호 확인"
               onClick={handleCheckClick}
+              disabled={emailCheck}
             />
           </FlexContainerRow>
           <Input
@@ -387,21 +470,94 @@ export const SignUp = () => {
               <br />
               <h3>상담사 인증하기</h3>
               <FlexContainerRow style={{ width: '100%' }}>
-                <Button
-                  text="프로필 사진"
-                  size={buttonSize}
-                  onClick={handleProfileUpload}
-                ></Button>
-                <Button
-                  text="자격증 사진"
-                  size={buttonSize}
-                  onClick={handleCertificateUpload}
-                ></Button>
-                <Button
-                  text="주민등록증 사진"
-                  size={buttonSize}
-                  onClick={handleIdentUpload}
-                ></Button>
+                <div
+                  style={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                  }}
+                >
+                  <Button
+                    text="프로필 사진"
+                    size={buttonSize}
+                    onClick={handleProfileUpload}
+                  />
+                  <input
+                    type="file"
+                    id="profileUploadInput"
+                    hidden
+                    onChange={(e) => handleFileChange(e, setProfileImg)}
+                  />
+                  {profileImg && (
+                    <img
+                      src={URL.createObjectURL(profileImg)}
+                      alt="Profile"
+                      width="100"
+                      height="100"
+                      style={{ marginTop: '20px' }}
+                    />
+                  )}
+                </div>
+
+                <div
+                  style={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                  }}
+                >
+                  <Button
+                    text="자격증 사진"
+                    size={buttonSize}
+                    onClick={handleCertificateUpload}
+                  />
+                  <input
+                    type="file"
+                    id="certificateUploadInput"
+                    hidden
+                    onChange={(e) => handleFileChange(e, setCertificationImg)}
+                  />
+                  {certificationImg && (
+                    <img
+                      src={URL.createObjectURL(certificationImg)}
+                      alt="Certification"
+                      width="100"
+                      height="100"
+                      style={{ marginTop: '20px' }}
+                    />
+                  )}
+                </div>
+
+                <div
+                  style={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                  }}
+                >
+                  <Button
+                    text="주민등록증 사진"
+                    size={buttonSize}
+                    onClick={handleIdentUpload}
+                  />
+                  <input
+                    type="file"
+                    id="identUploadInput"
+                    hidden
+                    onChange={(e) =>
+                      handleFileChange(e, setResidentRegistrationImg)
+                    }
+                  />
+                  {residentRegistrationImg && (
+                    <img
+                      src={URL.createObjectURL(residentRegistrationImg)}
+                      alt="Resident Registration"
+                      width="100"
+                      height="100"
+                      style={{ marginTop: '20px' }}
+                    />
+                  )}
+                </div>
               </FlexContainerRow>
             </>
           ) : null}
