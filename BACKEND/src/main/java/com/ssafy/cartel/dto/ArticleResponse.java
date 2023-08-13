@@ -21,7 +21,6 @@ public class ArticleResponse {
     private final Integer type;
     private final LocalDateTime date;
     private final Integer status;
-    private final List<Comment> comments;
 
 
     public ArticleResponse(Article article) {
@@ -35,6 +34,5 @@ public class ArticleResponse {
         this.type = article.getType();
         this.date = article.getDate();
         this.status = article.getStatus();
-        this.comments = article.getComments();
     }
 }
