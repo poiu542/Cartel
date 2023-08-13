@@ -31,7 +31,9 @@ public class CommentService {
     }
 
     public List<Comment> getComments(Integer id){//post id
-        List<Comment> comments = commentRepository.findAllById(id);
+        Article article = articleRepository.findById(id)
+                .orElseThrow(()->new IllegalArgumentException("not found post_id"));
+        List<Comment> comments = commentRepository.findAllByArticle(article);
         return comments;
     }
 

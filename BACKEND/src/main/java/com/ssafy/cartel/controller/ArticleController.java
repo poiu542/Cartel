@@ -4,6 +4,7 @@ import com.ssafy.cartel.domain.Article;
 import com.ssafy.cartel.domain.Comment;
 import com.ssafy.cartel.dto.ArticleDto;
 import com.ssafy.cartel.dto.ArticleResponse;
+import com.ssafy.cartel.dto.CommentResponse;
 import com.ssafy.cartel.dto.UpdateArticleRequest;
 import com.ssafy.cartel.service.ArticleService;
 import com.ssafy.cartel.service.CommentService;
@@ -42,10 +43,14 @@ public class ArticleController {
 
     @GetMapping("/articles/{id}")
     public ResponseEntity<Map<String, Object>> findArticle(@PathVariable Integer id){
-        Article article = articleService.findById(id);
-        List<Comment> comments = commentService.getComments(id);
+        ArticleResponse articleResponse = new ArticleResponse(articleService.findById(id));
+        List<CommentResponse> comments = commentService.getComments(id)
+                .stream()
+                .map(CommentResponse::new)
+                .toList();
+
         Map<String, Object> response = new HashMap<String, Object>();
-        response.put("article", article);
+        response.put("article", articleResponse);
         response.put("comments", comments);
 
         return ResponseEntity.ok()

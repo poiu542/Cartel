@@ -23,10 +23,10 @@ public class CommentController {
         return comment;
     }
 
-    @GetMapping("/ariticles/comments/{id}")//post id
-    public List<Comment> comments(@PathVariable Integer id){
-        return commentService.getComments(id);
-    }
+//    @GetMapping("/ariticles/comments/{id}")//post id
+//    public List<Comment> comments(@PathVariable Integer id){
+//        return commentService.getComments(id);
+//    }
 
 
     @DeleteMapping("/articles/comments/{id}")//댓글 번호
