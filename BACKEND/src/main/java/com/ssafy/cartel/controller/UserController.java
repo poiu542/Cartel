@@ -1,20 +1,15 @@
 package com.ssafy.cartel.controller;
 
 import com.ssafy.cartel.config.jwt.TokenProvider;
-import com.ssafy.cartel.domain.Article;
 import com.ssafy.cartel.domain.User;
 import com.ssafy.cartel.dto.*;
 import com.ssafy.cartel.repository.UserRepository;
 import com.ssafy.cartel.service.UserService;
-import jakarta.websocket.server.PathParam;
-import lombok.Getter;
+import io.micronaut.context.annotation.Parameter;
 import lombok.RequiredArgsConstructor;
-import org.hibernate.sql.Update;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -103,12 +98,31 @@ public class UserController {
 
     }
 
-    @GetMapping("/signup/exists/{nickname}")
-    public ResponseEntity<String> checknicknameDuplicate(@PathVariable String nickname) {
+    @GetMapping("/signup/exists")
+    public ResponseEntity<String> checknicknameDuplicate(@Parameter String nickname) {
+        System.out.println("!!!!!"+nickname);
         if (!userService.checkUsernicknameDuplication(nickname))
             return ResponseEntity.ok("사용가능한 닉네임");
         else
             return ResponseEntity.badRequest().body("중복 닉네임 입니다.");
+    }
+
+    //임시 비밀번호
+    @PutMapping("/userinfo/findPassword")
+    public ResponseEntity<String> tempPassword(@RequestBody FindPassword findPassword){
+        userService.tempPassword(findPassword.getEmail());
+
+        return ResponseEntity.ok("임시비밀번호 전송 완료");
+
+    }
+
+    //비밀번호 변경
+    @PutMapping("/userinfo/changePassword")
+    public ResponseEntity<String> changePassword(@RequestBody ChangePasswordRequest request){
+        userService.changePassword(request.getId(),request.getPassword());
+
+        return ResponseEntity.ok("비밀번호 변경 완료");
+
     }
 }
 

@@ -37,7 +37,7 @@ public class User implements UserDetails {
     @Column(name = "user_phone")
     private String phone;
 
-    @Column(name = "user_point")
+    @Column(name = "user_point", nullable = false)
     private Integer point;
 
     @Column(name = "user_profile_url")
@@ -53,7 +53,7 @@ public class User implements UserDetails {
     private String refreshToken;
 
     @Builder
-    public User(String email, String password, String nickname, String name, String phone, Integer point, String profileUrl, Integer state, Integer type, String refreshToken) {
+    public User(String email, String password, String nickname, String name, String phone, String profileUrl, Integer point, Integer type, Integer state) {
         this.email = email;
         this.password = password;
         this.nickname = nickname;
@@ -63,7 +63,6 @@ public class User implements UserDetails {
         this.profileUrl = profileUrl;
         this.state = state;
         this.type = type;
-        this.refreshToken = refreshToken;
     }
 
     @Override //사용자 권한 반환
@@ -115,6 +114,11 @@ public class User implements UserDetails {
         this.nickname = request.getNickname();
         this.name = request.getName();
         this.phone = request.getPhone();
+        return this;
+    }
+
+    public User updatePwd(String password){
+        this.password = password;
         return this;
     }
 
