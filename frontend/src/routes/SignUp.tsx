@@ -178,7 +178,7 @@ export const SignUp = () => {
     if (userData && userData.nickname && userData.email && userData.password) {
       // 기본 정보 확인
       axios
-        .post('http://i9b209.p.ssafy.io:8080/signup', userData)
+        .post(`${process.env.REACT_APP_BASE_URL}signup`, userData)
         .then((response) => {
           console.log(response.data) // 응답 데이터 출력
           alert('회원가입이 성공적으로 완료되었습니다.')

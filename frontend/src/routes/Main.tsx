@@ -20,8 +20,6 @@ import { Testimony } from './Testimony'
 import TestimonyModal from '../components/TestimonyModal'
 
 // import { StyledDiv } from './../components/Write'
-import counselJournalModal from './../components/CounselJournalModal'
-import CounselJournalModal from './../components/CounselJournalModal'
 import { NoneStyledLink } from './../styles/Custom'
 import { useQuery } from 'react-query'
 import { getBoards } from '../hooks/useboard'
@@ -537,7 +535,6 @@ export const Main = () => {
         }}
       ></div>
       <TestimonyModal />
-      <CounselJournalModal />
       <Footer />
     </div>
   )

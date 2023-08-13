@@ -19,6 +19,8 @@ import styled from '@emotion/styled'
 // import ScreenShareOutlinedIcon from '@mui/icons-material/ScreenShareOutlined'
 // import StopScreenShareOutlinedIcon from '@mui/icons-material/StopScreenShareOutlined'
 // import { Icon } from '@mui/material'
+import Button from '../components/Button'
+import StyledButton from '../styles/StyledButton'
 
 // const APPLICATION_SERVER_URL = 'http://i9b209.p.ssafy.io:8080/'
 const Container = styled.div`
@@ -30,6 +32,7 @@ const Container = styled.div`
 const Header = styled.div`
   height: 8vh;
   display: flex;
+  flex-direction: column;
   align-items: center;
   padding: 0 50px;
   justify-content: center;
@@ -48,7 +51,7 @@ const Middle = styled.div`
 `
 
 const Left = styled.div`
-  flex: 3;
+  flex: 11;
   width: 100%;
   display: flex;
   justify-content: center;
@@ -60,8 +63,8 @@ const Right = styled.div`
   display: flex;
   align-items: center;
   transition: 0.5s;
-  ${(props) =>
-    props.primary ? `right:0; flex:1;` : `right:calc(-100vw/3); flex:0;`}
+  right: 0;
+  flex: 1;
 `
 
 const Chat = styled.div`
@@ -74,7 +77,7 @@ const Chat = styled.div`
 
 const VideoContainer = styled.div`
   margin-top: 30px;
-  width: 50%;
+  width: 90%;
   height: 77vh;
   overflow: hidden;
   display: flex;
@@ -165,12 +168,17 @@ class CounselOpenvidu extends Component {
 
     // These properties are in the state's component in order to re-render the HTML whenever their values change
     this.state = {
-      mySessionId: 'drugking',
+      mySessionId: 'drugkin',
       myUserName: 'Par' + Math.floor(Math.random() * 100),
       session: undefined,
       mainStreamManager: undefined, // Main video of the page. Will be the 'publisher' or one of the 'subscribers'
       publisher: undefined,
+      isCamera: true,
+      isSpeaker: true,
+      isMike: true,
       subscribers: [],
+      isCounselJournal: false,
+      isTestimony: false,
     }
 
     this.joinSession = this.joinSession.bind(this)
@@ -237,6 +245,16 @@ class CounselOpenvidu extends Component {
           })
           break
 
+        case 'counseljournal':
+          this.setState({ isCounselJournal: !this.state.isCounselJournal })
+          this.setState({ isTestimony: false })
+          break
+
+        case 'testimony':
+          this.setState({ isTestimony: !this.state.isTestimony })
+          this.setState({ isCounselJournal: false })
+          break
+
         // case 'share':
         //   this.setState({ isShareScreen: !this.state.isShareScreen }, () => {
         //     this.state.subscribers.forEach((s) =>
@@ -244,6 +262,9 @@ class CounselOpenvidu extends Component {
         //     )
         //   })
         //   break
+
+        default:
+          break
       }
     }
   }
@@ -501,6 +522,11 @@ class CounselOpenvidu extends Component {
       <Container>
         <Header>
           <StudyTitle>상담이름</StudyTitle>
+          {this.state.isCounselJournal ? (
+            <p style={{ color: 'white', right: '50' }}>
+              상담일지를 작성할 사람을 클릭하세요
+            </p>
+          ) : null}
         </Header>
         <Middle>
           {this.state.session === undefined ? (
@@ -550,20 +576,20 @@ class CounselOpenvidu extends Component {
                   ) : null}
                   {this.state.subscribers.map((sub, i) => (
                     <StreamContainer key={sub.stream.streamId}>
-                      <UserVideoComponent streamManager={sub} />
+                      <UserVideoComponent
+                        streamManager={sub}
+                        isCounselJournal={this.state.isCounselJournal}
+                        isTestimony={this.state.isTestimony}
+                      />
                     </StreamContainer>
                   ))}
                 </StreamContainerWrapper>
               ) : null}
             </VideoContainer>
           </Left>
-
-          <Right primary={this.state.isChat}>
-            {/* <Chat>
-              <ChatBox />
-            </Chat> */}
-          </Right>
         </Middle>
+
+        {/* {this.state.session !== undefined ? ( */}
         <Bottom>
           <BottomBox>
             <Icon
@@ -590,28 +616,33 @@ class CounselOpenvidu extends Component {
             >
               {this.state.isSpeaker ? <HeadsetIcon /> : <HeadsetOffIcon />}
             </Icon>
-            {/* <Icon
-              primary={!this.state.isShareScreen}
-              onClick={() => this.handleToggle('speaker')}
-            >
-              {this.state.isShareScreen ? (
-                <ScreenShareOutlinedIcon onClick={this.stopScreenSharing} />
-              ) : (
-                <StopScreenShareOutlinedIcon
-                  onClick={this.startScreenSharing}
-                />
-              )}
-            </Icon> */}
+
             <Icon primary onClick={this.leaveSession}>
               <ExitToAppIcon />
             </Icon>
           </BottomBox>
-          {/* <ChatIconBox
-            onClick={() => this.setState({ isChat: !this.state.isChat })}
+          <StyledButton
+            onClick={() => this.handleToggle('counseljournal')}
+            style={{
+              color: 'white',
+              position: 'absolute',
+              right: '50vh', // 오른쪽에 배치
+            }}
           >
-            <ChatIcon />
-          </ChatIconBox> */}
+            상담일지
+          </StyledButton>
+          <StyledButton
+            onClick={() => this.handleToggle('testimony')}
+            style={{
+              color: 'white',
+              position: 'absolute',
+              right: '33vh', // 오른쪽에 배치
+            }}
+          >
+            소감문
+          </StyledButton>
         </Bottom>
+        {/* ) : null} */}
       </Container>
     )
   }

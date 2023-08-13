@@ -164,6 +164,7 @@ export const Login = () => {
               value={inputEmailValue}
               onChange={handleEmailChange}
               placeholder="이메일"
+              maxLength={100}
             />
           </FlexContainerRow>
           <Input

@@ -20,8 +20,12 @@ const style = {
   p: 4,
 }
 
-export default function CounselJournalModal() {
-  const [open, setOpen] = React.useState(false)
+interface CounselJournalModalProps {
+  nickname: string
+}
+
+export default function CounselJournalModal(props: CounselJournalModalProps) {
+  const [open, setOpen] = React.useState(true)
   const handleOpen = () => setOpen(true)
   const handleClose = () => setOpen(false)
   const [counselJournal, setCounselJournal] = React.useState({
@@ -32,10 +36,14 @@ export default function CounselJournalModal() {
   const { content, userId, counselId } = counselJournal
 
   const handleCounselJournal = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    const updatedContent = e.target.value
     setCounselJournal((prevCounselJournal) => ({
       ...prevCounselJournal,
-      content: e.target.value,
+      content: updatedContent,
     }))
+
+    // localStorage에 저장
+    localStorage.setItem('counselJournalContent', updatedContent)
   }
 
   const postMyTestimony = (e: React.FormEvent<HTMLFormElement>) => {
@@ -53,7 +61,9 @@ export default function CounselJournalModal() {
   }
   return (
     <div>
-      <StyledButton onClick={handleOpen}>상담일지 작성</StyledButton>
+      {/* <StyledButton width="200px" onClick={handleOpen}>
+        상담일지 작성
+      </StyledButton> */}
       <Modal
         open={open}
         onClose={handleClose}
@@ -63,6 +73,9 @@ export default function CounselJournalModal() {
         <Box sx={style}>
           <Typography id="modal-modal-title" variant="h6" component="h2">
             상담일지를 입력해 주세요
+          </Typography>
+          <Typography id="modal-modal-title" variant="h6" component="h2">
+            내담자 이름 : {props.nickname}
           </Typography>
           <br />
           <form onSubmit={postMyTestimony}>
