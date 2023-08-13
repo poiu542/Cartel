@@ -95,12 +95,10 @@ public class UserController {
         User user = userService.findbyId(id);
 
         return ResponseEntity.ok().body(new UserResponse(user));
-
     }
 
     @GetMapping("/signup/exists")
     public ResponseEntity<String> checknicknameDuplicate(@Parameter String nickname) {
-        System.out.println("!!!!!"+nickname);
         if (!userService.checkUsernicknameDuplication(nickname))
             return ResponseEntity.ok("사용가능한 닉네임");
         else
