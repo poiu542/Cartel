@@ -3,14 +3,13 @@ package com.ssafy.cartel.controller;
 import com.ssafy.cartel.config.jwt.TokenProvider;
 import com.ssafy.cartel.domain.Article;
 import com.ssafy.cartel.domain.User;
-import com.ssafy.cartel.dto.ArticleResponse;
-import com.ssafy.cartel.dto.EmailAuthRequest;
-import com.ssafy.cartel.dto.UserDto;
-import com.ssafy.cartel.dto.UserResponse;
+import com.ssafy.cartel.dto.*;
 import com.ssafy.cartel.repository.UserRepository;
 import com.ssafy.cartel.service.UserService;
 import jakarta.websocket.server.PathParam;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import org.hibernate.sql.Update;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -35,9 +34,11 @@ public class UserController {
 
 
     @PostMapping("/signup/email")
-    public ResponseEntity<Void> authMail(@RequestBody EmailAuthRequest request) {
+    public ResponseEntity<String> authMail(@RequestBody EmailAuthRequest request) {
+        if(userService.checkUseremailDuplication(request.getEmail()))
+           return ResponseEntity.badRequest().body("이미 존재하는 이메일 입니다.");
         userService.authMail(request);
-        return ResponseEntity.ok().build();
+        return ResponseEntity.ok("인증 번호 전송 완료");
     }
 
     @PostMapping("/signup/email/auth")
@@ -79,7 +80,6 @@ public class UserController {
 //        headers.add("userId", user.getId().toString());
 //        System.out.println(headers.get("Authorization"));
 
-
         Map<String,Object> userinfo = new HashMap<>();
         userinfo.put("nickname",user.getNickname());
         userinfo.put("userId",user.getId());
@@ -87,12 +87,28 @@ public class UserController {
         userinfo.put("type",user.getType());
         return userinfo;
     }
+
+    @PutMapping("/userinfo/{id}")
+    public ResponseEntity<UpdateUserRequest> updateUser(@PathVariable Integer id, @RequestBody UpdateUserRequest request){
+        User user = userService.update(id, request);
+
+        return ResponseEntity.ok().body(request);
+    }
+
     @GetMapping("/userinfo/{id}")
     public ResponseEntity<UserResponse> userInfo(@PathVariable Integer id){
         User user = userService.findbyId(id);
 
         return ResponseEntity.ok().body(new UserResponse(user));
 
+    }
+
+    @GetMapping("/signup/exists/{nickname}")
+    public ResponseEntity<String> checknicknameDuplicate(@PathVariable String nickname) {
+        if (!userService.checkUsernicknameDuplication(nickname))
+            return ResponseEntity.ok("사용가능한 닉네임");
+        else
+            return ResponseEntity.badRequest().body("중복 닉네임 입니다.");
     }
 }
 
