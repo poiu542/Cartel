@@ -10,6 +10,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+import java.util.Optional;
+
 @RequiredArgsConstructor
 @RestController
 public class EvaluationController {
@@ -24,12 +27,6 @@ public class EvaluationController {
                 .body(saveEvaluation);
     }
 
-    @GetMapping("/evaluation/{id}")
-    public ResponseEntity<?> findEvaluation(@PathVariable Integer id){
-        Evaluation evaluation = evaluationService.findById(id);
-
-        return ResponseEntity.ok().body(new EvaluationResponse(evaluation));
-    }
 
     @DeleteMapping("/evaluation/{id}")
     public ResponseEntity<Void> deleteEvaluation(@PathVariable Integer id){
@@ -54,4 +51,12 @@ public class EvaluationController {
         return ResponseEntity.ok()
                 .body(average);
     }
+
+
+    // 상담사 후기 전체 조회
+    @GetMapping("/evaluations/{counselorId}")//counselorId
+    public List<Evaluation> evaluations(@PathVariable Integer counselorId){
+        return evaluationService.getEvaluation(counselorId);
+    }
+
 }

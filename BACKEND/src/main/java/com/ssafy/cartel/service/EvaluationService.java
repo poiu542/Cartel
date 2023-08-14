@@ -4,6 +4,7 @@ import com.ssafy.cartel.domain.Client;
 import com.ssafy.cartel.domain.Counselor;
 import com.ssafy.cartel.domain.Evaluation;
 import com.ssafy.cartel.dto.EvaluationDto;
+import com.ssafy.cartel.dto.EvaluationResponse;
 import com.ssafy.cartel.dto.UpdateEvaluationRequest;
 import com.ssafy.cartel.repository.ClientRepository;
 import com.ssafy.cartel.repository.CounselorRepository;
@@ -11,8 +12,12 @@ import com.ssafy.cartel.repository.EvaluationRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.thymeleaf.expression.Lists;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 @RequiredArgsConstructor //final , @notnull 붙은 필드의 생성자 추가
 @Service //빈으로 등록
@@ -34,10 +39,16 @@ public class EvaluationService {
         return evaluationRepository.save(evaluationDto.toEntity(counselor, client));
     }
 
-    // 상담사 후기 조회
-    public Evaluation findById(Integer id) {
-        return evaluationRepository.findById(id)
-                .orElseThrow(()-> new IllegalArgumentException("not found : " + id));
+
+    // 상담사 후기 모두 조회
+    public List<Evaluation> getEvaluation(Integer counselorId){//counselor_id
+
+        Counselor counselor = counselorRepository.findById(counselorId)
+                .orElseThrow(()-> new IllegalArgumentException("not found : " + counselorId));
+
+        List<Evaluation> list = evaluationRepository.findByCounselorId(counselor);
+
+        return list;
     }
 
     // 상담사 후기 삭제
@@ -72,8 +83,4 @@ public class EvaluationService {
 
         return String.format("%.2f",average);
     }
-
-
-
-
 }
