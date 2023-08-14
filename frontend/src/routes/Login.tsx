@@ -95,11 +95,11 @@ export const Login = () => {
       .post(`${process.env.REACT_APP_BASE_URL}login`, data)
       .then((response) => {
         // 헤더 정보
-        console.log(response)
         const accessToken = response.data.token
         const type = response.data.type
         const userId = response.data.userId
         const nickname = response.data.nickname
+        const email = response.data.email
 
         // API 요청하는 콜마다 헤더에 accessToken 담아 보내도록 설정
         axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`
@@ -110,6 +110,7 @@ export const Login = () => {
           nickname: nickname,
           type: type,
           id: userId,
+          email: email,
         }))
         alert('로그인 완료')
         navigate('/')
@@ -133,7 +134,6 @@ export const Login = () => {
   const switchUserType = () => {
     setUserType(userType === 0 ? 1 : 0)
   }
-
   return (
     <section>
       <NavbarLogin />
@@ -191,12 +191,12 @@ export const Login = () => {
         <div>
           <h1></h1>
         </div>
-        <Button
+        {/* <Button
           color={{ background: '#FFF50E', color: 'black' }}
           onClick={handleKakaoLogIn}
           text="Kakao 로그인"
           size={{ width: '570px', height: '50px' }}
-        ></Button>
+        ></Button> */}
       </FlexContainer>
     </section>
   )
