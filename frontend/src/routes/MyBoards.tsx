@@ -8,6 +8,8 @@ import axios from 'axios'
 import './Question.css'
 import Modal from 'react-modal'
 import { TestimonyTable } from '../components/TestimonyTable'
+import { useRecoilValue, useRecoilState } from 'recoil'
+import { userState } from '../recoil/atoms/userState'
 
 export const MyBoards = () => {
   const modalStyle = {
@@ -32,6 +34,7 @@ export const MyBoards = () => {
   }
   const navigate = useNavigate()
 
+  const [user, setUser] = useRecoilState(userState)
   const [boardList, setBoardList] = useState<BoardData[]>([]) // axios에서 받아온 전체 게시글 데이터
   const [currentPost, setCurrentPost] = useState<BoardData[]>(boardList) // 페이지네이션을 통해 보여줄 게시글
   const [page, setPage] = useState<number>(1) // 현재 페이지 번호
@@ -58,9 +61,16 @@ export const MyBoards = () => {
 
   useEffect(() => {
     axios
-      .get('/articles')
+      .get(`${process.env.REACT_APP_BASE_URL}articles`)
       .then((response) => {
-        setBoardList([...response.data].reverse())
+        console.log(response.data)
+        console.log(user)
+        const filteredData = response.data.filter(
+          // (article: any) => article.type === 0 && article.UserId === user.id,
+          (article: any) => article.type === 0,
+        )
+        setBoardList([...filteredData].reverse())
+        console.log(filteredData)
       })
 
       .catch(function (error) {
