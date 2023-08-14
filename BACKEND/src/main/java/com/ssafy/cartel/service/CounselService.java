@@ -69,19 +69,18 @@ public class CounselService {
     }
 
     @Transactional
-    public void delete(Integer id){
-        counselRepository.deleteById(id);
-    }
-
-    @Transactional
     public Counsel update(Integer id, CounselDto counselDto){
         Counsel counsel = counselRepository.findById(id)
                 .orElseThrow(()-> new IllegalArgumentException("not found:" + id));
 
-//        counsel.update();
-
+        counsel.updateState(counselDto.getState());
         return counsel;
     }
+    @Transactional
+    public void delete(Integer id){
+        counselRepository.deleteById(id);
+    }
+
 
 
 }
