@@ -2,7 +2,18 @@ plugins {
 	id 'java'
 	id 'org.springframework.boot' version '3.0.2' //security 때문에 버전 3.0.2로 바꿨음
 	id 'io.spring.dependency-management' version '1.1.2'
+}
 
+tasks {
+	bootJar {
+		duplicatesStrategy = 'exclude'
+	}
+}
+
+tasks {
+    bootJar {
+        duplicatesStrategy = 'exclude'
+    }
 }
 
 group = 'com.ssafy'
@@ -24,42 +35,48 @@ repositories {
 }
 
 dependencies {
-	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
-	implementation 'org.springframework.boot:spring-boot-starter-data-redis'
-//	implementation 'org.springframework.boot:spring-boot-starter-security'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
-	implementation 'mysql:mysql-connector-java:8.0.32'
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	//implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+	implementation 'org.springframework.boot:spring-boot-starter-security'
+	implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity6'
+	implementation 'org.projectlombok:lombok:1.18.20'
+	implementation 'jakarta.validation:jakarta.validation-api:3.0.2'
+	implementation 'io.jsonwebtoken:jjwt:0.9.1'
+	implementation 'javax.json.bind:javax.json.bind-api:1.0'
 	compileOnly 'org.projectlombok:lombok'
 	annotationProcessor 'org.projectlombok:lombok'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
-
-	//testImplementation 'org.springframework.security:spring-security-test'
+	testImplementation 'org.springframework.security:spring-security-test'
 	implementation 'org.springframework.boot:spring-boot-starter-jdbc'
 	//implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
 	implementation 'mysql:mysql-connector-java:8.0.33'
-	//implementation 'io.micronaut.security:micronaut-security:4.0.1'
+	implementation 'io.micronaut.security:micronaut-security:4.0.1'
 	//implementation 'de.valtech.aecu:aecu:6.4.0'
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
 	//runtimeOnly 'com.h2database:h2'
 	//runtimeOnly 'org.mariadb.jdbc:mariadb-java-client'
 	implementation 'org.hibernate.validator:hibernate-validator:7.0.1.Final'
 
+	annotationProcessor "org.springframework.boot:spring-boot-configuration-processor"
+	implementation 'com.sun.xml.bind:jaxb-impl'
+	implementation 'com.sun.xml.bind:jaxb-core'
+	// javax.xml.bind
+	implementation 'javax.xml.bind:jaxb-api:2.4.0-b180830.0359'
 
-	// validation
-	implementation 'org.springframework.boot:spring-boot-starter-validation'
+	implementation 'io.openvidu:openvidu-java-client:2.28.0'
 
-	// jwt
-	implementation 'io.jsonwebtoken:jjwt-api:0.11.5'
-	implementation 'io.jsonwebtoken:jjwt-impl:0.11.5'
-	implementation 'io.jsonwebtoken:jjwt-jackson:0.11.5'
+	// 이메일 인증
+	implementation 'org.springframework.boot:spring-boot-starter-mail'
 
-	// aws S3
-	implementation 'org.springframework.cloud:spring-cloud-starter-aws:2.2.6.RELEASE'
+	//redis
+	implementation "org.springframework.boot:spring-boot-starter-data-redis"
+	implementation "redis.clients:jedis:2.9.0"
+	implementation "org.springframework.session:spring-session-data-redis"
 
 }
 
 tasks.named('test') {
 	useJUnitPlatform()
 }
-
 
