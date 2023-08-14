@@ -84,7 +84,7 @@ export const Service = () => {
         <Title style={{ marginTop: '35px' }} delay="0.3s">
           '우린 약하지 않아' 에서
         </Title>
-        <Title style={{ marginBottom: '100px' }} delay="0.8s">
+        <Title style={{ marginBottom: '50px' }} delay="0.8s">
           단약 의지를 강화해보세요
         </Title>
         <img

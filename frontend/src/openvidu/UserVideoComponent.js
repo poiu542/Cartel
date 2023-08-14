@@ -29,14 +29,11 @@ export default class UserVideoComponent extends Component {
       .clientData
   }
 
+  // 비디오 누르기
   handleVideoClick() {
     this.setState((prevState) => ({
       isCounselJournalModal: !prevState.isCounselJournalModal,
-      isTestimonyModal: !prevState.isTestimonyModal,
     }))
-    console.log('아래는 현재 state 상태')
-    console.log(this.state.isCounselJournalModal)
-    console.log(this.getNicknameTag())
   }
 
   render() {

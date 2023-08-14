@@ -23,26 +23,77 @@ interface CounselJournalModalProps {
   nickname: string
 }
 
+interface CounselJournalData {
+  nickname: string
+  content: string
+}
+
 export default function CounselJournalModal(props: CounselJournalModalProps) {
   const [open, setOpen] = React.useState(true)
+  const [content, setContent] = React.useState('')
+  // const [userId, setUserId] = React.useState('')
   const handleOpen = () => setOpen(true)
-  const handleClose = () => setOpen(false)
-  const [counselJournal, setCounselJournal] = React.useState({
-    content: '',
-    userId: 1,
-    counselId: 1,
-  })
-  const { content, userId, counselId } = counselJournal
+  const handleClose = () => {
+    setOpen(false)
+  }
+
+  React.useEffect(() => {
+    const existingData = JSON.parse(
+      localStorage.getItem('counselJournal') || '[]',
+    )
+    const userJournal = existingData.find(
+      (item: CounselJournalData) => item.nickname === props.nickname,
+    )
+
+    if (userJournal) {
+      setContent(userJournal.content)
+    } else {
+      setContent('')
+    }
+  }, [open, props.nickname]) // open과 props.nickname이 변경될 때마다 실행
+
+  // React.useEffect(() => {
+  //   // sessionStorage에서 loginUser 데이터 가져오기
+  //   const loginUser = sessionStorage.getItem('loginUser')
+
+  //   if (loginUser) {
+  //     const parsedData = JSON.parse(loginUser)
+
+  //     // loginUser에 id가져오기
+  //     setUserId(parsedData.id)
+  //   }
+  // }, []) // 빈 dependency 배열은 컴포넌트 마운트 시점에만 실행됨을 의미
 
   const handleCounselJournal = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     const updatedContent = e.target.value
-    setCounselJournal((prevCounselJournal) => ({
-      ...prevCounselJournal,
-      content: updatedContent,
-    }))
+    setContent(updatedContent)
 
-    // localStorage에 저장
-    localStorage.setItem('counselJournalContent', updatedContent)
+    // 객체 형태로 저장하기 위한 데이터 구성
+    const newData = {
+      nickname: props.nickname,
+      content: updatedContent,
+    }
+
+    // 기존 localStorage에서 데이터를 가져오기
+    const existingData = JSON.parse(
+      localStorage.getItem('counselJournal') || '[]',
+    )
+
+    // 존재하는 nickname 데이터의 인덱스를 찾기
+    const existingDataIndex = existingData.findIndex(
+      (item: CounselJournalData) => item.nickname === props.nickname,
+    )
+
+    if (existingDataIndex !== -1) {
+      // 만약 존재하면, 해당 데이터를 수정
+      existingData[existingDataIndex] = newData
+    } else {
+      // 존재하지 않으면, 새로운 데이터를 추가
+      existingData.push(newData)
+    }
+
+    // localStorage에 다시 저장
+    localStorage.setItem('counselJournal', JSON.stringify(existingData))
   }
 
   const postMyTestimony = (e: React.FormEvent<HTMLFormElement>) => {
@@ -50,12 +101,12 @@ export default function CounselJournalModal(props: CounselJournalModalProps) {
     if (content.length === 0) {
       alert('내용을 입력해주세요.')
     } else {
-      if (window.confirm('소감문을 등록하시겠습니까?')) {
-        const response = axios.post(
-          `${process.env.REACT_APP_BASE_URL}counsel/${counselId}/counseljournal/`,
-          counselJournal,
-        )
-      }
+      // if (window.confirm('소감문을 등록하시겠습니까?')) {
+      //   const response = axios.post(
+      //     `${process.env.REACT_APP_BASE_URL}counsel/${counselId}/counseljournal/`,
+      //     // counselJournal,
+      //   )
+      // }
     }
   }
   return (

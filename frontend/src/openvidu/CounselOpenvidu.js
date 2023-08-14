@@ -108,7 +108,6 @@ const StreamContainer = styled.div`
   position: relative;
   border-radius: 5px;
   min-height: 34vh;
-  overflow: hidden;
   box-sizing: border-box;
 `
 
@@ -169,7 +168,7 @@ class CounselOpenvidu extends Component {
     // These properties are in the state's component in order to re-render the HTML whenever their values change
     this.state = {
       mySessionId: 'drugkin',
-      myUserName: 'Par' + Math.floor(Math.random() * 100),
+      myUserName: '',
       session: undefined,
       mainStreamManager: undefined, // Main video of the page. Will be the 'publisher' or one of the 'subscribers'
       publisher: undefined,
@@ -179,6 +178,11 @@ class CounselOpenvidu extends Component {
       subscribers: [],
       isCounselJournal: false,
       isTestimony: false,
+      counselId: '',
+      journalData: [],
+      userType: 5,
+
+      userId: '',
     }
 
     this.joinSession = this.joinSession.bind(this)
@@ -191,6 +195,13 @@ class CounselOpenvidu extends Component {
   }
 
   componentDidMount() {
+    const loginUser = sessionStorage.getItem('loginUser')
+    if (loginUser) {
+      const parsedUser = JSON.parse(loginUser)
+      this.setState({ myUserName: parsedUser.userState.nickname })
+      this.setState({ userId: parsedUser.userState.id })
+      this.setState({ userType: parsedUser.userState.type })
+    }
     window.addEventListener('beforeunload', this.onbeforeunload)
   }
 
@@ -315,7 +326,7 @@ class CounselOpenvidu extends Component {
     this.OV.setAdvancedConfiguration({
       publisherSpeakingEventsOptions: {
         interval: 100,
-        threshold: -50,
+        threshold: -60,
       },
     })
 
@@ -341,7 +352,7 @@ class CounselOpenvidu extends Component {
           )
 
           if (currentSpeakerVideo && currentSpeakerVideo.srcObject) {
-            currentSpeakerVideo.style.border = '5px solid red'
+            currentSpeakerVideo.style.border = '4px solid yellow'
 
             let mainVideoElement = document.getElementById('mainVideo')
             if (mainVideoElement) {
@@ -455,6 +466,35 @@ class CounselOpenvidu extends Component {
 
   leaveSession() {
     // --- 7) Leave the session by calling 'disconnect' method over the Session object ---
+    // 상담사일 때만 상담일지 post요청
+    if (this.state.userType === 2) {
+      // 상담일지 정보 업데이트
+      const storedData = localStorage.getItem('counselJournal')
+      if (storedData) {
+        this.setState(
+          {
+            journalData: JSON.parse(storedData),
+          },
+          async () => {
+            // setState의 콜백 함수 사용
+            // 상담일지 POST 요청을 보내는 메서드
+            try {
+              const response = await axios.post(
+                '상담일지 POST AAAAAAAAAAAAAAAAAAAAPPPPPPPPPPPPPPIIIIIIIIIII주소',
+                {
+                  counselId: this.state.counselId,
+                  journalData: this.state.journalData,
+                },
+              )
+
+              // console.log(response.data)
+            } catch (error) {
+              console.error('상담일지 post 에러', error)
+            }
+          },
+        )
+      }
+    }
 
     const mySession = this.state.session
 
@@ -467,8 +507,8 @@ class CounselOpenvidu extends Component {
     this.setState({
       session: undefined,
       subscribers: [],
-      mySessionId: 'SessionA',
-      myUserName: 'Participant' + Math.floor(Math.random() * 100),
+      mySessionId: 'drugkin',
+      myUserName: this.state.myUserName,
       mainStreamManager: undefined,
       publisher: undefined,
     })
@@ -621,26 +661,30 @@ class CounselOpenvidu extends Component {
               <ExitToAppIcon />
             </Icon>
           </BottomBox>
-          <StyledButton
-            onClick={() => this.handleToggle('counseljournal')}
-            style={{
-              color: 'white',
-              position: 'absolute',
-              right: '50vh', // 오른쪽에 배치
-            }}
-          >
-            상담일지
-          </StyledButton>
-          <StyledButton
-            onClick={() => this.handleToggle('testimony')}
-            style={{
-              color: 'white',
-              position: 'absolute',
-              right: '33vh', // 오른쪽에 배치
-            }}
-          >
-            소감문
-          </StyledButton>
+          {this.state.userType === 2 ? (
+            <>
+              <StyledButton
+                onClick={() => this.handleToggle('counseljournal')}
+                style={{
+                  color: 'white',
+                  position: 'absolute',
+                  right: '50vh', // 오른쪽에 배치
+                }}
+              >
+                상담일지
+              </StyledButton>
+              <StyledButton
+                onClick={() => this.handleToggle('testimony')}
+                style={{
+                  color: 'white',
+                  position: 'absolute',
+                  right: '33vh', // 오른쪽에 배치
+                }}
+              >
+                소감문
+              </StyledButton>
+            </>
+          ) : null}
         </Bottom>
         {/* ) : null} */}
       </Container>
