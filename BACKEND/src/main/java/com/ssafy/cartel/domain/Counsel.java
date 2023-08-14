@@ -51,7 +51,8 @@ public class Counsel {
     private Integer weekCount;
 
     @Builder
-    public Counsel(LocalDateTime startDate,LocalDateTime endDate, Integer counselCount, String title, Integer state, Integer clientCount, Integer price,Counselor counselorId, String introduction, Integer weekCount) {
+    public Counsel(Integer counselId, LocalDateTime startDate,LocalDateTime endDate, Integer counselCount, String title, Integer state, Integer clientCount, Integer price,Counselor counselorId, String introduction, Integer weekCount) {
+        this.id = counselId;
         this.startDate = startDate;
         this.endDate = endDate;
         this.counselCount = counselCount;
@@ -63,4 +64,8 @@ public class Counsel {
         this.introduction = introduction;
         this.weekCount = weekCount;
     }
+    public void updateState(Integer state){
+        this.state = state;
+    }
+
 }

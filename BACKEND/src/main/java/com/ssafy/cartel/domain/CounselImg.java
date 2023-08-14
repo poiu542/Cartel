@@ -28,7 +28,8 @@ public class CounselImg {
 
 
     @Builder
-    public CounselImg(String imgUrl, Integer state, Counsel counselId) {
+    public CounselImg(Integer counselImgId, String imgUrl, Integer state, Counsel counselId) {
+        this.id = counselImgId;
         this.imgUrl = imgUrl;
         this.state = state;
         this.counselId = counselId;
