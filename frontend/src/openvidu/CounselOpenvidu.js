@@ -167,7 +167,7 @@ class CounselOpenvidu extends Component {
 
     // These properties are in the state's component in order to re-render the HTML whenever their values change
     this.state = {
-      mySessionId: 'drugkin',
+      mySessionId: 'drugki',
       myUserName: '',
       session: undefined,
       mainStreamManager: undefined, // Main video of the page. Will be the 'publisher' or one of the 'subscribers'
@@ -204,6 +204,8 @@ class CounselOpenvidu extends Component {
         userType: parsedUser.userState.type,
       })
     }
+    console.log('유저타입은')
+    console.log(this.state.userType)
     window.addEventListener('beforeunload', this.onbeforeunload)
   }
 
@@ -509,7 +511,7 @@ class CounselOpenvidu extends Component {
     this.setState({
       session: undefined,
       subscribers: [],
-      mySessionId: 'drugkin',
+      mySessionId: 'drugki',
       myUserName: this.state.myUserName,
       mainStreamManager: undefined,
       publisher: undefined,
