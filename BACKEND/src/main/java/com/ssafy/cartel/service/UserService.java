@@ -30,6 +30,7 @@ public class UserService {
                 .email(userDto.getEmail())
                 .nickname(userDto.getNickname())
                 .password(bCryptPasswordEncoder.encode(userDto.getPassword())) //암호화
+                .name(userDto.getName())
                 .point(0)
                 .state(0)
                 .type(0)

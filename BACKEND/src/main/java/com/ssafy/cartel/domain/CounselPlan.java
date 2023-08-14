@@ -18,8 +18,11 @@ public class CounselPlan {
     @Column(name = "counsel_plan_id", updatable = false)
     private Integer id;
 
-    @Column(name = "counsel_time", nullable = false)
-    private LocalDateTime time;
+    @Column(name = "counsel_start_time", nullable = false)
+    private LocalDateTime start_time;
+
+    @Column(name = "counsel_end_time", nullable = false)
+    private LocalDateTime end_time;
 
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -31,8 +34,9 @@ public class CounselPlan {
     private Day day;
 
     @Builder
-    public CounselPlan(LocalDateTime time, Counsel counselId, Day day) {
-        this.time = time;
+    public CounselPlan(LocalDateTime start_time, LocalDateTime end_time, Counsel counselId, Day day) {
+        this.start_time = start_time;
+        this.end_time = end_time;
         this.counselId = counselId;
         this.day = day;
     }

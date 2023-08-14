@@ -3,6 +3,7 @@ package com.ssafy.cartel.controller;
 import com.ssafy.cartel.domain.Counselor;
 import com.ssafy.cartel.domain.User;
 import com.ssafy.cartel.dto.*;
+import com.ssafy.cartel.service.CareerService;
 import com.ssafy.cartel.service.CounselorService;
 import com.ssafy.cartel.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -11,22 +12,31 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @RequiredArgsConstructor
 @Controller
 public class CounselorController {
 
-    private UserService userService;
-    private CounselorService counselorService;
+    private final UserService userService;
+    private final CounselorService counselorService;
+    private final CareerService careerService;
 
     @PostMapping("/signup/counselor")
-    public ResponseEntity<String> signupCounselor(@RequestBody UserDto user, @RequestBody CounselorDto counselor, @RequestBody CareerDto CareerDto){
-        userService.save(user);
-        counselorService.save(counselor);
+    public ResponseEntity<String> signupCounselor(@RequestBody CounselorSignupRequest request){
+        System.out.println(request.getUserDto().getEmail());
+        User user = userService.save(request.getUserDto());
+        Counselor counselor = counselorService.save(request.getCounselorDto(),user);
+        System.out.println(request.getCareersDto());
 
+        if(request.getCareersDto() != null) {
+            for (CareerDto career : request.getCareersDto()) {
+                career.setCounselorId(counselor.getId());
+                careerService.save(career);
+            }
+        }
         return ResponseEntity.ok("상담사 회원가입 완료");
-
     }
 
     @PutMapping("/userinfo/counselor/{id}") // 상담사 id

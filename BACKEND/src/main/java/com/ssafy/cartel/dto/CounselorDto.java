@@ -16,7 +16,6 @@ public class CounselorDto {
     private Integer rateSum;
     private Integer userId;
     private String introduction;
-    //이력
 
 
 }

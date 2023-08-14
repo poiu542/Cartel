@@ -7,9 +7,7 @@ import lombok.Setter;
 @Setter
 public class CareerDto {
     private String content;
-    private String userId;
-    private String counselId;
-
+    private Integer counselorId;
 
 
 }
