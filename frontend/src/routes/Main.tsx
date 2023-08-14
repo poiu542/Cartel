@@ -440,7 +440,7 @@ export const Main = () => {
           width: '100%',
         }}
       >
-        <FlexContainer style={{ width: '50%', marginLeft: '100px' }}>
+        <FlexContainer style={{ width: '70%', marginLeft: '90px' }}>
           <FlexContainerRow
             style={{
               width: '100%',
@@ -455,9 +455,21 @@ export const Main = () => {
             >
               <div style={{ padding: '10px 0px 0px 20px' }}>
                 <p style={{ fontSize: '20px' }}>서비스소개</p>
+                <br />
                 <p style={{ marginRight: '20px' }}>
                   WAW를 통해 사람들을 만나고 단약 의지를 강화해보세요.
                 </p>
+              </div>
+              <div>
+                <img
+                  src="/image/service.png"
+                  alt=""
+                  style={{
+                    width: '130px',
+                    height: '130px',
+                    margin: '50px 0px 0px 50px',
+                  }}
+                />
               </div>
             </SurviceDiv>
             <FlexContainer
@@ -479,18 +491,32 @@ export const Main = () => {
                 <FlexContainerRow>
                   <div style={{ padding: '10px 0px 0px 20px' }}>
                     <p style={{ fontSize: '20px' }}>자조모임이란</p>
+                    <br />
                     <p style={{ marginRight: '20px' }}>
-                      공통적인 문제를 가진 사람들이 모여 공통의 목적을 위하여
-                      정기적인 모임을 통해 친목을 도모하고 사회활동을 하면서
-                      정보를 공유하는 모임입니다.
+                      공통적인 문제를 가진 사람들이 모여
                     </p>
+                    <p>공통의 목적을 위하여 정기적인 모임을 통해</p>
+                    <p>친목을 도모하고 사회활동을 하면서</p>
+                    <p>정보를 공유하는 모임입니다.</p>
                   </div>
-
-                  {/* <img src="/image/dog.png" alt="" style={{ width: '150px' }} /> */}
+                  <img
+                    src="/image/people.png"
+                    alt=""
+                    style={{
+                      width: '70px',
+                      height: '70px',
+                      margin: '45px 30px 0px 0px',
+                    }}
+                  />
                 </FlexContainerRow>
               </GroupDiv>
               <DrugDiv
-                style={{ width: '100%', height: '45%', cursor: 'pointer' }}
+                style={{
+                  width: '100%',
+                  height: '45%',
+                  cursor: 'pointer',
+                  display: 'flex',
+                }}
                 onClick={() =>
                   (window.location.href =
                     'http://bgnmh.go.kr/checkmehealme/selftest/drgTest3.xx')
@@ -498,10 +524,20 @@ export const Main = () => {
               >
                 <div style={{ padding: '10px 0px 0px 20px' }}>
                   <p style={{ fontSize: '20px' }}>중독검사</p>
-                  <p style={{ marginRight: '20px' }}>
-                    여러분들의 상태를 자가진단 해보세요.
-                  </p>
+                  <br />
+                  <div style={{ marginRight: '30px' }}></div>
+                  <p>여러분들의 상태를 </p>
+                  <p>자가진단 해보세요.</p>
                 </div>
+                <img
+                  src="/image/introdution.png"
+                  alt=""
+                  style={{
+                    width: '100px',
+                    height: '100px',
+                    margin: '30px 0px 0px 150px',
+                  }}
+                />
               </DrugDiv>
             </FlexContainer>
           </FlexContainerRow>
