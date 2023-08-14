@@ -91,7 +91,7 @@ function App(): React.ReactElement {
               element={
                 <CheckAdmin
                   authenticated={loginStatus}
-                  component={<Notice />}
+                  component={<NoticeWrite />}
                 />
               }
             />
