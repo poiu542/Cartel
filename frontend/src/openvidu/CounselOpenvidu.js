@@ -198,9 +198,11 @@ class CounselOpenvidu extends Component {
     const loginUser = sessionStorage.getItem('loginUser')
     if (loginUser) {
       const parsedUser = JSON.parse(loginUser)
-      this.setState({ myUserName: parsedUser.userState.nickname })
-      this.setState({ userId: parsedUser.userState.id })
-      this.setState({ userType: parsedUser.userState.type })
+      this.setState({
+        myUserName: parsedUser.userState.nickname,
+        userId: parsedUser.userState.id,
+        userType: parsedUser.userState.type,
+      })
     }
     window.addEventListener('beforeunload', this.onbeforeunload)
   }
@@ -661,7 +663,7 @@ class CounselOpenvidu extends Component {
               <ExitToAppIcon />
             </Icon>
           </BottomBox>
-          {this.state.userType === 2 ? (
+          {this.state.userType === 2 && (
             <>
               <StyledButton
                 onClick={() => this.handleToggle('counseljournal')}
@@ -684,7 +686,7 @@ class CounselOpenvidu extends Component {
                 소감문
               </StyledButton>
             </>
-          ) : null}
+          )}
         </Bottom>
         {/* ) : null} */}
       </Container>
