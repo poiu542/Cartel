@@ -32,19 +32,11 @@ public class ArticleController {
     }
 
     @GetMapping("/articles/{id}")
-    public ResponseEntity<Map<String, Object>> findArticle(@PathVariable Integer id){
+    public ResponseEntity<ArticleResponse> findArticle(@PathVariable Integer id){
         ArticleResponse articleResponse = new ArticleResponse(articleService.findById(id));
-        List<CommentResponse> comments = commentService.getComments(id)
-                .stream()
-                .map(CommentResponse::new)
-                .toList();
-
-        Map<String, Object> response = new HashMap<String, Object>();
-        response.put("article", articleResponse);
-        response.put("comments", comments);
 
         return ResponseEntity.ok()
-                .body(response);
+                .body(articleResponse);
     }
 
     @DeleteMapping("/articles/{id}")

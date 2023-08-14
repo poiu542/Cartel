@@ -37,6 +37,13 @@ public class CommentService {
         return comments;
     }
 
+    public List<Comment> getUserComments(Integer id){//user id
+        User user = userRepository.findById(id)
+                .orElseThrow(()->new IllegalArgumentException("not found post_id"));
+        List<Comment> comments = commentRepository.findAllByUser(user);
+        return comments;
+    }
+
     public void delete(Integer id){
         commentRepository.deleteById(id);
     }
