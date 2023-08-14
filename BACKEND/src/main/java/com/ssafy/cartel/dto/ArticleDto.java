@@ -23,6 +23,7 @@ public class ArticleDto {
     private LocalDateTime date;
     private Integer status;
 
+
     public Article toEntity(User user){
 
         return Article.builder()

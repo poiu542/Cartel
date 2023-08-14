@@ -15,21 +15,33 @@ import java.util.List;
 @RequiredArgsConstructor
 @Service
 public class CommentService {
-    private CommentRepository commentRepository;
-    private UserRepository userRepository;
-    private ArticleRepository articleRepository;
+    private final CommentRepository commentRepository;
+    private final UserRepository userRepository;
+    private final ArticleRepository articleRepository;
 
     public Comment save(CommentDto commentDto){
+
         User user = userRepository.findById(commentDto.getUserId())
                 .orElseThrow(()-> new IllegalArgumentException("not found user_id" ));
         Article article = articleRepository.findById(commentDto.getPostId())
                 .orElseThrow(()->new IllegalArgumentException("nor found post_id"));
         Comment comment = commentDto.toEntity(user,article);
-        article.getComments().add(comment);
         return commentRepository.save(comment);
 
+    }
+
+    public List<Comment> getComments(Integer id){//post id
+        Article article = articleRepository.findById(id)
+                .orElseThrow(()->new IllegalArgumentException("not found post_id"));
+        List<Comment> comments = commentRepository.findAllByArticle(article);
+        return comments;
+    }
+
+    public void delete(Integer id){
+        commentRepository.deleteById(id);
     }
 
 
 
 }
+
