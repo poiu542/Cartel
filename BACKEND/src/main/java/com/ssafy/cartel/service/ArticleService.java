@@ -47,6 +47,7 @@ public class ArticleService {
         article.update(request.getTitle(), request.getContent());
         return article;
     }
+
     @Transactional
     public void view(Integer id){
         Article article = articleRepository.findById(id)
