@@ -21,7 +21,6 @@ import java.util.Map;
 public class ArticleController {
 
     private final ArticleService articleService;
-    private final CommentService commentService;
 
     @PostMapping("/articles")
     public ResponseEntity<Article> addArticle(@RequestBody ArticleDto articleDto){
