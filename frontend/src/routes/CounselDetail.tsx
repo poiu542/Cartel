@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import NavbarLogin from '../components/NavbarLogin'
 import { useNavigate } from 'react-router-dom'
 import PreviewBox from '../components/PreviewBox'
@@ -8,8 +8,13 @@ import Button from '../components/Button'
 import Footer from '../components/Footer'
 import Modal from 'react-modal'
 import styled from 'styled-components'
+import axios from 'axios'
+import { useParams } from 'react-router-dom'
 
 export const CounselDetail = () => {
+  const [counselData, setCounselData] = useState<any[]>([])
+  const { counselId } = useParams()
+  const [conunselCurriculums, setConunselCurriculums] = useState<any[]>([])
   const navigate = useNavigate()
   const userState: number = 2
   const [deleteModalIsOpen, setDeleteModalIsOpen] = useState(false)
@@ -28,16 +33,9 @@ export const CounselDetail = () => {
     'Deploying your website: Hosting and domain management',
   ]
 
-  const ViewAllNotice = () => {
-    navigate('/counsel/counselId/notice')
+  const counselEntrance = (id: number) => {
+    navigate(`/counseling/${id}`)
   }
-  const ViewAllQna = () => {
-    navigate('/counsel/counselId/qna')
-  }
-  const ViewAllCurriculum = () => {
-    setCurriculumModalIsOpen(true)
-  }
-
   const counselButtonClick = () => {
     alert('버튼클릭')
   }
@@ -91,6 +89,28 @@ export const CounselDetail = () => {
     display: flex;
     flex-direction: column;
   `
+  useEffect(() => {
+    axios
+      .get(`${process.env.REACT_APP_BASE_URL}curriculum`)
+      .then((response) => {
+        setConunselCurriculums(response.data)
+      })
+      .catch((error) => {
+        console.error('Error fetching user data: ', error)
+      })
+  }, [])
+
+  useEffect(() => {
+    axios
+      .get(`${process.env.REACT_APP_BASE_URL}counsel/${counselId}`)
+      .then((response) => {
+        setCounselData(response.data)
+        console.log(response.data)
+      })
+      .catch((error) => {
+        console.error('Error fetching user data: ', error)
+      })
+  }, [])
 
   return (
     <div>
@@ -337,10 +357,11 @@ export const CounselDetail = () => {
               gradeCount={51}
               startTime="10:00"
               endTime="12:30"
-              title="족구하자"
+              title="석민혁"
               minParticipantCount={4}
               maxParticipantCount={12}
-              sessionCount={16}
+              // sessionCount={counselData.weekCount}
+              sessionCount={10}
               price={39000}
               onClick={counselButtonClick}
             />
@@ -400,18 +421,80 @@ export const CounselDetail = () => {
           width: '800px',
         }}
       >
-        <PreviewBox
-          title="상담 커리큘럼"
-          curriculum={[
-            { title: '[공지] 상담일정 변경 안내' },
-            { title: '공지2' },
-            { title: '공지3' },
-            { title: '공지4' },
-          ]}
-          onClick={ViewAllCurriculum}
-          width="702px"
-          height="235px"
-        />
+        <div
+          style={{
+            border: '1px solid #3b478f',
+            borderRadius: '13px',
+            width: '702px',
+            minHeight: '235px',
+            padding: '20px',
+            position: 'relative',
+            background: 'white',
+          }}
+        >
+          <h2 style={{ textAlign: 'left', margin: '0 0 5px 0' }}>
+            상담 커리큘럼
+          </h2>
+          <hr style={{ borderTop: '2px solid black' }} />
+          {conunselCurriculums &&
+            conunselCurriculums.map(
+              (conunselCurriculum: any, index: number) => (
+                <React.Fragment key={conunselCurriculum.id}>
+                  <div
+                    style={{
+                      display: 'flex',
+                      justifyContent: 'space-between',
+                      alignItems: 'center',
+                      margin: '5px 0',
+                    }}
+                  >
+                    <div
+                      style={{
+                        display: 'flex',
+                        justifyContent: 'space-between',
+                      }}
+                    >
+                      <h4
+                        style={{
+                          fontSize: '14px',
+                          fontWeight: 'normal',
+                          margin: '7px',
+                        }}
+                      >
+                        {conunselCurriculum.title}
+                      </h4>
+                      <div
+                        style={{
+                          cursor: 'pointer',
+                          borderRadius: '5px',
+                          border: '1px solid #40BFFF',
+                          width: '80px',
+                          height: '40px',
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          fontSize: '12px',
+                          backgroundColor: '#40BFFF',
+                          color: 'white',
+                          margin: '0px 0px 0px 580px',
+                        }}
+                        onClick={() =>
+                          counselEntrance(conunselCurriculum.curriculumId)
+                        }
+                      >
+                        상담 입장하기
+                      </div>
+                    </div>
+                  </div>
+                  {index < 6 && (
+                    <hr
+                      style={{ borderTop: '1px solid gray', margin: '0px 0' }}
+                    />
+                  )}
+                </React.Fragment>
+              ),
+            )}
+        </div>
       </div>
       <div
         className="bottom"
