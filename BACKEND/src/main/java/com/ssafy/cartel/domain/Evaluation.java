@@ -49,4 +49,10 @@ public class Evaluation {
         this.clientId = clientId;
         this.counselorId = counselorId;
     }
+
+    public void update(String content, float rate) {
+        this.content = content;
+        this.rate = rate;
+        this.date = LocalDateTime.now();
+    }
 }
