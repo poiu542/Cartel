@@ -28,7 +28,7 @@ export const CheckCounselor = ({
   authenticated,
   component: Component,
 }: PrivateRouteProps) => {
-  if (authenticated !== 2 || 3) {
+  if (authenticated !== 2 && authenticated !== 3) {
     window.alert('상담사인증이 필요한 서비스입니다.')
     return <Navigate to="/" />
   }

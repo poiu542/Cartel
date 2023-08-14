@@ -109,7 +109,6 @@ export const Login = () => {
       .post(`${process.env.REACT_APP_BASE_URL}login`, data)
       .then((response) => {
         // 헤더 정보
-        console.log(response)
         const accessToken = response.data.token
         const type = response.data.type
         const userId = response.data.userId
@@ -124,6 +123,7 @@ export const Login = () => {
           nickname: nickname,
           type: type,
           id: userId,
+          email: email,
         }))
         toast.success('로그인 완료')
         navigate('/')
@@ -162,7 +162,6 @@ export const Login = () => {
   const switchUserType = () => {
     setUserType(userType === 0 ? 1 : 0)
   }
-
   return (
     <section>
       <NavbarLogin />
@@ -229,13 +228,23 @@ export const Login = () => {
           text="로그인"
           size={{ width: '570px', height: '50px' }}
         ></Button>
+<<<<<<< HEAD
         <div></div>
         <Button
           color={{ background: '#3b478f', color: 'white' }}
           onClick={passwordFind}
           text="비밀번호 찾기"
+=======
+        <div>
+          <h1></h1>
+        </div>
+        {/* <Button
+          color={{ background: '#FFF50E', color: 'black' }}
+          onClick={handleKakaoLogIn}
+          text="Kakao 로그인"
+>>>>>>> b813473854a81d6046b8a0020c919095eb808af0
           size={{ width: '570px', height: '50px' }}
-        ></Button>
+        ></Button> */}
       </FlexContainer>
       <ToastContainer />
     </section>

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import NavbarLogin from '../components/NavbarLogin'
 import Footer from '../components/Footer'
 import Button from '../components/Button'
@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom'
 import Modal from 'react-modal'
 import { useRecoilValue, useRecoilState } from 'recoil'
 import { userState } from '../recoil/atoms/userState'
+import axios from 'axios'
 
 export const Profile = () => {
   const [careers, setCareers] = useState([
@@ -18,8 +19,7 @@ export const Profile = () => {
   ])
   const [nickname, setNickname] = useState('족구왕')
   const [email, setEmail] = useState('jokguking@jokgu.com')
-  const [name, setName] = useState('석민혁')
-  const [point, setPoint] = useState('5400p')
+  const [name, setName] = useState('')
   const [phoneNumber, setPhoneNumber] = useState('010-6723-8879')
   const [school, setSchool] = useState('서울대학교')
   const [introduction, setIntroduction] = useState('족구왕이 될 사나이')
@@ -27,8 +27,8 @@ export const Profile = () => {
   const [confirmationText, setConfirmationText] = useState('')
 
   const [user, setUser] = useRecoilState(userState)
-
-  const isLoggedIn = 1
+  console.log('프로필 페이지 진입')
+  console.log(user)
 
   const [profileImageFile, setProfileImageFile] = useState<File | null>(null)
   let imageURL: string
@@ -54,11 +54,21 @@ export const Profile = () => {
     },
   }
   const navigate = useNavigate()
-  const myArticle = () => {}
-  const myReview = () => {}
-  const myCounsel = () => {}
-  const myCounselJournal = () => {}
-  const myTestimony = () => {}
+  const myArticle = () => {
+    navigate(`/myboards/${user.id}`)
+  }
+  const myReview = () => {
+    navigate(`/myComments/${user.id}`)
+  }
+  const myCounsel = () => {
+    navigate(`/${user.id}/myBoards`)
+  }
+  const myCounselJournal = () => {
+    navigate(`/${user.id}/myBoards`)
+  }
+  const myTestimony = () => {
+    navigate(`/testimony/${user.id}`)
+  }
   const editUserData = () => {
     navigate(`/profile/edit`)
   }
@@ -70,6 +80,27 @@ export const Profile = () => {
       alert('문구를 정확히 입력해주세요.')
     }
   }
+  const passwordReset = () => {
+    navigate('/')
+  }
+
+  useEffect(() => {
+    axios
+      .get(`${process.env.REACT_APP_BASE_URL}userinfo/${user.id}`)
+      .then((response) => {
+        const userData = response.data
+        console.log('프로필 페이지 진입 후 데이터 가져옴')
+        console.log(userData)
+        setNickname(userData.nickname)
+        setEmail(userData.email)
+        setPhoneNumber(userData.phone)
+        setName(userData.name)
+      })
+      .catch((error) => {
+        console.error('Error fetching user data: ', error)
+      })
+  }, [])
+
   return (
     <div>
       <Modal
@@ -229,14 +260,24 @@ export const Profile = () => {
             <div
               className="profile name"
               style={{
-                minWidth: '50px',
-                minHeight: ' 50px',
+                minWidth: '30px',
+                minHeight: ' 30px',
                 fontWeight: 'bold',
                 fontSize: '20px',
-                margin: '10px 0px 0px 0px',
+                margin: '10px 0px 10px 0px',
               }}
             >
               {nickname}
+            </div>
+            <div
+              style={{
+                width: '145px',
+                color: 'lightgray',
+                cursor: 'pointer',
+              }}
+              onClick={passwordReset}
+            >
+              비밀번호 재설정 &gt;&gt;
             </div>
           </div>
           <div
@@ -247,7 +288,7 @@ export const Profile = () => {
               margin: '60px 0px 0px 0px',
             }}
           >
-            {user.type ? (
+            {!user.type ? (
               <div>
                 <div
                   className="my article"
@@ -497,7 +538,7 @@ export const Profile = () => {
               border: '1px solid #3b478f',
               borderRadius: '20px',
               width: '420px ',
-              minHeight: '300px',
+              minHeight: '100px',
               backgroundColor: 'white',
             }}
           >
@@ -507,6 +548,32 @@ export const Profile = () => {
                 padding: '16px 10px 0px 10px',
               }}
             >
+              <div
+                className="name"
+                style={{
+                  width: '400px',
+                  height: '40px',
+                  borderBottom: '1px solid lightgray',
+                  margin: '0px 0px 15px 0px',
+                  display: 'flex',
+                  justifyContent: 'left ',
+                  alignItems: 'center',
+                }}
+              >
+                <div
+                  style={{
+                    margin: '0px 0px 0px 10px',
+                  }}
+                >
+                  {name ? (
+                    <div>{name}</div>
+                  ) : (
+                    <div style={{ color: 'gray', fontStyle: 'italic' }}>
+                      이름을 입력해주세요
+                    </div>
+                  )}
+                </div>
+              </div>
               <div
                 className="email address"
                 style={{
@@ -527,47 +594,6 @@ export const Profile = () => {
                   {email}
                 </div>
               </div>
-
-              <div
-                className="name"
-                style={{
-                  width: '400px',
-                  height: '40px',
-                  borderBottom: '1px solid lightgray',
-                  margin: '0px 0px 15px 0px',
-                  display: 'flex',
-                  justifyContent: 'left ',
-                  alignItems: 'center',
-                }}
-              >
-                <div
-                  style={{
-                    margin: '0px 0px 0px 10px',
-                  }}
-                >
-                  {name}
-                </div>
-              </div>
-              <div
-                className="point"
-                style={{
-                  width: '400px',
-                  height: '40px',
-                  borderBottom: '1px solid lightgray',
-                  margin: '0px 0px 15px 0px',
-                  display: 'flex',
-                  justifyContent: 'left ',
-                  alignItems: 'center',
-                }}
-              >
-                <div
-                  style={{
-                    margin: '0px 0px 0px 10px',
-                  }}
-                >
-                  {point}
-                </div>
-              </div>
               <div
                 className="phone number"
                 style={{
@@ -585,10 +611,37 @@ export const Profile = () => {
                     margin: '0px 0px 0px 10px',
                   }}
                 >
-                  {phoneNumber}
+                  {user.phoneNumber ? (
+                    <div>{user.phoneNumber}</div>
+                  ) : (
+                    <div style={{ color: 'gray', fontStyle: 'italic' }}>
+                      전화번호를 입력해주세요.
+                    </div>
+                  )}
                 </div>
               </div>
-              {!user.type ? (
+
+              <div
+                className="point"
+                style={{
+                  width: '400px',
+                  height: '40px',
+                  borderBottom: '1px solid lightgray',
+                  margin: '0px 0px 15px 0px',
+                  display: 'flex',
+                  justifyContent: 'left ',
+                  alignItems: 'center',
+                }}
+              >
+                <div
+                  style={{
+                    margin: '0px 0px 0px 10px',
+                  }}
+                >
+                  {user.point || 0}p
+                </div>
+              </div>
+              {user.type ? (
                 <div>
                   <div
                     className="school"
@@ -615,31 +668,39 @@ export const Profile = () => {
             </div>
           </div>
           <div className="right bottom">
-            <h3
-              style={{
-                marginLeft: '100px',
-              }}
-            >
-              이력
-            </h3>
-            <div
-              className="career"
-              style={{
-                width: '400px',
-                minHeight: '80px',
-                border: '1px solid lightgray',
-                borderRadius: '6px',
-                margin: '0px 0px 0px 100px',
-                backgroundColor: 'white',
-              }}
-            >
-              {careers.map((career, index) => (
-                <span key={index} style={{ fontSize: '12px', margin: '4px' }}>
-                  {career}
-                  <br />
-                </span>
-              ))}
-            </div>
+            {user.type ? (
+              <div>
+                <h3
+                  style={{
+                    marginLeft: '100px',
+                  }}
+                >
+                  이력
+                </h3>
+                <div
+                  className="career"
+                  style={{
+                    width: '400px',
+                    minHeight: '80px',
+                    border: '1px solid lightgray',
+                    borderRadius: '6px',
+                    margin: '0px 0px 0px 100px',
+                    backgroundColor: 'white',
+                  }}
+                >
+                  {careers.map((career, index) => (
+                    <span
+                      key={index}
+                      style={{ fontSize: '12px', margin: '4px' }}
+                    >
+                      {career}
+                      <br />
+                    </span>
+                  ))}
+                </div>
+              </div>
+            ) : null}
+
             <h3
               style={{
                 marginLeft: '100px',
@@ -661,7 +722,13 @@ export const Profile = () => {
                 backgroundColor: 'white',
               }}
             >
-              <div>{introduction}</div>
+              {user.introduction ? (
+                <div>{user.introduction}</div>
+              ) : (
+                <div style={{ color: 'gray', fontStyle: 'italic' }}>
+                  소개를 입력해주세요.
+                </div>
+              )}
             </div>
 
             <div>

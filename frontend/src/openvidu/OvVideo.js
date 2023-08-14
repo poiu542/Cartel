@@ -20,12 +20,14 @@ export default class OpenViduVideoComponent extends Component {
 
   render() {
     return (
-      <video
-        autoPlay={true}
-        ref={this.videoRef}
-        // 아래 id 설정 추가했음 - 발언자 id 판별 위해서
-        id={this.props.streamManager.stream.connection.connectionId}
-      />
+      <>
+        <video
+          autoPlay={true}
+          ref={this.videoRef}
+          // 아래 id 설정 추가했음 - 발언자 id 판별 위해서
+          id={this.props.streamManager.stream.connection.connectionId}
+        />
+      </>
     )
   }
 }

@@ -8,25 +8,22 @@ import { FlexContainer, FlexContainerRow } from '../styles/MainStyle'
 import StyledButton from '../styles/StyledButton'
 import IconButton from '@mui/material/IconButton'
 import DeleteIcon from '@mui/icons-material/Delete'
+import { useRecoilValue, useRecoilState } from 'recoil'
+import { userState } from '../recoil/atoms/userState'
+import axios from 'axios'
 
 export const ProfileEdit = () => {
-  const [school, setSchool] = useState('서울대')
+  const [user, setUser] = useRecoilState(userState)
   const [schoolInput, setSchoolInput] = useState('')
-
-  const [nickname, setNickname] = useState('족구왕')
   const [nicknameInput, setNicknameInput] = useState('')
-  const [email, setEmail] = useState('jokguking@jokgu.com')
-  const [emailInput, setEmailInput] = useState('')
-  const [name, setName] = useState('석민혁')
   const [nameInput, setNameInput] = useState('')
-  const [phoneNumber, setPhoneNumber] = useState('010-6723-8879')
   const [phoneNumberInput, setPhoneNumberInput] = useState('')
-  const [introduction, setIntroduction] = useState('족구왕이 될 사나이')
   const [introductionInput, setIntroductionInput] = useState('')
 
   const [profileImageFile, setProfileImageFile] = useState<File | null>(null)
   const fileInputRef = useRef<HTMLInputElement>(null)
-
+  console.log('프로필 수정 페이지 진입')
+  console.log(user)
   let imageURL: string
   if (profileImageFile) {
     imageURL = URL.createObjectURL(profileImageFile)
@@ -81,30 +78,39 @@ export const ProfileEdit = () => {
   }
 
   const navigate = useNavigate()
-  const saveUserdata = () => {
-    if (!nicknameInput) setNickname('족구왕')
-    else setNickname(nicknameInput)
+  const saveUserdata = async () => {
+    try {
+      const response = await axios.put(
+        `${process.env.REACT_APP_BASE_URL}userinfo/${user.id}`,
+        {
+          school: schoolInput || user.school,
+          nickname: nicknameInput || user.nickname,
+          name: nameInput || user.name,
+          phone: phoneNumberInput || user.phoneNumber,
+          introduction: introductionInput || user.introduction,
+        },
+      )
+      setUser((prevUser) => ({
+        ...prevUser,
+        nickname: nicknameInput || prevUser.nickname,
+        name: nameInput || prevUser.name,
+        phoneNumber: phoneNumberInput || prevUser.phoneNumber,
+        introduction: introductionInput || prevUser.introduction,
+      }))
 
-    if (!emailInput) setEmail('jokguking@jokgu.com')
-    else setEmail(emailInput)
+      console.log(response.data)
+      alert('수정 성공')
 
-    if (!nameInput) setName('석민혁')
-    else setName(nameInput)
+      navigate('/profile/1')
+    } catch (error) {
+      console.error('사용자 데이터 저장 중 오류 발생:', error)
+    }
 
-    if (!phoneNumberInput) setPhoneNumber('010-6723-8879')
-    else setPhoneNumber(phoneNumberInput)
-
-    if (!introductionInput) setIntroduction('족구왕이 될 사나이')
-    else setIntroduction(introductionInput)
-
-    if (!schoolInput) setSchool('족구왕이 될 사나이')
-    else setSchool(schoolInput)
-
-    navigate('/profile/1')
+    navigate(`/profile/${user.id}`)
   }
 
   const cancle = () => {
-    navigate('/profile/1')
+    navigate(`/profile/${user.id}`)
   }
   return (
     <div>
@@ -258,7 +264,7 @@ export const ProfileEdit = () => {
                 type="text"
                 value={nicknameInput}
                 onChange={(e) => setNicknameInput(e.target.value)}
-                placeholder={nickname}
+                placeholder={user.nickname || '닉네임을 입력해주세요.'}
                 style={{
                   width: '200px',
                   margin: '10px 0px',
@@ -287,22 +293,23 @@ export const ProfileEdit = () => {
               border: '1px solid #3b478f',
               borderRadius: '20px',
               width: '420px ',
-              minHeight: '250px',
+              minHeight: '100px',
               backgroundColor: 'white',
             }}
           >
             <div
               className="user data"
               style={{
-                padding: '40px 10px 0px 10px',
+                padding: '10px 10px 0px 10px',
               }}
             >
-              <div className="email address">
+              {/* <div className="email address">
+                이메일 :
                 <input
                   type="text"
                   value={emailInput}
                   onChange={(e) => setEmailInput(e.target.value)}
-                  placeholder={email}
+                  placeholder={user.email}
                   style={{
                     width: '400px',
                     height: '40px',
@@ -312,14 +319,15 @@ export const ProfileEdit = () => {
                     alignItems: 'center',
                   }}
                 />
-              </div>
+              </div> */}
 
               <div className="name">
+                이름 :
                 <input
                   type="text"
                   value={nameInput}
                   onChange={(e) => setNameInput(e.target.value)}
-                  placeholder={name}
+                  placeholder={user.name || '이름을 입력해주세요'}
                   style={{
                     width: '400px',
                     height: '40px',
@@ -331,11 +339,12 @@ export const ProfileEdit = () => {
                 />
               </div>
               <div className="phone number">
+                전화번호 :
                 <input
                   type="text"
                   value={phoneNumberInput}
                   onChange={(e) => setPhoneNumberInput(e.target.value)}
-                  placeholder={phoneNumber}
+                  placeholder={user.phoneNumber || '전화번호를 입력해주세요'}
                   style={{
                     width: '400px',
                     height: '40px',
@@ -346,22 +355,24 @@ export const ProfileEdit = () => {
                   }}
                 />
               </div>
-              <div className="school">
-                <input
-                  type="text"
-                  value={schoolInput}
-                  onChange={(e) => setSchoolInput(e.target.value)}
-                  placeholder={school}
-                  style={{
-                    width: '400px',
-                    height: '40px',
-                    margin: '0px 0px 15px 0px',
-                    display: 'flex',
-                    justifyContent: 'left ',
-                    alignItems: 'center',
-                  }}
-                />
-              </div>
+              {user.type ? (
+                <div className="school">
+                  <input
+                    type="text"
+                    value={schoolInput}
+                    onChange={(e) => setSchoolInput(e.target.value)}
+                    placeholder={user.school || '학력을 입력해주세요'}
+                    style={{
+                      width: '400px',
+                      height: '40px',
+                      margin: '0px 0px 15px 0px',
+                      display: 'flex',
+                      justifyContent: 'left ',
+                      alignItems: 'center',
+                    }}
+                  />
+                </div>
+              ) : null}
             </div>
           </div>
           <div className="right bottom">
@@ -370,22 +381,31 @@ export const ProfileEdit = () => {
                 marginLeft: '100px',
               }}
             >
-              <Button
-                text="이력 수정"
-                size={{ width: '420px', height: '50px' }}
-                onClick={openCareerModal}
-              ></Button>
+              {user.type ? (
+                <Button
+                  text="이력 수정"
+                  size={{ width: '420px', height: '50px' }}
+                  onClick={openCareerModal}
+                ></Button>
+              ) : null}
             </div>
             <div className="right bottom top">
+              <div
+                style={{
+                  margin: '0px 0px 0px 110px',
+                }}
+              >
+                소개 :{' '}
+              </div>
               <input
                 type="text"
                 value={introductionInput}
                 onChange={(e) => setIntroductionInput(e.target.value)}
-                placeholder={introduction}
+                placeholder={user.introduction || '소개를 입력해주세요'}
                 style={{
                   width: '400px',
                   height: '215px',
-                  margin: '41px 0px 0px 100px',
+                  margin: '0px 0px 0px 110px',
                   display: 'flex',
                   justifyContent: 'center ',
                   alignItems: 'center',

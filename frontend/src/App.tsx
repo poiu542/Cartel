@@ -60,7 +60,6 @@ const queryClient = new QueryClient()
 
 function App(): React.ReactElement {
   const [user, setUser] = useRecoilState(userState)
-
   const loginStatus = user.type
   return (
     <div>
@@ -78,9 +77,9 @@ function App(): React.ReactElement {
             {/* 내 마이페이지 수정페이지 */}
             <Route path="/profile/edit/" element={<ProfileEdit />} />
             {/* 내가 쓴 게시글 */}
-            <Route path="/userId/MyBoards/" element={<MyBoards />} />
+            {/* <Route path="/${user.id}/MyBoards/" element={<MyBoards />} /> */}
             {/* 내가 쓴 댓글 */}
-            <Route path="/userId/myComments" element={<MyComments />} />
+            {/* <Route path="/userId/myComments" element={<MyComments />} /> */}
             {/* 공지페이지 */}
             <Route path="/notice" element={<Notice />} />
             {/* 공지 상세페이지 */}
@@ -150,10 +149,10 @@ function App(): React.ReactElement {
             {/* 상담 시작페이지 */}
             <Route path="/counsel/start/counselId" element={<CounselStart />} />
             {/* 상담일지 리스트 */}
-            <Route
+            {/* <Route
               path="/counsel/:counselId/counselorJournal/:userEmail"
               element={<CounselJournal />}
-            />
+            /> */}
             {/* <Route path="/counselorJournal/1" element={<CounselJournal />} /> */}
             {/* QnA 게시판페이지 */}
             <Route path="/qna" element={<Qna />} />
@@ -197,9 +196,9 @@ function App(): React.ReactElement {
               element={<CounselorConfirmAdmin />}
             />
             {/* 내가 쓴 댓글 페이지 */}
-            <Route path="/mycomments/:userEmail" element={<MyComments />} />
+            <Route path="/mycomments/:userId" element={<MyComments />} />
             {/* 내가 쓴 게시글 페이지 */}
-            <Route path="/myboards/:userEmail" element={<MyBoards />} />
+            <Route path="/myboards/:userId" element={<MyBoards />} />
             {/* 자조모임 페이지 */}
             <Route path="/selfhelpgroup" element={<SelfHelpGroup />} />
             {/* 상담 */}

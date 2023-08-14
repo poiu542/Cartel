@@ -15,6 +15,8 @@ type User = {
   phoneNumber: string
   school: string
   introduction: string
+  point: number
+  name: string
 }
 
 export const userState = atom<User>({
@@ -28,6 +30,8 @@ export const userState = atom<User>({
     phoneNumber: '',
     school: '',
     introduction: '',
+    point: 0,
+    name: '',
   },
   effects_UNSTABLE: [persistAtom],
 })

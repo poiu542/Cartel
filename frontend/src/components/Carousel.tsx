@@ -33,6 +33,7 @@ const CarouselHeader = styled.div`
   font-size: 25px;
   fonr-weight: bold;
   color: white;
+  margin-bottom: 20px;
 `
 
 const CarouselImage = styled.img`

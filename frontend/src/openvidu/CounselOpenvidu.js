@@ -4,8 +4,6 @@ import axios from 'axios'
 import React, { Component } from 'react'
 import './Drug.css'
 import UserVideoComponent from './UserVideoComponent'
-// import { ToolBar } from './ToolBar.jsx'
-import CallEndIcon from '@mui/icons-material/CallEnd'
 import VideocamOutlinedIcon from '@mui/icons-material/VideocamOutlined'
 import MicOutlinedIcon from '@mui/icons-material/MicOutlined'
 import HeadsetIcon from '@mui/icons-material/Headset'
@@ -13,12 +11,12 @@ import VideocamOffOutlinedIcon from '@mui/icons-material/VideocamOffOutlined'
 import MicOffIcon from '@mui/icons-material/MicOff'
 import HeadsetOffIcon from '@mui/icons-material/HeadsetOff'
 import ExitToAppIcon from '@mui/icons-material/ExitToApp'
-import ChatIcon from '@mui/icons-material/Chat'
-import ChatBox from '../Chat/ChatBox'
 import styled from '@emotion/styled'
 // import ScreenShareOutlinedIcon from '@mui/icons-material/ScreenShareOutlined'
 // import StopScreenShareOutlinedIcon from '@mui/icons-material/StopScreenShareOutlined'
 // import { Icon } from '@mui/material'
+import StyledButton from '../styles/StyledButton'
+import TestimonyModal from '../components/TestimonyModal'
 
 // const APPLICATION_SERVER_URL = 'http://i9b209.p.ssafy.io:8080/'
 const Container = styled.div`
@@ -30,6 +28,7 @@ const Container = styled.div`
 const Header = styled.div`
   height: 8vh;
   display: flex;
+  flex-direction: column;
   align-items: center;
   padding: 0 50px;
   justify-content: center;
@@ -48,7 +47,7 @@ const Middle = styled.div`
 `
 
 const Left = styled.div`
-  flex: 3;
+  flex: 11;
   width: 100%;
   display: flex;
   justify-content: center;
@@ -60,8 +59,8 @@ const Right = styled.div`
   display: flex;
   align-items: center;
   transition: 0.5s;
-  ${(props) =>
-    props.primary ? `right:0; flex:1;` : `right:calc(-100vw/3); flex:0;`}
+  right: 0;
+  flex: 1;
 `
 
 const Chat = styled.div`
@@ -74,7 +73,7 @@ const Chat = styled.div`
 
 const VideoContainer = styled.div`
   margin-top: 30px;
-  width: 50%;
+  width: 90%;
   height: 77vh;
   overflow: hidden;
   display: flex;
@@ -105,7 +104,6 @@ const StreamContainer = styled.div`
   position: relative;
   border-radius: 5px;
   min-height: 34vh;
-  overflow: hidden;
   box-sizing: border-box;
 `
 
@@ -165,12 +163,23 @@ class CounselOpenvidu extends Component {
 
     // These properties are in the state's component in order to re-render the HTML whenever their values change
     this.state = {
-      mySessionId: 'drugking',
-      myUserName: 'Par' + Math.floor(Math.random() * 100),
+      mySessionId: 'drugk',
+      myUserName: '',
       session: undefined,
       mainStreamManager: undefined, // Main video of the page. Will be the 'publisher' or one of the 'subscribers'
       publisher: undefined,
+      isCamera: true,
+      isSpeaker: true,
+      isMike: true,
       subscribers: [],
+      isCounselJournal: false,
+      isTestimony: false,
+      isRoleplay: false,
+      counselId: '',
+      journalData: [],
+      userType: 5,
+
+      userId: '',
     }
 
     this.joinSession = this.joinSession.bind(this)
@@ -183,6 +192,17 @@ class CounselOpenvidu extends Component {
   }
 
   componentDidMount() {
+    const loginUser = sessionStorage.getItem('loginUser')
+    if (loginUser) {
+      const parsedUser = JSON.parse(loginUser)
+      this.setState({
+        myUserName: parsedUser.userState.nickname,
+        userId: parsedUser.userState.id,
+        userType: parsedUser.userState.type,
+      })
+    }
+    console.log('유저타입은')
+    console.log(this.state.userType)
     window.addEventListener('beforeunload', this.onbeforeunload)
   }
 
@@ -237,6 +257,24 @@ class CounselOpenvidu extends Component {
           })
           break
 
+        case 'counseljournal':
+          this.setState({ isCounselJournal: !this.state.isCounselJournal })
+          this.setState({ isTestimony: false })
+          this.setState({ isRoleplay: false })
+          break
+
+        case 'testimony':
+          this.setState({ isTestimony: !this.state.isTestimony })
+          this.setState({ isCounselJournal: false })
+          this.setState({ isRoleplay: false })
+          break
+
+        case 'roleplay':
+          this.setState({ isRoleplay: !this.state.isRoleplay })
+          this.setState({ isCounselJournal: false })
+          this.setState({ isTestimony: false })
+          break
+
         // case 'share':
         //   this.setState({ isShareScreen: !this.state.isShareScreen }, () => {
         //     this.state.subscribers.forEach((s) =>
@@ -244,6 +282,9 @@ class CounselOpenvidu extends Component {
         //     )
         //   })
         //   break
+
+        default:
+          break
       }
     }
   }
@@ -294,7 +335,7 @@ class CounselOpenvidu extends Component {
     this.OV.setAdvancedConfiguration({
       publisherSpeakingEventsOptions: {
         interval: 100,
-        threshold: -50,
+        threshold: -60,
       },
     })
 
@@ -320,7 +361,7 @@ class CounselOpenvidu extends Component {
           )
 
           if (currentSpeakerVideo && currentSpeakerVideo.srcObject) {
-            currentSpeakerVideo.style.border = '5px solid red'
+            currentSpeakerVideo.style.border = '4px solid yellow'
 
             let mainVideoElement = document.getElementById('mainVideo')
             if (mainVideoElement) {
@@ -434,6 +475,35 @@ class CounselOpenvidu extends Component {
 
   leaveSession() {
     // --- 7) Leave the session by calling 'disconnect' method over the Session object ---
+    // 상담사일 때만 상담일지 post요청
+    if (this.state.userType === 2) {
+      // 상담일지 정보 업데이트
+      const storedData = localStorage.getItem('counselJournal')
+      if (storedData) {
+        this.setState(
+          {
+            journalData: JSON.parse(storedData),
+          },
+          async () => {
+            // setState의 콜백 함수 사용
+            // 상담일지 POST 요청을 보내는 메서드
+            try {
+              const response = await axios.post(
+                '상담일지 POST AAAAAAAAAAAAAAAAAAAAPPPPPPPPPPPPPPIIIIIIIIIII주소',
+                {
+                  counselId: this.state.counselId,
+                  journalData: this.state.journalData,
+                },
+              )
+
+              // console.log(response.data)
+            } catch (error) {
+              console.error('상담일지 post 에러', error)
+            }
+          },
+        )
+      }
+    }
 
     const mySession = this.state.session
 
@@ -446,8 +516,8 @@ class CounselOpenvidu extends Component {
     this.setState({
       session: undefined,
       subscribers: [],
-      mySessionId: 'SessionA',
-      myUserName: 'Participant' + Math.floor(Math.random() * 100),
+      mySessionId: 'drugki',
+      myUserName: this.state.myUserName,
       mainStreamManager: undefined,
       publisher: undefined,
     })
@@ -501,6 +571,11 @@ class CounselOpenvidu extends Component {
       <Container>
         <Header>
           <StudyTitle>상담이름</StudyTitle>
+          {this.state.isCounselJournal ? (
+            <p style={{ color: 'white', right: '50' }}>
+              상담일지를 작성할 사람을 클릭하세요
+            </p>
+          ) : null}
         </Header>
         <Middle>
           {this.state.session === undefined ? (
@@ -550,20 +625,20 @@ class CounselOpenvidu extends Component {
                   ) : null}
                   {this.state.subscribers.map((sub, i) => (
                     <StreamContainer key={sub.stream.streamId}>
-                      <UserVideoComponent streamManager={sub} />
+                      <UserVideoComponent
+                        streamManager={sub}
+                        isCounselJournal={this.state.isCounselJournal}
+                        isRoleplay={this.state.isRoleplay}
+                      />
                     </StreamContainer>
                   ))}
                 </StreamContainerWrapper>
               ) : null}
             </VideoContainer>
           </Left>
-
-          <Right primary={this.state.isChat}>
-            {/* <Chat>
-              <ChatBox />
-            </Chat> */}
-          </Right>
         </Middle>
+
+        {/* {this.state.session !== undefined ? ( */}
         <Bottom>
           <BottomBox>
             <Icon
@@ -590,28 +665,48 @@ class CounselOpenvidu extends Component {
             >
               {this.state.isSpeaker ? <HeadsetIcon /> : <HeadsetOffIcon />}
             </Icon>
-            {/* <Icon
-              primary={!this.state.isShareScreen}
-              onClick={() => this.handleToggle('speaker')}
-            >
-              {this.state.isShareScreen ? (
-                <ScreenShareOutlinedIcon onClick={this.stopScreenSharing} />
-              ) : (
-                <StopScreenShareOutlinedIcon
-                  onClick={this.startScreenSharing}
-                />
-              )}
-            </Icon> */}
+
             <Icon primary onClick={this.leaveSession}>
               <ExitToAppIcon />
             </Icon>
           </BottomBox>
-          {/* <ChatIconBox
-            onClick={() => this.setState({ isChat: !this.state.isChat })}
+          {this.state.userType === 2 && (
+            <>
+              <StyledButton
+                onClick={() => this.handleToggle('counseljournal')}
+                style={{
+                  color: 'white',
+                  position: 'absolute',
+                  right: '50vh', // 오른쪽에 배치
+                }}
+              >
+                상담일지
+              </StyledButton>
+              <StyledButton
+                onClick={() => this.handleToggle('roleplay')}
+                style={{
+                  color: 'white',
+                  position: 'absolute',
+                  right: '28vh', // 오른쪽에 배치
+                }}
+              >
+                {this.state.isRoleplay ? '역할극 종료' : '역할극 배정'}
+              </StyledButton>
+            </>
+          )}
+          <StyledButton
+            onClick={() => this.handleToggle('testimony')}
+            style={{
+              color: 'white',
+              position: 'absolute',
+              right: '13vh', // 오른쪽에 배치
+            }}
           >
-            <ChatIcon />
-          </ChatIconBox> */}
+            소감문
+          </StyledButton>
         </Bottom>
+        {this.state.isTestimony && <TestimonyModal />}
+        {/* ) : null} */}
       </Container>
     )
   }
