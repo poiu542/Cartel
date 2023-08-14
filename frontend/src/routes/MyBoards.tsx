@@ -67,7 +67,6 @@ export const MyBoards = () => {
         console.log(user)
         const filteredData = response.data.filter(
           (article: any) => article.type === 0 && article.userId === user.id,
-          // (article: any) => article.type === 0,
         )
         setBoardList([...filteredData].reverse())
         console.log(filteredData)
