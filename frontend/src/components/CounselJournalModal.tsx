@@ -52,18 +52,6 @@ export default function CounselJournalModal(props: CounselJournalModalProps) {
     }
   }, [open, props.nickname]) // open과 props.nickname이 변경될 때마다 실행
 
-  // React.useEffect(() => {
-  //   // sessionStorage에서 loginUser 데이터 가져오기
-  //   const loginUser = sessionStorage.getItem('loginUser')
-
-  //   if (loginUser) {
-  //     const parsedData = JSON.parse(loginUser)
-
-  //     // loginUser에 id가져오기
-  //     setUserId(parsedData.id)
-  //   }
-  // }, []) // 빈 dependency 배열은 컴포넌트 마운트 시점에만 실행됨을 의미
-
   const handleCounselJournal = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     const updatedContent = e.target.value
     setContent(updatedContent)
@@ -133,7 +121,7 @@ export default function CounselJournalModal(props: CounselJournalModalProps) {
             />
             <div>
               <br />
-              <StyledButton type="submit">완료</StyledButton>
+              <StyledButton onClick={handleClose}>완료</StyledButton>
               <StyledButton onClick={handleClose}>취소</StyledButton>
             </div>
           </form>

@@ -4,8 +4,6 @@ import axios from 'axios'
 import React, { Component } from 'react'
 import './Drug.css'
 import UserVideoComponent from './UserVideoComponent'
-// import { ToolBar } from './ToolBar.jsx'
-import CallEndIcon from '@mui/icons-material/CallEnd'
 import VideocamOutlinedIcon from '@mui/icons-material/VideocamOutlined'
 import MicOutlinedIcon from '@mui/icons-material/MicOutlined'
 import HeadsetIcon from '@mui/icons-material/Headset'
@@ -13,14 +11,12 @@ import VideocamOffOutlinedIcon from '@mui/icons-material/VideocamOffOutlined'
 import MicOffIcon from '@mui/icons-material/MicOff'
 import HeadsetOffIcon from '@mui/icons-material/HeadsetOff'
 import ExitToAppIcon from '@mui/icons-material/ExitToApp'
-import ChatIcon from '@mui/icons-material/Chat'
-import ChatBox from '../Chat/ChatBox'
 import styled from '@emotion/styled'
 // import ScreenShareOutlinedIcon from '@mui/icons-material/ScreenShareOutlined'
 // import StopScreenShareOutlinedIcon from '@mui/icons-material/StopScreenShareOutlined'
 // import { Icon } from '@mui/material'
-import Button from '../components/Button'
 import StyledButton from '../styles/StyledButton'
+import TestimonyModal from '../components/TestimonyModal'
 
 // const APPLICATION_SERVER_URL = 'http://i9b209.p.ssafy.io:8080/'
 const Container = styled.div`
@@ -167,7 +163,7 @@ class CounselOpenvidu extends Component {
 
     // These properties are in the state's component in order to re-render the HTML whenever their values change
     this.state = {
-      mySessionId: 'drugki',
+      mySessionId: 'drugk',
       myUserName: '',
       session: undefined,
       mainStreamManager: undefined, // Main video of the page. Will be the 'publisher' or one of the 'subscribers'
@@ -178,6 +174,7 @@ class CounselOpenvidu extends Component {
       subscribers: [],
       isCounselJournal: false,
       isTestimony: false,
+      isRoleplay: false,
       counselId: '',
       journalData: [],
       userType: 5,
@@ -198,9 +195,11 @@ class CounselOpenvidu extends Component {
     const loginUser = sessionStorage.getItem('loginUser')
     if (loginUser) {
       const parsedUser = JSON.parse(loginUser)
-      this.setState({ myUserName: parsedUser.userState.nickname })
-      this.setState({ userId: parsedUser.userState.id })
-      this.setState({ userType: parsedUser.userState.type })
+      this.setState({
+        myUserName: parsedUser.userState.nickname,
+        userId: parsedUser.userState.id,
+        userType: parsedUser.userState.type,
+      })
     }
     console.log('유저타입은')
     console.log(this.state.userType)
@@ -261,11 +260,19 @@ class CounselOpenvidu extends Component {
         case 'counseljournal':
           this.setState({ isCounselJournal: !this.state.isCounselJournal })
           this.setState({ isTestimony: false })
+          this.setState({ isRoleplay: false })
           break
 
         case 'testimony':
           this.setState({ isTestimony: !this.state.isTestimony })
           this.setState({ isCounselJournal: false })
+          this.setState({ isRoleplay: false })
+          break
+
+        case 'roleplay':
+          this.setState({ isRoleplay: !this.state.isRoleplay })
+          this.setState({ isCounselJournal: false })
+          this.setState({ isTestimony: false })
           break
 
         // case 'share':
@@ -621,7 +628,7 @@ class CounselOpenvidu extends Component {
                       <UserVideoComponent
                         streamManager={sub}
                         isCounselJournal={this.state.isCounselJournal}
-                        isTestimony={this.state.isTestimony}
+                        isRoleplay={this.state.isRoleplay}
                       />
                     </StreamContainer>
                   ))}
@@ -663,7 +670,7 @@ class CounselOpenvidu extends Component {
               <ExitToAppIcon />
             </Icon>
           </BottomBox>
-          {this.state.userType === 2 ? (
+          {this.state.userType === 2 && (
             <>
               <StyledButton
                 onClick={() => this.handleToggle('counseljournal')}
@@ -676,18 +683,29 @@ class CounselOpenvidu extends Component {
                 상담일지
               </StyledButton>
               <StyledButton
-                onClick={() => this.handleToggle('testimony')}
+                onClick={() => this.handleToggle('roleplay')}
                 style={{
                   color: 'white',
                   position: 'absolute',
-                  right: '33vh', // 오른쪽에 배치
+                  right: '28vh', // 오른쪽에 배치
                 }}
               >
-                소감문
+                {this.state.isRoleplay ? '역할극 종료' : '역할극 배정'}
               </StyledButton>
             </>
-          ) : null}
+          )}
+          <StyledButton
+            onClick={() => this.handleToggle('testimony')}
+            style={{
+              color: 'white',
+              position: 'absolute',
+              right: '13vh', // 오른쪽에 배치
+            }}
+          >
+            소감문
+          </StyledButton>
         </Bottom>
+        {this.state.isTestimony && <TestimonyModal />}
         {/* ) : null} */}
       </Container>
     )
