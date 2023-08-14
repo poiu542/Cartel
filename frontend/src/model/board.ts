@@ -32,7 +32,6 @@ export interface BoardData {
   nickname: string
   email: string
   reviews?: number
-  comments?: Comment[] | null
 }
 
 export interface CommentData {}
