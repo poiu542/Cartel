@@ -25,7 +25,8 @@ import {
 import { useRecoilValue, useRecoilState } from 'recoil'
 import { userState } from '../recoil/atoms/userState'
 import axios from 'axios'
-
+import 'react-toastify/dist/ReactToastify.css'
+import { ToastContainer, toast } from 'react-toastify'
 // const LoginTab = styled.div`
 //   display: flex;
 //   align-items: center;
@@ -124,7 +125,7 @@ export const Login = () => {
           type: type,
           id: userId,
         }))
-        alert('로그인 완료')
+        toast.success('로그인 완료')
         navigate('/')
       })
       .catch((error) => {
@@ -135,12 +136,12 @@ export const Login = () => {
         }
         setUser((prevUser) => ({ ...prevUser, isLoggedIn: false }))
 
-        alert('로그인 실패')
+        toast.error('로그인 실패')
       })
   }
   const passwordFind = () => {
     if (!inputEmailValue) {
-      alert('이메일을 입력한 뒤에 비밀번호 찾기를 눌러주세요!')
+      toast.warning('이메일을 입력한 뒤에 비밀번호 찾기를 눌러주세요!')
     } else {
       axios
         .put(`${process.env.REACT_APP_BASE_URL}userinfo/findPassword`, {
@@ -148,11 +149,11 @@ export const Login = () => {
         })
         .then((res) => {
           console.log(res)
-          alert('임시 비밀번호를 이메일로 발송했습니다.')
+          toast.success('임시 비밀번호를 이메일로 발송했습니다.')
         })
         .catch((err) => {
           console.log(err)
-          alert('가입되지 않은 이메일입니다.')
+          toast.error('가입되지 않은 이메일입니다.')
         })
     }
   }
@@ -236,6 +237,7 @@ export const Login = () => {
           size={{ width: '570px', height: '50px' }}
         ></Button>
       </FlexContainer>
+      <ToastContainer />
     </section>
   )
 }

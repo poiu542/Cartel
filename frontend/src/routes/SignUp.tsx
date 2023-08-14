@@ -22,9 +22,11 @@ import DeleteIcon from '@mui/icons-material/Delete'
 import { ErrorMessage } from '../styles/ErrorMessage'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
-
+import 'react-toastify/dist/ReactToastify.css'
+import { ToastContainer, toast } from 'react-toastify'
 // import { userState } from '../recoil/atoms/userState'
 // import { useRecoilState } from 'recoil'
+import { BadWords } from './../model/BadWords'
 
 interface UserCommonData {
   nickname: string
@@ -42,6 +44,7 @@ interface UserType1Data extends UserCommonData {
 
 export const SignUp = () => {
   const navigate = useNavigate()
+
   const [inputNicknameValue, setinputNicknameValue] = useState('')
   const [inputEmailValue, setinputEmailValue] = useState('')
   const [inputAuthNumValue, setinputAuthNumeValue] = useState('')
@@ -52,7 +55,7 @@ export const SignUp = () => {
   const [emailError, setEmailError] = useState<string>('')
   const [passwordError, setPasswordError] = useState<string>('')
   const [emailCheck, setEmailCheck] = useState(false)
-
+  const [nickNameCheck, setNickNameCheck] = useState(false)
   const [profileImg, setProfileImg] = useState<File | null>(null)
   const [certificationImg, setCertificationImg] = useState<File | null>(null)
   const [residentRegistrationImg, setResidentRegistrationImg] =
@@ -91,6 +94,37 @@ export const SignUp = () => {
 
   const handleNicknameChange = (event: ChangeEvent<HTMLInputElement>) => {
     setinputNicknameValue(event.target.value)
+    setNickNameCheck(false)
+  }
+
+  // 닉네임 중복확인
+
+  const checkNickName = () => {
+    if (BadWords.includes(inputNicknameValue)) {
+      toast.error('사용 불가능한 닉네임입니다.', {
+        position: 'top-center',
+      })
+    } else if (inputNicknameValue.length >= 2) {
+      axios
+        .get(`${process.env.REACT_APP_BASE_URL}signup/exists`, {
+          params: {
+            nickname: inputNicknameValue,
+          },
+        })
+        .then((response) => {
+          if (response.status === 200) {
+            setNickNameCheck(true)
+            toast.success('사용가능한 닉네임입니다.', {
+              position: 'top-center',
+            })
+          }
+        })
+        .catch((err) => {
+          toast.error('이미 존재하는 닉네임입니다.')
+        })
+    } else {
+      toast.warning('닉네임은 최소 2글자 이상이어야 합니다.')
+    }
   }
 
   const handleEmailChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -151,20 +185,24 @@ export const SignUp = () => {
     updatedCareers[index] = event.target.value
     setCareers(updatedCareers)
   }
-
+  // 인증번호 전송
   const handleEmailClick = () => {
-    axios
-      .post(`${process.env.REACT_APP_BASE_URL}signup/email`, {
-        email: inputEmailValue,
-      })
-      .then((res) => {
-        alert('인증번호를 전송했습니다.')
-        console.log(res)
-      })
-      .catch((err) => {
-        alert('이메일을 다시 확인해 주십시오')
-        console.log('이메일 전송 오류:', err)
-      })
+    if (inputEmailValue) {
+      axios
+        .post(`${process.env.REACT_APP_BASE_URL}signup/email`, {
+          email: inputEmailValue,
+        })
+        .then((res) => {
+          alert('인증번호를 전송했습니다.')
+          console.log(res)
+        })
+        .catch((err) => {
+          alert('이메일을 다시 확인해 주십시오')
+          console.log('이메일 전송 오류:', err)
+        })
+    } else {
+      alert('이메일을 다시 확인해 주십시오')
+    }
   }
   const handleCheckClick = () => {
     axios
@@ -219,7 +257,8 @@ export const SignUp = () => {
       userData.email &&
       userData.password &&
       emailCheck &&
-      passwordCheck
+      passwordCheck &&
+      nickNameCheck
     ) {
       // 기본 정보 확인
       const formData = new FormData()
@@ -260,7 +299,7 @@ export const SignUp = () => {
           alert('회원가입 중 오류가 발생했습니다.')
           // 실패한 경우 오류 메시지 표시 또는 추가 작업 수행
         })
-    } else alert('다시 확인해주세요')
+    } else alert('조건을 다시 확인해주세요')
   }
   const handleProfileUpload = () => {
     const input = document.getElementById(
@@ -375,12 +414,26 @@ export const SignUp = () => {
           </span>
         )}
         <FlexContainerAlignStart>
-          <Input
-            value={inputNicknameValue}
-            onChange={handleNicknameChange}
-            placeholder={userType === 1 ? '이름' : '닉네임'}
-            maxLength={20}
-          />
+          <FlexContainerRow style={{ width: '100%' }}>
+            <Input
+              value={inputNicknameValue}
+              onChange={handleNicknameChange}
+              placeholder={userType === 1 ? '이름' : '닉네임'}
+              width="420px"
+              maxLength={20}
+            />
+
+            <Button
+              border={{ radius: '0.625rem', borderColor: '#40BFFF' }}
+              size={{ width: '100px', height: '35px' }}
+              color={{
+                background: nickNameCheck ? 'gray' : '#40BFFF',
+                color: 'white',
+              }}
+              text="중복확인"
+              onClick={checkNickName}
+            />
+          </FlexContainerRow>
           <FlexContainerRow style={{ width: '100%' }}>
             <div>
               <Input
@@ -572,6 +625,7 @@ export const SignUp = () => {
           size={{ width: '700px', height: '50px' }}
         ></Button>
       </FlexContainer>
+      <ToastContainer />
     </div>
   )
 }
