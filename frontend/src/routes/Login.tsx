@@ -228,23 +228,13 @@ export const Login = () => {
           text="로그인"
           size={{ width: '570px', height: '50px' }}
         ></Button>
-<<<<<<< HEAD
-        <div></div>
+
         <Button
           color={{ background: '#3b478f', color: 'white' }}
           onClick={passwordFind}
           text="비밀번호 찾기"
-=======
-        <div>
-          <h1></h1>
-        </div>
-        {/* <Button
-          color={{ background: '#FFF50E', color: 'black' }}
-          onClick={handleKakaoLogIn}
-          text="Kakao 로그인"
->>>>>>> b813473854a81d6046b8a0020c919095eb808af0
           size={{ width: '570px', height: '50px' }}
-        ></Button> */}
+        ></Button>
       </FlexContainer>
       <ToastContainer />
     </section>
