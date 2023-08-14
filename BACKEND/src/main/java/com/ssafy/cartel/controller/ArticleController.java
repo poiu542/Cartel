@@ -1,12 +1,10 @@
 package com.ssafy.cartel.controller;
 
 import com.ssafy.cartel.domain.Article;
-import com.ssafy.cartel.domain.Comment;
 import com.ssafy.cartel.dto.ArticleDto;
 import com.ssafy.cartel.dto.ArticleResponse;
 import com.ssafy.cartel.dto.UpdateArticleRequest;
 import com.ssafy.cartel.service.ArticleService;
-import com.ssafy.cartel.service.CommentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

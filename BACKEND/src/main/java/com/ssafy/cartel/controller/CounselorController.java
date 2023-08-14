@@ -21,7 +21,7 @@ public class CounselorController {
     private CounselorService counselorService;
 
     @PostMapping("/signup/counselor")
-    public ResponseEntity<String> signupCounselor(@RequestBody UserDto user, @RequestBody CounselorDto counselor){
+    public ResponseEntity<String> signupCounselor(@RequestBody UserDto user, @RequestBody CounselorDto counselor, @RequestBody CareerDto CareerDto){
         userService.save(user);
         counselorService.save(counselor);
 
