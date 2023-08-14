@@ -60,7 +60,6 @@ const queryClient = new QueryClient()
 
 function App(): React.ReactElement {
   const [user, setUser] = useRecoilState(userState)
-
   const loginStatus = user.type
   return (
     <div>

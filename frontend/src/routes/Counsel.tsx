@@ -1,8 +1,11 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import NavbarLogin from '../components/NavbarLogin'
 import CounselCard from '../components/CounselCard'
 import { useNavigate } from 'react-router-dom'
 import Footer from '../components/Footer'
+import { useRecoilValue, useRecoilState } from 'recoil'
+import { userState } from '../recoil/atoms/userState'
+import axios from 'axios'
 
 export const Counsel = () => {
   const [searchTerm, setSearchTerm] = useState('')
@@ -10,20 +13,7 @@ export const Counsel = () => {
   const [currentPage, setCurrentPage] = useState(1)
   const itemsPerPage = 9
 
-  // 예시 데이터
-  const counselData = [
-    { title: '가나다' },
-    { title: '나다' },
-    { title: '가다나' },
-    { title: '가가나' },
-    { title: '나가다' },
-    { title: '다다가' },
-    { title: '나가나' },
-    { title: '다나가' },
-    { title: '다나가' },
-    { title: '다나가' },
-    { title: '다나가' },
-  ]
+  const [counselData, setCounselData] = useState<any[]>([])
 
   const createCounsel = () => {
     // 상담 개설 페이지로 이동
@@ -42,6 +32,17 @@ export const Counsel = () => {
   const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearchTerm(event.target.value)
   }
+  useEffect(() => {
+    axios
+      .get(`${process.env.REACT_APP_BASE_URL}counsel`)
+      .then((response) => {
+        console.log(response.data)
+        setCounselData(response.data)
+      })
+      .catch((error) => {
+        console.error('Error fetching user data: ', error)
+      })
+  }, [])
 
   return (
     <div>
@@ -137,7 +138,7 @@ export const Counsel = () => {
                   minParticipantCount={4}
                   maxParticipantCount={12}
                   sessionCount={16}
-                  price={39000}
+                  price={item.price}
                   onClick={counselButtonClick}
                 />
               </div>
