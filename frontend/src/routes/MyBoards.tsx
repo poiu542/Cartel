@@ -10,6 +10,7 @@ import Modal from 'react-modal'
 import { TestimonyTable } from '../components/TestimonyTable'
 import { useRecoilValue, useRecoilState } from 'recoil'
 import { userState } from '../recoil/atoms/userState'
+import { FreeBoardTable } from '../components/FreeBoardTable'
 
 export const MyBoards = () => {
   const modalStyle = {
@@ -63,20 +64,25 @@ export const MyBoards = () => {
     axios
       .get(`${process.env.REACT_APP_BASE_URL}articles`)
       .then((response) => {
-        console.log(response.data)
         console.log(user)
         const filteredData = response.data.filter(
-          // (article: any) => article.type === 0 && article.UserId === user.id,
-          (article: any) => article.type === 0,
+          (article: any) => article.type === 0 && article.userId === user.id,
+          // (article: any) => article.type === 0,
         )
         setBoardList([...filteredData].reverse())
         console.log(filteredData)
+        console.log(boardList)
       })
 
       .catch(function (error) {
         console.log(error)
       })
   }, [])
+
+  useEffect(() => {
+    console.log('보드리스트다')
+    console.log(boardList)
+  }, [boardList])
 
   useEffect(() => {
     setCurrentPost(boardList.slice(indexOfFirstPost, indexOfLastPost))
@@ -90,13 +96,26 @@ export const MyBoards = () => {
     <div>
       <NavbarLogin />
       <ArticleBar name="내가 쓴 게시글" />
-      <div className="board-list">
+      {/* <div className="board-list">
         {boardList && (
           <TestimonyTable
             data={currentPost}
             DetailTestimony={detailTestimony}
           />
         )}
+
+        <Pagination
+          activePage={page}
+          itemsCountPerPage={postPerPage}
+          totalItemsCount={boardList.length}
+          pageRangeDisplayed={5}
+          prevPageText={'‹'}
+          nextPageText={'›'}
+          onChange={handlePageChange}
+        />
+      </div> */}
+      <div className="board-list">
+        {boardList && <FreeBoardTable data={currentPost} />}
 
         <Pagination
           activePage={page}
