@@ -84,7 +84,7 @@ export const FreeBoardWrite: React.FC = () => {
           content: content,
           level: 0,
           views: 0,
-          userId: 1,
+          userId: user.id || 0,
           type: type,
           status: 0,
           date: new Date().toISOString(),

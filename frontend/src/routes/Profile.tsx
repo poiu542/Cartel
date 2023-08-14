@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import NavbarLogin from '../components/NavbarLogin'
 import Footer from '../components/Footer'
 import Button from '../components/Button'
@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom'
 import Modal from 'react-modal'
 import { useRecoilValue, useRecoilState } from 'recoil'
 import { userState } from '../recoil/atoms/userState'
+import axios from 'axios'
 
 export const Profile = () => {
   const [careers, setCareers] = useState([
@@ -27,8 +28,8 @@ export const Profile = () => {
   const [confirmationText, setConfirmationText] = useState('')
 
   const [user, setUser] = useRecoilState(userState)
-
-  const isLoggedIn = 1
+  console.log(user)
+  const isLoggedIn = 0
 
   const [profileImageFile, setProfileImageFile] = useState<File | null>(null)
   let imageURL: string
@@ -54,11 +55,21 @@ export const Profile = () => {
     },
   }
   const navigate = useNavigate()
-  const myArticle = () => {}
-  const myReview = () => {}
-  const myCounsel = () => {}
-  const myCounselJournal = () => {}
-  const myTestimony = () => {}
+  const myArticle = () => {
+    navigate(`/myboards/${user.id}`)
+  }
+  const myReview = () => {
+    navigate(`/myComments/${user.id}`)
+  }
+  const myCounsel = () => {
+    navigate(`/${user.id}/myBoards`)
+  }
+  const myCounselJournal = () => {
+    navigate(`/${user.id}/myBoards`)
+  }
+  const myTestimony = () => {
+    navigate(`/testimony/${user.id}`)
+  }
   const editUserData = () => {
     navigate(`/profile/edit`)
   }
@@ -70,6 +81,28 @@ export const Profile = () => {
       alert('문구를 정확히 입력해주세요.')
     }
   }
+  useEffect(() => {
+    axios
+      .get(`${process.env.REACT_APP_BASE_URL}userinfo/${user.id}`)
+      .then((response) => {
+        const userData = response.data
+        console.log(userData)
+        // setCareers(userData.careers)
+        setNickname(userData.nickname)
+        setEmail(userData.email)
+        // setName(userData.name)
+        // setPoint(userData.point)
+        // setPhoneNumber(userData.phoneNumber)
+        // setSchool(userData.school)
+        // setIntroduction(userData.introduction)
+
+        // setUser(userData)
+      })
+      .catch((error) => {
+        console.error('Error fetching user data: ', error)
+      })
+  }, [])
+
   return (
     <div>
       <Modal
@@ -247,7 +280,7 @@ export const Profile = () => {
               margin: '60px 0px 0px 0px',
             }}
           >
-            {user.type ? (
+            {!user.type ? (
               <div>
                 <div
                   className="my article"
@@ -497,7 +530,7 @@ export const Profile = () => {
               border: '1px solid #3b478f',
               borderRadius: '20px',
               width: '420px ',
-              minHeight: '300px',
+              minHeight: '100px',
               backgroundColor: 'white',
             }}
           >
@@ -568,7 +601,7 @@ export const Profile = () => {
                   {point}
                 </div>
               </div>
-              <div
+              {/* <div
                 className="phone number"
                 style={{
                   width: '400px',
@@ -587,8 +620,8 @@ export const Profile = () => {
                 >
                   {phoneNumber}
                 </div>
-              </div>
-              {!user.type ? (
+              </div> */}
+              {user.type ? (
                 <div>
                   <div
                     className="school"
@@ -615,31 +648,39 @@ export const Profile = () => {
             </div>
           </div>
           <div className="right bottom">
-            <h3
-              style={{
-                marginLeft: '100px',
-              }}
-            >
-              이력
-            </h3>
-            <div
-              className="career"
-              style={{
-                width: '400px',
-                minHeight: '80px',
-                border: '1px solid lightgray',
-                borderRadius: '6px',
-                margin: '0px 0px 0px 100px',
-                backgroundColor: 'white',
-              }}
-            >
-              {careers.map((career, index) => (
-                <span key={index} style={{ fontSize: '12px', margin: '4px' }}>
-                  {career}
-                  <br />
-                </span>
-              ))}
-            </div>
+            {user.type ? (
+              <div>
+                <h3
+                  style={{
+                    marginLeft: '100px',
+                  }}
+                >
+                  이력
+                </h3>
+                <div
+                  className="career"
+                  style={{
+                    width: '400px',
+                    minHeight: '80px',
+                    border: '1px solid lightgray',
+                    borderRadius: '6px',
+                    margin: '0px 0px 0px 100px',
+                    backgroundColor: 'white',
+                  }}
+                >
+                  {careers.map((career, index) => (
+                    <span
+                      key={index}
+                      style={{ fontSize: '12px', margin: '4px' }}
+                    >
+                      {career}
+                      <br />
+                    </span>
+                  ))}
+                </div>
+              </div>
+            ) : null}
+
             <h3
               style={{
                 marginLeft: '100px',
