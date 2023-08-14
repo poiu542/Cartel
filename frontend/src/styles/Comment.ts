@@ -22,10 +22,11 @@ export const Author = styled.div`
 
 export const Content = styled.div`
   flex: 1;
-  margin: 0 10px;
+  margin: 0px 10px 0px 50px;
 `
 
 export const Date = styled.div`
   font-size: 0.8rem;
   color: #888;
+  margin-right: 10px;
 `

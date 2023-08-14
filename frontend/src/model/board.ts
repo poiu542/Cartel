@@ -1,10 +1,10 @@
 export type Board = {
   title: string
   content: string
-  date?: string
+  date: string
   id: number
   state?: number
-  nickName?: string
+  nickname?: string
 }
 
 export type FreeBoard = {
@@ -34,5 +34,4 @@ export interface BoardData {
   reviews?: number
 }
 
-export interface CommentData {}
-export type Comment = Omit<Board, 'title'>
+export type CommentData = Omit<Board, 'title'>
