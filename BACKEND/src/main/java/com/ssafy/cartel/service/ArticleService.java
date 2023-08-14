@@ -57,13 +57,13 @@ public class ArticleService {
 
     }
 
-    @Transactional
-    public void comment(Integer id, Comment comment){
-        Article article = articleRepository.findById(id)
-                .orElseThrow(()-> new IllegalArgumentException("not found:" + id));
-        article.getComments().add(comment);
-        article.comment(article.getComments());
-    }
+//    @Transactional
+//    public void comment(Integer id, Comment comment){
+//        Article article = articleRepository.findById(id)
+//                .orElseThrow(()-> new IllegalArgumentException("not found:" + id));
+//        article.getComments().add(comment);
+//        article.comment(article.getComments());
+//    }
 
 
 
