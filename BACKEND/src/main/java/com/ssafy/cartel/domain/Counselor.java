@@ -1,6 +1,7 @@
 package com.ssafy.cartel.domain;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.ssafy.cartel.dto.UpdateCounselorRequest;
 import com.ssafy.cartel.dto.UpdateUserRequest;
 import jakarta.persistence.*;
@@ -18,10 +19,6 @@ public class Counselor {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "counselor_id", updatable = false)
     private Integer id;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id",nullable = false)
-    private User user;
 
     @Column(name = "counselor_regist")
     private String regist;
@@ -43,6 +40,10 @@ public class Counselor {
 
     @Column(name = "counselor_introduction")
     private String introduction;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id",nullable = false)
+    private User user;
 
     @Builder
     public Counselor(User user, String regist, String license, String school, String company, Integer rateSum, Integer state, String introduction) {

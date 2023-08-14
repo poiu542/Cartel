@@ -16,14 +16,15 @@ public class CounselorService {
 
     private final CounselorRepository counselorRepository;
 
-    public Integer save(CounselorDto counselorDto){
+    public Counselor save(CounselorDto counselorDto, User user){
         return counselorRepository.save(Counselor.builder()
                 .school(counselorDto.getSchool())
                 .license(counselorDto.getLicenseImg())
                 .regist(counselorDto.getRegistImg())
                 .rateSum(0)
                 .state(0)
-                .build()).getId();
+                .user(user)
+                .build());
     }
 
     public Counselor findById(Integer id){
