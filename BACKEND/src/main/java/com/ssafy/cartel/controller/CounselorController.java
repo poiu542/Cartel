@@ -49,18 +49,23 @@ public class CounselorController {
         return ResponseEntity.ok().body("상담사 정보 수정 완료");
     }
 
-
     @GetMapping("/userinfo/counselor/{id}") //상담사 아이디
-    public ResponseEntity<Map<String, Object>> userInfo(@PathVariable Integer id){
+    public ResponseEntity<CounselorResponse> userInfo(@PathVariable Integer id){
         Counselor counselor = counselorService.findById(id);
-        Integer userId = counselor.getUser().getId();
-        User user = userService.findbyId(userId);
+        User user = counselor.getUser();
+        Integer userId = user.getId();
+        String username = user.getName();
+        String profile = user.getProfileUrl();
+        CounselorResponse counselorResponse = new CounselorResponse(counselor,userId, username, profile );
 
-        Map<String,Object> userInfo= new HashMap<>();
-        userInfo.put("user", user);
-        userInfo.put("counselor", counselor);
 
-        return ResponseEntity.ok().body(userInfo);
+
+        //System.out.println(counselor.getId());
+        //Map<String,Object> userInfo= new HashMap<>();
+        //userInfo.put("user", user);
+        //userInfo.put("counselor", counselor);
+
+        return ResponseEntity.ok().body(counselorResponse);
     }
 
 

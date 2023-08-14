@@ -39,7 +39,8 @@ public class Consulting {
 
 
     @Builder
-    public Consulting(String consulting, LocalDateTime date, Curriculum curriculumId, Client clientId, Integer state) {
+    public Consulting(Integer consultingId, String consulting, LocalDateTime date, Curriculum curriculumId, Client clientId, Integer state) {
+        this.id = consultingId;
         this.consulting = consulting;
         this.date = date;
         this.curriculumId = curriculumId;

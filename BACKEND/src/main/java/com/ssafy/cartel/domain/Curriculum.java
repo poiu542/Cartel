@@ -28,9 +28,14 @@ public class Curriculum {
     private Counsel counselId;
 
     @Builder
-    public Curriculum(Integer title, String content, Counsel counselId) {
+    public Curriculum(Integer curriculumId, Integer title, String content, Counsel counselId) {
+        this.id = curriculumId;
         this.title = title;
         this.content = content;
         this.counselId = counselId;
+    }
+    public void update(Integer title, String content) {
+        this.title = title;
+        this.content = content;
     }
 }

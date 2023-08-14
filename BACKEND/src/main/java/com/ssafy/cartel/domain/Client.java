@@ -37,4 +37,9 @@ public class Client {
         this.attendance = attendance;
         this.state = state;
     }
+
+    public void update(Integer attendance, Integer state) {
+        this.attendance = attendance;
+        this.state = state;
+    }
 }

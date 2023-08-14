@@ -47,8 +47,8 @@ public class Article {
     @Column(name = "post_status", nullable = false)
     private Integer status;
 
-    @OneToMany(mappedBy = "article", cascade = CascadeType.ALL)
-    private List<Comment> comments = new ArrayList<>();
+//    @OneToMany(mappedBy = "article", cascade = CascadeType.ALL)
+//    private List<Comment> comments = new ArrayList<>();
 
     @Builder
     public Article(String title, String content, Integer level, Integer views, User user, Integer type, LocalDateTime date, Integer status) {
@@ -71,7 +71,7 @@ public class Article {
         this.views = views+1;
     }
 
-    public void comment(List<Comment> comments){
-        this.comments = comments;
-    }
+//    public void comment(List<Comment> comments){
+//        this.comments = comments;
+//    }
 }
