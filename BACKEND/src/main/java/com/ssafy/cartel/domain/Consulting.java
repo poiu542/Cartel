@@ -40,7 +40,7 @@ public class Consulting {
 
     @Builder
     public Consulting(Integer consultingId, String consulting, LocalDateTime date, Curriculum curriculumId, Client clientId, Integer state) {
-        this.
+        this.id = consultingId;
         this.consulting = consulting;
         this.date = date;
         this.curriculumId = curriculumId;
