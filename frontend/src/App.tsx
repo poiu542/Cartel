@@ -70,6 +70,7 @@ function App(): React.ReactElement {
             <Route path="/" element={<Main />} />
             {/* 로그인 페이지 */}
             <Route path="/login" element={<Login />} />
+
             {/* 회원가입페이지 */}
             <Route path="/signup" element={<SignUp />} />
             {/* 내 마이페이지 */}
@@ -120,7 +121,6 @@ function App(): React.ReactElement {
             <Route path="/counsel" element={<Counsel />} />
             {/* 상담상세페이지 */}
             <Route path="/counsel/:counselId" element={<CounselDetail />} />
-
             {/* 상담 일지 페이지 */}
             <Route
               path={'/counsel/counseljournal/:couselId/:userId'}
@@ -138,7 +138,6 @@ function App(): React.ReactElement {
                 />
               }
             />
-
             {/* 상담사리스트페이지 */}
             <Route path="/counselor" element={<Counselor />} />
             {/* 상담사상세페이지 */}
@@ -172,7 +171,6 @@ function App(): React.ReactElement {
             <Route path="/qna/:qnaId" element={<QnaDetail />} />
             {/* QnA 수정페이지 */}
             <Route path="/qna/edit/:qnaId" element={<QnaEdit />} />
-
             {/* 알림 */}
             <Route path="/alarm/:userId" element={<Alarm />} />
             {/* 서비스소개 */}
@@ -204,10 +202,8 @@ function App(): React.ReactElement {
             <Route path="/myboards/:userEmail" element={<MyBoards />} />
             {/* 자조모임 페이지 */}
             <Route path="/selfhelpgroup" element={<SelfHelpGroup />} />
-
             {/* 상담 */}
             <Route path="/counseling" element={<CounselOpenvidu />} />
-
             {/* <Route path="/write" element={<Write />} /> */}
             {/* 나머지모든페이지 notfound로으로 */}
             <Route path="*" element={<NotFound />} />

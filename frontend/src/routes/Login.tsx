@@ -138,8 +138,23 @@ export const Login = () => {
         alert('로그인 실패')
       })
   }
-  const handleKakaoLogIn = () => {
-    alert('카카오 로그인')
+  const passwordFind = () => {
+    if (!inputEmailValue) {
+      alert('이메일을 입력한 뒤에 비밀번호 찾기를 눌러주세요!')
+    } else {
+      axios
+        .put(`${process.env.REACT_APP_BASE_URL}userinfo/findPassword`, {
+          email: inputEmailValue,
+        })
+        .then((res) => {
+          console.log(res)
+          alert('임시 비밀번호를 이메일로 발송했습니다.')
+        })
+        .catch((err) => {
+          console.log(err)
+          alert('가입되지 않은 이메일입니다.')
+        })
+    }
   }
 
   // 일반 회원인지 상담사 회원인지
@@ -215,9 +230,9 @@ export const Login = () => {
         ></Button>
         <div></div>
         <Button
-          color={{ background: '#FFF50E', color: 'black' }}
-          onClick={handleKakaoLogIn}
-          text="Kakao 로그인"
+          color={{ background: '#3b478f', color: 'white' }}
+          onClick={passwordFind}
+          text="비밀번호 찾기"
           size={{ width: '570px', height: '50px' }}
         ></Button>
       </FlexContainer>

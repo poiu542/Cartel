@@ -21,13 +21,21 @@ import {
 } from '../styles/articles'
 import { userState } from '../recoil/atoms/userState'
 import { useRecoilState } from 'recoil'
-
+import {
+  Container,
+  CommentItem,
+  Author,
+  Content,
+  Date,
+  BorderTop,
+} from '../styles/Comment'
 export const FreeBoardDetail = () => {
   const navigate = useNavigate()
   const [user, setUser] = useRecoilState(userState)
   let { freeboardId } = useParams()
   const id = freeboardId ? parseInt(freeboardId, 10) : null
   const [checkUser, setCheckUser] = useState(false)
+
   const [board, setBoard] = useState({
     title: '',
     content: '',
@@ -36,8 +44,9 @@ export const FreeBoardDetail = () => {
     level: 0,
     views: 0,
     userId: 0,
+    comments: '',
   })
-  const { title, content, nickname, date, level, userId } = board
+  const { title, content, nickname, date, level, userId, comments } = board
 
   const {
     isLoading,
@@ -48,6 +57,7 @@ export const FreeBoardDetail = () => {
     refetch,
   } = useQuery<BoardData>(['freeboard', id], () => getBoard(id))
 
+  console.log(article)
   useEffect(() => {
     // article 데이터가 있는 경우 board 상태를 설정합니다.
     if (article) {
@@ -59,14 +69,14 @@ export const FreeBoardDetail = () => {
         level: article.level,
         views: article.views,
         userId: article.userId,
+        comments: article.date,
       })
       if ((user.id && user.id === board.userId) || user.type === 3) {
         setCheckUser(true)
       }
     }
   }, [article])
-  console.log(user.id, board.userId)
-
+  console.log(article)
   if (isLoading) {
     return <h1>로딩중입니다</h1>
   }
@@ -111,7 +121,17 @@ export const FreeBoardDetail = () => {
         </ArticleMeta>
         <ArticleContent>{board.content}</ArticleContent>
 
-        <Comment />
+        {/* <Container>
+          <BorderTop>
+            {comments.map((comment, index) => (
+              <CommentItem key={index}>
+                <Author>{comment.author}</Author>
+                <Content>{comment.content}</Content>
+                <Date>{comment.date}</Date>
+              </CommentItem>
+            ))}
+          </BorderTop>
+        </Container> */}
 
         <ButtonGroup>
           {checkUser && (
