@@ -8,6 +8,8 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
+
 
 @NoArgsConstructor //기본 생성자
 @AllArgsConstructor //모든 필드값을 파라미터로 받는 생성자
@@ -16,14 +18,16 @@ import lombok.NoArgsConstructor;
 public class CounselPlanDto {
 
     private Integer counselPlanId;
-    private String time;
+    private LocalDateTime startTime;
+    private LocalDateTime endTime;
     private Integer counselId;
     private Integer dayId;
 
     public CounselPlan toEntity(Counsel counsel, Day day){
         return CounselPlan.builder()
                 .counselPlanId(counselPlanId)
-                .time(time)
+                .startTime(startTime)
+                .endTime(endTime)
                 .counselId(counsel)
                 .dayId(day)
                 .build();

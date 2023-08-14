@@ -38,7 +38,8 @@ public class CounselPlanService {
         for (int i = 0; i < counselPlan.size(); i++) {
             CounselPlanDto counselPlanDto = CounselPlanDto.builder()
                     .counselPlanId(counselPlan.get(i).getId())
-                    .time(counselPlan.get(i).getTime())
+                    .startTime(counselPlan.get(i).getStartTime())
+                    .endTime(counselPlan.get(i).getEndTime())
                     .counselId(counselPlan.get(i).getCounselId().getId())
                     .dayId(counselPlan.get(i).getDayId().getId())
                     .build();
@@ -53,7 +54,8 @@ public class CounselPlanService {
                 .orElseThrow(() -> new IllegalArgumentException("not found:" + id));
         CounselPlanDto counselPlanDto = CounselPlanDto.builder()
                 .counselPlanId(counselPlan.getId())
-                .time(counselPlan.getTime())
+                .startTime(counselPlan.getStartTime())
+                .endTime(counselPlan.getEndTime())
                 .counselId(counselPlan.getCounselId().getId())
                 .dayId(counselPlan.getDayId().getId())
                 .build();
