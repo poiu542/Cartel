@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Transactional(readOnly = true)
@@ -24,13 +25,47 @@ public class CounselService {
         return counselRepository.save(counselDto.toEntity(counselor));
     }
 
-    public List<Counsel> findAll(){
-        return counselRepository.findAll();
+    public List<CounselDto> findAll(){
+        List<Counsel> counsel = counselRepository.findAll();
+        List<CounselDto> counselDtoList = new ArrayList<>();
+
+        for (int i = 0; i < counsel.size(); i++) {
+            CounselDto counselDto = CounselDto.builder()
+                    .counselId(counsel.get(i).getId())
+                    .startDate(counsel.get(i).getStartDate())
+                    .endDate(counsel.get(i).getEndDate())
+                    .counselorId(counsel.get(i).getCounselorId().getId())
+                    .counselCount(counsel.get(i).getCounselCount())
+                    .clientCount(counsel.get(i).getClientCount())
+                    .introduction(counsel.get(i).getIntroduction())
+                    .price(counsel.get(i).getPrice())
+                    .state(counsel.get(i).getState())
+                    .title(counsel.get(i).getTitle())
+                    .weekCount(counsel.get(i).getWeekCount())
+                    .build();
+
+            counselDtoList.add(counselDto);
+        }
+        return counselDtoList;
     }
 
-    public Counsel findById(Integer id){
-        return counselRepository.findById(id)
+    public CounselDto findById(Integer id){
+        Counsel counsel = counselRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("not found:" + id));
+        CounselDto counselDto = CounselDto.builder()
+                .counselId(counsel.getId())
+                .startDate(counsel.getStartDate())
+                .endDate(counsel.getEndDate())
+                .counselorId(counsel.getCounselorId().getId())
+                .counselCount(counsel.getCounselCount())
+                .clientCount(counsel.getClientCount())
+                .introduction(counsel.getIntroduction())
+                .price(counsel.getPrice())
+                .state(counsel.getState())
+                .title(counsel.getTitle())
+                .weekCount(counsel.getWeekCount())
+                .build();
+        return counselDto;
     }
 
     @Transactional
