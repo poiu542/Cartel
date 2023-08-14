@@ -1,11 +1,9 @@
 package com.ssafy.cartel.service;
 
-import ch.qos.logback.core.CoreConstants;
 import com.ssafy.cartel.domain.Article;
 import com.ssafy.cartel.domain.Comment;
 import com.ssafy.cartel.domain.User;
 import com.ssafy.cartel.dto.ArticleDto;
-import com.ssafy.cartel.dto.CommentDto;
 import com.ssafy.cartel.dto.UpdateArticleRequest;
 import com.ssafy.cartel.repository.ArticleRepository;
 import com.ssafy.cartel.repository.UserRepository;

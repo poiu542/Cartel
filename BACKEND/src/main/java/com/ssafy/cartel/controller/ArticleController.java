@@ -1,7 +1,6 @@
 package com.ssafy.cartel.controller;
 
 import com.ssafy.cartel.domain.Article;
-import com.ssafy.cartel.domain.Comment;
 import com.ssafy.cartel.dto.ArticleDto;
 import com.ssafy.cartel.dto.ArticleResponse;
 import com.ssafy.cartel.dto.CommentResponse;
