@@ -112,7 +112,10 @@ function App(): React.ReactElement {
               }
             />
             {/* 자유게시판 수정페이지 */}
-            <Route path="/freeboard/edit/:userId" element={<FreeBoardEdit />} />
+            <Route
+              path="/freeboard/edit/:freeboardId"
+              element={<FreeBoardEdit />}
+            />
             {/* 상담리스트페이지 */}
             <Route path="/counsel" element={<Counsel />} />
             {/* 상담상세페이지 */}

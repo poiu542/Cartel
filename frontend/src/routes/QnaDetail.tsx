@@ -112,20 +112,16 @@ export const QnaDetail = () => {
         <Comment />
 
         <ButtonGroup>
-          <StyledButton
-            green
-            display={checkUser ? true : false}
-            onClick={() => navigate(`/qna/edit/${qnaId}`)}
-          >
-            수정
-          </StyledButton>
-          <StyledButton
-            display={checkUser ? true : false}
-            red
-            onClick={deleteQna}
-          >
-            삭제
-          </StyledButton>
+          {checkUser && (
+            <StyledButton green onClick={() => navigate(`/qna/edit/${qnaId}`)}>
+              수정
+            </StyledButton>
+          )}
+          {checkUser && (
+            <StyledButton red onClick={deleteQna}>
+              삭제
+            </StyledButton>
+          )}
         </ButtonGroup>
       </ArticleContainer>
     </>

@@ -189,9 +189,7 @@ export const Login = () => {
           text="로그인"
           size={{ width: '570px', height: '50px' }}
         ></Button>
-        <div>
-          <h1></h1>
-        </div>
+        <div></div>
         <Button
           color={{ background: '#FFF50E', color: 'black' }}
           onClick={handleKakaoLogIn}

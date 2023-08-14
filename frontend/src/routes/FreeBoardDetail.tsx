@@ -60,8 +60,12 @@ export const FreeBoardDetail = () => {
         views: article.views,
         userId: article.userId,
       })
+      if ((user.id && user.id === board.userId) || user.type === 3) {
+        setCheckUser(true)
+      }
     }
   }, [article])
+  console.log(user.id, board.userId)
 
   if (isLoading) {
     return <h1>로딩중입니다</h1>
@@ -70,9 +74,7 @@ export const FreeBoardDetail = () => {
     console.log(error)
     return <h1>화면을 불러오는데 문제가 있습니다.</h1>
   }
-  if (user.id === board.userId || user.type === 3) {
-    setCheckUser(true)
-  }
+
   const deleteFreeBoard = () => {
     if (user.id === board.userId || user.type === 3) {
       if (window.confirm('게시글을 삭제하시겠습니까?')) {
@@ -112,20 +114,20 @@ export const FreeBoardDetail = () => {
         <Comment />
 
         <ButtonGroup>
-          <StyledButton
-            green
-            display={checkUser ? true : false}
-            onClick={() => navigate(`/freeboard/edit/${freeboardId}`)}
-          >
-            수정
-          </StyledButton>
-          <StyledButton
-            red
-            display={checkUser ? true : false}
-            onClick={deleteFreeBoard}
-          >
-            삭제
-          </StyledButton>
+          {checkUser && (
+            <StyledButton
+              green
+              onClick={() => navigate(`/freeboard/edit/${freeboardId}`)}
+            >
+              수정
+            </StyledButton>
+          )}
+
+          {checkUser && (
+            <StyledButton red onClick={deleteFreeBoard}>
+              삭제
+            </StyledButton>
+          )}
         </ButtonGroup>
       </ArticleContainer>
     </>
