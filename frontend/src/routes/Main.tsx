@@ -531,11 +531,8 @@ export const Main = () => {
           width: '100%',
         }}
       ></div>
-<<<<<<< HEAD
       <TestimonyModal />
-=======
       <RolePlayModal />
->>>>>>> frontend-roleplay
       <Footer />
     </div>
   )

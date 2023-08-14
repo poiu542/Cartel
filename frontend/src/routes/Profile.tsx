@@ -19,8 +19,7 @@ export const Profile = () => {
   ])
   const [nickname, setNickname] = useState('족구왕')
   const [email, setEmail] = useState('jokguking@jokgu.com')
-  const [name, setName] = useState('석민혁')
-  const [point, setPoint] = useState('5400p')
+  const [name, setName] = useState('')
   const [phoneNumber, setPhoneNumber] = useState('010-6723-8879')
   const [school, setSchool] = useState('서울대학교')
   const [introduction, setIntroduction] = useState('족구왕이 될 사나이')
@@ -28,8 +27,8 @@ export const Profile = () => {
   const [confirmationText, setConfirmationText] = useState('')
 
   const [user, setUser] = useRecoilState(userState)
+  console.log('프로필 페이지 진입')
   console.log(user)
-  const isLoggedIn = 0
 
   const [profileImageFile, setProfileImageFile] = useState<File | null>(null)
   let imageURL: string
@@ -81,22 +80,21 @@ export const Profile = () => {
       alert('문구를 정확히 입력해주세요.')
     }
   }
+  const passwordReset = () => {
+    navigate('/')
+  }
+
   useEffect(() => {
     axios
       .get(`${process.env.REACT_APP_BASE_URL}userinfo/${user.id}`)
       .then((response) => {
         const userData = response.data
+        console.log('프로필 페이지 진입 후 데이터 가져옴')
         console.log(userData)
-        // setCareers(userData.careers)
         setNickname(userData.nickname)
         setEmail(userData.email)
-        // setName(userData.name)
-        // setPoint(userData.point)
-        // setPhoneNumber(userData.phoneNumber)
-        // setSchool(userData.school)
-        // setIntroduction(userData.introduction)
-
-        // setUser(userData)
+        setPhoneNumber(userData.phone)
+        setName(userData.name)
       })
       .catch((error) => {
         console.error('Error fetching user data: ', error)
@@ -262,14 +260,24 @@ export const Profile = () => {
             <div
               className="profile name"
               style={{
-                minWidth: '50px',
-                minHeight: ' 50px',
+                minWidth: '30px',
+                minHeight: ' 30px',
                 fontWeight: 'bold',
                 fontSize: '20px',
-                margin: '10px 0px 0px 0px',
+                margin: '10px 0px 10px 0px',
               }}
             >
               {nickname}
+            </div>
+            <div
+              style={{
+                width: '145px',
+                color: 'lightgray',
+                cursor: 'pointer',
+              }}
+              onClick={passwordReset}
+            >
+              비밀번호 재설정 &gt;&gt;
             </div>
           </div>
           <div
@@ -541,6 +549,32 @@ export const Profile = () => {
               }}
             >
               <div
+                className="name"
+                style={{
+                  width: '400px',
+                  height: '40px',
+                  borderBottom: '1px solid lightgray',
+                  margin: '0px 0px 15px 0px',
+                  display: 'flex',
+                  justifyContent: 'left ',
+                  alignItems: 'center',
+                }}
+              >
+                <div
+                  style={{
+                    margin: '0px 0px 0px 10px',
+                  }}
+                >
+                  {name ? (
+                    <div>{name}</div>
+                  ) : (
+                    <div style={{ color: 'gray', fontStyle: 'italic' }}>
+                      이름을 입력해주세요
+                    </div>
+                  )}
+                </div>
+              </div>
+              <div
                 className="email address"
                 style={{
                   width: '400px',
@@ -560,9 +594,8 @@ export const Profile = () => {
                   {email}
                 </div>
               </div>
-
               <div
-                className="name"
+                className="phone number"
                 style={{
                   width: '400px',
                   height: '40px',
@@ -578,9 +611,16 @@ export const Profile = () => {
                     margin: '0px 0px 0px 10px',
                   }}
                 >
-                  {name}
+                  {user.phoneNumber ? (
+                    <div>{user.phoneNumber}</div>
+                  ) : (
+                    <div style={{ color: 'gray', fontStyle: 'italic' }}>
+                      전화번호를 입력해주세요.
+                    </div>
+                  )}
                 </div>
               </div>
+
               <div
                 className="point"
                 style={{
@@ -598,29 +638,9 @@ export const Profile = () => {
                     margin: '0px 0px 0px 10px',
                   }}
                 >
-                  {point}
+                  {user.point || 0}p
                 </div>
               </div>
-              {/* <div
-                className="phone number"
-                style={{
-                  width: '400px',
-                  height: '40px',
-                  borderBottom: '1px solid lightgray',
-                  margin: '0px 0px 15px 0px',
-                  display: 'flex',
-                  justifyContent: 'left ',
-                  alignItems: 'center',
-                }}
-              >
-                <div
-                  style={{
-                    margin: '0px 0px 0px 10px',
-                  }}
-                >
-                  {phoneNumber}
-                </div>
-              </div> */}
               {user.type ? (
                 <div>
                   <div
@@ -702,7 +722,13 @@ export const Profile = () => {
                 backgroundColor: 'white',
               }}
             >
-              <div>{introduction}</div>
+              {user.introduction ? (
+                <div>{user.introduction}</div>
+              ) : (
+                <div style={{ color: 'gray', fontStyle: 'italic' }}>
+                  소개를 입력해주세요.
+                </div>
+              )}
             </div>
 
             <div>

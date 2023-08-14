@@ -644,16 +644,16 @@ export const CounselEdit = () => {
                   const newValue = parseInt(e.target.value)
                   if (isNaN(newValue)) {
                     alert('인원은 숫자여야 합니다.')
-                  } else if (newValue > 12) {
-                    alert('최대 인원은 12명을 초과할 수 없습니다.')
-                  } else if (newValue < 8) {
-                    alert('최대 인원은 8명 보다 적을 수 없습니다.')
+                  } else if (newValue > 8) {
+                    alert('최대 인원은 8명을 초과할 수 없습니다.')
+                  } else if (newValue < 4) {
+                    alert('최대 인원은 4명 보다 적을 수 없습니다.')
                   } else {
                     setMaximumMember(parseInt(e.target.value))
                   }
                 }}
               />
-              회 (8 ~ 12)
+              회 (4 ~ 8)
             </div>
           </div>
           <div

@@ -111,7 +111,6 @@ export const Login = () => {
         const type = response.data.type
         const userId = response.data.userId
         const nickname = response.data.nickname
-        const email = response.data.email
 
         // API 요청하는 콜마다 헤더에 accessToken 담아 보내도록 설정
         axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`
