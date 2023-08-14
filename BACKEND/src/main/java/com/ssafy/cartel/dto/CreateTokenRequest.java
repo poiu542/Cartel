@@ -7,5 +7,5 @@ import org.springframework.stereotype.Service;
 @Getter
 @Setter
 public class CreateTokenRequest {
-    private String token;
+    private String refreshToken;
 }

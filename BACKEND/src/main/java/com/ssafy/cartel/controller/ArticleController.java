@@ -73,4 +73,15 @@ public class ArticleController {
         return ResponseEntity.ok()
                 .body(articles);
     }
+
+
+    @GetMapping("/articles")
+    public ResponseEntity<List<ArticleResponse>> findAllArticles() {
+        List<ArticleResponse> articles = articleService.findAll()
+                .stream()
+                .map(ArticleResponse::new)
+                .toList();
+        return ResponseEntity.ok()
+                .body(articles);
+    }
 }

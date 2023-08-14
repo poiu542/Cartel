@@ -2,8 +2,10 @@ package com.ssafy.cartel.service;
 
 import ch.qos.logback.core.CoreConstants;
 import com.ssafy.cartel.domain.Article;
+import com.ssafy.cartel.domain.Comment;
 import com.ssafy.cartel.domain.User;
 import com.ssafy.cartel.dto.ArticleDto;
+import com.ssafy.cartel.dto.CommentDto;
 import com.ssafy.cartel.dto.UpdateArticleRequest;
 import com.ssafy.cartel.repository.ArticleRepository;
 import com.ssafy.cartel.repository.UserRepository;
@@ -34,7 +36,6 @@ public class ArticleService {
         return articleRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("not found:" + id));
     }
-
     public void delete(Integer id){
         articleRepository.deleteById(id);
     }
@@ -54,10 +55,17 @@ public class ArticleService {
                 .orElseThrow(()-> new IllegalArgumentException("not found:" + id));
         article.view(article.getViews());
 
-
-
-
     }
+
+    @Transactional
+    public void comment(Integer id, Comment comment){
+        Article article = articleRepository.findById(id)
+                .orElseThrow(()-> new IllegalArgumentException("not found:" + id));
+        article.getComments().add(comment);
+        article.comment(article.getComments());
+    }
+
+
 
 
 }

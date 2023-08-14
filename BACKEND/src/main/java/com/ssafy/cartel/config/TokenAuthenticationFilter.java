@@ -14,6 +14,7 @@ import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
 
+
 @RequiredArgsConstructor
 public class TokenAuthenticationFilter extends OncePerRequestFilter {
     private final TokenProvider tokenProvider;
@@ -22,20 +23,18 @@ public class TokenAuthenticationFilter extends OncePerRequestFilter {
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
-
-
-        String authorizationHeader = request.getHeader(HEADER_AUTHORIZATION);
-        String token = getAccessToken(authorizationHeader);
+        //헤더에서 Authorization 키 값 조회
+        String authorizationHeader = request.getHeader(HEADER_AUTHORIZATION); //헤더에서 AuthorizationHeader키 받아오기
+        String token = getAccessToken(authorizationHeader);// Bearer 제거 하는 거
 
         //토큰 유효성 확인
-        if(tokenProvider.validToken(token)){
+        if(tokenProvider.validToken(token)){//유효한 토큰
             //인증 정보 설정
             Authentication authentication = tokenProvider.getAuthentication(token);
             SecurityContextHolder.getContext().setAuthentication(authentication);
         }
 
-
-        filterChain.doFilter(request,response);
+        filterChain.doFilter(request,response);//나머지 필터 체인을 계속 실행
     }
 
     private String getAccessToken(String authorizationHeader) {
