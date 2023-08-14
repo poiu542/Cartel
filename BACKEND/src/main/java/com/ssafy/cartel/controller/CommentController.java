@@ -17,14 +17,14 @@ public class CommentController {
 
     private final CommentService commentService;
 
-    @PostMapping("/articles/comments")
+    @PostMapping("/comments")
     public Comment addComment(@RequestBody CommentDto commentDto){
         Comment comment = commentService.save(commentDto);
 
         return comment;
     }
 
-    @GetMapping("/articles/comments/{id}")//post id
+    @GetMapping("/comments/{id}")//post id
     public ResponseEntity<List<CommentResponse>> comments(@PathVariable Integer id){
         List<CommentResponse> comments = commentService.getComments(id)
                 .stream()
@@ -35,7 +35,7 @@ public class CommentController {
                 .body(comments);
     }
 
-    @GetMapping("/articles/comments/user/{id}")//user id
+    @GetMapping("/comments/user/{id}")//user id
     public ResponseEntity<List<CommentResponse>> userComments(@PathVariable Integer id){
         List<CommentResponse> comments = commentService.getUserComments(id)
                 .stream()
@@ -46,7 +46,7 @@ public class CommentController {
                 .body(comments);
     }
 
-    @DeleteMapping("/articles/comments/{id}")//댓글 번호
+    @DeleteMapping("/comments/{id}")//댓글 번호
     public ResponseEntity<String> delComment(@PathVariable Integer id){
         commentService.delete(id);
 
