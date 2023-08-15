@@ -24,11 +24,12 @@ public class ArticleController {
     private final ArticleService articleService;
 
     @PostMapping("/articles")
-    public ResponseEntity<Article> addArticle(@RequestBody ArticleDto articleDto){
+    public ResponseEntity<ArticleResponse> addArticle(@RequestBody ArticleDto articleDto){
         Article savedArticle = articleService.save(articleDto);
+        ArticleResponse articleResponse = new ArticleResponse(savedArticle);
 
         return ResponseEntity.status(HttpStatus.CREATED)
-                .body(savedArticle);
+                .body(articleResponse);
     }
 
     @GetMapping("/articles/{id}")

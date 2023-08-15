@@ -108,8 +108,8 @@ public class UserController {
     //임시 비밀번호
     @PutMapping("/userinfo/findPassword")
     public ResponseEntity<String> tempPassword(@RequestBody FindPassword findPassword){
-        if(userService.checkUseremailDuplication(findPassword.getEmail())){
-            return ResponseEntity.badRequest().body("이미 존재하는 이메일 입니다.");
+        if(!userService.checkUseremailDuplication(findPassword.getEmail())){
+            return ResponseEntity.badRequest().body("이메일을 다시 확인해주세요.");
         }
 
         userService.tempPassword(findPassword.getEmail());
