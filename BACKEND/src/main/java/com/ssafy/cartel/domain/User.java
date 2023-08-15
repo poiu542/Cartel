@@ -119,6 +119,9 @@ public class User implements UserDetails {
         return this;
     }
 
+    public void updateImg(String imgURL) {
+        this.profileUrl = imgURL;
+    }
 
     public void point(Integer post) {
         if (post == 1) {//글작성

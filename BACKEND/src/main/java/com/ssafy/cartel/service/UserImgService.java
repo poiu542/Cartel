@@ -2,39 +2,35 @@ package com.ssafy.cartel.service;
 
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.model.*;
-import com.ssafy.cartel.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import lombok.val;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
+import java.io.*;
 import java.util.Optional;
 import java.util.UUID;
 
 @Service
 @Slf4j
 @RequiredArgsConstructor //final , @notnull 붙은 필드의 생성자 추가
-public class CounselImgService {
+public class UserImgService {
     @Autowired
     private AmazonS3 s3Client;
 
     @Value("${cloud.aws.s3.bucket}")
     private String bucketName;
 
-    private final UserRepository userRepository;
-
-
+    // MultipartFile을 전달받아 File로 전환한 후 S3에 업로드
     public String upload(MultipartFile multipartFile) throws IOException {
         File uploadFile = convert(multipartFile)
                 .orElseThrow(() -> new IllegalArgumentException("MultipartFile -> File 전환 실패"));
         return upload(uploadFile);
     }
-
     private String upload(File uploadFile) {
         String fileName = uploadFile.getName();
         String uploadImageUrl = putS3(uploadFile, fileName);
@@ -70,12 +66,12 @@ public class CounselImgService {
         }
         return Optional.empty();
     }
+
 //    public String uploadFile(MultipartFile multipartFile) throws IOException {
 ////        File fileObj = convertMultiPartFileToFile(file);
 ////        String filename = System.currentTimeMillis() + "_" + file.getOriginalFilename();
 ////        s3Client.putObject(new PutObjectRequest(bucketName, filename, fileObj));
 ////        return "File uploaded : " + filename;
-//
 //        // S3에 저장되는 파일의 이름이 중복되지 않기 위해서
 //        // UUID로 생성한 랜덤 값과 파일 이름을 연결하여 S3에 업로드 하겠습니다.
 //        String s3FileName = UUID.randomUUID() + "-" + multipartFile.getOriginalFilename();
@@ -90,11 +86,11 @@ public class CounselImgService {
 //
 //        // 그리고 이제 S3 API 메소드인 putObject를 이용하여 파일 Stream을 열어서 S3에 파일을 업로드 합니다.
 //        s3Client.putObject(bucketName, s3FileName, multipartFile.getInputStream(), objMeta);
-//
 //        // 이미지 볼 수 있는 url 준다.
+//
 //        return s3Client.getUrl(bucketName, s3FileName).toString();
 //    }
-//
+
 //    public byte[] downloadFile(String fileName) {
 //        S3Object s3Object = s3Client.getObject(bucketName, fileName);
 //        S3ObjectInputStream inputStream = s3Object.getObjectContent();
@@ -112,7 +108,7 @@ public class CounselImgService {
 //        return fileName + " removed ...";
 //    }
 //
-//    public File convertMultiPartFileToFile(MultipartFile file) {
+//    private File convertMultiPartFileToFile(MultipartFile file) {
 //        File convertedFile = new File(file.getOriginalFilename());
 //        try(FileOutputStream fos = new FileOutputStream(convertedFile)) {
 //            fos.write(file.getBytes());
@@ -121,16 +117,18 @@ public class CounselImgService {
 //        }
 //        return convertedFile;
 //    }
-//
-//    public byte[] convertContent(String filename) {
-//        S3Object s3Object = s3Client.getObject(bucketName, filename);
-//        S3ObjectInputStream inputStream = s3Object.getObjectContent();
+
+//    public void s3PutOjectFromStreamCompliant(AmazonS3 s3Client, File inputFile) throws FileNotFoundException {
+//        String s3Bucket = "sample-bucket";
+//        FileInputStream inputStream = null;
 //        try {
-//            byte[] content = IOUtils.toByteArray(inputStream);
-//            return content;
-//        } catch (IOException e) {
-//            e.printStackTrace();
+//            inputStream = new FileInputStream(inputFile);
+//            ObjectMetadata metadata = new ObjectMetadata();
+//            // Compliant: specifies the content length of the stream.
+//            metadata.setContentLength(inputFile.length());
+//            s3Client.putObject(s3Bucket, inputFile.getName(), inputStream, metadata);
+//        } finally {
+//            IOUtils.closeQuietly(inputStream, null);
 //        }
-//        return null;
 //    }
 }
