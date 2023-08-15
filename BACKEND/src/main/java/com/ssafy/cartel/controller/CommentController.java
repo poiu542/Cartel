@@ -17,10 +17,11 @@ public class CommentController {
     private final CommentService commentService;
 
     @PostMapping("/comments")
-    public Comment addComment(@RequestBody CommentDto commentDto){
+    public CommentResponse addComment(@RequestBody CommentDto commentDto){
         Comment comment = commentService.save(commentDto);
+        CommentResponse commentResponse = new CommentResponse(comment);
 
-        return comment;
+        return commentResponse;
     }
 
     @GetMapping("/comments/{id}")//post id
