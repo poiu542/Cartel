@@ -25,8 +25,8 @@ export const Counsel = () => {
     item.title.toLowerCase().includes(searchTerm.toLowerCase()),
   )
 
-  const counselButtonClick = () => {
-    navigate(`/counsel/1`)
+  const counselButtonClick = (id: number) => {
+    navigate(`/counsel/${id}`)
   }
 
   const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -137,9 +137,9 @@ export const Counsel = () => {
                   title={item.title}
                   minParticipantCount={4}
                   maxParticipantCount={12}
-                  sessionCount={16}
+                  sessionCount={item.weekCount}
                   price={item.price}
-                  onClick={counselButtonClick}
+                  onClick={() => counselButtonClick(item.counselId)}
                 />
               </div>
             ))}
