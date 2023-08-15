@@ -31,11 +31,11 @@ public class Evaluation {
     @Column(name = "evaluation_state", nullable = false)
     private Integer state;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "client_id")
     private Client clientId;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "counselor_id")
     private Counselor counselorId;
 

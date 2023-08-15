@@ -40,7 +40,7 @@ public class Counsel {
     @Column(name = "counsel_price", nullable = false)
     private Integer price;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "counselor_id", nullable = false)
     private Counselor counselorId;
 

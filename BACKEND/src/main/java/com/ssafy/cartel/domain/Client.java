@@ -16,11 +16,11 @@ public class Client {
     @Column(name = "client_id", updatable = false)
     private Integer id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn (name = "user_id", nullable = false)
     private User userId;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "counsel_id", nullable = false)
     private Counsel counselId;
 
