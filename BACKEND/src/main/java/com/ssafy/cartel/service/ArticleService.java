@@ -20,11 +20,13 @@ public class ArticleService {
     private final ArticleRepository articleRepository;
     private final UserRepository userRepository;
 
+    @Transactional
     public Article save(ArticleDto articleDto){
 
         User user = userRepository.findById(articleDto.getUserId())
                 .orElseThrow(()-> new IllegalArgumentException("not found:" ));
 
+        user.point(1);
         Article article = Article.builder()
                 .title(articleDto.getTitle())
                 .content(articleDto.getContent())
