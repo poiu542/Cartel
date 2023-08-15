@@ -7,6 +7,7 @@ import com.ssafy.cartel.dto.CommentDto;
 import com.ssafy.cartel.repository.ArticleRepository;
 import com.ssafy.cartel.repository.CommentRepository;
 import com.ssafy.cartel.repository.UserRepository;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -19,6 +20,7 @@ public class CommentService {
     private final UserRepository userRepository;
     private final ArticleRepository articleRepository;
 
+    @Transactional
     public Comment save(CommentDto commentDto){
 
         User user = userRepository.findById(commentDto.getUserId())
@@ -26,6 +28,8 @@ public class CommentService {
         Article article = articleRepository.findById(commentDto.getPostId())
                 .orElseThrow(()->new IllegalArgumentException("nor found post_id"));
         Comment comment = commentDto.toEntity(user,article);
+
+        user.point(2);
         return commentRepository.save(comment);
 
     }
