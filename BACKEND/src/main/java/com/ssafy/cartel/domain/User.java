@@ -2,10 +2,7 @@ package com.ssafy.cartel.domain;
 
 import com.ssafy.cartel.dto.UpdateUserRequest;
 import jakarta.persistence.*;
-import lombok.AccessLevel;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -68,11 +65,11 @@ public class User implements UserDetails {
     @Override //사용자 권한 반환
     public Collection<? extends GrantedAuthority> getAuthorities() {
         String userType = "user";
-        if(type ==1)
+        if (type == 1)
             userType = "client";
-        else if(type ==2)
-            userType ="counselor";
-        else if (type ==3)
+        else if (type == 2)
+            userType = "counselor";
+        else if (type == 3)
             userType = "admin";
 
 
@@ -105,21 +102,31 @@ public class User implements UserDetails {
     }
 
 
-    public User refresh(String newToken){ // 토큰 갱신
+    public User refresh(String newToken) { // 토큰 갱신
         this.refreshToken = newToken;
         return this;
     }
 
-    public User update(UpdateUserRequest request){
+    public User update(UpdateUserRequest request) {
         this.nickname = request.getNickname();
         this.name = request.getName();
         this.phone = request.getPhone();
         return this;
     }
 
-    public User updatePwd(String password){
+    public User updatePwd(String password) {
         this.password = password;
         return this;
+    }
+
+
+    public void point(Integer post) {
+        if (post == 1) {//글작성
+            this.point += 20;
+        }
+        else if(post==2){//댓글 작성
+            this.point += 5;
+        }
     }
 
 }
