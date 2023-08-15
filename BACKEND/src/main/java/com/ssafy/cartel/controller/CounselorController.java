@@ -34,7 +34,7 @@ public class CounselorController {
     private final CounselorRepository counselorRepository;
 
     @PostMapping("/signup/counselor")
-    public ResponseEntity<String> signupCounselor(@RequestPart CounselorSignupRequest request, @RequestPart(value = "file") MultipartFile multipartFile1, @RequestPart(value = "file") MultipartFile multipartFile2, @RequestPart(value = "file") MultipartFile multipartFile3) throws IOException {
+    public ResponseEntity<String> signupCounselor(@RequestPart CounselorSignupRequest request, @RequestPart(value = "file") MultipartFile multipartFile1, @RequestPart(value = "file") MultipartFile multipartFile2, @RequestPart(value = "file") MultipartFile multipartFile3) throws IOException, IOException {
         System.out.println(request.getUserDto().getEmail());
         User user = userService.save(request.getUserDto());
         Counselor counselor = counselorService.save(request.getCounselorDto(),user);
@@ -65,10 +65,9 @@ public class CounselorController {
     }
 
     @PutMapping("/userinfo/counselor/{id}") // 상담사 id
-    public ResponseEntity<String> updateCounselor(@PathVariable Integer id,@RequestPart UpdateUserRequest userRequest, @RequestPart UpdateCounselorRequest counselorRequest, @RequestPart(value = "file") MultipartFile multipartFile1, @RequestPart(value = "file") MultipartFile multipartFile2, @RequestPart(value = "file") MultipartFile multipartFile3) throws IOException {
+    public ResponseEntity<String> updateCounselor(@PathVariable Integer id, @RequestPart UpdateCounselorRequest counselorRequest, @RequestPart(value = "file") MultipartFile multipartFile1, @RequestPart(value = "file") MultipartFile multipartFile2, @RequestPart(value = "file") MultipartFile multipartFile3) throws IOException {
         Counselor counselor = counselorService.findById(id);
         Integer userId = counselor.getUser().getId();
-        userService.update(userId, userRequest);
         counselorService.update(id,counselorRequest);
 
         String profileImg = userImgService.upload(multipartFile1);
