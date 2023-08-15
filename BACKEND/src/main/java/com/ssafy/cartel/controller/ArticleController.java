@@ -1,11 +1,13 @@
 package com.ssafy.cartel.controller;
 
 import com.ssafy.cartel.domain.Article;
+import com.ssafy.cartel.domain.User;
 import com.ssafy.cartel.dto.ArticleDto;
 import com.ssafy.cartel.dto.ArticleResponse;
 import com.ssafy.cartel.dto.CommentResponse;
 import com.ssafy.cartel.dto.UpdateArticleRequest;
 import com.ssafy.cartel.service.ArticleService;
+import com.ssafy.cartel.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,6 +26,7 @@ public class ArticleController {
     @PostMapping("/articles")
     public ResponseEntity<Article> addArticle(@RequestBody ArticleDto articleDto){
         Article savedArticle = articleService.save(articleDto);
+
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(savedArticle);
     }

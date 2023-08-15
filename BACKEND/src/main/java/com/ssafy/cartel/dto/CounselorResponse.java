@@ -18,9 +18,6 @@ public class CounselorResponse {
     private final Integer rateSum;
     private final Integer state;
 
-
-
-
     public CounselorResponse(Counselor counselor, Integer userId , String name, String profile) {
         this.counselorId = counselor.getId();
         this.company = counselor.getCompany();
