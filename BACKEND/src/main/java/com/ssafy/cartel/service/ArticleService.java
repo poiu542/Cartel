@@ -1,11 +1,9 @@
 package com.ssafy.cartel.service;
 
-import ch.qos.logback.core.CoreConstants;
 import com.ssafy.cartel.domain.Article;
 import com.ssafy.cartel.domain.Comment;
 import com.ssafy.cartel.domain.User;
 import com.ssafy.cartel.dto.ArticleDto;
-import com.ssafy.cartel.dto.CommentDto;
 import com.ssafy.cartel.dto.UpdateArticleRequest;
 import com.ssafy.cartel.repository.ArticleRepository;
 import com.ssafy.cartel.repository.UserRepository;
@@ -13,6 +11,7 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @RequiredArgsConstructor //final , @notnull 붙은 필드의 생성자 추가
@@ -22,10 +21,22 @@ public class ArticleService {
     private final UserRepository userRepository;
 
     public Article save(ArticleDto articleDto){
-        System.out.println(articleDto.getContent());
+
         User user = userRepository.findById(articleDto.getUserId())
                 .orElseThrow(()-> new IllegalArgumentException("not found:" ));
-        return articleRepository.save(articleDto.toEntity(user));
+
+        Article article = Article.builder()
+                .title(articleDto.getTitle())
+                .content(articleDto.getContent())
+                .level(articleDto.getLevel())
+                .views(0)
+                .user(user)
+                .type(articleDto.getType())
+                .date(LocalDateTime.now())
+                .status(0)
+                .build();
+
+        return articleRepository.save(article);
     }
 
     public List<Article> findAll(){

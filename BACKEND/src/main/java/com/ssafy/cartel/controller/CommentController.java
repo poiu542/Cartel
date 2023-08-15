@@ -5,7 +5,6 @@ import com.ssafy.cartel.dto.CommentDto;
 import com.ssafy.cartel.dto.CommentResponse;
 import com.ssafy.cartel.service.CommentService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
