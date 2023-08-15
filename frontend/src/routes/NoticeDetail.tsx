@@ -22,6 +22,8 @@ import {
 
 export const NoticeDetail = () => {
   const navigate = useNavigate()
+  const [checkUser, setCheckUser] = useState(false)
+
   let { noticeId } = useParams()
   const id = noticeId ? parseInt(noticeId, 10) : null
   const [board, setBoard] = useState({
@@ -62,7 +64,7 @@ export const NoticeDetail = () => {
     return <h1>화면을 불러오는데 문제가 있습니다.</h1>
   }
 
-  const deleteQna = () => {
+  const deleteNotice = () => {
     if (window.confirm('게시글을 삭제하시겠습니까?')) {
       axios
         .delete(`${process.env.REACT_APP_BASE_URL}articles/${noticeId}`, {})
@@ -94,15 +96,21 @@ export const NoticeDetail = () => {
         </ArticleMeta>
         <ArticleContent>{board.content}</ArticleContent>
 
-        {/* 공지사항은 수정 삭제 불가? */}
-        {/* <ButtonGroup>
-          <StyledButton green onClick={() => navigate(`/qna/edit/${noticeId}`)}>
-            수정
-          </StyledButton>
-          <StyledButton red onClick={deleteQna}>
-            삭제
-          </StyledButton>
-        </ButtonGroup> */}
+        <ButtonGroup>
+          {checkUser && (
+            <StyledButton
+              green
+              onClick={() => navigate(`/notice/edit/${noticeId}`)}
+            >
+              수정
+            </StyledButton>
+          )}
+          {checkUser && (
+            <StyledButton red onClick={deleteNotice}>
+              삭제
+            </StyledButton>
+          )}
+        </ButtonGroup>
       </ArticleContainer>
     </>
   )

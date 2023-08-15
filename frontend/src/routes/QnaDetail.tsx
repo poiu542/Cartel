@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, ChangeEvent } from 'react'
 import NavbarLogin from '../components/NavbarLogin'
 import ArticleBar from './../components/ArticleBar'
 import StyledButton from './../styles/StyledButton'
@@ -6,7 +6,7 @@ import { useNavigate, useParams } from 'react-router-dom'
 import axios from 'axios'
 import { getBoard } from '../hooks/useboard'
 import { useQuery } from 'react-query'
-import { BoardData } from '../model/board'
+import { BoardData, CommentData } from '../model/board'
 import Comment from './../components/Comment'
 import { CenteredDiv, SpacedDiv, StyledForm } from '../components/Write'
 import styled from '@emotion/styled'
@@ -19,11 +19,21 @@ import {
   ArticleTitle,
   ButtonGroup,
 } from '../styles/articles'
+import {
+  Container,
+  CommentItem,
+  Author,
+  Content,
+  Date,
+  BorderTop,
+} from '../styles/Comment'
 import { useRecoilState } from 'recoil'
 import { userState } from '../recoil/atoms/userState'
 
 export const QnaDetail = () => {
   const [checkUser, setCheckUser] = useState(false)
+  const [comments, setComments] = useState<CommentData[]>([])
+  const [comment, setComment] = useState('')
 
   const navigate = useNavigate()
   const [user, setUser] = useRecoilState(userState)
@@ -48,6 +58,24 @@ export const QnaDetail = () => {
     refetch,
   } = useQuery<BoardData>(['qna', id], () => getBoard(id))
 
+  const handleChangeComment = (e: ChangeEvent<HTMLInputElement>) => {
+    setComment(e.target.value)
+  }
+
+  const postComment = () => {
+    axios
+      .post(`${process.env.REACT_APP_BASE_URL}comments`, {
+        content: comment,
+        userId: user.id,
+        postId: id,
+      })
+      .then((response) => {
+        console.log(response)
+        alert('댓글작성완료')
+        window.location.reload()
+      })
+      .catch((err) => console.log(err))
+  }
   useEffect(() => {
     // article 데이터가 있는 경우 board 상태를 설정합니다.
     if (article) {
@@ -59,6 +87,18 @@ export const QnaDetail = () => {
         views: article.views,
         userId: article.userId,
       })
+      if ((user.id && user.id === board.userId) || user.type === 3) {
+        setCheckUser(true)
+      }
+
+      axios
+        .get(`${process.env.REACT_APP_BASE_URL}comments/${id}`)
+        .then((res) => {
+          setComments(res.data)
+        })
+        .catch((err) => {
+          console.log(err)
+        })
     }
   }, [article])
 
@@ -89,7 +129,25 @@ export const QnaDetail = () => {
       alert('삭제 권한이 없습니다.')
     }
   }
-
+  const deleteComment = (commentId: number) => {
+    if (user.id === commentId || user.type === 3) {
+      if (window.confirm('댓글을 삭제하시겠습니까?')) {
+        axios
+          .delete(`${process.env.REACT_APP_BASE_URL}comments/${commentId}`)
+          .then(function (response) {
+            console.log(response)
+            alert('댓글이 삭제되었습니다.')
+            window.location.reload()
+          })
+          .catch((error) => {
+            alert('댓글 작성자가 아닙니다.')
+            console.log(error)
+          })
+      }
+    } else {
+      alert('댓글을 삭제할 수 없습니다.')
+    }
+  }
   return (
     <>
       <NavbarLogin />
@@ -109,7 +167,46 @@ export const QnaDetail = () => {
         </ArticleMeta>
         <ArticleContent>{board.content}</ArticleContent>
 
-        <Comment />
+        <div>
+          <input
+            type="text"
+            value={comment}
+            onChange={handleChangeComment}
+            style={{
+              height: '20px',
+              width: '90%',
+              marginTop: '10px',
+              marginRight: '30px',
+            }}
+            placeholder="댓글을 작성해주세요!"
+          />
+          <StyledButton onClick={postComment} width="50px" fontSize="10px">
+            작성
+          </StyledButton>
+        </div>
+
+        <Container>
+          {/* <Input value={comment} onChange={handleChangeComment} /> */}
+          <BorderTop>
+            {comments &&
+              comments.map((comment) => (
+                <CommentItem key={comment.id}>
+                  <Author>{comment.nickname}</Author>
+                  <Content>{comment.content}</Content>
+                  <Date>{formatDateDetail(comment.date)}</Date>
+                  <StyledButton
+                    width="5px"
+                    height="5px"
+                    color="red"
+                    background="white"
+                    onClick={() => deleteComment(comment.id)}
+                  >
+                    X
+                  </StyledButton>
+                </CommentItem>
+              ))}
+          </BorderTop>
+        </Container>
 
         <ButtonGroup>
           {checkUser && (
