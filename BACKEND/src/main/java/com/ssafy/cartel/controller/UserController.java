@@ -101,9 +101,6 @@ public class UserController {
 
         user.updateImg(profileUrl);
 
-        System.out.println(user.getProfileUrl());
-        System.out.println(profileUrl);
-
         return ResponseEntity.ok().body(request);
     }
 
