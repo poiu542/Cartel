@@ -3,31 +3,56 @@ package com.ssafy.cartel.controller;
 import com.ssafy.cartel.domain.Counselor;
 import com.ssafy.cartel.domain.User;
 import com.ssafy.cartel.dto.*;
+import com.ssafy.cartel.repository.CounselorRepository;
+import com.ssafy.cartel.repository.UserRepository;
 import com.ssafy.cartel.service.CareerService;
 import com.ssafy.cartel.service.CounselorService;
+import com.ssafy.cartel.service.UserImgService;
 import com.ssafy.cartel.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 @RequiredArgsConstructor
 @Controller
+@Transactional
 public class CounselorController {
 
     private final UserService userService;
     private final CounselorService counselorService;
     private final CareerService careerService;
+    private final UserImgService userImgService;
+    private final UserRepository userRepository;
+    private final CounselorRepository counselorRepository;
 
     @PostMapping("/signup/counselor")
-    public ResponseEntity<String> signupCounselor(@RequestBody CounselorSignupRequest request){
+    public ResponseEntity<String> signupCounselor(@RequestPart CounselorSignupRequest request, @RequestPart(value = "file") MultipartFile multipartFile1, @RequestPart(value = "file") MultipartFile multipartFile2, @RequestPart(value = "file") MultipartFile multipartFile3) throws IOException, IOException {
         System.out.println(request.getUserDto().getEmail());
         User user = userService.save(request.getUserDto());
         Counselor counselor = counselorService.save(request.getCounselorDto(),user);
+
+        String profileImg = userImgService.upload(multipartFile1);
+        String licenseImg = userImgService.upload(multipartFile2);
+        String registImg = userImgService.upload(multipartFile3);
+
+        User setUser = userRepository.findById(user.getId())
+                        .orElseThrow(()-> new IllegalArgumentException("not found : " + user.getId()));
+
+        Counselor setCounselor = counselorRepository.findById(counselor.getId())
+                .orElseThrow(()-> new IllegalArgumentException("not found : " + counselor.getId()));
+
+        setUser.updateImg(profileImg);
+        setCounselor.updateLicenseImg(licenseImg);
+        setCounselor.updateRegistImg(registImg);
+
         System.out.println(request.getCareersDto());
 
         if(request.getCareersDto() != null) {
@@ -40,8 +65,21 @@ public class CounselorController {
     }
 
     @PutMapping("/userinfo/counselor/{id}") // 상담사 id
-    public ResponseEntity<String> updateCounselor(@PathVariable Integer id, @RequestBody UpdateCounselorRequest counselorRequest){
+    public ResponseEntity<String> updateCounselor(@PathVariable Integer id, @RequestPart UpdateCounselorRequest counselorRequest, @RequestPart(value = "file") MultipartFile multipartFile1, @RequestPart(value = "file") MultipartFile multipartFile2, @RequestPart(value = "file") MultipartFile multipartFile3) throws IOException {
+        Counselor counselor = counselorService.findById(id);
+        Integer userId = counselor.getUser().getId();
         counselorService.update(id,counselorRequest);
+
+        String profileImg = userImgService.upload(multipartFile1);
+        String licenseImg = userImgService.upload(multipartFile2);
+        String registImg = userImgService.upload(multipartFile3);
+
+        User user = userRepository.findById(userId)
+                        .orElseThrow(()->new IllegalArgumentException("not found : " + userId));
+
+        user.updateImg(profileImg);
+        counselor.updateLicenseImg(licenseImg);
+        counselor.updateRegistImg(registImg);
 
         return ResponseEntity.ok().body("상담사 정보 수정 완료");
     }

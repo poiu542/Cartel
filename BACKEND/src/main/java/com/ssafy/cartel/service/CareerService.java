@@ -22,7 +22,7 @@ public class CareerService {
 
     public Career save(CareerDto career){
         Counselor counselor = counselorRepository.findById(career.getCounselorId())
-                .orElseThrow(()-> new IllegalArgumentException("not found counselorId" ));;
+                .orElseThrow(()-> new IllegalArgumentException("not found counselorId"));;
 
         return careerRepository.save(Career.builder()
                 .content(career.getContent())
