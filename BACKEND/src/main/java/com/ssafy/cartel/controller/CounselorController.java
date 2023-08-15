@@ -40,10 +40,7 @@ public class CounselorController {
     }
 
     @PutMapping("/userinfo/counselor/{id}") // 상담사 id
-    public ResponseEntity<String> updateCounselor(@PathVariable Integer id,@RequestBody UpdateUserRequest userRequest, @RequestBody UpdateCounselorRequest counselorRequest){
-        Counselor counselor = counselorService.findById(id);
-        Integer userId = counselor.getUser().getId();
-        userService.update(userId, userRequest);
+    public ResponseEntity<String> updateCounselor(@PathVariable Integer id, @RequestBody UpdateCounselorRequest counselorRequest){
         counselorService.update(id,counselorRequest);
 
         return ResponseEntity.ok().body("상담사 정보 수정 완료");
