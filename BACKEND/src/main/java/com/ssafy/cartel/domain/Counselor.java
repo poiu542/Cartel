@@ -65,4 +65,12 @@ public class Counselor {
         this.company = request.getCompany();
         return this;
     }
+
+    public void updateRegistImg(String imgURL) {
+        this.regist = imgURL;
+    }
+
+    public void updateLicenseImg(String imgURL) {
+        this.license = imgURL;
+    }
 }

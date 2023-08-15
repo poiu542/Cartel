@@ -1,55 +1,53 @@
 package com.ssafy.cartel.controller;
 
-import com.ssafy.cartel.dto.CounselImgDto;
+import com.ssafy.cartel.domain.CounselImg;
+import com.ssafy.cartel.repository.CounselImgRepository;
 import com.ssafy.cartel.service.CounselImgService;
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ByteArrayResource;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
-import java.util.List;
+import java.io.IOException;
 
 @RestController
-@RequiredArgsConstructor
-@RequestMapping("/counsel_img")
-@Slf4j
+@RequestMapping("/counsel")
 public class CounselImgController {
-    private final CounselImgService counselImgService;
 
-    // 전체 조회
-    @GetMapping
-    public ResponseEntity<List<CounselImgDto>> findAllCounselImgs(){
-        List<CounselImgDto> counselImgDtoList = counselImgService.findAll();
+    @Autowired
+    private CounselImgService counselImgService;
 
-        return ResponseEntity.ok()
-                .body(counselImgDtoList);
+    @Autowired
+    private CounselImgRepository counselImgRepository;
+
+    @PostMapping("/upload/img")
+    public ResponseEntity<String> uploadRegistFile(@RequestParam(value = "file") MultipartFile multipartFile, Integer counselImgId, String dirname) throws IOException {
+        if (multipartFile.getSize() > 0) {
+            String imgURL = counselImgService.upload(multipartFile);
+            CounselImg counselImg = counselImgRepository.findById(counselImgId)
+                    .orElseThrow(() -> new IllegalArgumentException("해당 counselImg가 존재하지 않습니다."));
+            counselImg.updateRegistImg(imgURL);
+        } else {
+        }
+        return new ResponseEntity<>(counselImgService.upload(multipartFile), HttpStatus.OK);
     }
 
-    // 조회
-    @GetMapping("/{counsel_img_id}")
-    public ResponseEntity<?> findCounselImg(@PathVariable Integer counsel_img_id) {
-        CounselImgDto counselImgDto = counselImgService.findById(counsel_img_id);
-        return ResponseEntity.ok().body(counselImgDto);
-    }
-
-    // 등록
-    @PostMapping
-    public ResponseEntity<?> registCounselImg(@RequestBody CounselImgDto counselImgDto){
-        counselImgService.save(counselImgDto);
-        return ResponseEntity.ok().build();
-    }
-
-//    // 수정
-//    @PutMapping("/{counsel_id}")
-//    public ResponseEntity<?> updateCounsel(@PathVariable Integer counsel_id, @RequestBody CounselDto counselDto) {
-//        counselService.update(counsel_id, counselDto);
-//        return ResponseEntity.ok().build();
+//    @GetMapping("download/{fileName}")
+//    public ResponseEntity<ByteArrayResource> downloadFile(@PathVariable String fileName) {
+//        byte[] data = counselImgService.downloadFile(fileName);
+//        ByteArrayResource resource = new ByteArrayResource(data);
+//        return ResponseEntity
+//                .ok()
+//                .contentLength(data.length)
+//                .header("Content-type", "application/octet-stream")
+//                .header("Content-disposition", "attachment; filename=\"" + fileName + "\"")
+//                .body(resource);
 //    }
-
-//    // 삭제
-//    @PutMapping("/delete/{counsel_id}")
-//    public ResponseEntity<?> updateCounselState(@PathVariable Integer counsel_id, CounselDto counselDto){
-//        counselService.updateState(counsel_id, counselDto);
-//        return ResponseEntity.ok().build();
+//
+//    @DeleteMapping("/delete/{fileName}")
+//    public ResponseEntity<String> deleteFile(@PathVariable String fileName) {
+//        return new ResponseEntity<>(counselImgService.deleteFile(fileName), HttpStatus.OK);
 //    }
 }

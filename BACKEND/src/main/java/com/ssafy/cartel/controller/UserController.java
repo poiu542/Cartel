@@ -4,6 +4,7 @@ import com.ssafy.cartel.config.jwt.TokenProvider;
 import com.ssafy.cartel.domain.User;
 import com.ssafy.cartel.dto.*;
 import com.ssafy.cartel.repository.UserRepository;
+import com.ssafy.cartel.service.UserImgService;
 import com.ssafy.cartel.service.UserService;
 import io.micronaut.context.annotation.Parameter;
 import lombok.RequiredArgsConstructor;
@@ -13,18 +14,24 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.IOException;
 import java.time.Duration;
 import java.util.*;
 
 @RequiredArgsConstructor
 @RestController
+@Transactional
 public class UserController {
 
     private final AuthenticationManager authenticationManager;
     private final UserService userService;
     private final TokenProvider tokenProvider;
     private final UserRepository userRepository;
+    private final UserImgService userImgService;
 
 
 
@@ -84,8 +91,18 @@ public class UserController {
     }
 
     @PutMapping("/userinfo/{id}")
-    public ResponseEntity<UpdateUserRequest> updateUser(@PathVariable Integer id, @RequestBody UpdateUserRequest request){
-        User user = userService.update(id, request);
+    public ResponseEntity<UpdateUserRequest> updateUser(@PathVariable Integer id, @RequestPart UpdateUserRequest request, @RequestPart(value = "file") MultipartFile multipartFile) throws IOException {
+        String profileUrl = userImgService.upload(multipartFile);
+
+        userService.update(id, request);
+
+        User user = userRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("해당 user가 존재하지 않습니다."));
+
+        user.updateImg(profileUrl);
+
+        System.out.println(user.getProfileUrl());
+        System.out.println(profileUrl);
 
         return ResponseEntity.ok().body(request);
     }
