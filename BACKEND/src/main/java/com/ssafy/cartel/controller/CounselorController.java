@@ -7,7 +7,7 @@ import com.ssafy.cartel.repository.CounselorRepository;
 import com.ssafy.cartel.repository.UserRepository;
 import com.ssafy.cartel.service.CareerService;
 import com.ssafy.cartel.service.CounselorService;
-import com.ssafy.cartel.service.UserImgService;
+import com.ssafy.cartel.service.ImgService;
 import com.ssafy.cartel.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -17,9 +17,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 @RequiredArgsConstructor
 @Controller
@@ -29,7 +26,7 @@ public class CounselorController {
     private final UserService userService;
     private final CounselorService counselorService;
     private final CareerService careerService;
-    private final UserImgService userImgService;
+    private final ImgService imgService;
     private final UserRepository userRepository;
     private final CounselorRepository counselorRepository;
 
@@ -39,9 +36,9 @@ public class CounselorController {
         User user = userService.save(request.getUserDto());
         Counselor counselor = counselorService.save(request.getCounselorDto(),user);
 
-        String profileImg = userImgService.upload(multipartFile1);
-        String licenseImg = userImgService.upload(multipartFile2);
-        String registImg = userImgService.upload(multipartFile3);
+        String profileImg = imgService.upload(multipartFile1);
+        String licenseImg = imgService.upload(multipartFile2);
+        String registImg = imgService.upload(multipartFile3);
 
         User setUser = userRepository.findById(user.getId())
                         .orElseThrow(()-> new IllegalArgumentException("not found : " + user.getId()));
@@ -70,9 +67,9 @@ public class CounselorController {
         Integer userId = counselor.getUser().getId();
         counselorService.update(id,counselorRequest);
 
-        String profileImg = userImgService.upload(multipartFile1);
-        String licenseImg = userImgService.upload(multipartFile2);
-        String registImg = userImgService.upload(multipartFile3);
+        String profileImg = imgService.upload(multipartFile1);
+        String licenseImg = imgService.upload(multipartFile2);
+        String registImg = imgService.upload(multipartFile3);
 
         User user = userRepository.findById(userId)
                         .orElseThrow(()->new IllegalArgumentException("not found : " + userId));
