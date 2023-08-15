@@ -100,7 +100,6 @@ public class UserController {
                 .orElseThrow(() -> new IllegalArgumentException("해당 user가 존재하지 않습니다."));
 
         user.updateImg(profileUrl);
-
         return ResponseEntity.ok().body(request);
     }
 
