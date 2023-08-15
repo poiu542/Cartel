@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -40,7 +41,10 @@ public class CounselorController {
     }
 
     @PutMapping("/userinfo/counselor/{id}") // 상담사 id
-    public ResponseEntity<String> updateCounselor(@PathVariable Integer id, @RequestBody UpdateCounselorRequest counselorRequest){
+    public ResponseEntity<String> updateCounselor(@PathVariable Integer id,@RequestBody UpdateUserRequest userRequest, @RequestBody UpdateCounselorRequest counselorRequest) throws IOException {
+        Counselor counselor = counselorService.findById(id);
+        Integer userId = counselor.getUser().getId();
+        userService.update(userId, userRequest);
         counselorService.update(id,counselorRequest);
 
         return ResponseEntity.ok().body("상담사 정보 수정 완료");
