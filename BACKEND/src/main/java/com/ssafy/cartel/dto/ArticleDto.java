@@ -23,19 +23,4 @@ public class ArticleDto {
     private LocalDateTime date;
     private Integer status;
 
-
-    public Article toEntity(User user){
-
-        return Article.builder()
-                .title(title)
-                .content(content)
-                .level(level)
-                .views(views)
-                .user(user)
-                .type(type)
-                .date(LocalDateTime.now())
-                .status(status)
-                .build();
-
-    }
 }

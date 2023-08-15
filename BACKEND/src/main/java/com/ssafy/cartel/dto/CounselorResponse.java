@@ -1,10 +1,7 @@
 package com.ssafy.cartel.dto;
 
-import com.ssafy.cartel.domain.Comment;
 import com.ssafy.cartel.domain.Counselor;
 import lombok.Getter;
-
-import java.time.LocalDateTime;
 
 @Getter
 public class CounselorResponse {
@@ -39,3 +36,4 @@ public class CounselorResponse {
 
     }
 }
+
