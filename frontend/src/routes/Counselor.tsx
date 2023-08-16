@@ -1,8 +1,10 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import NavbarLogin from '../components/NavbarLogin'
 import { useNavigate } from 'react-router-dom'
 import Footer from '../components/Footer'
 import CounselorCard from '../components/CounselorCard'
+import { CounselorData } from '../model/counsel'
+import axios from 'axios'
 
 export const Counselor = () => {
   const [searchTerm, setSearchTerm] = useState('')
@@ -10,132 +12,20 @@ export const Counselor = () => {
   const [currentPage, setCurrentPage] = useState(1)
   const itemsPerPage = 6
 
-  // 예시 데이터
-  const counselorData = [
-    {
-      id: 1,
-      name: '박태흠',
-      grade: 4.8,
-      gradeCount: 51,
-      introduce: '글자수 27자 이상이면 27자 까지만 나오고 그 뒤는 . . .',
-      imgSrc:
-        'https://img1.daumcdn.net/thumb/R1280x0/?fname=http://t1.daumcdn.net/brunch/service/user/5U3n/image/MEdGxSIxzO4h9s6d_SjkKtd_sjA.jpg',
-    },
-    {
-      id: 2,
-      name: '이지훈',
-      grade: 4.7,
-      gradeCount: 40,
-      introduce: '감정의 세계에 대해 깊이 이해하고 싶어하는 상담사',
-      imgSrc:
-        'https://img1.daumcdn.net/thumb/R1280x0/?fname=http://t1.daumcdn.net/brunch/service/user/5U3n/image/MEdGxSIxzO4h9s6d_SjkKtd_sjA.jpg',
-    },
-    {
-      id: 3,
-      name: '김영희',
-      grade: 4.9,
-      gradeCount: 60,
-      introduce: '진정한 행복을 찾아나서는 여행자',
-      imgSrc:
-        'https://img1.daumcdn.net/thumb/R1280x0/?fname=http://t1.daumcdn.net/brunch/service/user/5U3n/image/MEdGxSIxzO4h9s6d_SjkKtd_sjA.jpg',
-    },
-    {
-      id: 4,
-      name: '최영수',
-      grade: 4.7,
-      gradeCount: 30,
-      introduce: '감정을 이해하는데 도움이 되는 상담사',
-      imgSrc:
-        'https://img1.daumcdn.net/thumb/R1280x0/?fname=http://t1.daumcdn.net/brunch/service/user/5U3n/image/MEdGxSIxzO4h9s6d_SjkKtd_sjA.jpg',
-    },
-    {
-      id: 5,
-      name: '이영희',
-      grade: 4.8,
-      gradeCount: 52,
-      introduce: '즐거움을 찾는 여행자',
-      imgSrc:
-        'https://img1.daumcdn.net/thumb/R1280x0/?fname=http://t1.daumcdn.net/brunch/service/user/5U3n/image/MEdGxSIxzO4h9s6d_SjkKtd_sjA.jpg',
-    },
-    {
-      id: 6,
-      name: '김민수',
-      grade: 4.7,
-      gradeCount: 42,
-      introduce: '행복을 꿈꾸는 사람',
-      imgSrc:
-        'https://img1.daumcdn.net/thumb/R1280x0/?fname=http://t1.daumcdn.net/brunch/service/user/5U3n/image/MEdGxSIxzO4h9s6d_SjkKtd_sjA.jpg',
-    },
-    {
-      id: 7,
-      name: '박지민',
-      grade: 4.6,
-      gradeCount: 33,
-      introduce: '감정의 세계를 탐험하는 상담사',
-      imgSrc:
-        'https://img1.daumcdn.net/thumb/R1280x0/?fname=http://t1.daumcdn.net/brunch/service/user/5U3n/image/MEdGxSIxzO4h9s6d_SjkKtd_sjA.jpg',
-    },
-    {
-      id: 8,
-      name: '장미란',
-      grade: 4.5,
-      gradeCount: 41,
-      introduce: '사람의 마음을 이해하려는 상담사',
-      imgSrc:
-        'https://img1.daumcdn.net/thumb/R1280x0/?fname=http://t1.daumcdn.net/brunch/service/user/5U3n/image/MEdGxSIxzO4h9s6d_SjkKtd_sjA.jpg',
-    },
-    {
-      id: 9,
-      name: '이진수',
-      grade: 4.9,
-      gradeCount: 60,
-      introduce: '생각의 깊이를 쫓는 상담사',
-      imgSrc:
-        'https://img1.daumcdn.net/thumb/R1280x0/?fname=http://t1.daumcdn.net/brunch/service/user/5U3n/image/MEdGxSIxzO4h9s6d_SjkKtd_sjA.jpg',
-    },
-    {
-      id: 10,
-      name: '김철수',
-      grade: 4.8,
-      gradeCount: 51,
-      introduce: '감정을 이해하는 여행자',
-      imgSrc:
-        'https://img1.daumcdn.net/thumb/R1280x0/?fname=http://t1.daumcdn.net/brunch/service/user/5U3n/image/MEdGxSIxzO4h9s6d_SjkKtd_sjA.jpg',
-    },
-    {
-      id: 11,
-      name: '박영희',
-      grade: 4.7,
-      gradeCount: 42,
-      introduce:
-        '감정을 탐험하는 상담사감정을 탐험하는 상담사감정을 탐험하는 상담사감정을 탐험하는 상담사감정을 탐험하는 상담사감정을 탐험하는 상담사',
-      imgSrc:
-        'https://img1.daumcdn.net/thumb/R1280x0/?fname=http://t1.daumcdn.net/brunch/service/user/5U3n/image/MEdGxSIxzO4h9s6d_SjkKtd_sjA.jpg',
-    },
-    {
-      id: 12,
-      name: '이민호',
-      grade: 4.8,
-      gradeCount: 50,
-      introduce:
-        '자신의 감정을 깊이 이해하려는 사람자신의 감정을 깊이 이해하려는 사람',
-      imgSrc:
-        'https://img1.daumcdn.net/thumb/R12 80x0/?fname=http://t1.daumcdn.net/brunch/service/user/5U3n/image/MEdGxSIxzO4h9s6d_SjkKtd_sjA.jpg',
-    },
-    {
-      id: 13,
-      name: '김지훈',
-      grade: 4.9,
-      gradeCount: 53,
-      introduce: '사람의 마음을 이해하려는 상담사',
-      imgSrc:
-        'https://img1.daumcdn.net/thumb/R1280x0/?fname=http://t1.daumcdn.net/brunch/service/user/5U3n/image/MEdGxSIxzO4h9s6d_SjkKtd_sjA.jpg',
-    },
-  ]
+  const [counselors, setCounselors] = useState<CounselorData[]>([])
+
+  useEffect(() => {
+    axios
+      .get(`${process.env.REACT_APP_BASE_URL}userinfo/counselor`)
+      .then((res) => {
+        setCounselors([...res.data])
+      })
+      .catch((err) => console.log(err))
+  }, [])
 
   // 검색어에 매칭되는 데이터만 필터링
-  const filteredData = counselorData.filter((item) =>
-    item.name.includes(searchTerm),
+  const filteredData = counselors.filter(
+    (item) => item.name && item.name.includes(searchTerm),
   )
 
   const counselorButtonClick = (id: number) => {
@@ -203,16 +93,17 @@ export const Counselor = () => {
             .map((item, index) => (
               <div style={{ margin: '10px 60px' }}>
                 <CounselorCard
-                  onCardClick={() => counselorButtonClick(item.id)}
+                  onCardClick={() => counselorButtonClick(item.counselorId)}
                   name={item.name}
-                  grade={item.grade}
-                  gradeCount={item.gradeCount}
+                  grade={item.rateSum}
+                  // gradeCount={item.gradeCount}
+
                   introduce={
-                    item.introduce.length > 27
-                      ? item.introduce.substring(0, 27) + '...'
-                      : item.introduce
+                    item.introduction && item.introduction.length > 27
+                      ? item.introduction.substring(0, 27) + '...'
+                      : item.introduction
                   }
-                  imgSrc={item.imgSrc}
+                  imgSrc={item.profile}
                 />
               </div>
             ))}

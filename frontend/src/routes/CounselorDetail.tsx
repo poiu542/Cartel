@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import {
   FlexContainerRow,
@@ -6,84 +6,26 @@ import {
   BackgroundBox,
 } from '../styles/MainStyle'
 import NavbarLogin from '../components/NavbarLogin'
-
-export interface RequestPayAdditionalParams {
-  digital?: boolean
-  vbank_due?: string
-  m_redirect_url?: string
-  app_scheme?: string
-  biz_num?: string
-}
-
-export interface Display {
-  card_quota?: number[]
-}
-
-export interface RequestPayParams extends RequestPayAdditionalParams {
-  pg?: string
-  pay_method: string
-  escrow?: boolean
-  merchant_uid: string
-  name?: string
-  amount: number
-  custom_data?: any
-  tax_free?: number
-  currency?: string
-  language?: string
-  buyer_name?: string
-  buyer_tel: string
-  buyer_email?: string
-  buyer_addr?: string
-  buyer_postcode?: string
-  notice_url?: string | string[]
-  display?: Display
-}
-
-export interface RequestPayAdditionalResponse {
-  apply_num?: string
-  vbank_num?: string
-  vbank_name?: string
-  vbank_holder?: string | null
-  vbank_date?: number
-}
-
-export interface RequestPayResponse extends RequestPayAdditionalResponse {
-  success: boolean
-  error_code: string
-  error_msg: string
-  imp_uid: string | null
-  merchant_uid: string
-  pay_method?: string
-  paid_amount?: number
-  status?: string
-  name?: string
-  pg_provider?: string
-  pg_tid?: string
-  buyer_name?: string
-  buyer_email?: string
-  buyer_tel?: string
-  buyer_addr?: string
-  buyer_postcode?: string
-  custom_data?: any
-  paid_at?: number
-  receipt_url?: string
-}
-
-export type RequestPayResponseCallback = (response: RequestPayResponse) => void
-
-export interface Iamport {
-  init: (accountID: string) => void
-  request_pay: (
-    params: RequestPayParams,
-    callback?: RequestPayResponseCallback,
-  ) => void
-}
+import axios from 'axios'
 
 interface Evaluation {
   evaluation_rate: number
   evaluation_content: string
 }
-
+interface CounselorData {
+  counselorId: number
+  userId: number
+  name: string
+  profile: string | null
+  regist: string | null
+  license: string | null
+  school: string | null
+  company: string | null
+  introduction: string | null | undefined
+  rateSum: number
+  state: number
+  careers: string[]
+}
 interface Counselor {
   id: string
   imageUrl: string
@@ -133,6 +75,32 @@ const DUMMY_DATA: { [key: string]: Counselor } = {
 
 export const CounselorDetail: React.FC = () => {
   const params = useParams<{ counselorId: string }>()
+  const { counselorId } = useParams()
+  const [counselor, setCounselor] = useState<CounselorData>({
+    counselorId: 0,
+    userId: 0,
+    name: '',
+    profile: '',
+    regist: '',
+    license: '',
+    school: '',
+    company: '',
+    introduction: '',
+    rateSum: 0,
+    state: 0,
+    careers: [],
+  })
+
+  useEffect(() => {
+    axios
+      .get(`${process.env.REACT_APP_BASE_URL}userinfo/counselor/${counselorId}`)
+      .then((res) => {
+        console.log(res)
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+  }, [])
 
   const [expandedEvaluations, setExpandedEvaluations] = useState<{
     [key: number]: boolean
@@ -275,4 +243,7 @@ export const CounselorDetail: React.FC = () => {
       </FlexContainerRow>
     </div>
   )
+}
+function useEffeect(arg0: () => void) {
+  throw new Error('Function not implemented.')
 }

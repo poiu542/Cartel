@@ -26,6 +26,21 @@ export interface Curriculrum {
 //   state?: number
 // }
 
+export interface CounselorData {
+  counselorId: number
+  userId: number
+  name: string
+  profile: string | null
+  regist: string | null
+  license: string | null
+  school: string | null
+  company: string | null
+  introduction: string | null | undefined
+  rateSum: number
+  state: number
+  careers: string[]
+}
+
 export interface TestimonyData {
   id: number
   date: string

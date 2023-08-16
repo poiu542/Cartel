@@ -10,10 +10,10 @@ import StarIcon from '@mui/icons-material/Star'
 interface CounselorCardProps {
   name: string
   grade: number
-  gradeCount: number
-  introduce: string
+  gradeCount?: number
+  introduce?: string | undefined | null
   onCardClick: () => void
-  imgSrc: string
+  imgSrc: string | null
 }
 
 function CounselorCard({
@@ -26,11 +26,12 @@ function CounselorCard({
 }: CounselorCardProps) {
   return (
     <Card
+      onClick={onCardClick}
       sx={{ width: 300, height: 350 }}
       style={{ boxShadow: '3px 3px #e5e5e5', borderRadius: '5px' }}
     >
       <img
-        src={imgSrc}
+        src={imgSrc || undefined}
         alt=""
         style={{ width: '300px', height: '150px', objectFit: 'scale-down' }}
       />
