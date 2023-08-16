@@ -12,6 +12,9 @@ import com.ssafy.cartel.repository.CounselorRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.LinkedList;
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class CareerService {
@@ -22,7 +25,7 @@ public class CareerService {
 
     public Career save(CareerDto career){
         Counselor counselor = counselorRepository.findById(career.getCounselorId())
-                .orElseThrow(()-> new IllegalArgumentException("not found counselorId" ));;
+                .orElseThrow(()-> new IllegalArgumentException("not found counselorId"));;
 
         return careerRepository.save(Career.builder()
                 .content(career.getContent())
@@ -31,4 +34,12 @@ public class CareerService {
                 .build());
     }
 
+    public List<String> findByCounselor(Counselor counselor) {
+        List<Career> careerss = careerRepository.findAllByCounselor(counselor);
+        List<String> careers = new LinkedList<>();
+        for(Career career: careerss){
+            careers.add(career.getContent());
+        }
+        return careers;
+    }
 }

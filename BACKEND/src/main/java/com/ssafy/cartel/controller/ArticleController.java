@@ -56,14 +56,35 @@ public class ArticleController {
                 .body(articleResponse);
     }
 
-    @GetMapping("/articles")
-    public ResponseEntity<List<ArticleResponse>> findAllArticles() {
-        List<ArticleResponse> articles = articleService.findAll()
+    @GetMapping("/articles/community")
+    public ResponseEntity<List<ArticleResponse>> findAllCommunity() {
+        List<ArticleResponse> articles = articleService.findAllByType(0)
                 .stream()
                 .map(ArticleResponse::new)
                 .toList();
         return ResponseEntity.ok()
                 .body(articles);
     }
+    @GetMapping("/articles/notice")
+    public ResponseEntity<List<ArticleResponse>> findAllNotice() {
+        List<ArticleResponse> articles = articleService.findAllByType(1)
+                .stream()
+                .map(ArticleResponse::new)
+                .toList();
+        return ResponseEntity.ok()
+                .body(articles);
+    }
+
+    @GetMapping("/articles/faq")
+    public ResponseEntity<List<ArticleResponse>> findAllFaq() {
+        List<ArticleResponse> articles = articleService.findAllByType(2)
+                .stream()
+                .map(ArticleResponse::new)
+                .toList();
+        return ResponseEntity.ok()
+                .body(articles);
+    }
+
+
 
 }

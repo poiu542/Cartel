@@ -37,6 +37,7 @@ public class CounselorService {
     }
 
     public List<Counselor> findAll(){
+
         return counselorRepository.findAll();
     }
 
