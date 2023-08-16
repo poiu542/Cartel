@@ -17,6 +17,7 @@ import styled from '@emotion/styled'
 // import { Icon } from '@mui/material'
 import StyledButton from '../styles/StyledButton'
 import TestimonyModal from '../components/TestimonyModal'
+import { useParams } from 'react-router-dom'
 
 // const APPLICATION_SERVER_URL = 'http://i9b209.p.ssafy.io:8080/'
 const Container = styled.div`
@@ -163,7 +164,7 @@ class CounselOpenvidu extends Component {
 
     // These properties are in the state's component in order to re-render the HTML whenever their values change
     this.state = {
-      mySessionId: 'drugk',
+      mySessionId: 'drug',
       myUserName: '',
       session: undefined,
       mainStreamManager: undefined, // Main video of the page. Will be the 'publisher' or one of the 'subscribers'
@@ -516,7 +517,7 @@ class CounselOpenvidu extends Component {
     this.setState({
       session: undefined,
       subscribers: [],
-      mySessionId: 'drugki',
+      mySessionId: this.state.mySessionId,
       myUserName: this.state.myUserName,
       mainStreamManager: undefined,
       publisher: undefined,
@@ -563,12 +564,21 @@ class CounselOpenvidu extends Component {
   }
 
   render() {
-    // const mySessionId = this.state.mySessionId
-    // const myUserName = this.state.myUserName
-    const { mySessionId } = this.state
-    const { localUser } = this.state
+    // useParams 훅을 사용하여 URL 파라미터를 가져오는 함수
+    const SetParamsToState = () => {
+      const { curriculumId } = useParams()
+
+      // state의 mySessionId재설정
+      if (this.state.mySessionId === 'drug') {
+        this.setState({ mySessionId: curriculumId })
+      }
+
+      return null // 아무것도 렌더링하지 않음
+    }
+
     return (
       <Container>
+        <SetParamsToState />
         <Header>
           <StudyTitle>상담이름</StudyTitle>
           {this.state.isCounselJournal ? (

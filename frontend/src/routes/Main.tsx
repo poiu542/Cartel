@@ -38,7 +38,7 @@ export const Main = () => {
     alert('상담사 상세페이지에서 첫 번째 카드만 상세페이지 이동 돼요')
   }
   const ViewAll = () => {
-    alert('더보기')
+    navigate(`/freeboard`)
   }
   const ViewAllCounselor = () => {
     navigate(`/counselor`)
@@ -411,14 +411,14 @@ export const Main = () => {
         >
           <FlexContainerRow style={{ width: '100%' }}>
             <FlexContainer style={{ paddingLeft: '8%' }}>
-              <StyledButton background="#00528F">심리상담소</StyledButton>
-              <p style={{ fontSize: '30px' }}>
-                카르텔을 통해 나와 비슷한 사람들을 만나보세요
+              <StyledButton background="#00528F">단약 의지 강화</StyledButton>
+              <p style={{ fontSize: '27px', marginTop: '20px' }}>
+                '우린 약하지 않아'를 통해 나와 비슷한 사람들을 만나보세요
               </p>
             </FlexContainer>
             <FlexContainer style={{ justifyContent: 'flex-end' }}>
               <img
-                src="/friend.jpg"
+                src="/image/together.png"
                 alt=""
                 style={{
                   width: '250px',
@@ -452,7 +452,7 @@ export const Main = () => {
               style={{ width: '30%', height: '100%', cursor: 'pointer' }}
               onClick={goServicePage}
             >
-              <div style={{ padding: '10px 0px 0px 20px' }}>
+              <div style={{ padding: '25px 0px 0px 25px' }}>
                 <p style={{ fontSize: '20px' }}>서비스소개</p>
                 <br />
                 <p style={{ marginRight: '20px' }}>
@@ -488,23 +488,19 @@ export const Main = () => {
                 onClick={goSelfHelpGroup}
               >
                 <FlexContainerRow>
-                  <div style={{ padding: '10px 0px 0px 20px' }}>
+                  <div style={{ padding: '23px 0px 0px 25px' }}>
                     <p style={{ fontSize: '20px' }}>자조모임이란</p>
                     <br />
-                    <p style={{ marginRight: '20px' }}>
-                      공통적인 문제를 가진 사람들이 모여
-                    </p>
-                    <p>공통의 목적을 위하여 정기적인 모임을 통해</p>
-                    <p>친목을 도모하고 사회활동을 하면서</p>
-                    <p>정보를 공유하는 모임입니다.</p>
+                    <p>자조모임에 대해 알고</p>
+                    <p>직접 경험해보세요.</p>
                   </div>
                   <img
                     src="/image/people.png"
                     alt=""
                     style={{
-                      width: '70px',
+                      width: '90px',
                       height: '70px',
-                      margin: '45px 30px 0px 0px',
+                      margin: '45px 50px 0px 0px',
                     }}
                   />
                 </FlexContainerRow>
@@ -521,7 +517,7 @@ export const Main = () => {
                     'http://bgnmh.go.kr/checkmehealme/selftest/drgTest3.xx')
                 }
               >
-                <div style={{ padding: '10px 0px 0px 20px' }}>
+                <div style={{ padding: '23px 0px 0px 25px' }}>
                   <p style={{ fontSize: '20px' }}>중독검사</p>
                   <br />
                   <div style={{ marginRight: '30px' }}></div>

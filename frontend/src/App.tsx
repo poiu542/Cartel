@@ -202,7 +202,10 @@ function App(): React.ReactElement {
             {/* 자조모임 페이지 */}
             <Route path="/selfhelpgroup" element={<SelfHelpGroup />} />
             {/* 상담 */}
-            <Route path="/counseling" element={<CounselOpenvidu />} />
+            <Route
+              path="/counseling/:curriculumId"
+              element={<CounselOpenvidu />}
+            />
             {/* <Route path="/write" element={<Write />} /> */}
             {/* 나머지모든페이지 notfound로으로 */}
             <Route path="*" element={<NotFound />} />
