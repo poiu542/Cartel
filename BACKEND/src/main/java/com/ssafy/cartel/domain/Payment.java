@@ -30,7 +30,7 @@ public class Payment {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "client_id", nullable = false)
-    private User user;
+    private Client client;
 
     @Column(name = "payment_id", nullable = false)
     private String paymentId;
@@ -43,11 +43,11 @@ public class Payment {
 
 
     @Builder
-    public Payment(Integer status, Integer amount, LocalDateTime time, User user, String paymentId, String method, Integer counselId) {
+    public Payment(Integer status, Integer amount, LocalDateTime time, Client client, String paymentId, String method) {
         this.status = status;
         this.amount = amount;
         this.time = time;
-        this.user= user;
+        this.client= client;
         this.paymentId = paymentId;
         this.method = method;
         //this.counselId = counselId;
