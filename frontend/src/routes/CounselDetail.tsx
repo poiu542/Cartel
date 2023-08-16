@@ -12,7 +12,8 @@ import axios from 'axios'
 import { useParams } from 'react-router-dom'
 import { useRecoilState } from 'recoil'
 import { userState } from '../recoil/atoms/userState'
-import { Counsel, Curriculrum } from '../model/counsel'
+import { Counsel, CounselorData, Curriculrum } from '../model/counsel'
+import { formatDateDetail } from '../utils/dateUtils'
 
 export interface UserData {
   buyer_name?: string
@@ -103,6 +104,7 @@ declare global {
 }
 
 export const CounselDetail = () => {
+  // 상담상세데이터
   const [counselData, setCounselData] = useState<Counsel>({
     counselid: 0,
     startDate: '',
@@ -117,8 +119,22 @@ export const CounselDetail = () => {
     weekCount: 0,
   })
   const [user, setUser] = useRecoilState(userState)
-
+  const [counselor, setCounselor] = useState<CounselorData>({
+    counselorId: 0,
+    userId: 0,
+    name: '',
+    profile: '',
+    regist: '',
+    license: '',
+    school: '',
+    company: '',
+    introduction: '',
+    rateSum: 0,
+    state: 0,
+    careers: [],
+  })
   const { counselId } = useParams()
+  // 커리큘럼 리스트
   const [conunselCurriculums, setConunselCurriculums] = useState<Curriculrum[]>(
     [],
   )
@@ -155,12 +171,15 @@ export const CounselDetail = () => {
   } = counselData
 
   // 커리큘럼 가져와서 저장하기
-  // useEffect(() => {
-  //   axios
-  //     .get(`${process.env.REACT_APP_BASE_URL}curriculum/${counselId}`)
-  //     .then((res) => setCounselCurriculums([...res.data]))
-  //     .catch((err) => console.log(err))
-  // },[])
+  useEffect(() => {
+    axios
+      .get(`${process.env.REACT_APP_BASE_URL}curriculum/counsel/${counselId}`)
+      .then((res) => {
+        console.log('커리큘럼', res)
+        setConunselCurriculums([...res.data])
+      })
+      .catch((err) => console.log(err))
+  }, [])
 
   useEffect(() => {
     axios
@@ -170,6 +189,17 @@ export const CounselDetail = () => {
         console.log(res)
       })
       .catch((err) => console.log(err))
+  }, [])
+
+  useEffect(() => {
+    axios
+      .get(`${process.env.REACT_APP_BASE_URL}userinfo/counselor/${counselorId}`)
+      .then((res) => {
+        setCounselor(res.data)
+      })
+      .catch((err) => {
+        console.log(err)
+      })
   }, [])
 
   const counselEntrance = (id: number) => {
@@ -511,6 +541,7 @@ export const CounselDetail = () => {
                 fontWeight: 'bold',
               }}
             >
+              {counselData.introduction}
               불안을 해결 할 수 있는 방법은 진짜 나를 알아가고, 내가 원하는
               인생을 설계하며, 작은것부터 실천하고 이루어 가는 것입니다. 내
               삶에, 내 고민에는 반드시 내가 있어야 합니다. 인생설계 프로젝트를
@@ -529,17 +560,16 @@ export const CounselDetail = () => {
           <div className="right top">
             <CounselCard
               buttonText="결제하기"
-              name="석민혁"
-              grade={4.8}
-              gradeCount={51}
-              startTime="10:00"
-              endTime="12:30"
-              title="석민혁"
+              name={counselor.name}
+              grade={counselor.rateSum}
+              gradeCount={3}
+              startTime={formatDateDetail(counselData.startDate)}
+              endTime={formatDateDetail(counselData.endDate)}
+              title={counselData.title}
               minParticipantCount={4}
               maxParticipantCount={12}
-              // sessionCount={counselData.weekCount}
-              sessionCount={10}
-              price={39000}
+              sessionCount={counselData.counselCount}
+              price={counselData.price}
               onClick={onClickPayment}
             />
           </div>
@@ -551,11 +581,11 @@ export const CounselDetail = () => {
           >
             <CounselorCard
               onCardClick={onCardClick}
-              name="이순신"
-              grade={4.7}
+              name={counselor.name}
+              grade={counselor.rateSum}
               gradeCount={45}
-              introduce="해상 전략가"
-              imgSrc="../image/iesur.jpg"
+              introduce={counselor.introduction}
+              imgSrc={counselor.profile}
             />
           </div>
           <div className="right bottom" style={{ margin: '85px 0px 0px 41px' }}>

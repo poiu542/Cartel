@@ -88,7 +88,7 @@ const CounselorCard: React.FC<CounselCardProps> = ({
               marginBottom: '10px',
             }}
           >
-            <div className="counsel name">이름:</div>
+            <div className="counsel name">상담사:</div>
             <div style={{ marginRight: '30px' }}>{name}</div>
           </div>
           <div
