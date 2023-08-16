@@ -41,8 +41,9 @@ public class ArticleService {
         return articleRepository.save(article);
     }
 
-    public List<Article> findAll(){
-        return articleRepository.findAll();
+    public List<Article> findAllByType(Integer id){//user id
+        List<Article> articles = articleRepository.findAllByType(id);
+        return articles;
     }
 
     public Article findById(Integer id){
