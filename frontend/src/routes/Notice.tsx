@@ -38,7 +38,7 @@ export const Notice = () => {
   // axios data파일 받아오기
   useEffect(() => {
     axios
-      .get(`${process.env.REACT_APP_BASE_URL}articles`)
+      .get(`${process.env.REACT_APP_BASE_URL}articles/notice`)
       .then((response) => {
         setBoardList([...response.data].reverse())
       })

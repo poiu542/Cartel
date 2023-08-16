@@ -78,7 +78,7 @@ export const FreeBoardDetail = () => {
       })
       .then((response) => {
         console.log(response)
-        alert('댓글작성완료')
+        // alert('댓글작성완료')
         window.location.reload()
       })
       .catch((err) => console.log(err))
@@ -139,7 +139,7 @@ export const FreeBoardDetail = () => {
           .delete(`${process.env.REACT_APP_BASE_URL}comments/${commentId}`)
           .then(function (response) {
             console.log(response)
-            alert('댓글이 삭제되었습니다.')
+            // alert('댓글이 삭제되었습니다.')
             window.location.reload()
           })
           .catch((error) => {

@@ -33,7 +33,7 @@ export const Qna = () => {
 
   useEffect(() => {
     axios
-      .get(`${process.env.REACT_APP_BASE_URL}articles`)
+      .get(`${process.env.REACT_APP_BASE_URL}articles/faq`)
       .then((response) => {
         setBoardList([...response.data].reverse())
       })
