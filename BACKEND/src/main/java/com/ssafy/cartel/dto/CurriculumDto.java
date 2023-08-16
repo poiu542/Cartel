@@ -22,7 +22,7 @@ public class CurriculumDto {
         return Curriculum.builder()
                 .curriculumId(curriculumId)
                 .content(content)
-                .title(title)
+                .title(0)
                 .counselId(counsel)
                 .build();
     }
