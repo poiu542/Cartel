@@ -26,7 +26,6 @@ export const CounselMake = () => {
   const [endDate, setEndDate] = useState(new Date())
   const [isModalOpen, setIsModalOpen] = useState(false)
   const tempCurriculums = useRef<string[]>([])
-
   const [timeRangeByDay, setTimeRangeByDay] = useState(
     days.reduce(
       (acc: Record<string, { start: number; end: number }>, cur: string) => {
@@ -46,7 +45,8 @@ export const CounselMake = () => {
     flex-direction: column;
   `
   const createCounsel = () => {
-    navigate(`/counsel`)
+    // axios.post('')
+    alert('상담개설')
   }
   const cancle = () => {
     navigate(`/counsel`)

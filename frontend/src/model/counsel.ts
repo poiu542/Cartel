@@ -1,20 +1,23 @@
-// export interface Counsel {
-//   id: number
-//   date: string
-//   count?: number
-//   title: string
-//   state?: number
-//   clientCount?: number
-//   price?: number
-//   introduction?: string
-//   weekCount?: number
-// }
+export interface Counsel {
+  counselid: number
+  startDate: string
+  endDate: string
+  counselCount: number
+  title: string
+  state: number
+  clientCount: number
+  price: number
+  counselorId: number
+  introduction: string
+  weekCount: number
+}
 
-// export interface Curriculrum  {
-//   id: number
-//   title: string
-//   content: string
-// }
+export interface Curriculrum {
+  curriculumId: number
+  title: string
+  content: string
+  counselId: number
+}
 
 // export interface Consulting  {
 //   id: number

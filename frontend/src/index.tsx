@@ -6,6 +6,7 @@ import './fonts/font.css'
 import { store } from './app/store'
 import { Provider } from 'react-redux'
 import { RecoilRoot } from 'recoil'
+import { InputJs1, InputJs2, InputJs3 } from './components/InputJs'
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement)
 root.render(

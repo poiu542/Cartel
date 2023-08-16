@@ -10,16 +10,124 @@ import Modal from 'react-modal'
 import styled from 'styled-components'
 import axios from 'axios'
 import { useParams } from 'react-router-dom'
+import { useRecoilState } from 'recoil'
+import { userState } from '../recoil/atoms/userState'
+import { Counsel, Curriculrum } from '../model/counsel'
+
+export interface UserData {
+  buyer_name?: string
+  buyer_email?: string
+  buyer_id: number | null
+}
+
+export interface RequestPayAdditionalParams {
+  digital?: boolean
+  vbank_due?: string
+  m_redirect_url?: string
+  app_scheme?: string
+  biz_num?: string
+}
+
+export interface Display {
+  card_quota?: number[]
+}
+
+export interface RequestPayParams extends RequestPayAdditionalParams {
+  pg?: string
+  pay_method?: string
+  escrow?: boolean
+  merchant_uid?: string
+  name?: string
+  amount: number
+  custom_data?: any
+  tax_free?: number
+  currency?: string
+  language?: string
+  buyer_name?: string
+  buyer_tel?: string
+  buyer_email?: string
+  buyer_addr?: string
+  buyer_postcode?: string
+  notice_url?: string | string[]
+  display?: Display
+  buy_time?: Date
+  user: UserData
+  counsel_id: number
+}
+
+export interface RequestPayAdditionalResponse {
+  apply_num?: string
+  vbank_num?: string
+  vbank_name?: string
+  vbank_holder?: string | null
+  vbank_date?: number
+}
+
+export interface RequestPayResponse extends RequestPayAdditionalResponse {
+  success: boolean
+  error_code: string
+  error_msg: string
+  imp_uid: string | null
+  merchant_uid: string
+  pay_method?: string
+  paid_amount?: number
+  status?: string
+  name?: string
+  pg_provider?: string
+  pg_tid?: string
+  buyer_name?: string
+  buyer_email?: string
+  buyer_tel?: string
+  buyer_addr?: string
+  buyer_postcode?: string
+  custom_data?: any
+  paid_at?: number
+  receipt_url?: string
+  counsel_id: number
+}
+
+export type RequestPayResponseCallback = (response: RequestPayResponse) => void
+
+export interface Iamport {
+  init: (accountID: string) => void
+  request_pay: (
+    params: RequestPayParams,
+    callback?: RequestPayResponseCallback,
+  ) => void
+}
+
+declare global {
+  interface Window {
+    IMP?: Iamport
+  }
+}
 
 export const CounselDetail = () => {
-  const [counselData, setCounselData] = useState<any[]>([])
+  const [counselData, setCounselData] = useState<Counsel>({
+    counselid: 0,
+    startDate: '',
+    endDate: '',
+    counselCount: 0,
+    title: '',
+    state: 0,
+    clientCount: 0,
+    price: 0,
+    counselorId: 1,
+    introduction: '',
+    weekCount: 0,
+  })
+  const [user, setUser] = useRecoilState(userState)
+
   const { counselId } = useParams()
-  const [conunselCurriculums, setConunselCurriculums] = useState<any[]>([])
+  const [conunselCurriculums, setConunselCurriculums] = useState<Curriculrum[]>(
+    [],
+  )
   const navigate = useNavigate()
-  const userState: number = 2
+  const userStatus: number = 2
   const [deleteModalIsOpen, setDeleteModalIsOpen] = useState(false)
   const [curriculumModalIsOpen, setCurriculumModalIsOpen] = useState(false)
   const [confirmationText, setConfirmationText] = useState('')
+  // const [curriculms, setCurriculms] = useState<Curriculrum[]>([])
   const curriculums: string[] = [
     'Intro to Web Development: Setting up your environment',
     'HTML Basics: Understanding the structure of web pages',
@@ -32,21 +140,90 @@ export const CounselDetail = () => {
     'Database Management: SQL vs NoSQL',
     'Deploying your website: Hosting and domain management',
   ]
+  const {
+    counselid,
+    startDate,
+    endDate,
+    counselCount,
+    title,
+    state,
+    clientCount,
+    price,
+    counselorId,
+    introduction,
+    weekCount,
+  } = counselData
+
+  // 커리큘럼 가져와서 저장하기
+  // useEffect(() => {
+  //   axios
+  //     .get(`${process.env.REACT_APP_BASE_URL}curriculum/${counselId}`)
+  //     .then((res) => setCounselCurriculums([...res.data]))
+  //     .catch((err) => console.log(err))
+  // },[])
+
+  useEffect(() => {
+    axios
+      .get(`${process.env.REACT_APP_BASE_URL}counsel/${counselId}`)
+      .then((res) => {
+        setCounselData(res.data)
+        console.log(res)
+      })
+      .catch((err) => console.log(err))
+  }, [])
 
   const counselEntrance = (id: number) => {
     navigate(`/counseling/${id}`)
   }
-  const counselButtonClick = () => {
-    alert('버튼클릭')
+
+  const onClickPayment = () => {
+    if (!window.IMP) return
+    /* 1. 가맹점 식별하기 */
+    const { IMP } = window
+    IMP.init('imp74733355') // 가맹점 식별코드
+
+    /* 2. 결제 데이터 정의하기 */
+    const data: RequestPayParams = {
+      pg: 'kakaopay.TC0ONETIME',
+
+      // pay_method: 'card', // 결제수단
+      merchant_uid: 'IMP' + `${new Date().getTime()}+${user.id}`,
+      amount: counselData.price,
+      name: counselData.title,
+      user: {
+        buyer_id: user.id,
+      },
+      counsel_id: counselid,
+      // buy_time: new Date(),
+      // buyer_tel: '01012341234', // 구매자 전화번호
+
+      // buyer_addr: '신사동 661-16', // 구매자 주소
+      // buyer_postcode: '06018', // 구매자 우편번호
+    }
+
+    /* 4. 결제 창 호출하기 */
+    IMP.request_pay(data, callback)
   }
+
+  /* 3. 콜백 함수 정의하기 */
+  function callback(response: RequestPayResponse) {
+    const { success, error_msg } = response
+
+    if (success) {
+      alert('결제 성공')
+    } else {
+      alert(`결제 실패: ${error_msg}`)
+    }
+  }
+
   const onCardClick = () => {
     alert('상담 정보 보기')
   }
   const handleCounselViewClick = () => {
-    if (userState === 1) {
+    if (userStatus === 1) {
       navigate('/testimony/userId')
       window.scrollTo(0, 0)
-    } else if (userState === 2) {
+    } else if (userStatus === 2) {
       navigate('/counsel/counselId/counselorJournal/:userEmail')
       window.scrollTo(0, 0)
     }
@@ -363,7 +540,7 @@ export const CounselDetail = () => {
               // sessionCount={counselData.weekCount}
               sessionCount={10}
               price={39000}
-              onClick={counselButtonClick}
+              onClick={onClickPayment}
             />
           </div>
           <div
@@ -382,14 +559,14 @@ export const CounselDetail = () => {
             />
           </div>
           <div className="right bottom" style={{ margin: '85px 0px 0px 41px' }}>
-            {userState !== 0 && (
+            {userStatus !== 0 && (
               <div
                 className="counsel journal open"
                 style={{ marginBottom: '10px' }}
               >
                 <Button
                   size={{ width: '284px', height: '60px' }}
-                  text={userState === 1 ? '소감문 보기' : '상담일지 보기'}
+                  text={userStatus === 1 ? '소감문 보기' : '상담일지 보기'}
                   color={{ background: '#00AAFF', color: 'white' }}
                   onClick={handleCounselViewClick}
                 />
@@ -461,7 +638,7 @@ export const CounselDetail = () => {
                           margin: '7px',
                         }}
                       >
-                        {conunselCurriculum.title}
+                        {conunselCurriculum.content}
                       </h4>
                       <div
                         style={{

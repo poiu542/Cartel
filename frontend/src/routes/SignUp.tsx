@@ -42,9 +42,51 @@ interface UserType1Data extends UserCommonData {
   residentRegistrationImg: string
 }
 
-export const SignUp = () => {
-  const navigate = useNavigate()
+interface UserDto {
+  email: string
+  password: string
+  name?: string
+  nickname?: string
+  profileImg: File | null
+}
 
+interface CounselorDto {
+  registImg: File | null
+  licenseImg: File | null
+  school: string
+  company: string
+  introduction: string
+}
+interface Career {
+  content: string
+}
+
+interface CounselorData {
+  userDto: UserDto
+  counselorDto: CounselorDto
+  careersDto: String[]
+}
+
+export const SignUp = () => {
+  const initialCounselorData: CounselorData = {
+    userDto: {
+      email: '',
+      password: '',
+      name: '',
+      nickname: '',
+      profileImg: null,
+    },
+    counselorDto: {
+      registImg: null,
+      licenseImg: null,
+      school: '',
+      company: '',
+      introduction: '',
+    },
+    careersDto: [],
+  }
+  const navigate = useNavigate()
+  const [inputNameValue, setInputNameValue] = useState('')
   const [inputNicknameValue, setinputNicknameValue] = useState('')
   const [inputEmailValue, setinputEmailValue] = useState('')
   const [inputAuthNumValue, setinputAuthNumeValue] = useState('')
@@ -61,6 +103,8 @@ export const SignUp = () => {
   const [residentRegistrationImg, setResidentRegistrationImg] =
     useState<File | null>(null)
 
+  // const [counselorData, setCounselorData] =
+  //   useState<CounselorData>(initialCounselorData)
   // 모달을 띄울 상태
   const [isModalOpen, setIsModalOpen] = useState(false)
   // 이력 저장할 State
@@ -97,9 +141,14 @@ export const SignUp = () => {
     setNickNameCheck(false)
   }
 
+  // const handleNameChange = (event: ChangeEvent<HTMLInputElement>) => {
+  //   setInputNameValue(event.target.value)
+  // }
+
   // 닉네임 중복확인
 
   const checkNickName = () => {
+    console.log(inputNicknameValue)
     if (BadWords.includes(inputNicknameValue)) {
       toast.error('사용 불가능한 닉네임입니다.', {
         position: 'top-center',
@@ -234,6 +283,7 @@ export const SignUp = () => {
   ///////////////////////////////
   const handleSignUp = (): void => {
     let userData: UserCommonData | UserType1Data | undefined
+    let counselorData: CounselorData | undefined
 
     if (userType === 0) {
       userData = {
@@ -242,16 +292,33 @@ export const SignUp = () => {
         password: inputPassValue,
       }
     } else if (userType === 1) {
-      userData = {
-        nickname: inputNicknameValue,
-        email: inputEmailValue,
-        password: inputPassValue,
-        education: inputEducation,
-        career: careers,
+      counselorData = {
+        userDto: {
+          password: inputPassValue,
+          name: inputNicknameValue,
+          profileImg: profileImg,
+          email: '',
+        },
+        counselorDto: {
+          registImg: certificationImg,
+          licenseImg: residentRegistrationImg,
+          school: '맨체스터 대학교',
+          company: 'samsung',
+          introduction: '',
+        },
+        careersDto: careers,
       }
+      // userData = {
+      //   nickname: inputNicknameValue,
+      //   email: inputEmailValue,
+      //   password: inputPassValue,
+      //   education: inputEducation,
+      //   career: careers,
+      // }
     }
-
+    console.log(userType)
     if (
+      userType === 0 &&
       userData &&
       userData.nickname &&
       userData.email &&
@@ -285,21 +352,37 @@ export const SignUp = () => {
       if (residentRegistrationImg) {
         formData.append('residentRegistrationImg', residentRegistrationImg)
       }
-
-      axios
-        .post(`${process.env.REACT_APP_BASE_URL}signup`, userData)
-        .then((response) => {
-          console.log(response.data)
-          alert('회원가입이 성공적으로 완료되었습니다.')
-          navigate('/')
-          // 성공적으로 회원가입이 완료되면 다른 페이지로 리다이렉션 또는 추가 작업 수행
-        })
-        .catch((error: any) => {
-          console.error('Error registering new user:', error)
-          alert('회원가입 중 오류가 발생했습니다.')
-          // 실패한 경우 오류 메시지 표시 또는 추가 작업 수행
-        })
-    } else alert('조건을 다시 확인해주세요')
+      if (userType === 0) {
+        axios
+          .post(`${process.env.REACT_APP_BASE_URL}signup`, userData)
+          .then((response) => {
+            console.log(response.data)
+            alert('회원가입이 성공적으로 완료되었습니다.')
+            navigate('/')
+            // 성공적으로 회원가입이 완료되면 다른 페이지로 리다이렉션 또는 추가 작업 수행
+          })
+          .catch((error: any) => {
+            console.error('Error registering new user:', error)
+            alert('회원가입 중 오류가 발생했습니다.')
+            // 실패한 경우 오류 메시지 표시 또는 추가 작업 수행
+          })
+      } else if (userType === 1) {
+        axios
+          .post(
+            `${process.env.REACT_APP_BASE_URL}signup/counselor`,
+            counselorData,
+          )
+          .then((res) => {
+            alert('회원가입이 성공적으로 완료되었습니다.')
+            navigate('/')
+          })
+          .catch((error: any) => {
+            console.error('Error registering new user:', error)
+            alert('회원가입 중 오류가 발생했습니다.')
+            // 실패한 경우 오류 메시지 표시 또는 추가 작업 수행
+          })
+      } else alert('조건을 다시 확인해주세요')
+    }
   }
   const handleProfileUpload = () => {
     const input = document.getElementById(
