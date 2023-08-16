@@ -17,6 +17,7 @@ public class PaymentController {
 
     private final PaymentService paymentService;
     private final ClientService clientService;
+
     @PostMapping("/payment")
     public ResponseEntity<String> findArticle(@RequestBody PaymentDto payment){//가격, userid, counselid
 

@@ -32,9 +32,9 @@ public class ClientService {
 //    }
 
     public Client save(PaymentDto paymentDto){
-        Counsel counsel = counselRepository.findById(paymentDto.getCounselId())
+        Counsel counsel = counselRepository.findById(paymentDto.getCounsel_id())
                 .orElseThrow(()-> new IllegalArgumentException("not found: id" ));
-        User user = userRepository.findById(paymentDto.getUserId())
+        User user = userRepository.findById(paymentDto.getBuyer_id())
                 .orElseThrow(()-> new IllegalArgumentException("not found: id" ));
 
 
