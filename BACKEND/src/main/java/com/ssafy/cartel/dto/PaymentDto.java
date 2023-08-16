@@ -7,6 +7,6 @@ import java.time.LocalDateTime;
 @Getter
 public class PaymentDto {
     private Integer amount;
-    private Integer userId;
-    private Integer counselId;
+    private Integer buyer_id;
+    private Integer counsel_id;
 }
