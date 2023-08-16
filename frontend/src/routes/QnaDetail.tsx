@@ -167,20 +167,26 @@ export const QnaDetail = () => {
         </ArticleMeta>
         <ArticleContent>{board.content}</ArticleContent>
 
-        <div>
+        <div style={{ marginBottom: '15px' }}>
           <input
             type="text"
             value={comment}
             onChange={handleChangeComment}
             style={{
-              height: '20px',
+              height: '30px',
               width: '90%',
               marginTop: '10px',
               marginRight: '30px',
+              fontSize: '15px',
             }}
             placeholder="댓글을 작성해주세요!"
           />
-          <StyledButton onClick={postComment} width="50px" fontSize="10px">
+          <StyledButton
+            onClick={postComment}
+            width="10%"
+            fontSize="15px"
+            style={{ width: '70px' }}
+          >
             작성
           </StyledButton>
         </div>
@@ -200,6 +206,7 @@ export const QnaDetail = () => {
                     color="red"
                     background="white"
                     onClick={() => deleteComment(comment.id)}
+                    style={{ height: 'auto' }}
                   >
                     X
                   </StyledButton>

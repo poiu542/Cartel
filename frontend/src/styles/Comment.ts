@@ -13,7 +13,7 @@ export const CommentItem = styled.div`
   display: flex;
   justify-content: space-around;
   border-bottom: 1px solid #eae5e5;
-  padding: 10px;
+  align-items: center;
 `
 
 export const Author = styled.div`

@@ -228,7 +228,7 @@ export const Login = () => {
           text="로그인"
           size={{ width: '570px', height: '50px' }}
         ></Button>
-
+        <div style={{ height: '15px' }}></div>
         <Button
           color={{ background: '#3b478f', color: 'white' }}
           onClick={passwordFind}

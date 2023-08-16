@@ -79,12 +79,12 @@ const Carousel: React.FC = () => {
       text: '전문 코칭과 함께 \n나만의 목표를 달성해봐요',
     },
     {
-      imageUrl: '/friend.jpg',
+      imageUrl: '/image/counsel.png',
       header: '같은 고민을 같이 공감해요',
       text: '함께 고민을 나누는 \n공감 테라피',
     },
     {
-      imageUrl: '/friend.jpg',
+      imageUrl: '/image/counselor.png',
       header: '멋진 상담사님들을 모십니다',
       text: '서비스를 통해 \n많은 분들과 함께해요',
     },

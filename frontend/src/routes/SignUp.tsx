@@ -425,7 +425,7 @@ export const SignUp = () => {
                     type="text"
                     value={career}
                     onChange={(event) => updateCareer(index, event)}
-                    style={{ width: '900px', borderBlockColor: '#40BFFF' }}
+                    style={{ width: '900px', fontSize: '20px' }}
                   />
                   <IconButton
                     aria-label="delete"
@@ -520,7 +520,6 @@ export const SignUp = () => {
           <FlexContainerRow style={{ width: '100%' }}>
             <div>
               <Input
-                padding="0px"
                 marginBottom="5px"
                 value={inputEmailValue}
                 onChange={handleEmailChange}

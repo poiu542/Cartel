@@ -15,7 +15,6 @@ const ArticleBar: React.FC<ArticleBarProps> = ({ name }) => (
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'start',
-      paddingLeft: '50px',
     }}
   >
     <p
@@ -23,6 +22,7 @@ const ArticleBar: React.FC<ArticleBarProps> = ({ name }) => (
       style={{
         fontSize: '50px',
         color: '#007BB8',
+        paddingLeft: '50px',
       }}
     >
       {name}
