@@ -60,7 +60,6 @@ public class CounselorController {
         CounselorResponse counselorResponse = new CounselorResponse(counselor,userId, username, profile );
 
 
-
         //System.out.println(counselor.getId());
         //Map<String,Object> userInfo= new HashMap<>();
         //userInfo.put("user", user);
@@ -68,6 +67,8 @@ public class CounselorController {
 
         return ResponseEntity.ok().body(counselorResponse);
     }
+
+
 
 
 
