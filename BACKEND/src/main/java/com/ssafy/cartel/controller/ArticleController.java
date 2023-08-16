@@ -84,7 +84,4 @@ public class ArticleController {
         return ResponseEntity.ok()
                 .body(articles);
     }
-
-
-
 }

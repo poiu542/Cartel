@@ -2,6 +2,7 @@ package com.ssafy.cartel.domain;
 
 import jakarta.persistence.*;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -29,7 +30,7 @@ public class Payment {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "client_id", nullable = false)
-    private Client clientId;
+    private Client client;
 
     @Column(name = "payment_id", nullable = false)
     private String paymentId;
@@ -37,12 +38,18 @@ public class Payment {
     @Column(name = "payment_method", nullable = false)
     private String method;
 
-    public Payment(Integer status, Integer amount, LocalDateTime time, Client clientId, String paymentId, String method) {
+//    @Column(name = "counsel_id", nullable = false)
+//    private Integer counselId;
+
+
+    @Builder
+    public Payment(Integer status, Integer amount, LocalDateTime time, Client client, String paymentId, String method) {
         this.status = status;
         this.amount = amount;
         this.time = time;
-        this.clientId = clientId;
+        this.client= client;
         this.paymentId = paymentId;
         this.method = method;
+        //this.counselId = counselId;
     }
 }
