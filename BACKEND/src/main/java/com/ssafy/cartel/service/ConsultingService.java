@@ -15,6 +15,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -99,9 +100,22 @@ public class ConsultingService {
         Consulting consulting = consultingRepository.findById(clientId)
                 .orElseThrow(() -> new IllegalArgumentException("not found : " + clientId));
 
-        List<ConsultingResDto> consultingResDto = consultingRepository.findByClientId(consulting);
+        List<Consulting> consultings = consultingRepository.findAll();
+        List<ConsultingResDto> consultingResDtoList = new ArrayList<>();
 
-        return consultingResDto;
+        for (int i = 0; i < consultings.size(); i++) {
+            if (consultings.get(i).getClientId() == consulting.getClientId()) {
+                ConsultingResDto consultingResDto = ConsultingResDto.builder()
+                        .consulting(consultings.get(i).getConsulting())
+                        .consultingDate(consultings.get(i).getDate().toLocalDate())
+                        .clientId(consultings.get(i).getClientId().getId())
+                        .userNickname(consultings.get(i).getClientId().getUserId().getNickname())
+                        .build();
+
+                consultingResDtoList.add(consultingResDto);
+            }
+        }
+        return consultingResDtoList;
     }
 
 
