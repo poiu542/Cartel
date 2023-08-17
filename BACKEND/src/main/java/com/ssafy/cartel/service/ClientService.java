@@ -81,10 +81,5 @@ public class ClientService {
         return client;
     }
 
-    public Client findByUser(User user) {
-        Client client = clientRepository.findByUserId(user)
-                .orElseThrow(()-> new IllegalArgumentException("not found: user"));
 
-        return client;
-    }
 }

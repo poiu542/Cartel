@@ -20,13 +20,13 @@ public class PaymentController {
 
     @PostMapping("/payment")
     public ResponseEntity<String> findArticle(@RequestBody PaymentDto payment){//가격, userid, counselid
+
         //내담자 save
         Client client = clientService.save(payment);
         Integer id = client.getId();
         //결제
         paymentService.save(payment,id);
 
-        return ResponseEntity.ok()
-                .body("결제 성공");
+        return ResponseEntity.ok("결제성공");
     }
 }

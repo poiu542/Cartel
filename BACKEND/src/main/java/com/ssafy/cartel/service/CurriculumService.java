@@ -35,6 +35,11 @@ public class CurriculumService {
         return curriculumRepository.save(curriculumDto.toEntity(counsel));
     }
 
+    public List<Curriculum> findByCounsel(Counsel counsel){
+        List<Curriculum> curriculums = curriculumRepository.findAllByCounselId(counsel);
+        return curriculums;
+    }
+
     public List<CurriculumDto> findAll(){
         List<Curriculum> curriculum = curriculumRepository.findAll();
         List<CurriculumDto> curriculumDtoList = new ArrayList<>();

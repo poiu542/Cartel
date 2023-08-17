@@ -29,12 +29,14 @@ public class ConsultingController {
         }
         return ResponseEntity.ok("상담일지 등록 완료");
     }
+
     @PostMapping("/review") // 소감문 등록
     public ResponseEntity<String> registReview(@RequestBody ReviewDto review){
         consultingService.registReview(review);
         return ResponseEntity.ok("소감문 등록 완료");
-
     }
+
+
 
 
 

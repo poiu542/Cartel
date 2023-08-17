@@ -1,13 +1,10 @@
 package com.ssafy.cartel.controller;
 
 import com.ssafy.cartel.config.jwt.TokenProvider;
-import com.ssafy.cartel.domain.Client;
 import com.ssafy.cartel.domain.User;
 import com.ssafy.cartel.dto.*;
 import com.ssafy.cartel.repository.UserRepository;
-import com.ssafy.cartel.service.ClientService;
-import com.ssafy.cartel.service.UserImgService;
-import com.ssafy.cartel.service.UserService;
+import com.ssafy.cartel.service.*;
 import io.micronaut.context.annotation.Parameter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -33,8 +30,8 @@ public class UserController {
     private final UserService userService;
     private final TokenProvider tokenProvider;
     private final UserRepository userRepository;
-    private final UserImgService userImgService;
-    private final ClientService clientService;
+    private final ImgService imgService;
+    private final CounselorService counselorService;
 
 
 
@@ -94,7 +91,7 @@ public class UserController {
         if(user.getType()==0 || user.getType() ==1)
             userinfo.put("nickname",user.getNickname());
         else if(user.getType()==2){
-            userinfo.put("counselId", clientService.findByUser(user).getId());
+            userinfo.put("counselorId", counselorService.findByUser(user).getId());
         }
         //user
 
@@ -104,7 +101,7 @@ public class UserController {
 
     @PutMapping("/userinfo/{id}")
     public ResponseEntity<UpdateUserRequest> updateUser(@PathVariable Integer id, @RequestPart UpdateUserRequest request, @RequestPart(value = "file") MultipartFile multipartFile) throws IOException {
-        String profileUrl = userImgService.upload(multipartFile);
+        String profileUrl = imgService.upload(multipartFile);
 
         userService.update(id, request);
 
@@ -112,7 +109,6 @@ public class UserController {
                 .orElseThrow(() -> new IllegalArgumentException("해당 user가 존재하지 않습니다."));
 
         user.updateImg(profileUrl);
-
         return ResponseEntity.ok().body(request);
     }
 
