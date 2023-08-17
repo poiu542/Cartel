@@ -36,6 +36,7 @@ public class CounselorController {
 
     @PostMapping(value = "/signup/counselor", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
     public ResponseEntity<String> signupCounselor(@RequestPart CounselorSignupRequest request, @RequestPart(value = "file") MultipartFile multipartFile1, @RequestPart(value = "file") MultipartFile multipartFile2, @RequestPart(value = "file") MultipartFile multipartFile3) throws IOException, IOException {
+        System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!");
         System.out.println("______________"+multipartFile1);
         System.out.println(request.getCounselorDto().getCompany());
         System.out.println(request.getUserDto().getEmail());
