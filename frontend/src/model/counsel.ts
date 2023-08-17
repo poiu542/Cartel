@@ -1,4 +1,6 @@
 export interface Counsel {
+  maxClient: number
+  minClient: number
   counselid: number
   startDate: string
   endDate: string
@@ -10,6 +12,7 @@ export interface Counsel {
   counselorId: number
   introduction: string
   weekCount: number
+  counselorName: string
 }
 
 export interface Curriculrum {

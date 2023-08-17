@@ -8,7 +8,7 @@ import Rating from '@mui/material/Rating'
 import StarIcon from '@mui/icons-material/Star'
 
 interface CounselorCardProps {
-  name: string
+  name: string | undefined
   grade: number
   gradeCount?: number
   introduce?: string | undefined | null

@@ -1,13 +1,19 @@
 import React, { useEffect, useState } from 'react'
 import NavbarLogin from '../components/NavbarLogin'
 import ArticleBar from '../components/ArticleBar'
-import { JournalTable } from '../components/JournalTable'
+import {
+  ConsultingData,
+  ConsultingUser,
+  JournalTable,
+  PostConsulting,
+} from '../components/JournalTable'
 import { useNavigate } from 'react-router'
 import { BoardData } from '../model/board'
 import Pagination from 'react-js-pagination'
 import axios from 'axios'
 import './Question.css'
 import Modal from 'react-modal'
+import { useParams } from 'react-router-dom'
 
 export const CounselJournal = () => {
   const modalStyle = {
@@ -31,16 +37,14 @@ export const CounselJournal = () => {
     },
   }
   const navigate = useNavigate()
-
-  const [boardList, setBoardList] = useState<BoardData[]>([]) // axios에서 받아온 전체 게시글 데이터
-  const [currentPost, setCurrentPost] = useState<BoardData[]>(boardList) // 페이지네이션을 통해 보여줄 게시글
+  const { counselId } = useParams()
+  const [boardList, setBoardList] = useState<ConsultingData[]>([]) // axios에서 받아온 전체 게시글 데이터
+  const [currentPost, setCurrentPost] = useState<ConsultingData[]>(boardList) // 페이지네이션을 통해 보여줄 게시글
   const [page, setPage] = useState<number>(1) // 현재 페이지 번호
   const [showModal, setShowModal] = useState<boolean>(false)
   const [modalContent, setModalContent] = useState<{
-    title: string
     content: string
   }>({
-    title: '',
     content: '',
   })
 
@@ -50,15 +54,15 @@ export const CounselJournal = () => {
 
   interface BoardApiResponse {
     reverse(): BoardApiResponse
-    data: BoardData[]
+    data: ConsultingData[]
   }
   const handlePageChange = (page: number) => {
     setPage(page)
   }
-
+  console.log(counselId)
   useEffect(() => {
     axios
-      .get(`${process.env.REACT_APP_BASE_URL}articles`)
+      .get(`${process.env.REACT_APP_BASE_URL}consulting/${counselId}`)
       .then((response) => {
         setBoardList([...response.data].reverse())
       })
@@ -72,18 +76,16 @@ export const CounselJournal = () => {
     setCurrentPost(boardList.slice(indexOfFirstPost, indexOfLastPost))
   }, [boardList, page])
 
-  const detailJournal = (post: BoardData) => {
-    setModalContent({ title: post.title, content: post.content })
-    setShowModal(true)
-  }
+  // const detailJournal = (post: ConsultingUser) => {
+  //   setModalContent({ content: post.content })
+  //   setShowModal(true)
+  // }
   return (
     <div>
       <NavbarLogin />
       <ArticleBar name="상담 일지" />
       <div className="board-list">
-        {boardList && (
-          <JournalTable data={currentPost} DetailJournal={detailJournal} />
-        )}
+        {boardList && <JournalTable data={currentPost} />}
 
         <Pagination
           activePage={page}
@@ -115,7 +117,7 @@ export const CounselJournal = () => {
         >
           X
         </button>
-        <h2>{modalContent.title}</h2>
+        {/* <h2>{modalContent.title}</h2> */}
         <p>{modalContent.content}</p>
       </Modal>
     </div>

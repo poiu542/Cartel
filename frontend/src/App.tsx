@@ -131,11 +131,11 @@ function App(): React.ReactElement {
             <Route path="/counsel/:counselId" element={<CounselDetail />} />
             {/* 상담 일지 페이지 */}
             <Route
-              path={'/counsel/counseljournal/:couselId/:userId'}
+              path={'/counsel/counseljournal/:counselId'}
               element={<CounselJournal />}
             />
             {/* 상담상세 수정페이지 */}
-            <Route path="/counsel/edit/:counselId/" element={<CounselEdit />} />
+            <Route path="/counsel/edit/:counselId" element={<CounselEdit />} />
             {/* 상담개설 페이지 */}
             <Route
               path="/counsel/make"

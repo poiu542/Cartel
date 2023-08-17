@@ -123,6 +123,9 @@ export const CounselDetail = () => {
     counselorId: 1,
     introduction: '',
     weekCount: 0,
+    maxClient: 1,
+    minClient: 0,
+    counselorName: '',
   })
   const [user, setUser] = useRecoilState(userState)
   const [counselor, setCounselor] = useState<CounselorData>({
@@ -288,14 +291,14 @@ export const CounselDetail = () => {
   }
 
   const onCardClick = () => {
-    alert('상담 정보 보기')
+    navigate(`/counselor/${counselData.counselorId}`)
   }
   const handleCounselViewClick = () => {
     if (user.type === 1 || user.type === 3) {
       navigate(`/testimony/${user.id}`)
       window.scrollTo(0, 0)
     } else if (user.type === 2) {
-      navigate(`/counsel/clientlist/${counselId}`)
+      navigate(`/counsel/counseljournal/${counselId}`)
       window.scrollTo(0, 0)
     }
   }
@@ -596,7 +599,7 @@ export const CounselDetail = () => {
           <div className="right top">
             <CounselCard
               buttonText="결제하기"
-              name={counselor.counselorName}
+              name={counselData.counselorName}
               grade={counselor.rateSum}
               gradeCount={''}
               startTime={formatDateDetail(counselData.startDate)}
@@ -609,6 +612,7 @@ export const CounselDetail = () => {
               onClick={onClickPayment}
             />
           </div>
+
           <div
             className="right middle"
             style={{
@@ -617,7 +621,7 @@ export const CounselDetail = () => {
           >
             <CounselorCard
               onCardClick={onCardClick}
-              name={counselor.counselorName}
+              name={counselor.name}
               grade={counselor.rateSum}
               gradeCount={45}
               introduce={counselor.introduction}
