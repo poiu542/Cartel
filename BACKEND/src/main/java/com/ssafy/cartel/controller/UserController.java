@@ -4,8 +4,7 @@ import com.ssafy.cartel.config.jwt.TokenProvider;
 import com.ssafy.cartel.domain.User;
 import com.ssafy.cartel.dto.*;
 import com.ssafy.cartel.repository.UserRepository;
-import com.ssafy.cartel.service.ImgService;
-import com.ssafy.cartel.service.UserService;
+import com.ssafy.cartel.service.*;
 import io.micronaut.context.annotation.Parameter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -32,6 +31,7 @@ public class UserController {
     private final TokenProvider tokenProvider;
     private final UserRepository userRepository;
     private final ImgService imgService;
+    private final CounselorService counselorService;
 
 
 
@@ -58,7 +58,7 @@ public class UserController {
 
     @PostMapping("/signup")
     public ResponseEntity<String> signup(@RequestBody UserDto userDto) {
-        if (userService.save(userDto) != null)//회원가입
+        if (userService.save(userDto,0) != null)//회원가입
             return ResponseEntity.ok("회원가입이 완료 되었습니다.");
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("회원가입 실패");
     }
@@ -73,6 +73,7 @@ public class UserController {
                 new UsernamePasswordAuthenticationToken(email, password));
         User user = userRepository.findByEmail(email).get();
 
+
         SecurityContextHolder.getContext().setAuthentication(authentication);
         //accesstoken 생성 , 최초 로그인이면 refreshtoken도 만들어
         String accessToken = tokenProvider.generateToken(user, Duration.ofHours(2));
@@ -83,10 +84,18 @@ public class UserController {
 //        System.out.println(headers.get("Authorization"));
 
         Map<String,Object> userinfo = new HashMap<>();
-        userinfo.put("nickname",user.getNickname());
         userinfo.put("userId",user.getId());
         userinfo.put("token",accessToken);
         userinfo.put("type",user.getType());
+
+        if(user.getType()==0 || user.getType() ==1)
+            userinfo.put("nickname",user.getNickname());
+        else if(user.getType()==2){
+            userinfo.put("counselorId", counselorService.findByUser(user).getId());
+        }
+        //user
+
+
         return userinfo;
     }
 

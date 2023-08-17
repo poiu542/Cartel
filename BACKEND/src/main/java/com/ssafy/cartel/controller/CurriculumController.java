@@ -1,6 +1,13 @@
 package com.ssafy.cartel.controller;
 
+import com.ssafy.cartel.domain.Counsel;
+import com.ssafy.cartel.domain.Curriculum;
+import com.ssafy.cartel.dto.ArticleResponse;
+import com.ssafy.cartel.dto.CounselDto;
 import com.ssafy.cartel.dto.CurriculumDto;
+import com.ssafy.cartel.dto.CurriculumResponse;
+import com.ssafy.cartel.service.CounselService;
+import com.ssafy.cartel.service.CounselorService;
 import com.ssafy.cartel.service.CurriculumService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -13,6 +20,7 @@ import java.util.List;
 @RequestMapping("/curriculum")
 public class CurriculumController {
     private final CurriculumService curriculumService;
+    private final CounselService counselService;
 
     // 전체 조회
     @GetMapping
@@ -28,6 +36,17 @@ public class CurriculumController {
     public ResponseEntity<?> findCurriculum(@PathVariable Integer curriculum_id) {
         CurriculumDto curriculumDto = curriculumService.findById(curriculum_id);
         return ResponseEntity.ok().body(curriculumDto);
+    }
+
+    @GetMapping("/counsel/{counsel_id}")//상담 번호별 커리큘럼 가져오기
+    public ResponseEntity<List<CurriculumResponse>> findAllCurriculum(@PathVariable Integer counsel_id){
+        Counsel counsel = counselService.findByCounselId(counsel_id);
+        List<CurriculumResponse> curriculumList = curriculumService.findByCounsel(counsel)
+                .stream()
+                .map(CurriculumResponse::new)
+                .toList();
+
+        return ResponseEntity.ok().body(curriculumList);
     }
 
     // 등록

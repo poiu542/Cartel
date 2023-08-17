@@ -1,5 +1,6 @@
 package com.ssafy.cartel.controller;
 
+import com.ssafy.cartel.domain.Career;
 import com.ssafy.cartel.domain.Counselor;
 import com.ssafy.cartel.domain.User;
 import com.ssafy.cartel.dto.*;
@@ -18,9 +19,11 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.LinkedList;
+import java.util.List;
 
 @RequiredArgsConstructor
-@Controller
+@RestController
 @Transactional
 public class CounselorController {
 
@@ -34,7 +37,7 @@ public class CounselorController {
     @PostMapping(value = "/signup/counselor", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
     public ResponseEntity<String> signupCounselor(@RequestPart CounselorSignupRequest request, @RequestPart(value = "file") MultipartFile multipartFile1, @RequestPart(value = "file") MultipartFile multipartFile2, @RequestPart(value = "file") MultipartFile multipartFile3) throws IOException, IOException {
         System.out.println(request.getUserDto().getEmail());
-        User user = userService.save(request.getUserDto());
+        User user = userService.save(request.getUserDto(),2);//상담사
         Counselor counselor = counselorService.save(request.getCounselorDto(),user);
 
         String profileImg = imgService.upload(multipartFile1);
@@ -79,25 +82,39 @@ public class CounselorController {
         counselor.updateLicenseImg(licenseImg);
         counselor.updateRegistImg(registImg);
 
-        return ResponseEntity.ok().body("상담사 정보 수정 완료");
+        return ResponseEntity.ok("상담사 정보 수정 완료");
     }
 
     @GetMapping("/userinfo/counselor/{id}") //상담사 아이디
     public ResponseEntity<CounselorResponse> userInfo(@PathVariable Integer id){
         Counselor counselor = counselorService.findById(id);
-        User user = counselor.getUser();
-        Integer userId = user.getId();
-        String username = user.getName();
-        String profile = user.getProfileUrl();
-        CounselorResponse counselorResponse = new CounselorResponse(counselor,userId, username, profile );
 
+        Integer userId = counselor.getUser().getId();
+        String username = counselor.getUser().getName();
+        String profile = counselor.getUser().getProfileUrl();
+        //career
+        List<String> careers = careerService.findByCounselor(counselor);
 
-        //System.out.println(counselor.getId());
-        //Map<String,Object> userInfo= new HashMap<>();
-        //userInfo.put("user", user);
-        //userInfo.put("counselor", counselor);
-
+        CounselorResponse counselorResponse = new CounselorResponse(counselor,userId, username, profile,careers);
         return ResponseEntity.ok().body(counselorResponse);
     }
 
+    @GetMapping("/userinfo/counselor")
+    public ResponseEntity<List<CounselorResponse>> userInfoCounselor(){
+        List<Counselor> counselors = counselorService.findAll();
+        List<CounselorResponse> counselorList = new LinkedList<>();
+
+        for(Counselor counselor : counselors){
+            User user = counselor.getUser();
+            Integer userId = user.getId();
+            String username = user.getName();
+            String profile = user.getProfileUrl();
+            List<String> careers = careerService.findByCounselor(counselor);
+
+            CounselorResponse counselorResponse = new CounselorResponse(counselor,userId, username, profile,careers);
+            counselorList.add(counselorResponse);
+
+        }
+        return ResponseEntity.ok().body(counselorList);
+    }
 }

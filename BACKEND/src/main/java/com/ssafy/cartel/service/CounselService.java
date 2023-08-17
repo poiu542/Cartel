@@ -1,8 +1,11 @@
 package com.ssafy.cartel.service;
 
+import com.ssafy.cartel.domain.Client;
 import com.ssafy.cartel.domain.Counsel;
 import com.ssafy.cartel.domain.Counselor;
 import com.ssafy.cartel.dto.CounselDto;
+import com.ssafy.cartel.dto.CounselResDto;
+import com.ssafy.cartel.repository.ClientRepository;
 import com.ssafy.cartel.repository.CounselRepository;
 import com.ssafy.cartel.repository.CounselorRepository;
 import lombok.RequiredArgsConstructor;
@@ -18,6 +21,7 @@ import java.util.List;
 public class CounselService {
     private final CounselRepository counselRepository;
     private final CounselorRepository counselorRepository;
+    private final ClientRepository clientRepository;
 
     @Transactional
     public Counsel save(CounselDto counselDto){
@@ -25,12 +29,12 @@ public class CounselService {
         return counselRepository.save(counselDto.toEntity(counselor));
     }
 
-    public List<CounselDto> findAll(){
+    public List<CounselResDto> findAll(){
         List<Counsel> counsel = counselRepository.findAll();
-        List<CounselDto> counselDtoList = new ArrayList<>();
+        List<CounselResDto> counselResDtoList = new ArrayList<>();
 
         for (int i = 0; i < counsel.size(); i++) {
-            CounselDto counselDto = CounselDto.builder()
+            CounselResDto counselResDto = CounselResDto.builder()
                     .counselId(counsel.get(i).getId())
                     .startDate(counsel.get(i).getStartDate())
                     .endDate(counsel.get(i).getEndDate())
@@ -42,17 +46,20 @@ public class CounselService {
                     .state(counsel.get(i).getState())
                     .title(counsel.get(i).getTitle())
                     .weekCount(counsel.get(i).getWeekCount())
+                    .minClient(counsel.get(i).getMinClient())
+                    .maxClient(counsel.get(i).getMaxClient())
+                    .counselorName(counsel.get(i).getCounselorId().getUser().getName())
                     .build();
 
-            counselDtoList.add(counselDto);
+            counselResDtoList.add(counselResDto);
         }
-        return counselDtoList;
+        return counselResDtoList;
     }
 
-    public CounselDto findById(Integer id){
+    public CounselResDto findById(Integer id){
         Counsel counsel = counselRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("not found:" + id));
-        CounselDto counselDto = CounselDto.builder()
+        CounselResDto counselResDto = CounselResDto.builder()
                 .counselId(counsel.getId())
                 .startDate(counsel.getStartDate())
                 .endDate(counsel.getEndDate())
@@ -64,8 +71,11 @@ public class CounselService {
                 .state(counsel.getState())
                 .title(counsel.getTitle())
                 .weekCount(counsel.getWeekCount())
+                .minClient(counsel.getMinClient())
+                .maxClient(counsel.getMaxClient())
+                .counselorName(counsel.getCounselorId().getUser().getName())
                 .build();
-        return counselDto;
+        return counselResDto;
     }
 
     @Transactional
@@ -81,6 +91,17 @@ public class CounselService {
         counselRepository.deleteById(id);
     }
 
+
+    public Counsel findByCounselId(Integer id) {
+        Counsel counsel = counselRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("not found:" + id));
+        return counsel;
+
+    }
+    public List<Client> findByCounsel(Counsel counsel){
+        List<Client> clients = clientRepository.findAllByCounselId(counsel);
+        return clients;
+    }
 
 
 }
