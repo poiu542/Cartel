@@ -31,12 +31,12 @@ public class ConsultingService {
     private final CurriculumRepository curriculumRepository;
     private final UserRepository userRepository;
 
-    public Consulting registConsulting(ConsultingReq req, Curriculum curriculum){
+    public Consulting registConsulting(ConsultingReq req, Curriculum curriculum) {
         User user = userRepository.findByNickname(req.getNickname())
-                .orElseThrow(()-> new IllegalArgumentException("unexpexted nickneme"));
+                .orElseThrow(() -> new IllegalArgumentException("unexpexted nickneme"));
 
-        Client client =clientRepository.findByUserId(user)
-                .orElseThrow(()-> new IllegalArgumentException("unexpexted user"));
+        Client client = clientRepository.findByUserId(user)
+                .orElseThrow(() -> new IllegalArgumentException("unexpexted user"));
 
         Consulting consulting = consultingRepository.save(Consulting.builder()
                 .consulting(req.getContent())
@@ -47,13 +47,14 @@ public class ConsultingService {
                 .build());
         return consulting;
     }
+
     public void registReview(ReviewDto reviewDto) {
         Curriculum curriculum = curriculumRepository.findById(reviewDto.getCurriculumId())
-                .orElseThrow(() -> new IllegalArgumentException("not found curriculum" ));
+                .orElseThrow(() -> new IllegalArgumentException("not found curriculum"));
         User user = userRepository.findByNickname(reviewDto.getNickname())
-                .orElseThrow(()-> new IllegalArgumentException("unexpexted nickneme"));
-        Client client =clientRepository.findByUserId(user)
-                .orElseThrow(()-> new IllegalArgumentException("unexpexted user"));
+                .orElseThrow(() -> new IllegalArgumentException("unexpexted nickneme"));
+        Client client = clientRepository.findByUserId(user)
+                .orElseThrow(() -> new IllegalArgumentException("unexpexted user"));
 
         consultingRepository.save(Consulting.builder()
                 .consulting(reviewDto.getContent())
@@ -65,65 +66,67 @@ public class ConsultingService {
     }
 
 
+//    @Transactional
+//    public Consulting save(ConsultingDto consultingDto){
+//        Client client = clientRepository.findById(consultingDto.getClientId()).orElseThrow();
+//        Curriculum curriculum = curriculumRepository.findById(consultingDto.getCurriculumId()).orElseThrow();
+//
+//        return consultingRepository.save(consultingDto.toEntity(client,curriculum));
+//    }
+//
+//    public List<ConsultingResDto> findAll(){
+//        List<Consulting> consulting = consultingRepository.findAll();
+//        List<ConsultingResDto> consultingResDtoList = new ArrayList<>();
+//
+//        for (int i = 0; i < consulting.size(); i++) {
+//            ConsultingResDto consultingResDto = ConsultingResDto.builder()
+//                    .counselId(consulting.get(i).getCurriculumId().getCounselId().getId())
+//                    .counselTitle(consulting.get(i).getCurriculumId().getCounselId().getTitle())
+//                    .consultingId(consulting.get(i).getId())
+//                    .consulting(consulting.get(i).getConsulting())
+//                    .consultingDate(consulting.get(i).getDate().toLocalDate())
+//                    .consultingState(consulting.get(i).getState())
+//                    .userId(consulting.get(i).getClientId().getUserId().getId())
+//                    .userNickname(consulting.get(i).getClientId().getUserId().getNickname())
+//                    .userEmail(consulting.get(i).getClientId().getUserId().getEmail())
+//                    .clientId(consulting.get(i).getClientId().getId())
+//                    .build();
+//
+//            consultingResDtoList.add(consultingResDto);
+//        }
+//        return consultingResDtoList;
+//    }
 
+    public ConsultingResDto findConsulting(Integer counselId) {
+        Consulting consulting = consultingRepository.findById(counselId)
+                .orElseThrow(() -> new IllegalArgumentException("not found : " + counselId));
 
+//        User user = userRepository.findById(consulting.getClientId().getUserId().getId())
+//                .orElseThrow(() -> new IllegalArgumentException("not found : " + consulting.getClientId().getUserId().getId()));
 
-
-
-
-
-
-    @Transactional
-    public Consulting save(ConsultingDto consultingDto){
-        Client client = clientRepository.findById(consultingDto.getClientId()).orElseThrow();
-        Curriculum curriculum = curriculumRepository.findById(consultingDto.getCurriculumId()).orElseThrow();
-
-        return consultingRepository.save(consultingDto.toEntity(client,curriculum));
-    }
-
-    public List<ConsultingResDto> findAll(){
-        List<Consulting> consulting = consultingRepository.findAll();
-        List<ConsultingResDto> consultingResDtoList = new ArrayList<>();
-
-        for (int i = 0; i < consulting.size(); i++) {
-            ConsultingResDto consultingResDto = ConsultingResDto.builder()
-                    .counselId(consulting.get(i).getCurriculumId().getCounselId().getId())
-                    .counselTitle(consulting.get(i).getCurriculumId().getCounselId().getTitle())
-                    .consultingId(consulting.get(i).getId())
-                    .consulting(consulting.get(i).getConsulting())
-                    .consultingDate(consulting.get(i).getDate().toLocalDate())
-                    .consultingState(consulting.get(i).getState())
-                    .userId(consulting.get(i).getClientId().getUserId().getId())
-                    .userNickname(consulting.get(i).getClientId().getUserId().getNickname())
-                    .userEmail(consulting.get(i).getClientId().getUserId().getEmail())
-                    .clientId(consulting.get(i).getClientId().getId())
-                    .build();
-
-            consultingResDtoList.add(consultingResDto);
-        }
-
-        return consultingResDtoList;
-    }
-
-    public ConsultingResDto findById(Integer id){
-        Consulting consulting = consultingRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("not found:" + id));
         ConsultingResDto consultingResDto = ConsultingResDto.builder()
-                .counselId(consulting.getCurriculumId().getCounselId().getId())
-                .counselTitle(consulting.getCurriculumId().getCounselId().getTitle())
-                .consultingId(consulting.getId())
                 .consulting(consulting.getConsulting())
                 .consultingDate(consulting.getDate().toLocalDate())
-                .consultingState(consulting.getState())
-                .userId(consulting.getClientId().getUserId().getId())
                 .userNickname(consulting.getClientId().getUserId().getNickname())
-                .userEmail(consulting.getClientId().getUserId().getEmail())
-                .clientId(consulting.getClientId().getId())
+                .build();
+        return consultingResDto;
+
+    }
+
+    public ConsultingResDto findReview(Integer clientId) {
+        Consulting consulting = consultingRepository.findById(clientId)
+                .orElseThrow(() -> new IllegalArgumentException("not found : " + clientId));
+
+//        User user = userRepository.findById(consulting.getClientId().getUserId().getId())
+//                .orElseThrow(() -> new IllegalArgumentException("not found : " + consulting.getClientId().getUserId().getId()));
+
+        ConsultingResDto consultingResDto = ConsultingResDto.builder()
+                .consulting(consulting.getConsulting())
+                .consultingDate(consulting.getDate().toLocalDate())
+                .userNickname(consulting.getClientId().getUserId().getNickname())
                 .build();
         return consultingResDto;
     }
-
-
 
 
 //    @Transactional
