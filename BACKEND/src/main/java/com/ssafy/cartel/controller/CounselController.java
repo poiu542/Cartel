@@ -51,6 +51,8 @@ public class CounselController {
         return ResponseEntity.ok().build();
     }
 
+
+
     // 수정
     @PutMapping("/{counsel_id}")
     public ResponseEntity<?> updateCounsel(@PathVariable Integer counsel_id, @RequestBody CounselDto counselDto) {
