@@ -138,24 +138,18 @@ export const CounselDetail = () => {
   const [conunselCurriculums, setConunselCurriculums] = useState<Curriculrum[]>(
     [],
   )
+  const [paymentData, setPaymentData] = useState({
+    amount: 0,
+    usrId: user.id,
+    counselId: counselId,
+  })
   const navigate = useNavigate()
   const userStatus: number = 2
   const [deleteModalIsOpen, setDeleteModalIsOpen] = useState(false)
   const [curriculumModalIsOpen, setCurriculumModalIsOpen] = useState(false)
   const [confirmationText, setConfirmationText] = useState('')
   // const [curriculms, setCurriculms] = useState<Curriculrum[]>([])
-  const curriculums: string[] = [
-    'Intro to Web Development: Setting up your environment',
-    'HTML Basics: Understanding the structure of web pages',
-    'CSS Fundamentals: Styling your HTML',
-    'JavaScript Essentials: Adding interactivity to your site',
-    'Introduction to Web APIs: Fetching data from the web',
-    'Responsive Web Design: Making sites mobile-friendly',
-    'Frontend Frameworks Overview: React, Vue, and Angular',
-    'Backend Basics: Node.js and Express introduction',
-    'Database Management: SQL vs NoSQL',
-    'Deploying your website: Hosting and domain management',
-  ]
+
   const {
     counselid,
     startDate,
@@ -181,16 +175,19 @@ export const CounselDetail = () => {
       .catch((err) => console.log(err))
   }, [])
 
+  // 상담정보 가져오기
   useEffect(() => {
     axios
       .get(`${process.env.REACT_APP_BASE_URL}counsel/${counselId}`)
       .then((res) => {
         setCounselData(res.data)
+
         console.log(res)
       })
       .catch((err) => console.log(err))
   }, [])
 
+  //상담사 정보 가져오기
   useEffect(() => {
     axios
       .get(`${process.env.REACT_APP_BASE_URL}userinfo/counselor/${counselorId}`)
@@ -218,7 +215,8 @@ export const CounselDetail = () => {
 
       // pay_method: 'card', // 결제수단
       // merchant_uid: 'IMP' + `${new Date().getTime()}+${user.id}`,
-      amount: 100,
+      amount: 1,
+      // amount: counselData.price,
       name: counselData.title,
       user: {
         buyer_id: user.id,
@@ -230,6 +228,7 @@ export const CounselDetail = () => {
       // buyer_addr: '신사동 661-16', // 구매자 주소
       // buyer_postcode: '06018', // 구매자 우편번호
     }
+    setPaymentData({ ...paymentData, amount: counselData.price })
 
     /* 4. 결제 창 호출하기 */
     IMP.request_pay(data, callback)
@@ -242,9 +241,9 @@ export const CounselDetail = () => {
     if (success) {
       alert('결제 성공')
       axios
-        .post(`${process.env.REACT_APP_BASE_URL}payment`)
-        .then((res) => console.log(res))
-        .catch((err) => console.log(err))
+        .post(`${process.env.REACT_APP_BASE_URL}payment`, paymentData)
+        .then((res) => console.log('포스트성공', res))
+        .catch((err) => console.log('포스트실패', err))
     } else {
       alert(`결제 실패: ${error_msg}`)
     }
@@ -304,7 +303,7 @@ export const CounselDetail = () => {
     axios
       .get(`${process.env.REACT_APP_BASE_URL}curriculum`)
       .then((response) => {
-        setConunselCurriculums(response.data)
+        setConunselCurriculums([...response.data])
       })
       .catch((error) => {
         console.error('Error fetching user data: ', error)
@@ -369,7 +368,7 @@ export const CounselDetail = () => {
         </ModalHeader>
 
         <CurriculumInputList>
-          {curriculums.map((curriculum: string, index: number) => (
+          {conunselCurriculums.map((curriculum, index) => (
             <div
               key={index}
               style={{
@@ -380,7 +379,7 @@ export const CounselDetail = () => {
                 backgroundColor: 'lightgray',
               }}
             >
-              {index + 1} 회차: {curriculum}
+              {index + 1} 회차: {curriculum.content}
             </div>
           ))}
         </CurriculumInputList>
