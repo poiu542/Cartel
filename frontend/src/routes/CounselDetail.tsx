@@ -217,8 +217,8 @@ export const CounselDetail = () => {
       pg: 'kakaopay.TC0ONETIME',
 
       // pay_method: 'card', // 결제수단
-      merchant_uid: 'IMP' + `${new Date().getTime()}+${user.id}`,
-      amount: counselData.price,
+      // merchant_uid: 'IMP' + `${new Date().getTime()}+${user.id}`,
+      amount: 100,
       name: counselData.title,
       user: {
         buyer_id: user.id,
@@ -241,6 +241,10 @@ export const CounselDetail = () => {
 
     if (success) {
       alert('결제 성공')
+      axios
+        .post(`${process.env.REACT_APP_BASE_URL}payment`)
+        .then((res) => console.log(res))
+        .catch((err) => console.log(err))
     } else {
       alert(`결제 실패: ${error_msg}`)
     }

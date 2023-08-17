@@ -55,6 +55,7 @@ import { Testimony } from './routes/Testimony'
 import { QnaEdit } from './routes/QnaEdit'
 import { useRecoilState } from 'recoil'
 import { userState } from './recoil/atoms/userState'
+import { login } from './features/auth/authSlice'
 
 const queryClient = new QueryClient()
 
@@ -192,8 +193,13 @@ function App(): React.ReactElement {
             <Route path="/counselorconfirm" element={<CounselorConfirm />} />
             {/* 관리자 상담사 자격 확인하기 위한 페이지 */}
             <Route
-              path="/counselorconfirmadmin/:userEmail"
-              element={<CounselorConfirmAdmin />}
+              path="/counselorconfirmadmin/:userId"
+              element={
+                <CheckAdmin
+                  authenticated={loginStatus}
+                  component={<CounselorConfirmAdmin />}
+                />
+              }
             />
             {/* 내가 쓴 댓글 페이지 */}
             <Route path="/mycomments/:userId" element={<MyComments />} />
