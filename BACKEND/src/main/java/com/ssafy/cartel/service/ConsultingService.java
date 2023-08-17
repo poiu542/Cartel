@@ -64,30 +64,23 @@ public class ConsultingService {
     }
 
 
-    public List<ConsultingResDto> getConsulting(Integer clientId) {
-        Consulting consulting = consultingRepository.findById(clientId)
-                .orElseThrow(() -> new IllegalArgumentException("not found : " + clientId));
+//    public List<ConsultingResDto> getConsulting(Integer clientId) {
+//        Consulting consulting = consultingRepository.findById(clientId)
+//                .orElseThrow(() -> new IllegalArgumentException("not found : " + clientId));
+//
+//        List<ConsultingResDto> consultingResDto = consultingRepository.findByClientId(consulting);
+//
+//        return consultingResDto;
+//    }
 
-        List<Consulting> consultings = consultingRepository.findAll();
-        List<ConsultingResDto> consultingResDtoList = new ArrayList<>();
-
-        for (int i = 0; i < consultings.size(); i++) {
-            if (consultings.get(i).getClientId() == consulting.getClientId()) {
-                ConsultingResDto consultingResDto = ConsultingResDto.builder()
-                        .consulting(consultings.get(i).getConsulting())
-                        .consultingDate(consultings.get(i).getDate().toLocalDate())
-                        .clientId(consultings.get(i).getClientId().getId())
-                        .userNickname(consultings.get(i).getClientId().getUserId().getNickname())
-                        .build();
-
-                consultingResDtoList.add(consultingResDto);
-            }
-        }
-        return consultingResDtoList;
-    }
 
     public List<Consulting> findByStateAndCurriculum(Curriculum curriculum) {
         List<Consulting> consultings = consultingRepository.findAllByStateAndCurriculumId(0,curriculum);
+        return consultings;
+    }
+
+    public List<Consulting> reviewfindByStateAndCurriculum(Curriculum curriculum) {
+        List<Consulting> consultings = consultingRepository.findAllByStateAndCurriculumId(1,curriculum);
         return consultings;
     }
 

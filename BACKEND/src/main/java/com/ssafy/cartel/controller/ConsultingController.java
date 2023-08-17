@@ -63,9 +63,26 @@ public class ConsultingController {
 
     }
 
-    @GetMapping("/consulting/{clientId}") // 소감문 조회
-    public List<ConsultingResDto> findReview(@PathVariable Integer clientId){
-        return consultingService.getConsulting(clientId);
+    @GetMapping("/review/{userId}") // 소감문 조회
+    public ResponseEntity<List<ConsultingResponse>> Reviewing(@PathVariable Integer userId){
+        //curriculum 에서 counsel_id 가 저거 인거 뽑아오기
+        Counsel counsel = counselService.findByCounselId(userId);
+        List<Curriculum> curriculums = curriculumService.findByCounsel(counsel);
+
+        //curriculumid인 consulting중에서  status가 1인거
+        List<Consulting> consultings = new LinkedList<>();
+        for(Curriculum curriculum: curriculums){
+            consultings.addAll(consultingService.reviewfindByStateAndCurriculum(curriculum));
+        }
+
+        List<ConsultingResponse> consultingResponses= consultings
+                .stream()
+                .map(ConsultingResponse::new)
+                .toList();
+
+        return ResponseEntity.ok().body(consultingResponses);
+
+
     }
 
     // 목록 조회
