@@ -47,12 +47,12 @@ interface UserDto {
   password: string
   name?: string
   nickname?: string
-  profileImg: File | null
+  // profileImg: File | null
 }
 
 interface CounselorDto {
-  registImg: File | null
-  licenseImg: File | null
+  registImg: string | File | null
+  licenseImg: string | File | null
   school: string
   company: string
   introduction: string
@@ -74,11 +74,11 @@ export const SignUp = () => {
       password: '',
       name: '',
       nickname: '',
-      profileImg: null,
+      // profileImg: null,
     },
     counselorDto: {
-      registImg: null,
-      licenseImg: null,
+      registImg: '',
+      licenseImg: '',
       school: '',
       company: '',
       introduction: '',
@@ -293,27 +293,21 @@ export const SignUp = () => {
     } else if (userType === 1) {
       counselorData = {
         userDto: {
+          email: inputEmailValue,
           password: inputPassValue,
           name: inputNameValue,
-          profileImg: profileImg,
-          email: inputEmailValue,
+          nickname: 'nickname',
         },
         counselorDto: {
-          registImg: certificationImg,
-          licenseImg: residentRegistrationImg,
+          licenseImg: '',
+          registImg: '',
           school: inputEducation,
           company: 'samsung',
-          introduction: '',
+          introduction: '족구왕이 될 사나이',
         },
-        careersDto: careers,
+        // careersDto: careers,
+        careersDto: [],
       }
-      // userData = {
-      //   nickname: inputNicknameValue,
-      //   email: inputEmailValue,
-      //   password: inputPassValue,
-      //   education: inputEducation,
-      //   career: careers,
-      // }
     }
 
     if (
@@ -332,12 +326,10 @@ export const SignUp = () => {
           console.log(response.data)
           alert('회원가입이 성공적으로 완료되었습니다.')
           navigate('/')
-          // 성공적으로 회원가입이 완료되면 다른 페이지로 리다이렉션 또는 추가 작업 수행
         })
         .catch((error: any) => {
           console.error('Error registering new user:', error)
           alert('회원가입 중 오류가 발생했습니다.')
-          // 실패한 경우 오류 메시지 표시 또는 추가 작업 수행
         })
     } else if (
       userType === 1 &&
@@ -346,19 +338,42 @@ export const SignUp = () => {
       passwordCheck &&
       nickNameCheck
     ) {
+      const formData = new FormData()
+
+      // formData.append('request', JSON.stringify(counselorData))
+      formData.append(
+        'request',
+        new Blob([JSON.stringify(counselorData)], { type: 'application/json' }),
+      )
+
+      if (certificationImg) {
+        formData.append('file1', certificationImg)
+        formData.append('file2', certificationImg)
+        formData.append('file3', certificationImg)
+      }
+
       axios
-        .post(
-          `${process.env.REACT_APP_BASE_URL}signup/counselor`,
-          counselorData,
-        )
+        .post(`${process.env.REACT_APP_BASE_URL}signup/counselor`, formData, {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          },
+        })
         .then((res) => {
+          console.log(res)
           alert('회원가입이 성공적으로 완료되었습니다.')
           navigate('/')
         })
         .catch((error: any) => {
           console.error('Error registering new user:', error)
           alert('회원가입 중 오류가 발생했습니다.')
-          // 실패한 경우 오류 메시지 표시 또는 추가 작업 수행
+          console.log('상담사 정보')
+          console.log(counselorData)
+          console.log(JSON.stringify(counselorData))
+          console.log('이미지 정보')
+          console.log(certificationImg)
+          console.log('폼 데이터 정보')
+          console.log('Keys:', Array.from(formData.keys()))
+          console.log('Values:', Array.from(formData.values()))
         })
     }
   }
