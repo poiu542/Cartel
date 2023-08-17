@@ -38,4 +38,5 @@ public class Curriculum {
         this.title = title;
         this.content = content;
     }
+
 }

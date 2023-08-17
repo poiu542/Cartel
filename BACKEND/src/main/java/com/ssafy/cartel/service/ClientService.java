@@ -32,12 +32,10 @@ public class ClientService {
 //    }
 
     public Client save(PaymentDto paymentDto){
-        Counsel counsel = counselRepository.findById(paymentDto.getCounsel_id())
+        Counsel counsel = counselRepository.findById(paymentDto.getCounselId())
                 .orElseThrow(()-> new IllegalArgumentException("not found: id" ));
-        User user = userRepository.findById(paymentDto.getBuyer_id())
+        User user = userRepository.findById(paymentDto.getUserId())
                 .orElseThrow(()-> new IllegalArgumentException("not found: id" ));
-
-
         return clientRepository.save(Client.builder()
                 .counselId(counsel)
                 .userId(user)
@@ -46,6 +44,17 @@ public class ClientService {
                 .build());
 
     }
+
+
+
+
+
+
+
+
+
+
+
 
 
     public List<Client> findAll(){
