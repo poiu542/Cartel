@@ -26,6 +26,9 @@ public class CounselDto {
     private Integer counselorId;
     private String introduction;
     private Integer weekCount;
+    private Integer minClient;
+    private Integer maxClient;
+    private String counselorName;
 
 
     public Counsel toEntity(Counselor counselor){
@@ -41,6 +44,8 @@ public class CounselDto {
                 .state(state)
                 .counselorId(counselor)
                 .counselCount(counselCount)
+                .minClient(minClient)
+                .maxClient(maxClient)
                 .build();
     }
 }

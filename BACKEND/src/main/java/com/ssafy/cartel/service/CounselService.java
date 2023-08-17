@@ -42,6 +42,9 @@ public class CounselService {
                     .state(counsel.get(i).getState())
                     .title(counsel.get(i).getTitle())
                     .weekCount(counsel.get(i).getWeekCount())
+                    .minClient(counsel.get(i).getMinClient())
+                    .maxClient(counsel.get(i).getMaxClient())
+                    .counselorName(counsel.get(i).getCounselorId().getUser().getName())
                     .build();
 
             counselDtoList.add(counselDto);
@@ -64,6 +67,10 @@ public class CounselService {
                 .state(counsel.getState())
                 .title(counsel.getTitle())
                 .weekCount(counsel.getWeekCount())
+                .minClient(counsel.getMinClient())
+                .maxClient(counsel.getMaxClient())
+                .counselorName(counsel.getCounselorId().getUser().getName())
+
                 .build();
         return counselDto;
     }
