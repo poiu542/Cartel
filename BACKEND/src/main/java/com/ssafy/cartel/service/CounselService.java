@@ -1,9 +1,11 @@
 package com.ssafy.cartel.service;
 
+import com.ssafy.cartel.domain.Client;
 import com.ssafy.cartel.domain.Counsel;
 import com.ssafy.cartel.domain.Counselor;
 import com.ssafy.cartel.dto.CounselDto;
 import com.ssafy.cartel.dto.CounselResDto;
+import com.ssafy.cartel.repository.ClientRepository;
 import com.ssafy.cartel.repository.CounselRepository;
 import com.ssafy.cartel.repository.CounselorRepository;
 import lombok.RequiredArgsConstructor;
@@ -19,6 +21,7 @@ import java.util.List;
 public class CounselService {
     private final CounselRepository counselRepository;
     private final CounselorRepository counselorRepository;
+    private final ClientRepository clientRepository;
 
     @Transactional
     public Counsel save(CounselDto counselDto){
@@ -95,4 +98,10 @@ public class CounselService {
         return counsel;
 
     }
+    public List<Client> findByCounsel(Counsel counsel){
+        List<Client> clients = clientRepository.findAllByCounselId(counsel);
+        return clients;
+    }
+
+
 }
