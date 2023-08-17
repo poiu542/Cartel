@@ -62,7 +62,7 @@ export const MyBoards = () => {
 
   useEffect(() => {
     axios
-      .get(`${process.env.REACT_APP_BASE_URL}articles`)
+      .get(`${process.env.REACT_APP_BASE_URL}articles/community`)
       .then((response) => {
         console.log(user)
         const filteredData = response.data.filter(
