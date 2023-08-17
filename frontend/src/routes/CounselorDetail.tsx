@@ -95,7 +95,8 @@ export const CounselorDetail: React.FC = () => {
     axios
       .get(`${process.env.REACT_APP_BASE_URL}userinfo/counselor/${counselorId}`)
       .then((res) => {
-        console.log(res)
+        console.log(res.data)
+        setCounselor(res.data)
       })
       .catch((err) => {
         console.log(err)

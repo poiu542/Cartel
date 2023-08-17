@@ -1,13 +1,11 @@
 import React from 'react'
 import StyledButton from './../styles/StyledButton'
 import axios from 'axios'
+import { useRecoilState } from 'recoil'
+import { userState } from '../recoil/atoms/userState'
+import { useParams } from 'react-router-dom'
 export const CounselorConfirmAdmin = () => {
-  const counselorfail = (counselor: any) => {
-    axios.put('http;~~~', counselor)
-  }
-  const counselorpass = (counselor: any) => {
-    axios.put('http:~~', counselor)
-  }
+  // 수동으로 workbench에서 상태 바꾸기!
   return (
     <div>
       <h1>상담사 회원가입 심사 페이지</h1>
@@ -42,10 +40,6 @@ export const CounselorConfirmAdmin = () => {
             style={{ width: '200px', height: '200px' }}
           />
         </div>
-        <button onClick={counselorpass}>승인</button>
-        <br />
-        <br />
-        <button onClick={counselorfail}>반려</button>
       </div>
     </div>
   )

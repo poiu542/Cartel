@@ -19,6 +19,7 @@ import axios from 'axios'
 import { BoardData } from '../model/board'
 import CounselJournalModal from './../components/CounselJournalModal'
 import { NoneStyledLink } from './../styles/Custom'
+import { CounselorData } from '../model/counsel'
 
 console.log('|\\_/|')
 console.log('|%cq %cp %c|   /}', 'color:red', 'color:red', 'color:black')
@@ -31,11 +32,27 @@ console.log('도와주셔서 감사합니다.')
 export const Main = () => {
   const [boardList, setBoardList] = useState<BoardData[]>([])
   const [convertedPosts, setConvertedPosts] = useState<Post[]>([])
-
+  const [counselors, setCounselors] = useState<CounselorData[]>([])
+  const [counselors4, setCounselors4] = useState<CounselorData[]>([])
   const navigate = useNavigate()
   const [bestBoard, setBestBoard] = useState<BoardData[]>([])
-  const onCardClick = () => {
-    alert('상담사 상세페이지에서 첫 번째 카드만 상세페이지 이동 돼요')
+
+  useEffect(() => {
+    axios
+      .get(`${process.env.REACT_APP_BASE_URL}userinfo/counselor`)
+      .then((res) => {
+        const data = [...res.data].slice(0, 4)
+        setCounselors(data)
+      })
+      .catch((err) => console.log(err))
+  }, [])
+
+  // const counselorSlice = () => {
+  //   setCounselors4(counselors.slice(0, 4))
+  // }
+
+  const onCardClick = (counselorId: number) => {
+    navigate(`/counselor/${counselorId}`)
   }
   const ViewAll = () => {
     navigate(`/freeboard`)
@@ -339,49 +356,17 @@ export const Main = () => {
           }}
         >
           {/* 카드 */}
-
-          <CounselorCard
-            onCardClick={onCardClick}
-            name="석민혁"
-            grade={3.9}
-            gradeCount={51}
-            introduce={
-              '나는 멍청이 헤헤 나는 멍청이 헤헤 나는 멍청이 헤헤'
-              // item.introduce.length > 27
-              //   ? item.introduce.substring(0, 27) + '...'
-              //   : item.introduce
-            }
-            imgSrc="/image/seulyoon.jpg"
-          />
-          <CounselorCard
-            onCardClick={onCardClick}
-            name="석민혁"
-            grade={3.9}
-            gradeCount={51}
-            introduce={
-              '나는 멍청이 헤헤 나는 멍청이 헤헤 나는 멍청이 헤헤'
-              // item.introduce.length > 27
-              //   ? item.introduce.substring(0, 27) + '...'
-              //   : item.introduce
-            }
-            imgSrc="/image/seulyoon.jpg"
-          />
-          <CounselorCard
-            onCardClick={onCardClick}
-            name="이순신"
-            grade={4.7}
-            gradeCount={45}
-            introduce="해상 전략가"
-            imgSrc="./image/iesur.jpg"
-          />
-          <CounselorCard
-            onCardClick={onCardClick}
-            name="박찬호"
-            grade={4.9}
-            gradeCount={53}
-            introduce="야구 선수"
-            imgSrc="./image/profileImg2.png"
-          />
+          {counselors.map((counselor, index) => (
+            <CounselorCard
+              key={counselor.counselorId} // Add a unique key for each card
+              onCardClick={() => onCardClick(counselor.counselorId)}
+              name={counselor.name}
+              grade={counselor.rateSum}
+              gradeCount={23}
+              introduce={counselor.introduction}
+              imgSrc={counselor.profile}
+            />
+          ))}
         </div>
       </div>
       <div

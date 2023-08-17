@@ -50,7 +50,7 @@ function CounselorCard({
       </CardContent>
       <CardActions>
         <Button onClick={onCardClick} size="small">
-          상세보기
+          상담사 보기
         </Button>
         <Rating
           name="text-feedback"
@@ -59,7 +59,7 @@ function CounselorCard({
           precision={0.5}
           emptyIcon={<StarIcon style={{ opacity: 0.55 }} fontSize="inherit" />}
         />
-        ({gradeCount})
+        {/* ({gradeCount}) */}
       </CardActions>
     </Card>
   )
