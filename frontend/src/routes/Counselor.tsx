@@ -19,6 +19,9 @@ export const Counselor = () => {
       .get(`${process.env.REACT_APP_BASE_URL}userinfo/counselor`)
       .then((res) => {
         setCounselors([...res.data])
+        console.log('test')
+        console.log(res)
+        console.log(counselors)
       })
       .catch((err) => console.log(err))
   }, [])
@@ -88,7 +91,8 @@ export const Counselor = () => {
           }}
         >
           {/* 필터링된 데이터를 렌더링 */}
-          {filteredData
+          {/* {filteredData */}
+          {counselors
             .slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage)
             .map((item, index) => (
               <div style={{ margin: '10px 60px' }}>
@@ -96,8 +100,6 @@ export const Counselor = () => {
                   onCardClick={() => counselorButtonClick(item.counselorId)}
                   name={item.name}
                   grade={item.rateSum}
-                  // gradeCount={item.gradeCount}
-
                   introduce={
                     item.introduction && item.introduction.length > 27
                       ? item.introduction.substring(0, 27) + '...'

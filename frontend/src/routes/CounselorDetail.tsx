@@ -95,7 +95,8 @@ export const CounselorDetail: React.FC = () => {
     axios
       .get(`${process.env.REACT_APP_BASE_URL}userinfo/counselor/${counselorId}`)
       .then((res) => {
-        console.log(res)
+        console.log(res.data)
+        setCounselor(res.data)
       })
       .catch((err) => {
         console.log(err)
@@ -119,7 +120,7 @@ export const CounselorDetail: React.FC = () => {
   }
 
   // 상담사 데이터 가져오기, 지금은 더미데이터임
-  const counselorData = DUMMY_DATA[params.counselorId]
+  const counselorData = counselor
 
   // undefined 체크
   if (!counselorData) {
@@ -127,14 +128,14 @@ export const CounselorDetail: React.FC = () => {
   }
 
   // 평가 점수의 총 합을 계산
-  const totalRate = counselorData.evaluations.reduce(
-    (acc, evaluation) => acc + evaluation.evaluation_rate,
-    0,
-  )
+  // const totalRate = counselorData.evaluations.reduce(
+  //   (acc, evaluation) => acc + evaluation.evaluation_rate,
+  //   0,
+  // )
 
   // 평가 점수의 평균을 계산, 소수점 두 번째 자리에서 반올림
-  const averageRate =
-    Math.round((totalRate / counselorData.evaluations.length) * 10) / 10
+  // const averageRate =
+  // Math.round((totalRate / counselorData.evaluations.length) * 10) / 10
 
   return (
     <div className="container">
@@ -150,9 +151,9 @@ export const CounselorDetail: React.FC = () => {
               width: '20%',
             }}
           >
-            <h2>{counselorData.counselor_name}</h2>
+            <h2>{counselorData.name}</h2>
             <img
-              src={counselorData.imageUrl}
+              src={counselorData.profile || '/image/star.png'}
               alt="Profile"
               style={{ width: 200, height: 200 }}
             />
@@ -166,8 +167,8 @@ export const CounselorDetail: React.FC = () => {
                   height: '15px',
                 }}
               />{' '}
-              {averageRate}
-              {'(' + counselorData.evaluations.length + ')'}
+              {counselorData.rateSum || 0}
+              {/* {'(' + counselorData.evaluations.length + ')'} */}
             </div>
           </FlexContainer>
         </div>
@@ -178,7 +179,7 @@ export const CounselorDetail: React.FC = () => {
           <BackgroundBox>
             <FlexContainer>
               <h2>소개</h2>
-              <h4>{counselorData.counselor_introduction}</h4>
+              <h4>{counselorData.introduction}</h4>
             </FlexContainer>
           </BackgroundBox>
           <BackgroundBox>
@@ -186,7 +187,7 @@ export const CounselorDetail: React.FC = () => {
               <FlexContainer>
                 <h2>경력</h2>
                 <ul>
-                  {counselorData.career_content.map((career, index) => (
+                  {counselorData.careers.map((career, index) => (
                     <li key={index} style={{ paddingBottom: '10px' }}>
                       {career}
                     </li>
@@ -195,7 +196,7 @@ export const CounselorDetail: React.FC = () => {
               </FlexContainer>
               <FlexContainer>
                 <h4>학력</h4>
-                <p>{counselorData.counselor_school}</p>
+                <p>{counselorData.school}</p>
               </FlexContainer>
             </FlexContainerRow>
           </BackgroundBox>
@@ -210,7 +211,7 @@ export const CounselorDetail: React.FC = () => {
                   justifyContent: 'center',
                 }}
               >
-                {counselorData.evaluations.map((evaluation, index) => (
+                {/* {counselorData.evaluations.map((evaluation, index) => (
                   <div key={index}>
                     <img
                       src="/image/star.png"
@@ -235,7 +236,7 @@ export const CounselorDetail: React.FC = () => {
                       </p>
                     )}
                   </div>
-                ))}
+                ))} */}
               </div>
             </FlexContainer>
           </BackgroundBox>
