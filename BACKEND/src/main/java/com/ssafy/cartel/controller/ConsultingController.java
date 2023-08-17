@@ -39,11 +39,8 @@ public class ConsultingController {
     }
 
     @GetMapping("/consulting/{clientId}") // 소감문 조회
-    public ResponseEntity<ConsultingResDto> findReview(@PathVariable Integer clientId){
-        ConsultingResDto consultingResDto = consultingService.findConsulting(clientId);
-
-        return ResponseEntity.ok()
-                .body(consultingResDto);
+    public List<Consulting> findReview(@PathVariable Integer clientId){
+        return consultingService.getConsulting(clientId);
     }
 
     // 목록 조회

@@ -1,9 +1,6 @@
 package com.ssafy.cartel.service;
 
-import com.ssafy.cartel.domain.Client;
-import com.ssafy.cartel.domain.Consulting;
-import com.ssafy.cartel.domain.Curriculum;
-import com.ssafy.cartel.domain.User;
+import com.ssafy.cartel.domain.*;
 import com.ssafy.cartel.dto.ConsultingDto;
 import com.ssafy.cartel.dto.ConsultingReq;
 import com.ssafy.cartel.dto.ConsultingResDto;
@@ -14,6 +11,7 @@ import com.ssafy.cartel.repository.CurriculumRepository;
 import com.ssafy.cartel.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -97,35 +95,11 @@ public class ConsultingService {
 //        return consultingResDtoList;
 //    }
 
-    public ConsultingResDto findConsulting(Integer counselId) {
-        Consulting consulting = consultingRepository.findById(counselId)
-                .orElseThrow(() -> new IllegalArgumentException("not found : " + counselId));
-
-//        User user = userRepository.findById(consulting.getClientId().getUserId().getId())
-//                .orElseThrow(() -> new IllegalArgumentException("not found : " + consulting.getClientId().getUserId().getId()));
-
-        ConsultingResDto consultingResDto = ConsultingResDto.builder()
-                .consulting(consulting.getConsulting())
-                .consultingDate(consulting.getDate().toLocalDate())
-                .userNickname(consulting.getClientId().getUserId().getNickname())
-                .build();
-        return consultingResDto;
-
-    }
-
-    public ConsultingResDto findReview(Integer clientId) {
+    public List<Consulting> getConsulting(Integer clientId) {
         Consulting consulting = consultingRepository.findById(clientId)
                 .orElseThrow(() -> new IllegalArgumentException("not found : " + clientId));
 
-//        User user = userRepository.findById(consulting.getClientId().getUserId().getId())
-//                .orElseThrow(() -> new IllegalArgumentException("not found : " + consulting.getClientId().getUserId().getId()));
-
-        ConsultingResDto consultingResDto = ConsultingResDto.builder()
-                .consulting(consulting.getConsulting())
-                .consultingDate(consulting.getDate().toLocalDate())
-                .userNickname(consulting.getClientId().getUserId().getNickname())
-                .build();
-        return consultingResDto;
+        return consultingRepository.findByClientId(consulting);
     }
 
 
