@@ -1,7 +1,9 @@
 package com.ssafy.cartel.service;
 
+import com.ssafy.cartel.domain.Client;
 import com.ssafy.cartel.domain.Counsel;
 import com.ssafy.cartel.domain.Counselor;
+import com.ssafy.cartel.domain.User;
 import com.ssafy.cartel.dto.CounselDto;
 import com.ssafy.cartel.repository.CounselRepository;
 import com.ssafy.cartel.repository.CounselorRepository;
@@ -19,11 +21,17 @@ public class CounselService {
     private final CounselRepository counselRepository;
     private final CounselorRepository counselorRepository;
 
+
+
     @Transactional
     public Counsel save(CounselDto counselDto){
         Counselor counselor = counselorRepository.findById(counselDto.getCounselorId()).orElseThrow();
         return counselRepository.save(counselDto.toEntity(counselor));
     }
+
+
+
+
 
     public List<CounselDto> findAll(){
         List<Counsel> counsel = counselRepository.findAll();
