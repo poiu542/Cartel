@@ -11,6 +11,7 @@ import com.ssafy.cartel.service.CounselorService;
 import com.ssafy.cartel.service.ImgService;
 import com.ssafy.cartel.service.UserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
@@ -33,7 +34,7 @@ public class CounselorController {
     private final UserRepository userRepository;
     private final CounselorRepository counselorRepository;
 
-    @PostMapping("/signup/counselor")
+    @PostMapping(value = "/signup/counselor", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
     public ResponseEntity<String> signupCounselor(@RequestPart CounselorSignupRequest request, @RequestPart(value = "file") MultipartFile multipartFile1, @RequestPart(value = "file") MultipartFile multipartFile2, @RequestPart(value = "file") MultipartFile multipartFile3) throws IOException, IOException {
         System.out.println("______________"+multipartFile1);
         System.out.println(request.getCounselorDto().getCompany());
