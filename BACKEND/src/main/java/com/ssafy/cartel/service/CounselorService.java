@@ -29,6 +29,12 @@ public class CounselorService {
                 .user(user)
                 .build());
     }
+    public Counselor findByUser(User user) {
+        Counselor counselor = counselorRepository.findByUser(user)
+                .orElseThrow(()-> new IllegalArgumentException("not found: user"));
+
+        return counselor;
+    }
 
     public Counselor findById(Integer id){
         return counselorRepository.findById(id)
