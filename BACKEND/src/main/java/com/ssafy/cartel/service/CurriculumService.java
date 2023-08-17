@@ -13,12 +13,21 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 
-@Transactional(readOnly = true)
+//@Transactional(readOnly = true)
 @RequiredArgsConstructor //final , @notnull 붙은 필드의 생성자 추가
 @Service //빈으로 등록
 public class CurriculumService {
     private final CurriculumRepository curriculumRepository;
     private final CounselRepository counselRepository;
+
+
+
+
+    public Curriculum findByCurriculumId(Integer id) {
+        Curriculum curriculum = curriculumRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("not found:" + id));
+        return curriculum;
+    }
 
     @Transactional
     public Curriculum save(CurriculumDto curriculumDto){

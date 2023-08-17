@@ -50,8 +50,15 @@ public class Counsel {
     @Column(name = "counsel_week_count", nullable = false )
     private Integer weekCount;
 
+    @Column(name = "counsel_min_client", nullable = false )
+    private Integer minClient;
+
+    @Column(name = "counsel_max_client", nullable = false )
+    private Integer maxClient;
+
     @Builder
-    public Counsel(Integer counselId, LocalDateTime startDate,LocalDateTime endDate, Integer counselCount, String title, Integer state, Integer clientCount, Integer price,Counselor counselorId, String introduction, Integer weekCount) {
+    public Counsel(Integer counselId, LocalDateTime startDate,LocalDateTime endDate, Integer counselCount, String title, Integer state, Integer clientCount, Integer price,Counselor counselorId, String introduction, Integer weekCount
+    , Integer minClient, Integer maxClient) {
         this.id = counselId;
         this.startDate = startDate;
         this.endDate = endDate;
@@ -63,6 +70,8 @@ public class Counsel {
         this.counselorId = counselorId;
         this.introduction = introduction;
         this.weekCount = weekCount;
+        this.minClient = minClient;
+        this.maxClient = maxClient;
     }
     public void updateState(Integer state){
         this.state = state;

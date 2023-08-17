@@ -22,6 +22,7 @@ public class ConsultingDto {
     private Integer state;
     private Integer curriculumId;
     private Integer clientId;
+    private String nickname;
 
 
     public Consulting toEntity(Client client, Curriculum curriculum){
