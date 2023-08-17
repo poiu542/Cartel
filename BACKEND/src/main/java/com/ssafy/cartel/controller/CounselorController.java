@@ -22,7 +22,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 @RequiredArgsConstructor
-@Controller
+@RestController
 @Transactional
 public class CounselorController {
 
@@ -86,7 +86,6 @@ public class CounselorController {
 
     @GetMapping("/userinfo/counselor/{id}") //상담사 아이디
     public ResponseEntity<CounselorResponse> userInfo(@PathVariable Integer id){
-        System.out.println("!!!!!!1");
         Counselor counselor = counselorService.findById(id);
 
         Integer userId = counselor.getUser().getId();
