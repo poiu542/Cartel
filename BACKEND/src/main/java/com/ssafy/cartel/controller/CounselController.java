@@ -2,6 +2,7 @@ package com.ssafy.cartel.controller;
 
 import com.ssafy.cartel.domain.Counsel;
 import com.ssafy.cartel.dto.CounselDto;
+import com.ssafy.cartel.dto.CounselResDto;
 import com.ssafy.cartel.service.CounselService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -17,8 +18,8 @@ public class CounselController {
 
     //상담 목록 조회
     @GetMapping
-    public ResponseEntity<List<CounselDto>> findAllCounsels(){
-        List<CounselDto> counselList = counselService.findAll();
+    public ResponseEntity<List<CounselResDto>> findAllCounsels(){
+        List<CounselResDto> counselList = counselService.findAll();
 
         return ResponseEntity.ok()
                 .body(counselList);
@@ -27,8 +28,8 @@ public class CounselController {
     // 조회
     @GetMapping("/{counsel_id}")
     public ResponseEntity<?> findCounsel(@PathVariable Integer counsel_id) {
-        CounselDto counselDto = counselService.findById(counsel_id);
-        return ResponseEntity.ok().body(counselDto);
+        CounselResDto counselResDto = counselService.findById(counsel_id);
+        return ResponseEntity.ok().body(counselResDto);
     }
 
     // 등록

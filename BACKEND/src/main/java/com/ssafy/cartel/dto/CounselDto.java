@@ -28,7 +28,6 @@ public class CounselDto {
     private Integer weekCount;
     private Integer minClient;
     private Integer maxClient;
-    private String counselorName;
 
 
     public Counsel toEntity(Counselor counselor){
