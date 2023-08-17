@@ -36,7 +36,7 @@ public class CounselorController {
     @PostMapping("/signup/counselor")
     public ResponseEntity<String> signupCounselor(@RequestPart CounselorSignupRequest request, @RequestPart(value = "file") MultipartFile multipartFile1, @RequestPart(value = "file") MultipartFile multipartFile2, @RequestPart(value = "file") MultipartFile multipartFile3) throws IOException, IOException {
         System.out.println(request.getUserDto().getEmail());
-        User user = userService.save(request.getUserDto());
+        User user = userService.save(request.getUserDto(),2);//상담사
         Counselor counselor = counselorService.save(request.getCounselorDto(),user);
 
         String profileImg = imgService.upload(multipartFile1);

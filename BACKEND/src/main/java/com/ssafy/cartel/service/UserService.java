@@ -28,7 +28,7 @@ public class UserService {
     private final JavaMailSender mailSender;
     private static final String CHARACTERS = "1234567890abcdefghijklmnopqrstuvwxyz";
 
-    public User save(UserDto userDto){
+    public User save(UserDto userDto, Integer type){
         return userRepository.save(User.builder()
                 .email(userDto.getEmail())
                 .nickname(userDto.getNickname())
@@ -36,7 +36,7 @@ public class UserService {
                 .name(userDto.getName())
                 .point(0)
                 .state(0)
-                .type(0)
+                .type(type)
                 .build());
     }
 
