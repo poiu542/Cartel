@@ -1,5 +1,6 @@
 package com.ssafy.cartel.dto;
 
+import com.ssafy.cartel.domain.Consulting;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -36,4 +37,5 @@ public class ConsultingResDto {
         this.consultingId = consultingId;
         this.consultingState = consultingState;
     }
+
 }
