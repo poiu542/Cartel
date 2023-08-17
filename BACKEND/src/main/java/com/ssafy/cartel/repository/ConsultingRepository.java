@@ -11,5 +11,5 @@ import java.util.List;
 
 public interface ConsultingRepository extends JpaRepository<Consulting, Integer> {
 
-    List<Consulting> findByClientId(Consulting consulting);
+    List<ConsultingResDto> findByClientId(Consulting consulting);
 }

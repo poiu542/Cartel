@@ -95,11 +95,13 @@ public class ConsultingService {
 //        return consultingResDtoList;
 //    }
 
-    public List<Consulting> getConsulting(Integer clientId) {
+    public List<ConsultingResDto> getConsulting(Integer clientId) {
         Consulting consulting = consultingRepository.findById(clientId)
                 .orElseThrow(() -> new IllegalArgumentException("not found : " + clientId));
 
-        return consultingRepository.findByClientId(consulting);
+        List<ConsultingResDto> consultingResDto = consultingRepository.findByClientId(consulting);
+
+        return consultingResDto;
     }
 
 

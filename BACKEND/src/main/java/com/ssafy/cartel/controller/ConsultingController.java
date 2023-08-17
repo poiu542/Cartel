@@ -39,7 +39,7 @@ public class ConsultingController {
     }
 
     @GetMapping("/consulting/{clientId}") // 소감문 조회
-    public List<Consulting> findReview(@PathVariable Integer clientId){
+    public List<ConsultingResDto> findReview(@PathVariable Integer clientId){
         return consultingService.getConsulting(clientId);
     }
 
