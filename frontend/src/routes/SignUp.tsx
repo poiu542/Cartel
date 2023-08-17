@@ -513,7 +513,6 @@ export const SignUp = () => {
           <FlexContainerRow style={{ width: '100%' }}>
             <div>
               <Input
-                padding="0px"
                 marginBottom="5px"
                 value={inputEmailValue}
                 onChange={handleEmailChange}
