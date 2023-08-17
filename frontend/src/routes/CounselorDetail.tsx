@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { ChangeEvent, useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import {
   FlexContainerRow,
@@ -7,6 +7,13 @@ import {
 } from '../styles/MainStyle'
 import NavbarLogin from '../components/NavbarLogin'
 import axios from 'axios'
+import Box from '@mui/material/Box'
+import Rating from '@mui/material/Rating'
+import Typography from '@mui/material/Typography'
+import { userState } from '../recoil/atoms/userState'
+import { useRecoilState } from 'recoil'
+import StyledButton from './../styles/StyledButton'
+import Stack from '@mui/material/Stack'
 
 interface Evaluation {
   evaluation_rate: number
@@ -72,10 +79,25 @@ const DUMMY_DATA: { [key: string]: Counselor } = {
     ],
   },
 }
+interface CounselorReviewData {
+  id: number
+  rate: number
+  content: string
+  date: string
+  state: number
+  clientId: any[]
+}
 
 export const CounselorDetail: React.FC = () => {
+  const [checkClient, setCheckClient] = useState(false)
+  const [counselorReviews, setCounselorReviews] = useState<
+    CounselorReviewData[]
+  >([])
   const params = useParams<{ counselorId: string }>()
+  const [counselorReview, setCounselorReview] = useState('')
+  const [counselorRate, setCounselorRate] = useState<number | null>(0)
   const { counselorId } = useParams()
+  const [user, setUser] = useRecoilState(userState)
   const [counselor, setCounselor] = useState<CounselorData>({
     counselorId: 0,
     userId: 0,
@@ -91,6 +113,7 @@ export const CounselorDetail: React.FC = () => {
     careers: [],
   })
 
+  // 상담사 정보 가지고오기
   useEffect(() => {
     axios
       .get(`${process.env.REACT_APP_BASE_URL}userinfo/counselor/${counselorId}`)
@@ -103,6 +126,16 @@ export const CounselorDetail: React.FC = () => {
       })
   }, [])
 
+  // 상담후기 가져오기
+  useEffect(() => {
+    axios
+      .get(`${process.env.REACT_APP_BASE_URL}evaluations/${counselorId}`)
+      .then((res) => {
+        setCounselorReviews([...res.data])
+      })
+      .catch((err) => console.log(err))
+  })
+
   const [expandedEvaluations, setExpandedEvaluations] = useState<{
     [key: number]: boolean
   }>({})
@@ -112,6 +145,10 @@ export const CounselorDetail: React.FC = () => {
       ...prev,
       [index]: !prev[index],
     }))
+  }
+
+  const handleCounselorReivew = (e: ChangeEvent<HTMLInputElement>) => {
+    setCounselorReview(e.target.value)
   }
 
   // id 값이 존재하는지 체크
@@ -125,6 +162,17 @@ export const CounselorDetail: React.FC = () => {
   // undefined 체크
   if (!counselorData) {
     return <div>상담사 정보를 찾을 수 없습니다.</div>
+  }
+  const postCounselorReview = () => {
+    axios
+      .post(`${process.env.REACT_APP_BASE_URL}evaluation`, {
+        content: counselorReview,
+        rate: counselorRate,
+        counselorId: counselorId,
+        clientId: 1,
+      })
+      .then((res) => console.log(res))
+      .catch((err) => console.log(err))
   }
 
   // 평가 점수의 총 합을 계산
@@ -202,7 +250,28 @@ export const CounselorDetail: React.FC = () => {
           </BackgroundBox>
           <BackgroundBox>
             <FlexContainer>
-              <h2>상담사 후기</h2>
+              <h2>상담사 후기 게시판</h2>
+
+              {/* <Typography component="legend">상담사 별점</Typography> */}
+
+              <div
+                style={{ display: 'flex', alignItems: 'center', gap: '10px' }}
+              >
+                <Rating
+                  name="simple-controlled"
+                  value={counselorRate}
+                  onChange={(event, newValue) => {
+                    setCounselorRate(newValue)
+                  }}
+                />
+                <input
+                  type="text"
+                  value={counselorReview}
+                  onChange={handleCounselorReivew}
+                />
+                <StyledButton onClick={postCounselorReview}>제출</StyledButton>
+              </div>
+
               <div
                 style={{
                   display: 'grid',
@@ -211,6 +280,20 @@ export const CounselorDetail: React.FC = () => {
                   justifyContent: 'center',
                 }}
               >
+                {counselorReviews.map((review, index) => (
+                  <div key={index}>
+                    <Stack spacing={1}>
+                      <Rating
+                        name="half-rating-read"
+                        value={review.rate} // 해당 리뷰의 평점 값으로 변경
+                        precision={0.5}
+                        readOnly
+                      />
+                      <span>{review.content}</span>
+                    </Stack>
+                  </div>
+                ))}
+
                 {/* {counselorData.evaluations.map((evaluation, index) => (
                   <div key={index}>
                     <img
@@ -236,7 +319,7 @@ export const CounselorDetail: React.FC = () => {
                       </p>
                     )}
                   </div>
-                ))} */}
+                ))}*/}
               </div>
             </FlexContainer>
           </BackgroundBox>

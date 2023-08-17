@@ -381,7 +381,7 @@ export const ProfileEdit = () => {
                 marginLeft: '100px',
               }}
             >
-              {user.type ? (
+              {user.type === 2 || user.type === 3 ? (
                 <Button
                   text="이력 수정"
                   size={{ width: '420px', height: '50px' }}
