@@ -1,6 +1,5 @@
 package com.ssafy.cartel.controller;
 
-import com.ssafy.cartel.domain.Career;
 import com.ssafy.cartel.domain.Counselor;
 import com.ssafy.cartel.domain.User;
 import com.ssafy.cartel.dto.*;
@@ -13,7 +12,6 @@ import com.ssafy.cartel.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -34,16 +32,21 @@ public class CounselorController {
     private final UserRepository userRepository;
     private final CounselorRepository counselorRepository;
 
+    @PostMapping(value = "/signup/counselor", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public ResponseEntity<String> signupCounselor(@RequestPart("request") CounselorSignupRequest request, @RequestPart("file1") MultipartFile file1, @RequestPart("file2") MultipartFile file2, @RequestPart("file3") MultipartFile file3) throws IOException {
+        System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!");
+        System.out.println("______________"+file1);
+        System.out.println(request.getCounselorDto().getCompany());
+        System.out.println(request.getUserDto().getEmail());
 
-    @PostMapping(value = "/signup/counselor", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
-    public ResponseEntity<String> signupCounselor(@RequestPart("request") CounselorSignupRequest request, @RequestPart("file1") MultipartFile multipartFile1, @RequestPart("file2") MultipartFile multipartFile2, @RequestPart("file3") MultipartFile multipartFile3) throws IOException {
+
 
         User user = userService.save(request.getUserDto(),2);//상담사
         Counselor counselor = counselorService.save(request.getCounselorDto(),user);
 
-        String profileImg = imgService.upload(multipartFile1);
-        String licenseImg = imgService.upload(multipartFile2);
-        String registImg = imgService.upload(multipartFile3);
+        String profileImg = imgService.upload(file1);
+        String licenseImg = imgService.upload(file2);
+        String registImg = imgService.upload(file3);
 
         User setUser = userRepository.findById(user.getId())
                         .orElseThrow(()-> new IllegalArgumentException("not found : " + user.getId()));

@@ -3,9 +3,13 @@ package com.ssafy.cartel.controller;
 import com.ssafy.cartel.domain.Client;
 import com.ssafy.cartel.domain.Consulting;
 import com.ssafy.cartel.domain.Counsel;
+import com.ssafy.cartel.domain.Consulting;
 import com.ssafy.cartel.domain.Curriculum;
 import com.ssafy.cartel.dto.*;
 import com.ssafy.cartel.service.*;
+import com.ssafy.cartel.repository.ConsultingRepository;
+import com.ssafy.cartel.service.ConsultingService;
+import com.ssafy.cartel.service.CurriculumService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -31,7 +35,6 @@ public class ConsultingController {
         }
         return ResponseEntity.ok("상담일지 등록 완료");
     }
-
     @PostMapping("/review") // 소감문 등록
     public ResponseEntity<String> registReview(@RequestBody ReviewDto review){
         consultingService.registReview(review);
@@ -60,30 +63,26 @@ public class ConsultingController {
 
     }
 
-
-
-
-
-
-
-
-
+//    @GetMapping("/consulting/{clientId}") // 소감문 조회
+//    public List<ConsultingResDto> findReview(@PathVariable Integer clientId){
+//        return consultingService.getConsulting(clientId);
+//    }
 
     // 목록 조회
-    @GetMapping()
-    public ResponseEntity<List<ConsultingResDto>> findAllConsultingList(){
-        List<ConsultingResDto> consultingList = consultingService.findAll();
-
-        return ResponseEntity.ok()
-                .body(consultingList);
-    }
+//    @GetMapping()
+//    public ResponseEntity<List<ConsultingResDto>> findAllConsultingList(){
+//        List<ConsultingResDto> consultingList = consultingService.findAll();
+//
+//        return ResponseEntity.ok()
+//                .body(consultingList);
+//    }
 
     // 조회
-    @GetMapping("/{consulting_id}")
-    public ResponseEntity<?> findConsulting(@PathVariable Integer consulting_id) {
-        ConsultingResDto consultingResDto = consultingService.findById(consulting_id);
-        return ResponseEntity.ok().body(consultingResDto);
-    }
+//    @GetMapping("/{consulting_id}")
+//    public ResponseEntity<?> findConsulting(@PathVariable Integer consulting_id) {
+//        ConsultingResDto consultingResDto = consultingService.findById(consulting_id);
+//        return ResponseEntity.ok().body(consultingResDto);
+//    }
 
     // 등록
 //    @PostMapping()

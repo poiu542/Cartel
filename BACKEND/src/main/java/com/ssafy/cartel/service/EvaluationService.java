@@ -46,9 +46,7 @@ public class EvaluationService {
         Counselor counselor = counselorRepository.findById(counselorId)
                 .orElseThrow(()-> new IllegalArgumentException("not found : " + counselorId));
 
-        List<Evaluation> list = evaluationRepository.findByCounselorId(counselor);
-
-        return list;
+        return evaluationRepository.findByCounselorId(counselor);
     }
 
     // 상담사 후기 삭제
