@@ -82,5 +82,10 @@ public class CounselService {
     }
 
 
+    public Counsel findByCounselId(Integer id) {
+        Counsel counsel = counselRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("not found:" + id));
+        return counsel;
 
+    }
 }
