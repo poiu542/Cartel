@@ -5,7 +5,7 @@ import DatePicker from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css'
 import styled from 'styled-components'
 import Modal from 'react-modal'
-
+import axios from 'axios'
 export const CounselMake = () => {
   const days = ['월', '화', '수', '목', '금', '토', '일']
   const hours = Array.from({ length: 23 }, (_, i) => i)
@@ -44,9 +44,30 @@ export const CounselMake = () => {
     display: flex;
     flex-direction: column;
   `
+  const data = {
+    startDate: startDate,
+    endDate: endDate,
+    counselCount: curriculumCount,
+    title: counselTitle,
+    state: 0,
+    clientCount: 0,
+    price: amount,
+    counselorId: 1,
+    introduction: counselContent,
+    weekCount: 0,
+  }
   const createCounsel = () => {
-    // axios.post('')
-    alert('상담개설')
+    axios
+
+      .post(`${process.env.REACT_APP_BASE_URL}login`, data)
+      .then((response) => {
+        console.log(response)
+
+        navigate('/counsel')
+      })
+      .catch((error) => {
+        console.log(error)
+      })
   }
   const cancle = () => {
     navigate(`/counsel`)

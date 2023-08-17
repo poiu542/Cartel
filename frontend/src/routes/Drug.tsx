@@ -269,7 +269,7 @@ export const Drug = () => {
             </div>
           }
         />
-        <img
+        {/* <img
           src="/image/effect.jpg"
           alt=""
           style={{
@@ -278,7 +278,7 @@ export const Drug = () => {
             height: 'auto',
             marginTop: '150px',
           }}
-        />
+        /> */}
       </CardsContainer>
       {/* </CardsContainer> */}
 

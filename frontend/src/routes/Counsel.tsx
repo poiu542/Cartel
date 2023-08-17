@@ -8,6 +8,7 @@ import { userState } from '../recoil/atoms/userState'
 import axios from 'axios'
 
 export const Counsel = () => {
+  const [user, setUser] = useRecoilState(userState)
   const [searchTerm, setSearchTerm] = useState('')
   const navigate = useNavigate()
   const [currentPage, setCurrentPage] = useState(1)
@@ -85,34 +86,37 @@ export const Counsel = () => {
           position: 'relative',
         }}
       >
-        <div
-          className="counsel create button"
-          style={{
-            position: 'absolute',
-            right: '5px',
-            width: '170px',
-            height: '43px',
-            backgroundColor: '#15E506',
-            borderRadius: '10px',
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-            margin: '0px 0px 0px 0px',
-            cursor: 'pointer',
-            bottom: '510px',
-          }}
-          onClick={createCounsel}
-        >
+        {user.type === 2 || user.type === 3 ? (
           <div
+            className="counsel create button"
             style={{
-              fontSize: '20px',
-              fontWeight: 'bold',
-              color: 'white',
+              position: 'absolute',
+              right: '5px',
+              width: '170px',
+              height: '43px',
+              backgroundColor: '#15E506',
+              borderRadius: '10px',
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+              margin: '0px 0px 0px 0px',
+              cursor: 'pointer',
+              bottom: '510px',
             }}
+            onClick={createCounsel}
           >
-            상담 개설
+            <div
+              style={{
+                fontSize: '20px',
+                fontWeight: 'bold',
+                color: 'white',
+              }}
+            >
+              상담 개설
+            </div>
           </div>
-        </div>
+        ) : null}
+
         <div
           className="Counsel Cart List"
           style={{
