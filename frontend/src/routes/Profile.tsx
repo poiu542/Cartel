@@ -679,7 +679,7 @@ export const Profile = () => {
             </div>
           </div>
           <div className="right bottom">
-            {user.type ? (
+            {user.type === 2 || user.type === 3 ? (
               <div>
                 <h3
                   style={{
@@ -711,7 +711,6 @@ export const Profile = () => {
                 </div>
               </div>
             ) : null}
-
             <h3
               style={{
                 marginLeft: '100px',

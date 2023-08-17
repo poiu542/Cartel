@@ -103,8 +103,14 @@ declare global {
   }
 }
 
+interface ClientData {
+  userId: number
+}
+
 export const CounselDetail = () => {
   // 상담상세데이터
+  const [clients, setClients] = useState<ClientData[]>([])
+  const [checkClient, setCheckClient] = useState(false)
   const [counselData, setCounselData] = useState<Counsel>({
     counselid: 0,
     startDate: '',
@@ -140,9 +146,10 @@ export const CounselDetail = () => {
   )
   const [paymentData, setPaymentData] = useState({
     amount: 0,
-    usrId: user.id,
+    userId: user.id,
     counselId: counselId,
   })
+
   const navigate = useNavigate()
   const userStatus: number = 2
   const [deleteModalIsOpen, setDeleteModalIsOpen] = useState(false)
@@ -164,6 +171,27 @@ export const CounselDetail = () => {
     weekCount,
   } = counselData
 
+  // 내담자정보 가져오기
+  useEffect(() => {
+    axios
+      .get(`${process.env.REACT_APP_BASE_URL}counsel/client/${counselId}`)
+      .then((res) => {
+        setClients([...res.data])
+
+        res.data.forEach((userId: any) => {
+          console.log(user.id === userId.userId)
+          if (
+            (user.id && user.id === userId) ||
+            user.type === 3 ||
+            user.id === counselData.counselorId
+          ) {
+            setCheckClient(true)
+          }
+        })
+      })
+      .catch((err) => console.log(err))
+  }, [])
+  console.log('내담자인지확인', checkClient)
   // 커리큘럼 가져와서 저장하기
   useEffect(() => {
     axios
@@ -253,11 +281,11 @@ export const CounselDetail = () => {
     alert('상담 정보 보기')
   }
   const handleCounselViewClick = () => {
-    if (user.type === 1) {
-      navigate('/testimony/userId')
+    if (user.type === 1 || user.type === 3) {
+      navigate(`/testimony/${user.id}`)
       window.scrollTo(0, 0)
     } else if (user.type === 2) {
-      navigate('/counsel/counseljournal/:couselId/:userId')
+      navigate(`/counsel/clientlist/${counselId}`)
       window.scrollTo(0, 0)
     }
   }
@@ -545,11 +573,6 @@ export const CounselDetail = () => {
               }}
             >
               {counselData.introduction}
-              불안을 해결 할 수 있는 방법은 진짜 나를 알아가고, 내가 원하는
-              인생을 설계하며, 작은것부터 실천하고 이루어 가는 것입니다. 내
-              삶에, 내 고민에는 반드시 내가 있어야 합니다. 인생설계 프로젝트를
-              통해 이제부터 나를 알아가고 인정하고 지지해주는 멋진 삶을 만들어
-              보아요.
             </div>
           </div>
         </div>
@@ -598,29 +621,37 @@ export const CounselDetail = () => {
                   className="counsel journal open"
                   style={{ marginBottom: '10px' }}
                 >
-                  <Button
-                    size={{ width: '284px', height: '60px' }}
-                    text={user.type === 1 ? '소감문 보기' : '상담일지 보기'}
-                    color={{ background: '#00AAFF', color: 'white' }}
-                    onClick={handleCounselViewClick}
-                  />
+                  {checkClient && (
+                    <Button
+                      size={{ width: '284px', height: '60px' }}
+                      text={user.type === 1 ? '소감문 보기' : '상담일지 보기'}
+                      color={{ background: '#00AAFF', color: 'white' }}
+                      onClick={handleCounselViewClick}
+                    />
+                  )}
                 </div>
-                <div className="edit" style={{ marginBottom: '10px' }}>
-                  <Button
-                    size={{ width: '284px', height: '60px' }}
-                    text="수정하기"
-                    color={{ background: '#40BFFF', color: 'white' }}
-                    onClick={editCounselDetail}
-                  />
-                </div>
-                <div className="delete" style={{ marginBottom: '10px' }}>
-                  <Button
-                    size={{ width: '284px', height: '60px' }}
-                    text="삭제하기"
-                    color={{ background: '#EF5C5C', color: 'white' }}
-                    onClick={() => setDeleteModalIsOpen(true)}
-                  />
-                </div>
+                {counselData.counselorId === user.id ||
+                  (user.type === 3 && (
+                    <div className="edit" style={{ marginBottom: '10px' }}>
+                      <Button
+                        size={{ width: '284px', height: '60px' }}
+                        text="수정하기"
+                        color={{ background: '#40BFFF', color: 'white' }}
+                        onClick={editCounselDetail}
+                      />
+                    </div>
+                  ))}
+                {counselData.counselorId === user.id ||
+                  (user.type === 3 && (
+                    <div className="delete" style={{ marginBottom: '10px' }}>
+                      <Button
+                        size={{ width: '284px', height: '60px' }}
+                        text="삭제하기"
+                        color={{ background: '#EF5C5C', color: 'white' }}
+                        onClick={() => setDeleteModalIsOpen(true)}
+                      />
+                    </div>
+                  ))}
               </div>
             )}
           </div>
@@ -679,27 +710,29 @@ export const CounselDetail = () => {
                       >
                         {conunselCurriculum.content}
                       </h4>
-                      <div
-                        style={{
-                          cursor: 'pointer',
-                          borderRadius: '5px',
-                          border: '1px solid #40BFFF',
-                          width: '80px',
-                          height: '40px',
-                          display: 'flex',
-                          alignItems: 'center',
-                          justifyContent: 'center',
-                          fontSize: '12px',
-                          backgroundColor: '#40BFFF',
-                          color: 'white',
-                          margin: '0px 0px 0px 0px',
-                        }}
-                        onClick={() =>
-                          counselEntrance(conunselCurriculum.curriculumId)
-                        }
-                      >
-                        상담 입장하기
-                      </div>
+                      {checkClient && (
+                        <div
+                          style={{
+                            cursor: 'pointer',
+                            borderRadius: '5px',
+                            border: '1px solid #40BFFF',
+                            width: '80px',
+                            height: '40px',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            fontSize: '12px',
+                            backgroundColor: '#40BFFF',
+                            color: 'white',
+                            margin: '0px 0px 0px 0px',
+                          }}
+                          onClick={() =>
+                            counselEntrance(conunselCurriculum.curriculumId)
+                          }
+                        >
+                          상담 입장하기
+                        </div>
+                      )}
                     </div>
                   </div>
                   {index < 6 && (
