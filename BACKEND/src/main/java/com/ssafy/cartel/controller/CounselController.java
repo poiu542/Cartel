@@ -1,6 +1,7 @@
 package com.ssafy.cartel.controller;
 
 import com.ssafy.cartel.domain.Counsel;
+import com.ssafy.cartel.dto.CounselClient;
 import com.ssafy.cartel.dto.CounselDto;
 import com.ssafy.cartel.dto.CounselResDto;
 import com.ssafy.cartel.service.CounselService;
@@ -30,6 +31,17 @@ public class CounselController {
     public ResponseEntity<?> findCounsel(@PathVariable Integer counsel_id) {
         CounselResDto counselResDto = counselService.findById(counsel_id);
         return ResponseEntity.ok().body(counselResDto);
+    }
+
+    @GetMapping("/client/{counsel_id}")//상담 번호별 내담자의 유저번호 가져오기
+    public ResponseEntity<List<CounselClient>> findAllClient(@PathVariable Integer counsel_id){
+        Counsel counsel = counselService.findByCounselId(counsel_id);
+        List<CounselClient> counselClients = counselService.findByCounsel(counsel)
+                .stream()
+                .map(CounselClient::new)
+                .toList();
+
+        return ResponseEntity.ok().body(counselClients);
     }
 
     // 등록
