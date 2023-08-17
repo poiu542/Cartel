@@ -19,9 +19,8 @@ export const Counselor = () => {
       .get(`${process.env.REACT_APP_BASE_URL}userinfo/counselor`)
       .then((res) => {
         setCounselors([...res.data])
-        console.log('test')
-        console.log(res)
-        console.log(counselors)
+
+        console.log('counselors', res.data)
       })
       .catch((err) => console.log(err))
   }, [])
@@ -98,7 +97,7 @@ export const Counselor = () => {
               <div style={{ margin: '10px 60px' }}>
                 <CounselorCard
                   onCardClick={() => counselorButtonClick(item.counselorId)}
-                  name={item.name}
+                  name={item.counselorName}
                   grade={item.rateSum}
                   introduce={
                     item.introduction && item.introduction.length > 27

@@ -27,9 +27,10 @@ export interface Curriculrum {
 // }
 
 export interface CounselorData {
+  counselorName: string
   counselorId: number
   userId: number
-  name: string
+  name?: string
   profile: string | null
   regist: string | null
   license: string | null

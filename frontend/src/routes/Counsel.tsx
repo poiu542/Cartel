@@ -6,6 +6,7 @@ import Footer from '../components/Footer'
 import { useRecoilValue, useRecoilState } from 'recoil'
 import { userState } from '../recoil/atoms/userState'
 import axios from 'axios'
+import { formatDateDetail } from '../utils/dateUtils'
 
 export const Counsel = () => {
   const [user, setUser] = useRecoilState(userState)
@@ -44,6 +45,8 @@ export const Counsel = () => {
         console.error('Error fetching user data: ', error)
       })
   }, [])
+
+  console.log('필터데이터', filteredData)
 
   return (
     <div>
@@ -133,14 +136,14 @@ export const Counsel = () => {
               <div style={{ margin: '10px 60px' }}>
                 <CounselCard
                   buttonText="상세보기"
-                  name="석민혁"
-                  grade={4.8}
-                  gradeCount={51}
-                  startTime="10:00"
-                  endTime="12:30"
+                  name={item.counselorName}
+                  grade={item.clientCount}
+                  gradeCount=""
+                  startTime={formatDateDetail(item.startDate)}
+                  endTime={formatDateDetail(item.endDate)}
                   title={item.title}
-                  minParticipantCount={4}
-                  maxParticipantCount={12}
+                  minParticipantCount={item.minClient}
+                  maxParticipantCount={item.maxClient}
                   sessionCount={item.weekCount}
                   price={item.price}
                   onClick={() => counselButtonClick(item.counselId)}

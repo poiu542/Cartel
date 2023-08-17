@@ -127,6 +127,7 @@ export const CounselDetail = () => {
   const [user, setUser] = useRecoilState(userState)
   const [counselor, setCounselor] = useState<CounselorData>({
     counselorId: 0,
+    counselorName: '',
     userId: 0,
     name: '',
     profile: '',
@@ -180,11 +181,9 @@ export const CounselDetail = () => {
 
         res.data.forEach((userId: any) => {
           console.log(user.id === userId.userId)
-          if (
-            (user.id && user.id === userId) ||
-            user.type === 3 ||
-            user.id === counselData.counselorId
-          ) {
+          if (user.id && user.id === userId) {
+            setCheckClient(true)
+          } else if (user.id && user.type === 3) {
             setCheckClient(true)
           }
         })
@@ -209,7 +208,9 @@ export const CounselDetail = () => {
       .get(`${process.env.REACT_APP_BASE_URL}counsel/${counselId}`)
       .then((res) => {
         setCounselData(res.data)
-
+        if (res.data.counselorId === user.id) {
+          setCheckClient(true)
+        }
         console.log(res)
       })
       .catch((err) => console.log(err))
@@ -270,7 +271,16 @@ export const CounselDetail = () => {
       alert('결제 성공')
       axios
         .post(`${process.env.REACT_APP_BASE_URL}payment`, paymentData)
-        .then((res) => console.log('포스트성공', res))
+        .then((res) =>
+          axios
+            .get(`${process.env.REACT_APP_BASE_URL}userinfo/${user.id}`)
+            .then((res) => {
+              setUser((prevUser) => ({
+                ...prevUser,
+                type: res.data.type,
+              }))
+            }),
+        )
         .catch((err) => console.log('포스트실패', err))
     } else {
       alert(`결제 실패: ${error_msg}`)
@@ -586,9 +596,9 @@ export const CounselDetail = () => {
           <div className="right top">
             <CounselCard
               buttonText="결제하기"
-              name={counselor.name}
+              name={counselor.counselorName}
               grade={counselor.rateSum}
-              gradeCount={3}
+              gradeCount={''}
               startTime={formatDateDetail(counselData.startDate)}
               endTime={formatDateDetail(counselData.endDate)}
               title={counselData.title}
@@ -607,7 +617,7 @@ export const CounselDetail = () => {
           >
             <CounselorCard
               onCardClick={onCardClick}
-              name={counselor.name}
+              name={counselor.counselorName}
               grade={counselor.rateSum}
               gradeCount={45}
               introduce={counselor.introduction}
@@ -621,14 +631,12 @@ export const CounselDetail = () => {
                   className="counsel journal open"
                   style={{ marginBottom: '10px' }}
                 >
-                  {checkClient && (
-                    <Button
-                      size={{ width: '284px', height: '60px' }}
-                      text={user.type === 1 ? '소감문 보기' : '상담일지 보기'}
-                      color={{ background: '#00AAFF', color: 'white' }}
-                      onClick={handleCounselViewClick}
-                    />
-                  )}
+                  <Button
+                    size={{ width: '284px', height: '60px' }}
+                    text={user.type === 1 ? '소감문 보기' : '상담일지 보기'}
+                    color={{ background: '#00AAFF', color: 'white' }}
+                    onClick={handleCounselViewClick}
+                  />
                 </div>
                 {counselData.counselorId === user.id ||
                   (user.type === 3 && (
