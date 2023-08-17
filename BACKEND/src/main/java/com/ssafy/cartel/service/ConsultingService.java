@@ -46,14 +46,13 @@ public class ConsultingService {
                 .build());
         return consulting;
     }
-
     public void registReview(ReviewDto reviewDto) {
         Curriculum curriculum = curriculumRepository.findById(reviewDto.getCurriculumId())
-                .orElseThrow(() -> new IllegalArgumentException("not found curriculum"));
+                .orElseThrow(() -> new IllegalArgumentException("not found curriculum" ));
         User user = userRepository.findByNickname(reviewDto.getNickname())
-                .orElseThrow(() -> new IllegalArgumentException("unexpexted nickneme"));
-        Client client = clientRepository.findByUserId(user)
-                .orElseThrow(() -> new IllegalArgumentException("unexpexted user"));
+                .orElseThrow(()-> new IllegalArgumentException("unexpexted nickneme"));
+        Client client =clientRepository.findByUserId(user)
+                .orElseThrow(()-> new IllegalArgumentException("unexpexted user"));
 
         consultingRepository.save(Consulting.builder()
                 .consulting(reviewDto.getContent())
@@ -64,37 +63,6 @@ public class ConsultingService {
                 .build());
     }
 
-
-//    @Transactional
-//    public Consulting save(ConsultingDto consultingDto){
-//        Client client = clientRepository.findById(consultingDto.getClientId()).orElseThrow();
-//        Curriculum curriculum = curriculumRepository.findById(consultingDto.getCurriculumId()).orElseThrow();
-//
-//        return consultingRepository.save(consultingDto.toEntity(client,curriculum));
-//    }
-//
-//    public List<ConsultingResDto> findAll(){
-//        List<Consulting> consulting = consultingRepository.findAll();
-//        List<ConsultingResDto> consultingResDtoList = new ArrayList<>();
-//
-//        for (int i = 0; i < consulting.size(); i++) {
-//            ConsultingResDto consultingResDto = ConsultingResDto.builder()
-//                    .counselId(consulting.get(i).getCurriculumId().getCounselId().getId())
-//                    .counselTitle(consulting.get(i).getCurriculumId().getCounselId().getTitle())
-//                    .consultingId(consulting.get(i).getId())
-//                    .consulting(consulting.get(i).getConsulting())
-//                    .consultingDate(consulting.get(i).getDate().toLocalDate())
-//                    .consultingState(consulting.get(i).getState())
-//                    .userId(consulting.get(i).getClientId().getUserId().getId())
-//                    .userNickname(consulting.get(i).getClientId().getUserId().getNickname())
-//                    .userEmail(consulting.get(i).getClientId().getUserId().getEmail())
-//                    .clientId(consulting.get(i).getClientId().getId())
-//                    .build();
-//
-//            consultingResDtoList.add(consultingResDto);
-//        }
-//        return consultingResDtoList;
-//    }
 
     public List<ConsultingResDto> getConsulting(Integer clientId) {
         Consulting consulting = consultingRepository.findById(clientId)
@@ -117,6 +85,12 @@ public class ConsultingService {
         }
         return consultingResDtoList;
     }
+
+    public List<Consulting> findByStateAndCurriculum(Curriculum curriculum) {
+        List<Consulting> consultings = consultingRepository.findAllByStateAndCurriculumId(0,curriculum);
+        return consultings;
+    }
+
 
 
 //    @Transactional
