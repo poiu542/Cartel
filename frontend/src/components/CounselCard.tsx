@@ -36,7 +36,7 @@ const CounselorCard: React.FC<CounselCardProps> = ({
         border: '1px solid #40BFFF',
         borderRadius: '20px',
         width: '347px',
-        height: '339px',
+        height: '340px',
       }}
     >
       <div className="counsel title" style={{ marginLeft: '30px' }}>
@@ -99,7 +99,7 @@ const CounselorCard: React.FC<CounselCardProps> = ({
               marginBottom: '10px',
             }}
           >
-            <div className="time">진행시간:</div>
+            <div className="time">시간:</div>
             <div style={{ marginRight: '30px' }}>
               {startTime} - {endTime}
             </div>

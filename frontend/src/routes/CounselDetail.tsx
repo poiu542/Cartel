@@ -652,7 +652,7 @@ export const CounselDetail = () => {
                   <div
                     style={{
                       display: 'flex',
-                      justifyContent: 'space-between',
+                      // justifyContent: 'space-between',
                       alignItems: 'center',
                       margin: '5px 0',
                     }}
@@ -661,13 +661,17 @@ export const CounselDetail = () => {
                       style={{
                         display: 'flex',
                         justifyContent: 'space-between',
+                        width: '700px',
                       }}
                     >
                       <h4
                         style={{
-                          fontSize: '14px',
+                          fontSize: '11px',
                           fontWeight: 'normal',
                           margin: '7px',
+                          whiteSpace: 'nowrap',
+                          overflow: 'hidden',
+                          textOverflow: 'ellipsis',
                         }}
                       >
                         {conunselCurriculum.content}
@@ -685,7 +689,7 @@ export const CounselDetail = () => {
                           fontSize: '12px',
                           backgroundColor: '#40BFFF',
                           color: 'white',
-                          margin: '0px 0px 0px 580px',
+                          margin: '0px 0px 0px 0px',
                         }}
                         onClick={() =>
                           counselEntrance(conunselCurriculum.curriculumId)
