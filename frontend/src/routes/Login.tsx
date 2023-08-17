@@ -108,6 +108,7 @@ export const Login = () => {
 
       .post(`${process.env.REACT_APP_BASE_URL}login`, data)
       .then((response) => {
+        console.log(response)
         // 헤더 정보
         const accessToken = response.data.token
         const type = response.data.type
@@ -129,11 +130,12 @@ export const Login = () => {
         navigate('/')
       })
       .catch((error) => {
-        if (error.response) {
-          console.log('Server Response:', error.response.data)
-        } else {
-          console.log('Error Message:', error.message)
-        }
+        console.log(error)
+        // if (error.response) {
+        //   console.log('Server Response:', error.response.data)
+        // } else {
+        //   console.log('Error Message:', error.message)
+        // }
         setUser((prevUser) => ({ ...prevUser, isLoggedIn: false }))
 
         toast.error('로그인 실패')
