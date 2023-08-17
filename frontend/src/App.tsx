@@ -11,7 +11,7 @@ import './App.css'
 // import ArticleBar from './components/ArticleBar'
 // import CounselingBar from './components/CounselingBar'
 // import Footer from './components/Footer'
-import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import { BrowserRouter, Route, Routes, useParams } from 'react-router-dom'
 import { Main } from './routes/Main'
 import { Login } from './routes/Login'
 import { SignUp } from './routes/SignUp'
@@ -56,6 +56,14 @@ import { QnaEdit } from './routes/QnaEdit'
 import { useRecoilState } from 'recoil'
 import { userState } from './recoil/atoms/userState'
 import { login } from './features/auth/authSlice'
+
+type CurriculumParams = {
+  curriculumId: string
+}
+
+interface CounselOpenviduProps {
+  curriculumId: string
+}
 
 const queryClient = new QueryClient()
 
@@ -209,8 +217,8 @@ function App(): React.ReactElement {
             <Route path="/selfhelpgroup" element={<SelfHelpGroup />} />
             {/* 상담 */}
             <Route
-              path="/counseling/:curriculumId"
-              element={<CounselOpenvidu />}
+              path="counseling/:curriculumId"
+              element={<WrappedCounselingComponent />}
             />
             {/* <Route path="/write" element={<Write />} /> */}
             {/* 나머지모든페이지 notfound로으로 */}
@@ -221,6 +229,12 @@ function App(): React.ReactElement {
       </QueryClientProvider>
     </div>
   )
+}
+
+function WrappedCounselingComponent() {
+  const params = useParams<CurriculumParams>()
+
+  return <CounselOpenvidu curriculumId={params.curriculumId} />
 }
 
 export default App
