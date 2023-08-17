@@ -502,16 +502,19 @@ class CounselOpenvidu extends Component {
             // 상담일지 POST 요청을 보내는 메서드
             try {
               const response = await axios.post(
-                '상담일지 POST AAAAAAAAAAAAAAAAAAAAPPPPPPPPPPPPPPIIIIIIIIIII주소',
+                `${process.env.REACT_APP_BASE_URL}consulting`,
                 {
-                  counselId: this.state.counselId,
-                  journalData: this.state.journalData,
+                  curriculumId: this.state.mySessionId,
+                  consultings: this.state.journalData,
                 },
               )
 
-              // console.log(response.data)
+              console.log('상담일지 잘 드가나~')
+              console.log(response.data)
             } catch (error) {
-              console.error('상담일지 post 에러', error)
+              console.error('상담일지 입력 에러', error)
+              console.log(this.state.mySessionId)
+              console.log(this.state.journalData)
             }
           },
         )
@@ -727,7 +730,9 @@ class CounselOpenvidu extends Component {
             소감문
           </StyledButton>
         </Bottom>
-        {this.state.isTestimony && <TestimonyModal />}
+        {this.state.isTestimony && (
+          <TestimonyModal curriculumId={this.state.mySessionId} />
+        )}
         {/* ) : null} */}
       </Container>
     )
