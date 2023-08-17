@@ -9,12 +9,7 @@ import styled from '@emotion/styled'
 import { StyledTextArea } from './Write'
 
 interface TestimonyModalProps {
-  nickname: string
-}
-
-interface TestimonyData {
-  nickname: string
-  content: string
+  curriculumId: number
 }
 
 const style = {
@@ -29,21 +24,34 @@ const style = {
   p: 4,
 }
 
-export default function TestimonyModal(props: TestimonyModalProps) {
+export default function TestimonyModal({
+  curriculumId: propsCurriculumId,
+}: TestimonyModalProps) {
   const [open, setOpen] = React.useState(true)
   const handleOpen = () => setOpen(true)
   const handleClose = () => setOpen(false)
+
+  const loginUserString: string | null = sessionStorage.getItem('loginUser')
+  let nicknameFromSession: string = ''
+
+  if (loginUserString) {
+    const userState = JSON.parse(loginUserString).userState
+    if (userState && userState.nickname) {
+      nicknameFromSession = userState.nickname
+    }
+  }
+
   const [testimony, setTestimony] = React.useState({
+    curriculumId: propsCurriculumId,
     content: '',
-    clientId: 1,
-    counselId: 1,
+    nickname: nicknameFromSession,
   })
 
   const navigate = useNavigate()
 
   // 여기에 clientId, counselId 값 변경 해야 함 - counselId(params), clientId...? userId?
 
-  const { content, clientId, counselId } = testimony
+  const { curriculumId, content, nickname } = testimony
 
   const handleTestimony = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setTestimony((prevTestimony) => ({
@@ -54,15 +62,14 @@ export default function TestimonyModal(props: TestimonyModalProps) {
 
   const postMyTestimony = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault() // 기본 폼 제출 동작 방지
+    console.log(testimony)
+    console.log('dnl 위는 테스팀모니')
     if (content.length === 0) {
       alert('내용을 입력해주세요.')
     } else {
       if (window.confirm('소감문을 등록하시겠습니까?')) {
         axios
-          .post(
-            `${process.env.REACT_APP_BASE_URL}counsel/${counselId}/testimony`,
-            testimony,
-          )
+          .post(`${process.env.REACT_APP_BASE_URL}review`, testimony)
           .then((response) => {
             alert('소감문이 성공적으로 등록되었습니다.')
             navigate('/') // 메인페이지로

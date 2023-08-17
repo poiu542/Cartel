@@ -730,7 +730,9 @@ class CounselOpenvidu extends Component {
             소감문
           </StyledButton>
         </Bottom>
-        {this.state.isTestimony && <TestimonyModal />}
+        {this.state.isTestimony && (
+          <TestimonyModal curriculumId={this.state.mySessionId} />
+        )}
         {/* ) : null} */}
       </Container>
     )
