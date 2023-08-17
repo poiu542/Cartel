@@ -43,42 +43,42 @@ interface Counselor {
   evaluations: Evaluation[]
 }
 
-const DUMMY_DATA: { [key: string]: Counselor } = {
-  '1': {
-    id: '1',
-    imageUrl:
-      'https://img1.daumcdn.net/thumb/R1280x0/?fname=http://t1.daumcdn.net/brunch/service/user/5U3n/image/MEdGxSIxzO4h9s6d_SjkKtd_sjA.jpg',
-    counselor_name: '박태흠', // 나중에 총 평점 평균 로직 작성
-    counselor_introduction: '당신에게 소금 같은 사람이 되고 싶습니다.',
-    career_content: [
-      '상담심리사 2급 (한국상담심리학회)',
-      '전문코치 KPC (한국코치협회)',
-      '전문심리상담 및 코치 경력 (8년)',
-    ],
-    counselor_school: '연세대학교 일반대학원 상담심리 석사 졸업',
-    evaluations: [
-      {
-        evaluation_rate: 4.5,
-        evaluation_content:
-          '잘 공감해 주시고 위로해주시고 제 문제를 접근하는 구체적인 방법을 설명해주셨습니다',
-      },
-      {
-        evaluation_rate: 4,
-        evaluation_content:
-          '문제를 접근하는 구체적인 방법을 설명해주셨습니다문제를 접근하는 구체적인 방법을 설명해주셨습니다문제를 접근하는 구체적인 방법을 설명해주셨습니다문제를 접근하는 구체적인 방법을 설명해주셨습니다문제를 접근하는 구체적인 방법을 설명해주셨습니다문제를 접근하는 구체적인 방법을 설명해주셨습니다문제를 접근하는 구체적인 방법을 설명해주셨습니다문제를 접근하는 구체적인 방법을 설명해주셨습니다문제를 접근하는 구체적인 방법을 설명해주셨습니다문제를 접근하는 구체적인 방법을 설명해주셨습니다',
-      },
-      {
-        evaluation_rate: 5,
-        evaluation_content: '답답한게 쫌 시원해져요',
-      },
-      {
-        evaluation_rate: 5,
-        evaluation_content:
-          '답답한게 쫌 시원해시원해시원해시원해시원해시원해시원해시원해시원해시원해시원해시원해시원해시원해시원해시원해시원해시원해시원해시원해시원해시원해시원해시원해시원해시원해시원해시원해시원해시원해시원해시원해시원해시원해시원해시원해시원해시원해시원해시원해시원해시원해시원해시원해시원해시원해시원해시원해시원해시원해시원해져요',
-      },
-    ],
-  },
-}
+// const DUMMY_DATA: { [key: string]: Counselor } = {
+//   '1': {
+//     id: '1',
+//     imageUrl:
+//       'https://img1.daumcdn.net/thumb/R1280x0/?fname=http://t1.daumcdn.net/brunch/service/user/5U3n/image/MEdGxSIxzO4h9s6d_SjkKtd_sjA.jpg',
+//     counselor_name: '박태흠', // 나중에 총 평점 평균 로직 작성
+//     counselor_introduction: '당신에게 소금 같은 사람이 되고 싶습니다.',
+//     career_content: [
+//       '상담심리사 2급 (한국상담심리학회)',
+//       '전문코치 KPC (한국코치협회)',
+//       '전문심리상담 및 코치 경력 (8년)',
+//     ],
+//     counselor_school: '연세대학교 일반대학원 상담심리 석사 졸업',
+//     evaluations: [
+//       {
+//         evaluation_rate: 4.5,
+//         evaluation_content:
+//           '잘 공감해 주시고 위로해주시고 제 문제를 접근하는 구체적인 방법을 설명해주셨습니다',
+//       },
+//       {
+//         evaluation_rate: 4,
+//         evaluation_content:
+//           '문제를 접근하는 구체적인 방법을 설명해주셨습니다문제를 접근하는 구체적인 방법을 설명해주셨습니다문제를 접근하는 구체적인 방법을 설명해주셨습니다문제를 접근하는 구체적인 방법을 설명해주셨습니다문제를 접근하는 구체적인 방법을 설명해주셨습니다문제를 접근하는 구체적인 방법을 설명해주셨습니다문제를 접근하는 구체적인 방법을 설명해주셨습니다문제를 접근하는 구체적인 방법을 설명해주셨습니다문제를 접근하는 구체적인 방법을 설명해주셨습니다문제를 접근하는 구체적인 방법을 설명해주셨습니다',
+//       },
+//       {
+//         evaluation_rate: 5,
+//         evaluation_content: '답답한게 쫌 시원해져요',
+//       },
+//       {
+//         evaluation_rate: 5,
+//         evaluation_content:
+//           '답답한게 쫌 시원해시원해시원해시원해시원해시원해시원해시원해시원해시원해시원해시원해시원해시원해시원해시원해시원해시원해시원해시원해시원해시원해시원해시원해시원해시원해시원해시원해시원해시원해시원해시원해시원해시원해시원해시원해시원해시원해시원해시원해시원해시원해시원해시원해시원해시원해시원해시원해시원해시원해시원해져요',
+//       },
+//     ],
+//   },
+// }
 interface CounselorReviewData {
   id: number
   rate: number
