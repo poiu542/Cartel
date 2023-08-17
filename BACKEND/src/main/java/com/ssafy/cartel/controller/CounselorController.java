@@ -38,13 +38,6 @@ public class CounselorController {
     @PostMapping(value = "/signup/counselor", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
     public ResponseEntity<String> signupCounselor(@RequestPart("request") CounselorSignupRequest request, @RequestPart("file1") MultipartFile multipartFile1, @RequestPart("file2") MultipartFile multipartFile2, @RequestPart("file3") MultipartFile multipartFile3) throws IOException {
 
-        System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!");
-        System.out.println("______________"+multipartFile1);
-        System.out.println(request.getCounselorDto().getCompany());
-        System.out.println(request.getUserDto().getEmail());
-
-
-
         User user = userService.save(request.getUserDto(),2);//상담사
         Counselor counselor = counselorService.save(request.getCounselorDto(),user);
 

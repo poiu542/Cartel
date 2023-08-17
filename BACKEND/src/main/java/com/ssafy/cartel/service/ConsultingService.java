@@ -123,7 +123,10 @@ public class ConsultingService {
         return consultingResDto;
     }
 
-
+    public List<Consulting> findByStateAndCurriculum(Curriculum curriculum) {
+        List<Consulting> consultings = consultingRepository.findAllByStateAndCurriculumId(0,curriculum);
+        return consultings;
+    }
 
 
 //    @Transactional
