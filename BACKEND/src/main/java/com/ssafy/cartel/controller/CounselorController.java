@@ -26,7 +26,7 @@ public class CounselorController {
     @PostMapping("/signup/counselor")
     public ResponseEntity<String> signupCounselor(@RequestBody CounselorSignupRequest request){
         System.out.println(request.getUserDto().getEmail());
-        User user = userService.save(request.getUserDto());
+        User user = userService.save(request.getUserDto(),2);//상담사
         Counselor counselor = counselorService.save(request.getCounselorDto(),user);
         System.out.println(request.getCareersDto());
 
