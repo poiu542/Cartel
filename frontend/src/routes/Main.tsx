@@ -140,8 +140,9 @@ export const Main = () => {
 
   useEffect(() => {
     axios
-      .get(`${process.env.REACT_APP_BASE_URL}articles`)
+      .get(`${process.env.REACT_APP_BASE_URL}articles/community`)
       .then((response) => {
+        console.log('qwe')
         console.log(response)
 
         const sortedData = [...response.data]

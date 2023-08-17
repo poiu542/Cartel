@@ -254,11 +254,11 @@ export const CounselDetail = () => {
     alert('상담 정보 보기')
   }
   const handleCounselViewClick = () => {
-    if (userStatus === 1) {
+    if (user.type === 1) {
       navigate('/testimony/userId')
       window.scrollTo(0, 0)
-    } else if (userStatus === 2) {
-      navigate('/counsel/counselId/counselorJournal/:userEmail')
+    } else if (user.type === 2) {
+      navigate('/counsel/counseljournal/:couselId/:userId')
       window.scrollTo(0, 0)
     }
   }
@@ -593,35 +593,37 @@ export const CounselDetail = () => {
             />
           </div>
           <div className="right bottom" style={{ margin: '85px 0px 0px 41px' }}>
-            {userStatus !== 0 && (
-              <div
-                className="counsel journal open"
-                style={{ marginBottom: '10px' }}
-              >
-                <Button
-                  size={{ width: '284px', height: '60px' }}
-                  text={userStatus === 1 ? '소감문 보기' : '상담일지 보기'}
-                  color={{ background: '#00AAFF', color: 'white' }}
-                  onClick={handleCounselViewClick}
-                />
+            {user.type !== 0 && (
+              <div>
+                <div
+                  className="counsel journal open"
+                  style={{ marginBottom: '10px' }}
+                >
+                  <Button
+                    size={{ width: '284px', height: '60px' }}
+                    text={user.type === 1 ? '소감문 보기' : '상담일지 보기'}
+                    color={{ background: '#00AAFF', color: 'white' }}
+                    onClick={handleCounselViewClick}
+                  />
+                </div>
+                <div className="edit" style={{ marginBottom: '10px' }}>
+                  <Button
+                    size={{ width: '284px', height: '60px' }}
+                    text="수정하기"
+                    color={{ background: '#40BFFF', color: 'white' }}
+                    onClick={editCounselDetail}
+                  />
+                </div>
+                <div className="delete" style={{ marginBottom: '10px' }}>
+                  <Button
+                    size={{ width: '284px', height: '60px' }}
+                    text="삭제하기"
+                    color={{ background: '#EF5C5C', color: 'white' }}
+                    onClick={() => setDeleteModalIsOpen(true)}
+                  />
+                </div>
               </div>
             )}
-            <div className="edit" style={{ marginBottom: '10px' }}>
-              <Button
-                size={{ width: '284px', height: '60px' }}
-                text="수정하기"
-                color={{ background: '#40BFFF', color: 'white' }}
-                onClick={editCounselDetail}
-              />
-            </div>
-            <div className="delete" style={{ marginBottom: '10px' }}>
-              <Button
-                size={{ width: '284px', height: '60px' }}
-                text="삭제하기"
-                color={{ background: '#EF5C5C', color: 'white' }}
-                onClick={() => setDeleteModalIsOpen(true)}
-              />
-            </div>
           </div>
         </div>
       </div>
