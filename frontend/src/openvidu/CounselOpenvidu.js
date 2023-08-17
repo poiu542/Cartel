@@ -181,6 +181,7 @@ class CounselOpenvidu extends Component {
       userType: 5,
 
       userId: '',
+      title: '',
     }
 
     this.joinSession = this.joinSession.bind(this)
@@ -193,6 +194,17 @@ class CounselOpenvidu extends Component {
   }
 
   componentDidMount() {
+    const url = `${process.env.REACT_APP_BASE_URL}curriculum/${this.props.curriculumId}`
+
+    axios
+      .get(url)
+      .then((response) => {
+        this.setState({ title: response.data.content }) // 반환된 데이터에서 content를 title이란 state에 저장
+      })
+      .catch((error) => {
+        console.error('상담제목 불러오기 실패 : ', error)
+      })
+
     const loginUser = sessionStorage.getItem('loginUser')
     if (loginUser) {
       const parsedUser = JSON.parse(loginUser)
@@ -580,7 +592,7 @@ class CounselOpenvidu extends Component {
       <Container>
         <SetParamsToState />
         <Header>
-          <StudyTitle>상담이름</StudyTitle>
+          <StudyTitle>{this.state.title}</StudyTitle>
           {this.state.isCounselJournal ? (
             <p style={{ color: 'white', right: '50' }}>
               상담일지를 작성할 사람을 클릭하세요
