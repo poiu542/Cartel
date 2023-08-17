@@ -6,7 +6,7 @@ import com.ssafy.cartel.domain.User;
 import com.ssafy.cartel.dto.*;
 import com.ssafy.cartel.repository.UserRepository;
 import com.ssafy.cartel.service.ClientService;
-import com.ssafy.cartel.service.UserImgService;
+import com.ssafy.cartel.service.ImgService;
 import com.ssafy.cartel.service.UserService;
 import io.micronaut.context.annotation.Parameter;
 import lombok.RequiredArgsConstructor;
@@ -33,7 +33,7 @@ public class UserController {
     private final UserService userService;
     private final TokenProvider tokenProvider;
     private final UserRepository userRepository;
-    private final UserImgService userImgService;
+    private final ImgService imgService;
     private final ClientService clientService;
 
 
