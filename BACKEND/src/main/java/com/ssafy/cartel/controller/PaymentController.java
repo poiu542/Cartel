@@ -26,7 +26,6 @@ public class PaymentController {
         //결제
         paymentService.save(payment,id);
 
-        return ResponseEntity.ok()
-                .body("결제 성공");
+        return ResponseEntity.ok("결제성공");
     }
 }

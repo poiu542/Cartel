@@ -81,7 +81,7 @@ public class CounselorController {
         counselor.updateLicenseImg(licenseImg);
         counselor.updateRegistImg(registImg);
 
-        return ResponseEntity.ok().body("상담사 정보 수정 완료");
+        return ResponseEntity.ok("상담사 정보 수정 완료");
     }
 
     @GetMapping("/userinfo/counselor/{id}") //상담사 아이디
