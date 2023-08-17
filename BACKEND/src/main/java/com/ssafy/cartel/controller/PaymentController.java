@@ -20,6 +20,10 @@ public class PaymentController {
 
     @PostMapping("/payment")
     public ResponseEntity<String> findArticle(@RequestBody PaymentDto payment){//가격, userid, counselid
+       System.out.println("!!!!!!!!!!!!!!!!11"+payment.getAmount());
+        System.out.println("!!!!!!!!!!!!!!!!!!!!1"+payment.getCounselId());
+        System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!1"+payment.getUserId());
+
         //내담자 save
         Client client = clientService.save(payment);
         Integer id = client.getId();
