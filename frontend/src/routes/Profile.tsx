@@ -324,7 +324,7 @@ export const Profile = () => {
                     width: '300px',
                     height: '70px',
                     border: '1px solid lightgray',
-                    borderRadius: '0px 0px 0px 0px',
+                    borderRadius: '0px 0px 10px 10px',
                     cursor: 'pointer',
                   }}
                   onClick={myReview}
@@ -346,7 +346,7 @@ export const Profile = () => {
                     {'>>'}
                   </div>
                 </div>
-                <div
+                {/* <div
                   className="my counsel"
                   style={{
                     width: '300px',
@@ -373,8 +373,8 @@ export const Profile = () => {
                   >
                     {'>>'}
                   </div>
-                </div>
-                <div
+                </div> */}
+                {/* <div
                   className="my testimony"
                   style={{
                     width: '300px',
@@ -401,7 +401,7 @@ export const Profile = () => {
                   >
                     {'>>'}
                   </div>
-                </div>
+                </div> */}
               </div>
             ) : (
               <div>
@@ -439,7 +439,7 @@ export const Profile = () => {
                     width: '300px',
                     height: '70px',
                     border: '1px solid lightgray',
-                    borderRadius: '0px 0px 0px 0px',
+                    borderRadius: '0px 0px 10px 10px',
                     cursor: 'pointer',
                   }}
                   onClick={myReview}
@@ -461,7 +461,7 @@ export const Profile = () => {
                     {'>>'}
                   </div>
                 </div>
-                <div
+                {/* <div
                   className="my counsel"
                   style={{
                     width: '300px',
@@ -488,8 +488,8 @@ export const Profile = () => {
                   >
                     {'>>'}
                   </div>
-                </div>
-                <div
+                </div> */}
+                {/* <div
                   className="my counsel journal"
                   style={{
                     width: '300px',
@@ -516,7 +516,7 @@ export const Profile = () => {
                   >
                     {'>>'}
                   </div>
-                </div>
+                </div> */}
               </div>
             )}
           </div>
