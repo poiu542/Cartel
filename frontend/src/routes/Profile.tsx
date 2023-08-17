@@ -9,14 +9,7 @@ import { userState } from '../recoil/atoms/userState'
 import axios from 'axios'
 
 export const Profile = () => {
-  const [careers, setCareers] = useState([
-    'Developer',
-    'Designer',
-    'Product Manager',
-    'Product Manager',
-    'Product Manager',
-    'Product Manager',
-  ])
+  const [careers, setCareers] = useState([])
   const [nickname, setNickname] = useState('족구왕')
   const [email, setEmail] = useState('jokguking@jokgu.com')
   const [name, setName] = useState('')
@@ -85,20 +78,38 @@ export const Profile = () => {
   }
 
   useEffect(() => {
-    axios
-      .get(`${process.env.REACT_APP_BASE_URL}userinfo/${user.id}`)
-      .then((response) => {
-        const userData = response.data
-        console.log('프로필 페이지 진입 후 데이터 가져옴')
-        console.log(userData)
-        setNickname(userData.nickname)
-        setEmail(userData.email)
-        setPhoneNumber(userData.phone)
-        setName(userData.name)
-      })
-      .catch((error) => {
-        console.error('Error fetching user data: ', error)
-      })
+    if (user.type === 2) {
+      axios
+        .get(`${process.env.REACT_APP_BASE_URL}userinfo/counselor/${user.id}`)
+        .then((response) => {
+          const userData = response.data
+          console.log('프로필 페이지 진입 후 데이터 가져옴')
+          console.log(userData)
+          setNickname(userData.nickname)
+          setEmail(userData.email)
+          setPhoneNumber(userData.phone)
+          setName(userData.name)
+          setCareers(userData.careers)
+        })
+        .catch((error) => {
+          console.error('Error fetching user data: ', error)
+        })
+    } else {
+      axios
+        .get(`${process.env.REACT_APP_BASE_URL}userinfo/${user.id}`)
+        .then((response) => {
+          const userData = response.data
+          console.log('프로필 페이지 진입 후 데이터 가져옴')
+          console.log(userData)
+          setNickname(userData.nickname)
+          setEmail(userData.email)
+          setPhoneNumber(userData.phone)
+          setName(userData.name)
+        })
+        .catch((error) => {
+          console.error('Error fetching user data: ', error)
+        })
+    }
   }, [])
 
   return (
