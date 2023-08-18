@@ -132,4 +132,8 @@ public class User implements UserDetails {
         }
     }
 
+    public void type(Integer type){
+        this.type = type;
+    }
+
 }

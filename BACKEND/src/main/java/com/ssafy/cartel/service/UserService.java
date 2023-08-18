@@ -150,6 +150,12 @@ public class UserService {
         sendPwd(email,password.toString());
 
     }
+
+    @Transactional
+    public void type(Integer type,User user){
+        user.type(type);
+    }
+
     @Transactional
     public void changePassword(Integer id, String password){
         User user = userRepository.findById(id).orElseThrow(()-> new IllegalArgumentException("unexpexted id"));
