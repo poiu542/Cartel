@@ -722,29 +722,28 @@ export const CounselDetail = () => {
                       >
                         {conunselCurriculum.content}
                       </h4>
-                      {checkClient && (
-                        <div
-                          style={{
-                            cursor: 'pointer',
-                            borderRadius: '5px',
-                            border: '1px solid #40BFFF',
-                            width: '80px',
-                            height: '40px',
-                            display: 'flex',
-                            alignItems: 'center',
-                            justifyContent: 'center',
-                            fontSize: '12px',
-                            backgroundColor: '#40BFFF',
-                            color: 'white',
-                            margin: '0px 0px 0px 0px',
-                          }}
-                          onClick={() =>
-                            counselEntrance(conunselCurriculum.curriculumId)
-                          }
-                        >
-                          상담 입장하기
-                        </div>
-                      )}
+
+                      <div
+                        style={{
+                          cursor: 'pointer',
+                          borderRadius: '5px',
+                          border: '1px solid #40BFFF',
+                          width: '80px',
+                          height: '40px',
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          fontSize: '12px',
+                          backgroundColor: '#40BFFF',
+                          color: 'white',
+                          margin: '0px 0px 0px 0px',
+                        }}
+                        onClick={() =>
+                          counselEntrance(conunselCurriculum.curriculumId)
+                        }
+                      >
+                        상담 입장하기
+                      </div>
                     </div>
                   </div>
                   {index < 6 && (
