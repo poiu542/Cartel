@@ -280,7 +280,7 @@ export const CounselDetail = () => {
             .then((res) => {
               setUser((prevUser) => ({
                 ...prevUser,
-                type: res.data.type,
+                type: 1,
               }))
             }),
         )
@@ -341,6 +341,7 @@ export const CounselDetail = () => {
     flex-direction: column;
   `
   useEffect(() => {
+    console.log(user)
     axios
       .get(`${process.env.REACT_APP_BASE_URL}curriculum`)
       .then((response) => {
@@ -723,27 +724,29 @@ export const CounselDetail = () => {
                         {conunselCurriculum.content}
                       </h4>
 
-                      <div
-                        style={{
-                          cursor: 'pointer',
-                          borderRadius: '5px',
-                          border: '1px solid #40BFFF',
-                          width: '80px',
-                          height: '40px',
-                          display: 'flex',
-                          alignItems: 'center',
-                          justifyContent: 'center',
-                          fontSize: '12px',
-                          backgroundColor: '#40BFFF',
-                          color: 'white',
-                          margin: '0px 0px 0px 0px',
-                        }}
-                        onClick={() =>
-                          counselEntrance(conunselCurriculum.curriculumId)
-                        }
-                      >
-                        상담 입장하기
-                      </div>
+                      {user.type ? (
+                        <div
+                          style={{
+                            cursor: 'pointer',
+                            borderRadius: '5px',
+                            border: '1px solid #40BFFF',
+                            width: '80px',
+                            height: '40px',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            fontSize: '12px',
+                            backgroundColor: '#40BFFF',
+                            color: 'white',
+                            margin: '0px 0px 0px 0px',
+                          }}
+                          onClick={() =>
+                            counselEntrance(conunselCurriculum.curriculumId)
+                          }
+                        >
+                          상담 입장하기
+                        </div>
+                      ) : null}
                     </div>
                   </div>
                   {index < 6 && (
