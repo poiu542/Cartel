@@ -8,6 +8,8 @@ import axios from 'axios'
 import './Question.css'
 import Modal from 'react-modal'
 import { TestimonyTable } from '../components/TestimonyTable'
+import { useRecoilState } from 'recoil'
+import { userState } from '../recoil/atoms/userState'
 
 export const Testimony = () => {
   const modalStyle = {
@@ -31,6 +33,7 @@ export const Testimony = () => {
     },
   }
   const navigate = useNavigate()
+  const [user, setUser] = useRecoilState(userState)
 
   const [boardList, setBoardList] = useState<BoardData[]>([]) // axios에서 받아온 전체 게시글 데이터
   const [currentPost, setCurrentPost] = useState<BoardData[]>(boardList) // 페이지네이션을 통해 보여줄 게시글
@@ -58,7 +61,7 @@ export const Testimony = () => {
 
   useEffect(() => {
     axios
-      .get(`${process.env.REACT_APP_BASE_URL}articles`)
+      .get(`${process.env.REACT_APP_BASE_URL}review/${user.id}`)
       .then((response) => {
         setBoardList([...response.data].reverse())
       })
@@ -84,7 +87,7 @@ export const Testimony = () => {
         {boardList && (
           <TestimonyTable
             data={currentPost}
-            DetailTestimony={detailTestimony}
+            // DetailTestimony={detailTestimony}
           />
         )}
 

@@ -361,7 +361,7 @@ export const Main = () => {
             <CounselorCard
               key={counselor.counselorId} // Add a unique key for each card
               onCardClick={() => onCardClick(counselor.counselorId)}
-              name={counselor.name}
+              name={counselor.counselorName}
               grade={counselor.rateSum}
               gradeCount={23}
               introduce={counselor.introduction}

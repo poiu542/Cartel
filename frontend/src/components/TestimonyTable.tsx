@@ -6,14 +6,20 @@ import TableRow from '@mui/material/TableRow'
 import { BoardData } from '../model/board'
 import { formatDate } from '../utils/dateUtils'
 
+export interface TestimonyData {
+  content: string
+  nickname: string
+  date: string
+}
+
 interface TestimonyTableProps {
-  data: BoardData[]
-  DetailTestimony: (post: BoardData) => void
+  data: TestimonyData[]
+  // DetailTestimony: (post: BoardData) => void
 }
 
 export const TestimonyTable: React.FC<TestimonyTableProps> = ({
   data,
-  DetailTestimony,
+  // DetailTestimony,
 }) => {
   return (
     <div
@@ -56,49 +62,50 @@ export const TestimonyTable: React.FC<TestimonyTableProps> = ({
         </TableHead>
         <TableBody>
           {data &&
-            [...data]
-              .filter((row) => row.type === 2)
-              .map((row, index, filteredData) => (
-                <TableRow
-                  key={index}
-                  style={{
-                    border: 'solid',
-                    borderWidth: '0px 0px 1px',
-                    borderColor: '#e6e6e6',
-                  }}
+            data.map((row, index) => (
+              <TableRow
+                key={index}
+                style={{
+                  border: 'solid',
+                  borderWidth: '0px 0px 1px',
+                  borderColor: '#e6e6e6',
+                }}
+              >
+                {/* 프론트에서 번호 증가시키기 */}
+                <TableCell
+                  style={{ border: 'none' }}
+                  component="th"
+                  scope="row"
                 >
-                  {/* 프론트에서 번호 증가시키기 */}
-                  <TableCell
-                    style={{ border: 'none' }}
-                    component="th"
-                    scope="row"
+                  {data.length - index}
+                </TableCell>
+                {/* userId를 그냥 id로 수정해야함 board의 id로 */}
+                <TableCell style={{ border: 'none' }}>
+                  <div
+                    // onClick={() => DetailTestimony(row)}
+                    style={{
+                      cursor: 'pointer',
+                    }}
                   >
-                    {filteredData.length - index}
-                  </TableCell>
-                  {/* userId를 그냥 id로 수정해야함 board의 id로 */}
-                  <TableCell style={{ border: 'none' }}>
-                    <div
-                      onClick={() => DetailTestimony(row)}
-                      style={{
-                        cursor: 'pointer',
-                      }}
-                    >
-                      {row.title}
-                    </div>
-                  </TableCell>
+                    {row.content}
+                  </div>
+                </TableCell>
 
-                  <TableCell style={{ border: 'none' }} align="right">
-                    {/* {row.nickname} */}
-                  </TableCell>
-                  <TableCell style={{ border: 'none' }} align="right">
-                    {formatDate(row.date)}
-                  </TableCell>
-                  {/* 삭제버튼 */}
-                  <TableCell style={{ border: 'none' }} align="right">
-                    {/* {row.views} */}
-                  </TableCell>
-                </TableRow>
-              ))}
+                <TableCell style={{ border: 'none' }} align="right">
+                  {/* {row.nickname} */}
+                </TableCell>
+                <TableCell style={{ border: 'none' }} align="right">
+                  {formatDate(row.date)}
+                </TableCell>
+                <TableCell style={{ border: 'none' }} align="right">
+                  {row.nickname}
+                </TableCell>
+                {/* 삭제버튼 */}
+                <TableCell style={{ border: 'none' }} align="right">
+                  {/* {row.views} */}
+                </TableCell>
+              </TableRow>
+            ))}
         </TableBody>
       </Table>
     </div>

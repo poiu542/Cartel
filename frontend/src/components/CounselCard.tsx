@@ -1,9 +1,9 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 interface CounselCardProps {
   name: string
   grade: number
-  gradeCount: number
+  gradeCount: string | null
   title: string
   startTime: string
   endTime: string
@@ -42,7 +42,10 @@ const CounselorCard: React.FC<CounselCardProps> = ({
       <div className="counsel title" style={{ marginLeft: '30px' }}>
         <h2>{title}</h2>
       </div>
-      <div
+      <br />
+      {/* <span>힘을 냅시다</span> */}
+
+      {/* <div
         className="counselor grade"
         style={{ display: 'flex', alignItems: 'center', marginLeft: '30px' }}
       >
@@ -67,7 +70,7 @@ const CounselorCard: React.FC<CounselCardProps> = ({
             ({gradeCount})
           </p>
         </span>
-      </div>
+      </div> */}
       <div
         className="fields"
         style={{

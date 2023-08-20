@@ -295,8 +295,8 @@ export const SignUp = () => {
         userDto: {
           email: inputEmailValue,
           password: inputPassValue,
-          name: inputNameValue,
-          nickname: 'nickname',
+          name: inputNicknameValue,
+          nickname: inputNicknameValue,
         },
         counselorDto: {
           licenseImg: '',

@@ -123,10 +123,14 @@ export const CounselDetail = () => {
     counselorId: 1,
     introduction: '',
     weekCount: 0,
+    maxClient: 1,
+    minClient: 0,
+    counselorName: '',
   })
   const [user, setUser] = useRecoilState(userState)
   const [counselor, setCounselor] = useState<CounselorData>({
     counselorId: 0,
+    counselorName: '',
     userId: 0,
     name: '',
     profile: '',
@@ -180,11 +184,9 @@ export const CounselDetail = () => {
 
         res.data.forEach((userId: any) => {
           console.log(user.id === userId.userId)
-          if (
-            (user.id && user.id === userId) ||
-            user.type === 3 ||
-            user.id === counselData.counselorId
-          ) {
+          if (user.id && user.id === userId) {
+            setCheckClient(true)
+          } else if (user.id && user.type === 3) {
             setCheckClient(true)
           }
         })
@@ -209,7 +211,9 @@ export const CounselDetail = () => {
       .get(`${process.env.REACT_APP_BASE_URL}counsel/${counselId}`)
       .then((res) => {
         setCounselData(res.data)
-
+        if (res.data.counselorId === user.id) {
+          setCheckClient(true)
+        }
         console.log(res)
       })
       .catch((err) => console.log(err))
@@ -270,7 +274,16 @@ export const CounselDetail = () => {
       alert('결제 성공')
       axios
         .post(`${process.env.REACT_APP_BASE_URL}payment`, paymentData)
-        .then((res) => console.log('포스트성공', res))
+        .then((res) =>
+          axios
+            .get(`${process.env.REACT_APP_BASE_URL}userinfo/${user.id}`)
+            .then((res) => {
+              setUser((prevUser) => ({
+                ...prevUser,
+                type: 1,
+              }))
+            }),
+        )
         .catch((err) => console.log('포스트실패', err))
     } else {
       alert(`결제 실패: ${error_msg}`)
@@ -278,14 +291,14 @@ export const CounselDetail = () => {
   }
 
   const onCardClick = () => {
-    alert('상담 정보 보기')
+    navigate(`/counselor/${counselData.counselorId}`)
   }
   const handleCounselViewClick = () => {
     if (user.type === 1 || user.type === 3) {
       navigate(`/testimony/${user.id}`)
       window.scrollTo(0, 0)
     } else if (user.type === 2) {
-      navigate(`/counsel/clientlist/${counselId}`)
+      navigate(`/counsel/counseljournal/${counselId}`)
       window.scrollTo(0, 0)
     }
   }
@@ -328,6 +341,7 @@ export const CounselDetail = () => {
     flex-direction: column;
   `
   useEffect(() => {
+    console.log(user)
     axios
       .get(`${process.env.REACT_APP_BASE_URL}curriculum`)
       .then((response) => {
@@ -586,9 +600,9 @@ export const CounselDetail = () => {
           <div className="right top">
             <CounselCard
               buttonText="결제하기"
-              name={counselor.name}
+              name={counselData.counselorName}
               grade={counselor.rateSum}
-              gradeCount={3}
+              gradeCount={''}
               startTime={formatDateDetail(counselData.startDate)}
               endTime={formatDateDetail(counselData.endDate)}
               title={counselData.title}
@@ -599,6 +613,7 @@ export const CounselDetail = () => {
               onClick={onClickPayment}
             />
           </div>
+
           <div
             className="right middle"
             style={{
@@ -621,14 +636,12 @@ export const CounselDetail = () => {
                   className="counsel journal open"
                   style={{ marginBottom: '10px' }}
                 >
-                  {checkClient && (
-                    <Button
-                      size={{ width: '284px', height: '60px' }}
-                      text={user.type === 1 ? '소감문 보기' : '상담일지 보기'}
-                      color={{ background: '#00AAFF', color: 'white' }}
-                      onClick={handleCounselViewClick}
-                    />
-                  )}
+                  <Button
+                    size={{ width: '284px', height: '60px' }}
+                    text={user.type === 1 ? '소감문 보기' : '상담일지 보기'}
+                    color={{ background: '#00AAFF', color: 'white' }}
+                    onClick={handleCounselViewClick}
+                  />
                 </div>
                 {counselData.counselorId === user.id ||
                   (user.type === 3 && (
@@ -710,7 +723,8 @@ export const CounselDetail = () => {
                       >
                         {conunselCurriculum.content}
                       </h4>
-                      {checkClient && (
+
+                      {user.type ? (
                         <div
                           style={{
                             cursor: 'pointer',
@@ -732,7 +746,7 @@ export const CounselDetail = () => {
                         >
                           상담 입장하기
                         </div>
-                      )}
+                      ) : null}
                     </div>
                   </div>
                   {index < 6 && (

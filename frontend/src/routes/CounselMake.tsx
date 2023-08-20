@@ -55,11 +55,13 @@ export const CounselMake = () => {
     counselorId: 1,
     introduction: counselContent,
     weekCount: 0,
+    minClient: minimumMember,
+    maxClient: maximumMember,
   }
   const createCounsel = () => {
     axios
 
-      .post(`${process.env.REACT_APP_BASE_URL}login`, data)
+      .post(`${process.env.REACT_APP_BASE_URL}counsel`, data)
       .then((response) => {
         console.log(response)
 

@@ -181,6 +181,7 @@ class CounselOpenvidu extends Component {
       userType: 5,
 
       userId: '',
+      title: '',
     }
 
     this.joinSession = this.joinSession.bind(this)
@@ -193,6 +194,17 @@ class CounselOpenvidu extends Component {
   }
 
   componentDidMount() {
+    const url = `${process.env.REACT_APP_BASE_URL}curriculum/${this.props.curriculumId}`
+
+    axios
+      .get(url)
+      .then((response) => {
+        this.setState({ title: response.data.content }) // 반환된 데이터에서 content를 title이란 state에 저장
+      })
+      .catch((error) => {
+        console.error('상담제목 불러오기 실패 : ', error)
+      })
+
     const loginUser = sessionStorage.getItem('loginUser')
     if (loginUser) {
       const parsedUser = JSON.parse(loginUser)
@@ -490,16 +502,19 @@ class CounselOpenvidu extends Component {
             // 상담일지 POST 요청을 보내는 메서드
             try {
               const response = await axios.post(
-                '상담일지 POST AAAAAAAAAAAAAAAAAAAAPPPPPPPPPPPPPPIIIIIIIIIII주소',
+                `${process.env.REACT_APP_BASE_URL}consulting`,
                 {
-                  counselId: this.state.counselId,
-                  journalData: this.state.journalData,
+                  curriculumId: this.state.mySessionId,
+                  consultings: this.state.journalData,
                 },
               )
 
-              // console.log(response.data)
+              console.log('상담일지 잘 드가나~')
+              console.log(response.data)
             } catch (error) {
-              console.error('상담일지 post 에러', error)
+              console.error('상담일지 입력 에러', error)
+              console.log(this.state.mySessionId)
+              console.log(this.state.journalData)
             }
           },
         )
@@ -580,7 +595,7 @@ class CounselOpenvidu extends Component {
       <Container>
         <SetParamsToState />
         <Header>
-          <StudyTitle>상담이름</StudyTitle>
+          <StudyTitle>{this.state.title}</StudyTitle>
           {this.state.isCounselJournal ? (
             <p style={{ color: 'white', right: '50' }}>
               상담일지를 작성할 사람을 클릭하세요
@@ -715,7 +730,9 @@ class CounselOpenvidu extends Component {
             소감문
           </StyledButton>
         </Bottom>
-        {this.state.isTestimony && <TestimonyModal />}
+        {this.state.isTestimony && (
+          <TestimonyModal curriculumId={this.state.mySessionId} />
+        )}
         {/* ) : null} */}
       </Container>
     )
