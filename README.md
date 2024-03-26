@@ -46,26 +46,22 @@
 
 ## Client
 
-- Node.js
-- React Native
-- Tailwind
-- Recoil
-- Kotlin
+- javascript
+- Typescript 4.9.5
+- React 18.2.0
+- Recoil 0.7.7
+- Node.js 18.17.1
 
 ## Server
 
-- SpringBoot
+- java 17
+- SpringBoot 3.0.2
 - Spring Data JPA
-- FastAPI
-
-## AI
-- OpenCV
-- Tensorflow
-- Teachable Machine
 
 ## DB
 
 - MySQL
+- Redis
 
 ## Infra
 
@@ -74,5 +70,7 @@
 - AWS EC2
 - AWS S3
 - AWS RDS
+- Jenkins
+- docker
 
 <br/>
