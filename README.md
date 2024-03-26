@@ -34,6 +34,12 @@
 <span><img src="https://github.com/poiu542/Cartel/assets/88714716/5f0850e5-a128-4159-8aea-ac9daa997854" width="70%"/></span>
 <span><img src="https://github.com/poiu542/Cartel/assets/88714716/c62e1034-c827-40a3-bf12-f133ad3774f4" width="70%"/></span>
 
+### 공지사항
+<span><img src="https://github.com/poiu542/Cartel/assets/88714716/7f0400f4-e287-4e60-9ff4-e42565b7e2e0" width="70%"/></span>
+
+### 커뮤니티
+<span><img src="https://github.com/poiu542/Cartel/assets/88714716/69689556-ea45-43f6-a643-652c87e7dc4e" width="70%"/></span>
+
 <br/>
 
 # :wrench: 기술스택
